@@ -2,7 +2,7 @@ import * as React from 'react'
 import Head from 'next/head'
 import Link from 'next/link';
 import 'bootstrap/scss/bootstrap.scss';
-import diluv from '../public/branding/diluv.png';
+import diluv from '../public/branding/diluv.svg';
 
 type Props = {
   title?: string

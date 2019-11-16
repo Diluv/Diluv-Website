@@ -12,7 +12,7 @@ const GameCard: React.FunctionComponent<Props> = ({
                                                   }) =>
   (
     <div className="card mb-4 box-shadow">
-      <img className="card-img-top" style={{height: 225, width: '100%', display: 'block'}} src={url}/>
+      <img className="card-img-top" alt={'game/mod name'} style={{height: 225, width: '100%', display: 'block'}} src={url}/>
       <div className="card-body">
         <p className="card-text">{summary}</p>
         <div className="d-flex justify-content-between align-items-center">
