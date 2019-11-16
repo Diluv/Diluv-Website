@@ -35,7 +35,7 @@ const Layout: React.FunctionComponent<Props> = ({
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/games">
+              <Link href="/games" prefetch={false}>
                 <a className="nav-link">Games</a>
               </Link>
             </li>
