@@ -40,7 +40,7 @@ const Layout: React.FunctionComponent<Props> = ({
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/news">
+              <Link href="/news" prefetch={false}>
                 <a className="nav-link">News</a>
               </Link>
             </li>
