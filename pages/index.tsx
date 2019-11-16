@@ -2,8 +2,19 @@ import * as React from 'react'
 import Layout from '../components/Layout'
 import GameCard from '../components/GameCard'
 import {NextPage} from 'next'
+import {getGames} from "../utils/games";
+import {Game, Project} from "../interfaces";
+import ModCard from "../components/ModCard";
 
-const IndexPage: NextPage = () => (
+type Props = {
+  games?: Game[]
+  projects?: Project[]
+  errors?: string
+}
+
+
+// TODO add back error, this shouldn't happen but could mean the API is down.
+const IndexPage: NextPage<Props> = ({games, projects/*, errors*/}) => (
   <Layout title="Diluv">
     <div className="text-center">
       <p>
@@ -11,35 +22,54 @@ const IndexPage: NextPage = () => (
       </p>
     </div>
     <div className="container pt-md-5">
-      <h2 className="text-center ">Games</h2>
-      <div className="row pt-md-5">
-        {[...Array(1)].map((_, i) =>
-          <div className="col-md-4 mx-auto" key={'games_' + i}>
-            <GameCard summary={"Games"} url={"https://via.placeholder.com/348x225.png"}/>
+      {(games && games.length > 0 && (
+        <React.Fragment>
+          <h2 className="text-center pt-md-5">Games Mods</h2>
+          <div className="row pt-md-5">
+            {games.map((value) =>
+              <div className="col-md-4 mx-auto" key={value.slug}>
+                <a href={"/" + value.slug}>
+                  <GameCard name={value.name} screenshot={"https://via.placeholder.com/348x225.png?text=" + value.name}/>
+                </a>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </React.Fragment>
+      ))}
 
       <h2 className="text-center pt-md-5">Featured Games</h2>
       <div className="row pt-md-5">
         {[...Array(3)].map((_, i) =>
           <div className="col-md-4" key={'featured_game_' + i}>
-            <GameCard summary={"Featured Games"} url={"https://via.placeholder.com/348x225.png"}/>
+            <GameCard name={"Featured Games"} screenshot={"https://via.placeholder.com/348x225.png"}/>
           </div>
         )}
       </div>
 
-      <h2 className="text-center pt-md-5">Featured Mods</h2>
-      <div className="row pt-md-5">
-        {[...Array(6)].map((_, i) =>
-          <div className="col-md-4" key={'featured_mods_' + i}>
-            <GameCard summary={"Featured Mods"} url={"https://via.placeholder.com/348x225.png"}/>
+      {(projects && projects.length > 0 && (
+        <React.Fragment>
+          <h2 className="text-center pt-md-5">Featured Mods</h2>
+          <div className="row pt-md-5">
+            {projects.map((_, i) =>
+              <div className="col-md-4" key={'featured_mods_' + i}>
+                <ModCard name={"Featured Mods"} screenshot={"https://via.placeholder.com/348x225.png"}/>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </React.Fragment>
+      ))}
     </div>
   </Layout>
 );
 
+IndexPage.getInitialProps = async ({}) => {
+  try {
+    const games = await getGames();
+    // const projects = await getProjects();
+    return {games, projects: []}
+  } catch (err) {
+    return {errors: err.message}
+  }
+};
 
 export default IndexPage

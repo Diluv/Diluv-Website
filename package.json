@@ -2,14 +2,13 @@
   "name": "with-typescript",
   "version": "1.0.0",
   "scripts": {
-    "start": "npm-run-all --parallel dev browser-sync",
-    "dev": "next",
+    "dev": "npm-run-all --parallel next browser-sync",
+    "next": "next",
     "browser-sync": "browser-sync start --proxy \"http://localhost:3000\" --port 8080",
     "build": "next build",
-    "type-check": "tsc",
+    "start": "next start",
     "analyze": "cross-env BUNDLE_ANALYZE=both next build",
-    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
+    "type-check": "tsc"
   },
   "dependencies": {
     "@zeit/next-bundle-analyzer": "^0.1.2",
@@ -17,8 +16,10 @@
     "@zeit/next-sass": "^1.0.1",
     "bootstrap": "^4.3.1",
     "isomorphic-unfetch": "3.0.0",
+    "jquery": "^3.4.1",
     "next": "^9.1.3",
     "next-images": "^1.2.0",
+    "next-offline": "^5.0.0-beta.8",
     "node-sass": "^4.13.0",
     "react": "^16.10.1",
     "react-bootstrap": "^1.0.0-beta.14",

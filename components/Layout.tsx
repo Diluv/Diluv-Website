@@ -1,16 +1,16 @@
-import * as React from 'react'
+import React from 'react'
 import Head from 'next/head'
-import Link from 'next/link';
-import 'bootstrap/scss/bootstrap.scss';
-import diluv from '../public/branding/diluv.svg';
+import '../scss/index.scss';
+import diluv from '../public/static/diluv.svg';
+import {Dropdown, Nav, Navbar, NavItem} from 'react-bootstrap';
+import NavLink from 'react-bootstrap/NavLink';
 
 type Props = {
   title?: string
 }
-
 const Layout: React.FunctionComponent<Props> = ({
                                                   children,
-                                                  title = 'This is the default title',
+                                                  title = 'Diluv',
                                                 }) => (
   <div>
     <Head>
@@ -19,67 +19,43 @@ const Layout: React.FunctionComponent<Props> = ({
       <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     </Head>
     <header>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">Navbar</a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"/>
-        </button>
+      <Navbar>
+        <Nav activeKey="/home">
+          <Nav.Item>
+            <Nav.Link href="/">Home</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/games">Games</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/news">News</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="https://ideas.diluv.com">Feedback</Nav.Link>
+          </Nav.Item>
+        </Nav>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link href="/">
-                <a className="nav-link">Home <span className="sr-only">(current)</span></a>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/games" prefetch={false}>
-                <a className="nav-link">Games</a>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/news" prefetch={false}>
-                <a className="nav-link">News</a>
-              </Link>
-            </li>
-            <li className="nav-item">
-              {/* TODO Should this be in staging? */}
-              <Link href="https://ideas.diluv.com">
-                <a className="nav-link">Feedback</a>
-              </Link>
-            </li>
-          </ul>
+        <Nav className="ml-auto">
+          {/*TODO Add if/else*/}
+          <Nav.Item>
+            <Nav.Link href="https://ideas.diluv.com">Sign in </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="https://ideas.diluv.com">Sign Up</Nav.Link>
+          </Nav.Item>
 
-          <ul className="navbar-nav">
-            <li className="nav-item active">
-              <Link href="/">
-                <a className="nav-link">Sign in <span className="sr-only">(current)</span></a>
-              </Link>
-            </li>
-            <li className="nav-item active">
-              <Link href="/">
-                <a className="nav-link">Sign Up <span className="sr-only">(current)</span></a>
-              </Link>
-            </li>
-
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {'Username'}
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">My Profile</a>
-                <a className="dropdown-item" href="#">Analytics</a>
-                <a className="dropdown-item" href="#">Settings</a>
-                <div className="dropdown-divider"/>
-                <a className="dropdown-item" href="#">Sign Out</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </nav>
+          <Dropdown as={NavItem}>
+            <Dropdown.Toggle as={NavLink} id={'dropdown-nav'}>Username</Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item as={NavLink} href="/profile">My Profile</Dropdown.Item>
+              <Dropdown.Item as={NavLink}>Analytics</Dropdown.Item>
+              <Dropdown.Item as={NavLink}>Settings</Dropdown.Item>
+              <Dropdown.Divider/>
+              <Dropdown.Item as={NavLink}>Sign Out</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Nav>
+      </Navbar>
     </header>
     <div className="pt-md-5">
       {children}
