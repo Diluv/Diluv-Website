@@ -26,10 +26,10 @@ const IndexPage: NextPage<Props> = ({games, projects/*, errors*/}) => (
         <React.Fragment>
           <h2 className="text-center pt-md-5">Games Mods</h2>
           <div className="row pt-md-5">
-            {games.map((value) =>
-              <div className="col-md-4 mx-auto" key={value.slug}>
-                <a href={"/" + value.slug}>
-                  <GameCard name={value.name} screenshot={"https://via.placeholder.com/348x225.png?text=" + value.name}/>
+            {games.map((game) =>
+              <div className="col-md-4 mx-auto" key={game.slug}>
+                <a href={`/games/${game.slug}`}>
+                  <GameCard name={game.name} screenshot={"https://via.placeholder.com/348x225.png?text=" + game.name}/>
                 </a>
               </div>
             )}

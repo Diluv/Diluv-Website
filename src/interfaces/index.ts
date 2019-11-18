@@ -15,4 +15,13 @@ export type ProjectType = {
 }
 
 
-export type Project = {}
+export type Project = {
+  name: string
+  slug: string
+  summary: string
+  description: string
+  logoUrl: string,
+  cachedDownloads: number,
+  createdAt: number,
+  updatedAt: number
+}

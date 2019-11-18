@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import '../scss/index.scss';
-import diluv from '../public/static/diluv.svg';
+import diluv from '../../public/static/diluv.svg';
 import {Dropdown, Nav, Navbar, NavItem} from 'react-bootstrap';
 import NavLink from 'react-bootstrap/NavLink';
 
