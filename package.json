@@ -29,7 +29,7 @@
     "react-dom": "^16.10.1"
   },
   "devDependencies": {
-    "@types/node": "^12.7.8",
+    "@types/node": "^12.12.9",
     "@types/react": "^16.9.3",
     "@types/react-dom": "^16.9.1",
     "browser-sync": "^2.26.7",
