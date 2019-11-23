@@ -10,5 +10,8 @@ export default (_: NextApiRequest, res: NextApiResponse) => {
 }
 
 export const games: Data<ProjectType[]> = {
-  data: [{name: "Mods", slug: "mods", gameSlug: "minecraft"}, {name: "Resource Packs", slug: "resourcepacks", gameSlug: "minecraft"}]
+  data: [
+    {name: "Mods", slug: "mods", gameSlug: "minecraft"},
+    {name: "Resource Packs", slug: "resourcepacks", gameSlug: "minecraft"}
+  ]
 };

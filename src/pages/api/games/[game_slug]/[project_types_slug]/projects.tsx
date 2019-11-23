@@ -19,7 +19,8 @@ export const games: Data<Project[]> = {
       cachedDownloads: 32923285,
       createdAt: 1573482394,
       updatedAt: 1573482394
-    }, {
+    },
+    {
       name: "Caliper",
       slug: "caliper",
       summary: "Caliper summary",
@@ -28,7 +29,8 @@ export const games: Data<Project[]> = {
       cachedDownloads: 3176949,
       createdAt: 1573482589,
       updatedAt: 1573482589
-    }, {
+    },
+    {
       name: "CraftTweaker",
       slug: "crafttweaker",
       summary: "CraftTweaker summary",

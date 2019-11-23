@@ -2,8 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import '../scss/index.scss';
 import diluv from '../../public/static/diluv.svg';
-import {Dropdown, Nav, Navbar, NavItem} from 'react-bootstrap';
-import NavLink from 'react-bootstrap/NavLink';
+import {Dropdown, Nav, Navbar, NavItem, NavLink} from 'react-bootstrap';
 
 type Props = {
   title?: string
@@ -12,7 +11,7 @@ const Layout: React.FunctionComponent<Props> = ({
                                                   children,
                                                   title = 'Diluv',
                                                 }) => (
-  <div>
+  <React.Fragment>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8"/>
@@ -38,10 +37,10 @@ const Layout: React.FunctionComponent<Props> = ({
         <Nav className="ml-auto">
           {/*TODO Add if/else*/}
           <Nav.Item>
-            <Nav.Link href="https://ideas.diluv.com">Sign in </Nav.Link>
+            <Nav.Link href="/signin">Sign in </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="https://ideas.diluv.com">Sign Up</Nav.Link>
+            <Nav.Link href="/register">Sign Up</Nav.Link>
           </Nav.Item>
 
           <Dropdown as={NavItem}>
@@ -57,9 +56,7 @@ const Layout: React.FunctionComponent<Props> = ({
         </Nav>
       </Navbar>
     </header>
-    <div className="pt-md-5">
       {children}
-    </div>
     <footer className="pt-4 my-md-5 pt-md-5 border-top container">
       <div className="row">
         <div className="col-12 col-md">
@@ -69,7 +66,8 @@ const Layout: React.FunctionComponent<Props> = ({
         <div className="col-6 col-md">
           <h5>Product</h5>
           <ul className="list-unstyled text-small">
-            <li><a className="text-muted" href="https://blog.diluv.com">News</a></li>
+            <li><a className="text-muted" href="/news">News</a></li>
+            <li><a className="text-muted" href="https://blog.diluv.com">Blog</a></li>
             <li><a className="text-muted" href="https://developer.diluv.com">Developers</a></li>
           </ul>
         </div>
@@ -92,7 +90,7 @@ const Layout: React.FunctionComponent<Props> = ({
         </div>
       </div>
     </footer>
-  </div>
+  </React.Fragment>
 );
 
 export default Layout

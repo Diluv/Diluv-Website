@@ -29,3 +29,13 @@ export async function getProjectsByGameSlugAndProjectTypeSlug(gameSlug: string, 
     throw new Error(err.message)
   }
 }
+
+
+export async function getProjectByGameSlugAndProjectTypeSlugAndProjectSlug(gameSlug: string, projectTypeSlug: string, projectSlug: string): Promise<Project> {
+  try {
+    const data: Data<Project> = await fetch(`${API_URL}/games/${gameSlug}/${projectTypeSlug}/${projectSlug}`).then(res => res.json());
+    return data.data;
+  } catch (err) {
+    throw new Error(err.message)
+  }
+}

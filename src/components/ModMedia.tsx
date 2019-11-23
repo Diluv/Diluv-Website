@@ -1,5 +1,4 @@
 import * as React from 'react'
-import 'bootstrap/scss/bootstrap.scss';
 import {Media} from 'react-bootstrap';
 import {Project} from "../interfaces";
 

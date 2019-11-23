@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Layout from '../components/Layout'
-import GameCard from '../components/GameCard'
+import GameCardComponent from '../components/GameCardComponent'
 import {NextPage} from 'next'
 import {getGames} from "../utils/games";
 import {Game, Project} from "../interfaces";
@@ -29,7 +29,7 @@ const IndexPage: NextPage<Props> = ({games, projects/*, errors*/}) => (
             {games.map((game) =>
               <div className="col-md-4 mx-auto" key={game.slug}>
                 <a href={`/games/${game.slug}`}>
-                  <GameCard name={game.name} screenshot={"https://via.placeholder.com/348x225.png?text=" + game.name}/>
+                  <GameCardComponent name={game.name} screenshot={"https://via.placeholder.com/348x225.png?text=" + game.name}/>
                 </a>
               </div>
             )}
@@ -41,7 +41,7 @@ const IndexPage: NextPage<Props> = ({games, projects/*, errors*/}) => (
       <div className="row pt-md-5">
         {[...Array(3)].map((_, i) =>
           <div className="col-md-4" key={'featured_game_' + i}>
-            <GameCard name={"Featured Games"} screenshot={"https://via.placeholder.com/348x225.png"}/>
+            <GameCardComponent name={"Featured Games"} screenshot={"https://via.placeholder.com/348x225.png"}/>
           </div>
         )}
       </div>

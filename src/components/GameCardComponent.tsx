@@ -1,12 +1,11 @@
 import * as React from 'react'
-import 'bootstrap/scss/bootstrap.scss';
 
 type Props = {
   name?: string
   screenshot?: string
 }
 
-const GameCard: React.FunctionComponent<Props> = ({
+const GameCardComponent: React.FunctionComponent<Props> = ({
                                                     screenshot = "https://via.placeholder.com/348x225.png",
                                                   }) =>
   (
@@ -15,4 +14,4 @@ const GameCard: React.FunctionComponent<Props> = ({
     </div>
   );
 
-export default GameCard
+export default GameCardComponent
