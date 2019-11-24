@@ -2,7 +2,8 @@ import React from 'react'
 import Head from 'next/head'
 import '../scss/index.scss';
 import diluv from '../../public/static/diluv.svg';
-import {Dropdown, Nav, Navbar, NavItem, NavLink} from 'react-bootstrap';
+import {Dropdown, Nav, Navbar, NavItem} from 'react-bootstrap';
+import NavLink from 'react-bootstrap/NavLink'
 
 type Props = {
   title?: string
@@ -56,7 +57,7 @@ const Layout: React.FunctionComponent<Props> = ({
         </Nav>
       </Navbar>
     </header>
-      {children}
+    {children}
     <footer className="pt-4 my-md-5 pt-md-5 border-top container">
       <div className="row">
         <div className="col-12 col-md">

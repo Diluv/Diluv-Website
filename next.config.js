@@ -30,7 +30,7 @@ const nextConfig = {
 };
 
 module.exports = withPlugins([
-    nextEnv,
+    withNextEnv,
     withOffline,
     withImages,
     withSCSS,

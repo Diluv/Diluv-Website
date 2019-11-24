@@ -12,7 +12,6 @@ type Props = {
   errors?: string
 }
 
-
 // TODO add back error, this shouldn't happen but could mean the API is down.
 const IndexPage: NextPage<Props> = ({games, projects/*, errors*/}) => (
   <Layout title="Diluv">
