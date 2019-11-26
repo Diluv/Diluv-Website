@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Mods",
+    "slug": "mods",
+    "gameSlug": "minecraft"
+  },
+  {
+    "name": "Resource Packs",
+    "slug": "resourcepacks",
+    "gameSlug": "minecraft"
+  }
+]

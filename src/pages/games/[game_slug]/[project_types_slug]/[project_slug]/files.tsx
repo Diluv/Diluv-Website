@@ -13,7 +13,7 @@ type Props = {
 const ProjectFilesPage: NextPage<Props> = ({project, errors}) => (
   <Layout title={(project ? project.name : '') + " Files | Diluv"}>
     {(project && (
-      <ProjectComponent activeKey={'overview'} project={project}/>
+      <ProjectComponent activeKey={'files'} project={project}/>
     ))}
     {errors}
   </Layout>

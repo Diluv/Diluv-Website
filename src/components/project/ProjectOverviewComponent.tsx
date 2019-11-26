@@ -1,5 +1,8 @@
 import * as React from 'react'
-import Markdown from 'markdown-to-jsx';
+
+const marked = require('marked');
+
+//TODO We need sanitization
 
 type Props = {
   description: string
@@ -8,9 +11,8 @@ type Props = {
 const ProjectOverviewComponent: React.FunctionComponent<Props> = ({description}) =>
   (
     <div className="container pt-md-5">
-      <Markdown>
-        {description}
-      </Markdown>
+      <div dangerouslySetInnerHTML={{__html: marked(description)}}>
+      </div>
     </div>
   );
 
