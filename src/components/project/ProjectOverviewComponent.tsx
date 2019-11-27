@@ -11,8 +11,7 @@ type Props = {
 const ProjectOverviewComponent: React.FunctionComponent<Props> = ({description}) =>
   (
     <div className="container pt-md-5">
-      <div dangerouslySetInnerHTML={{__html: marked(description)}}>
-      </div>
+      <div dangerouslySetInnerHTML={{__html: marked(description)}}/>
     </div>
   );
 
