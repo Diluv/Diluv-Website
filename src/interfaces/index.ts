@@ -25,3 +25,13 @@ export type Project = {
   createdAt: number,
   updatedAt: number
 }
+
+export type ProjectFiles = {
+  name: string,
+  sha512: string,
+  crc32: string,
+  size: number,
+  changelog: string,
+  createdAt: number,
+  updatedAt: number,
+}

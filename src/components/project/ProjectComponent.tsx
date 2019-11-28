@@ -3,16 +3,18 @@ import {Tab, Tabs} from 'react-bootstrap';
 import ProjectOverviewComponent from './ProjectOverviewComponent';
 import Router from 'next/router'
 import ProjectFilesComponent from "./ProjectFilesComponent";
-import {Project} from "../../interfaces";
+import {Project, ProjectFiles} from "../../interfaces";
 
 type Props = {
   activeKey?: string
   project: Project
+  projectFiles?: ProjectFiles[]
 }
 
 const ProjectComponent: React.FunctionComponent<Props> = ({
                                                             activeKey = "overview",
-                                                            project
+                                                            project,
+                                                            projectFiles
                                                           }) =>
   (
     <div className="container pt-md-5">
@@ -31,7 +33,7 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
           <ProjectOverviewComponent description={project.description}/>
         </Tab>
         <Tab eventKey="files" title="Files">
-          <ProjectFilesComponent/>
+          <ProjectFilesComponent projectFiles={projectFiles}/>
         </Tab>
         <Tab eventKey="issues" title="Issues">
         </Tab>

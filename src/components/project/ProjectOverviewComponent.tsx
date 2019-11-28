@@ -1,8 +1,12 @@
 import * as React from 'react'
 
+const sanitizeHtml = require('sanitize-html');
 const marked = require('marked');
 
-//TODO We need sanitization
+marked.setOptions({
+  sanitize: true,
+  sanitizer: sanitizeHtml,
+});
 
 type Props = {
   description: string
@@ -10,7 +14,7 @@ type Props = {
 
 const ProjectOverviewComponent: React.FunctionComponent<Props> = ({description}) =>
   (
-    <div className="container pt-md-5">
+    <div className="container pt-md-3">
       <div dangerouslySetInnerHTML={{__html: marked(description)}}/>
     </div>
   );

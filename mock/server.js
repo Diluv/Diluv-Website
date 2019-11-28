@@ -2,6 +2,7 @@ const express = require('express');
 const games = require('./data/games');
 const projectTypes = require('./data/project_types');
 const projects = require('./data/projects');
+const projectFiles = require('./data/projectFiles');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get('/v1/games/:gameslug/:projecttypeslug', returnData(projectTypes.filter(p
 //TODO FIX
 app.get('/v1/games/:gameslug/:projecttypeslug/projects', returnData(projects));
 app.get('/v1/games/:gameslug/:projecttypeslug/:projectslug', returnData(projects.filter(pt => pt.slug === "bookshelf")[0]));
+app.get('/v1/games/:gameslug/:projecttypeslug/:projectslug/files', returnData(projectFiles));
 
 
 app.listen(8080);

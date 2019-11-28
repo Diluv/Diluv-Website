@@ -6,10 +6,8 @@ import {Data, Game} from "../interfaces";
 export async function getGames(): Promise<Game[]> {
   try {
     const data: Data<Game[]> = await fetch(`${API_URL}/v1/games`).then(res => res.json());
-    console.log(data);
     return data.data;
   } catch (err) {
-    console.log(err);
     throw new Error(err.message)
   }
 }

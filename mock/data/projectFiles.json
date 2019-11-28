@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Bookshelf-1.12.2-2.3.585.jar",
+    "sha512": "50F5166D25155211D1A3D0AE5A4309B8EC5113D4AB920443F716B99E363012B24BA922840483158BE97A35FCB2A7A99389BDBD58839C89335A86215A29A3B09C",
+    "crc32": "1c3b0d0a",
+    "size": 270336,
+    "changelog": "Added a way to get the amount of experience points dropped by an entity.",
+    "createdAt": 1573611851,
+    "updatedAt": 1573611851
+  }
+]
