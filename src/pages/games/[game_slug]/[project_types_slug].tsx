@@ -19,7 +19,7 @@ const ProjectTypePage: NextPage<Props> = ({game, projectType, projects, errors})
       <h2 className="text-center pt-md-5">{projectType.name}</h2>
       <ul className="list-unstyled">
         {projects.map((project) =>
-          <a href={`/games/${game.slug}/${projectType.slug}/${project.slug}`}>
+          <a key={project.slug} href={`/games/${game.slug}/${projectType.slug}/${project.slug}`}>
             <ModMedia project={project}/>
           </a>
         )}
