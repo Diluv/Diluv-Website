@@ -7,15 +7,15 @@ import {getProjectTypesByGameSlug} from "../../utils/projects";
 import GameCardComponent from "../../components/GameCardComponent";
 
 type Props = {
-  game?: Game
-  projectTypes?: ProjectType[]
+  game: Game
+  projectTypes: ProjectType[]
   errors?: string
 }
 
 const GamePage: NextPage<Props> = ({game, projectTypes, errors}) => (
   <Layout title="Diluv">
     <div className="container pt-md-5">
-      {(game && projectTypes && projectTypes.length > 0 && (
+      {(projectTypes.length > 0 && (
         <React.Fragment>
           <h2 className="text-center pt-md-5">Game Types</h2>
           <div className="row pt-md-5">
@@ -35,16 +35,10 @@ const GamePage: NextPage<Props> = ({game, projectTypes, errors}) => (
 );
 
 GamePage.getInitialProps = async ({query: {game_slug}}) => {
-  try {
-    if (typeof game_slug == "string") {
-      const game = await getGamesBySlug(game_slug);
-      const projectTypes = await getProjectTypesByGameSlug(game_slug);
-      return {game, projectTypes};
-    }
-    return {errors: 'Invalid slug'}
-  } catch (err) {
-    return {errors: err.message}
-  }
+  const gameSlug = Array.isArray(game_slug) ? game_slug[0] : game_slug;
+  const game = await getGamesBySlug(gameSlug);
+  const projectTypes = await getProjectTypesByGameSlug(gameSlug);
+  return {game, projectTypes};
 };
 
 export default GamePage

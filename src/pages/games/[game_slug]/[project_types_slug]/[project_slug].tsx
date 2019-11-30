@@ -6,30 +6,29 @@ import {getProjectByGameSlugAndProjectTypeSlugAndProjectSlug} from "../../../../
 import ProjectComponent from '../../../../components/project/ProjectComponent'
 
 type Props = {
-  project?: Project
-  errors?: string
+  gameSlug: string
+  projectTypesSlug: string
+  projectSlug: string
+  project: Project
 }
 
-const ProjectOverviewPage: NextPage<Props> = ({project, errors}) => (
-
-  <Layout title={(project ? project.name : '') + " | Diluv"}>
-    {(project && (
-      <ProjectComponent activeKey={'overview'} project={project}/>
-    ))}
-    {errors}
-  </Layout>
-);
+const ProjectOverviewPage: NextPage<Props> = ({gameSlug, projectTypesSlug, projectSlug, project}) =>
+  (
+    <Layout title={project.name + " | Diluv"}>
+      <ProjectComponent activeKey={'overview'}
+                        gameSlug={gameSlug}
+                        projectTypesSlug={projectTypesSlug}
+                        projectSlug={projectSlug}
+                        project={project}/>
+    </Layout>
+  );
 
 ProjectOverviewPage.getInitialProps = async ({query: {game_slug, project_types_slug, project_slug}}) => {
-  try {
-    if (typeof game_slug == "string" && typeof project_types_slug == "string" && typeof project_slug == "string") {
-      const project = await getProjectByGameSlugAndProjectTypeSlugAndProjectSlug(game_slug, project_types_slug, project_slug);
-      return {project};
-    }
-    return {errors: 'Invalid slug'}
-  } catch (err) {
-    return {errors: err.message}
-  }
+  const gameSlug = Array.isArray(game_slug) ? game_slug[0] : game_slug;
+  const projectTypesSlug = Array.isArray(project_types_slug) ? project_types_slug[0] : project_types_slug;
+  const projectSlug = Array.isArray(project_slug) ? project_slug[0] : project_slug;
+  const project = await getProjectByGameSlugAndProjectTypeSlugAndProjectSlug(gameSlug, projectTypesSlug, projectSlug);
+  return {gameSlug, projectTypesSlug, projectSlug, project};
 };
 
 export default ProjectOverviewPage

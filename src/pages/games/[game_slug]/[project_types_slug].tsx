@@ -7,46 +7,36 @@ import {getProjectsByGameSlugAndProjectTypeSlug, getProjectTypesByGameSlugAndPro
 import ModMedia from "../../../components/ModMedia";
 
 type Props = {
-  game?: Game
-  projectType?: ProjectType
-  projects?: Project[]
+  game: Game
+  projectType: ProjectType
+  projects: Project[]
   errors?: string
 }
 
 const ProjectTypePage: NextPage<Props> = ({game, projectType, projects, errors}) => (
   <Layout title="Diluv">
     <div className="container pt-md-5">
-      {(game && projectType && projects && (
-        <React.Fragment>
-          <h2 className="text-center pt-md-5">{projectType.name}</h2>
-          <ul className="list-unstyled">
-            {projects && projects.map((project) =>
-              <React.Fragment key={project.slug}>
-                <a href={`/games/${game.slug}/${projectType.slug}/${project.slug}`}>
-                  <ModMedia project={project}/>
-                </a>
-              </React.Fragment>
-            )}
-          </ul>
-        </React.Fragment>
-      ))}
+      <h2 className="text-center pt-md-5">{projectType.name}</h2>
+      <ul className="list-unstyled">
+        {projects.map((project) =>
+          <a href={`/games/${game.slug}/${projectType.slug}/${project.slug}`}>
+            <ModMedia project={project}/>
+          </a>
+        )}
+      </ul>
       {errors}
     </div>
   </Layout>
 );
 
 ProjectTypePage.getInitialProps = async ({query: {game_slug, project_types_slug}}) => {
-  try {
-    if (typeof game_slug == "string" && typeof project_types_slug == "string") {
-      const game = await getGamesBySlug(game_slug);
-      const projectType = await getProjectTypesByGameSlugAndProjectTypeSlug(game_slug, project_types_slug);
-      const projects = await getProjectsByGameSlugAndProjectTypeSlug(game_slug, project_types_slug);
-      return {game, projectType, projects};
-    }
-    return {errors: 'Invalid slug'}
-  } catch (err) {
-    return {errors: err.message}
-  }
+  const gameSlug = Array.isArray(game_slug) ? game_slug[0] : game_slug;
+  const projectTypesSlug = Array.isArray(project_types_slug) ? project_types_slug[0] : project_types_slug;
+
+  const game = await getGamesBySlug(gameSlug);
+  const projectType = await getProjectTypesByGameSlugAndProjectTypeSlug(gameSlug, projectTypesSlug);
+  const projects = await getProjectsByGameSlugAndProjectTypeSlug(gameSlug, projectTypesSlug);
+  return {game, projectType, projects};
 };
 
 export default ProjectTypePage

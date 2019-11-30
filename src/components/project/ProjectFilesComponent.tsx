@@ -4,15 +4,13 @@ import {ProjectFiles} from "../../interfaces";
 import filesize from 'filesize';
 
 type Props = {
-  projectFiles?: ProjectFiles[]
-  error?: string
+  projectFiles: ProjectFiles[]
 }
 
-const ProjectFilesComponent: React.FunctionComponent<Props> = ({projectFiles, error}) =>
+const ProjectFilesComponent: React.FunctionComponent<Props> = ({projectFiles}) =>
   (
     <div className="container pt-md-3">
       <div>
-        {error}
         <Table striped bordered hover>
           <thead>
           <tr>
@@ -26,7 +24,7 @@ const ProjectFilesComponent: React.FunctionComponent<Props> = ({projectFiles, er
           </thead>
           <tbody>
           {
-            projectFiles && projectFiles.map(value =>
+            projectFiles.map(value =>
               <tr key={value.sha512 + "-" + value.createdAt}>
                 <td>{value.name}</td>
                 <td>{new Date(value.createdAt).toLocaleString()}</td>

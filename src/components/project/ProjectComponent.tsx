@@ -6,13 +6,19 @@ import ProjectFilesComponent from "./ProjectFilesComponent";
 import {Project, ProjectFiles} from "../../interfaces";
 
 type Props = {
-  activeKey?: string
+  activeKey: string
+  gameSlug: string
+  projectTypesSlug: string
+  projectSlug: string
   project: Project
   projectFiles?: ProjectFiles[]
 }
 
 const ProjectComponent: React.FunctionComponent<Props> = ({
                                                             activeKey = "overview",
+                                                            gameSlug,
+                                                            projectTypesSlug,
+                                                            projectSlug,
                                                             project,
                                                             projectFiles
                                                           }) =>
@@ -21,19 +27,18 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
       <div>
         Card data
       </div>
-      {/* TODO Fix currently hard coded*/}
       <Tabs activeKey={activeKey} id={"project"}
             onSelect={(eventKey: string) => {
               if (eventKey === "overview")
-                Router.push(`/games/${'minecraft'}/${'mods'}/${'bookshelf'}`);
+                Router.push(`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}`);
               else
-                Router.push(`/games/${'minecraft'}/${'mods'}/${'bookshelf'}/${eventKey}`)
+                Router.push(`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/${eventKey}`)
             }}>
         <Tab eventKey="overview" title="Overview">
           <ProjectOverviewComponent description={project.description}/>
         </Tab>
         <Tab eventKey="files" title="Files">
-          <ProjectFilesComponent projectFiles={projectFiles}/>
+          {projectFiles && (<ProjectFilesComponent projectFiles={projectFiles}/>)}
         </Tab>
         <Tab eventKey="issues" title="Issues">
         </Tab>

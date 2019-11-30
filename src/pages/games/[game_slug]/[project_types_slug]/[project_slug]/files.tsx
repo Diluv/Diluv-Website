@@ -9,32 +9,36 @@ import {
 import ProjectComponent from '../../../../../components/project/ProjectComponent'
 
 type Props = {
-  project?: Project
-  projectFiles?: ProjectFiles[]
+  gameSlug: string
+  projectTypesSlug: string
+  projectSlug: string
+  project: Project
+  projectFiles: ProjectFiles[]
   errors?: string
 }
 
-const ProjectFilesPage: NextPage<Props> = ({project, projectFiles, errors}) => (
-  <Layout title={(project ? project.name : '') + " Files | Diluv"}>
-    {(project && (
-      <ProjectComponent activeKey={'files'} project={project} projectFiles={projectFiles}/>
-    ))}
+const ProjectFilesPage: NextPage<Props> = ({project, projectFiles, gameSlug, projectTypesSlug, projectSlug, errors}) => (
+  <Layout title={project.name + " Files | Diluv"}>
+    <ProjectComponent activeKey='files'
+                      project={project}
+                      projectFiles={projectFiles}
+                      gameSlug={gameSlug}
+                      projectTypesSlug={projectTypesSlug}
+                      projectSlug={projectSlug}
+    />
     {errors}
   </Layout>
 );
 
 ProjectFilesPage.getInitialProps = async ({query: {game_slug, project_types_slug, project_slug}}) => {
-  try {
-    if (typeof game_slug == "string" && typeof project_types_slug == "string" && typeof project_slug == "string") {
-      const project = await getProjectByGameSlugAndProjectTypeSlugAndProjectSlug(game_slug, project_types_slug, project_slug);
-      const projectFiles = await getProjectFilesByGameSlugAndProjectTypeSlugAndProjectSlug(game_slug, project_types_slug, project_slug);
+  const gameSlug = Array.isArray(game_slug) ? game_slug[0] : game_slug;
+  const projectTypesSlug = Array.isArray(project_types_slug) ? project_types_slug[0] : project_types_slug;
+  const projectSlug = Array.isArray(project_slug) ? project_slug[0] : project_slug;
 
-      return {project, projectFiles};
-    }
-    return {errors: 'Invalid slug'}
-  } catch (err) {
-    return {errors: err.message}
-  }
+  const project = await getProjectByGameSlugAndProjectTypeSlugAndProjectSlug(gameSlug, projectTypesSlug, projectSlug);
+  const projectFiles = await getProjectFilesByGameSlugAndProjectTypeSlugAndProjectSlug(gameSlug, projectTypesSlug, projectSlug);
+
+  return {gameSlug, projectTypesSlug, projectSlug, project, projectFiles};
 };
 
 export default ProjectFilesPage
