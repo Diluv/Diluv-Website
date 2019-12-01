@@ -1,0 +1,54 @@
+name: Staging CI
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v1
+        with:
+          token: ${{secrets.github_token}}
+
+      - name: Install dependencies
+        run: yarn install
+      - name: Check typescript files
+        run: yarn tsc
+
+      - name: Build (Staging)
+        if: !startsWith(github.ref, 'refs/tags/v')
+        run: yarn build:staging
+
+      - name: Build (Release)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: yarn build
+
+      - name: Run
+        run: yarn start
+
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v2
+        with:
+          urls: |
+            http://localhost:3000/
+      - name: Save results
+        uses: actions/upload-artifact@v1
+        with:
+          name: lighthouse-results
+          path: '.lighthouseci' # This will save the Lighthouse results as .json files
+
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: diluv/diluv-website
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}

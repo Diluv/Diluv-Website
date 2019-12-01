@@ -5,11 +5,12 @@ const withImages = require('next-images');
 const withOffline = require('next-offline');
 
 const nextEnv = require('next-env');
-const dotenvLoad = require('dotenv-load');
 
-dotenvLoad();
+require('dotenv-flow').config();
 
-const withNextEnv = nextEnv();
+const withNextEnv = nextEnv({
+  node_env: process.env.DOT_ENV
+});
 
 const nextConfig = {
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
