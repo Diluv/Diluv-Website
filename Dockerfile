@@ -4,4 +4,4 @@ WORKDIR /app
 COPY node_modules/ .
 COPY package.json .next ./
 EXPOSE 3000
-CMD ["yarn", "next", "start"]
+CMD ["/app/node_modules/.bin/next", "start"]
