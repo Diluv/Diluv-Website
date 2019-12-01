@@ -33,7 +33,7 @@ jobs:
         run: yarn build
 
       - name: Run
-        run: yarn start
+        run: nohup yarn start &
 
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v2
