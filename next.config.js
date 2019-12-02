@@ -6,11 +6,10 @@ const withOffline = require('next-offline');
 
 const nextEnv = require('next-env');
 
-require('dotenv-flow').config();
-
-const withNextEnv = nextEnv({
+require('dotenv-flow').config({
   node_env: process.env.DOT_ENV
 });
+const withNextEnv = nextEnv();
 
 const nextConfig = {
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),

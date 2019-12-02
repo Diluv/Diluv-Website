@@ -38,13 +38,10 @@ jobs:
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v2
         with:
+          runs: 3
           urls: |
             http://localhost:3000/
-      - name: Save results
-        uses: actions/upload-artifact@v1
-        with:
-          name: lighthouse-results
-          path: '.lighthouseci' # This will save the Lighthouse results as .json files
+          temporaryPublicStorage: true
 
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master

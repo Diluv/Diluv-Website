@@ -6,8 +6,9 @@
     "next": "next",
     "apiserver": "nodemon mock/server.js",
     "build": "next build",
-    "start": "next start",
     "build:staging": "cross-env DOT_ENV=staging next build",
+    "start": "next start",
+    "start:staging": "cross-env DOT_ENV=staging next start",
     "analyze": "cross-env BUNDLE_ANALYZE=both next build",
     "type-check": "tsc"
   },

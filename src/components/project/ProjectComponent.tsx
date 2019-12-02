@@ -38,7 +38,7 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
           <ProjectOverviewComponent description={project.description}/>
         </Tab>
         <Tab eventKey="files" title="Files">
-          {projectFiles && (<ProjectFilesComponent projectFiles={projectFiles}/>)}
+          {projectFiles && <ProjectFilesComponent projectFiles={projectFiles}/>}
         </Tab>
         <Tab eventKey="issues" title="Issues">
         </Tab>
