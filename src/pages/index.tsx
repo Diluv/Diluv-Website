@@ -13,11 +13,12 @@ type Props = {
 }
 
 // TODO add back error, this shouldn't happen but could mean the API is down.
-const IndexPage: NextPage<Props> = ({games, projects/*, errors*/}) => (
+const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
   <Layout title="Diluv">
     <div className="text-center">
       <p>
         Hi Diluv is a project.
+        {errors}
       </p>
     </div>
     <div className="container pt-md-5">
