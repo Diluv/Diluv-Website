@@ -1,1 +1,1 @@
-export const API_URL = process.env.NEXT_SERVER_API_URL;
+export const API_URL = process.env.NEXT_STATIC_API_URL;

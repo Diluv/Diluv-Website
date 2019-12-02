@@ -68,7 +68,6 @@ IndexPage.getInitialProps = async ({}) => {
     // const projects = await getProjects();
     return {games, projects: []}
   } catch (err) {
-    console.log(err);
     return {errors: err.message}
   }
 };
