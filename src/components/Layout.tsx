@@ -68,8 +68,10 @@ const Layout: React.FunctionComponent<Props> = ({
           <h5>Product</h5>
           <ul className="list-unstyled text-small">
             <li><a className="text-muted" href="/news">News</a></li>
+            <li><a className="text-muted" href="https://ideas.diluv.com">Feedback</a></li>
             <li><a className="text-muted" href="https://blog.diluv.com">Blog</a></li>
             <li><a className="text-muted" href="https://developer.diluv.com">Developers</a></li>
+            <li><a className="text-muted" href="https://github.com/Diluv">Github</a></li>
           </ul>
         </div>
         <div className="col-6 col-md">
@@ -78,7 +80,6 @@ const Layout: React.FunctionComponent<Props> = ({
             <li><a className="text-muted" href="/about">About</a></li>
             <li><a className="text-muted" href="/privacy">Privacy</a></li>
             <li><a className="text-muted" href="/terms">Terms</a></li>
-            <li><a className="text-muted" href="https://github.com/Diluv">Github</a></li>
           </ul>
         </div>
         <div className="col-6 col-md">

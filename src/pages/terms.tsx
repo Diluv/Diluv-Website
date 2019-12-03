@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/Layout'
 import {NextPage} from 'next';
 
-const NewsPage: NextPage = () => (
+const TermsPage: NextPage = () => (
   <Layout title="News | Diluv">
     <h1>News</h1>
     <p>This is the about page</p>
@@ -15,4 +15,4 @@ const NewsPage: NextPage = () => (
   </Layout>
 );
 
-export default NewsPage
+export default TermsPage

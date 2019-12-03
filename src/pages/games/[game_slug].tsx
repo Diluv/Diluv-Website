@@ -17,7 +17,7 @@ const GamePage: NextPage<Props> = ({game, projectTypes, errors}) => (
     <div className="container pt-md-5">
       {(projectTypes.length > 0 && (
         <React.Fragment>
-          <h2 className="text-center pt-md-5">Game Types</h2>
+          <h2 className="text-center pt-md-5">Project Types</h2>
           <div className="row pt-md-5">
             {projectTypes.map((type) =>
               <div className="col-md-4 mx-auto" key={type.slug}>
