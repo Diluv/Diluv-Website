@@ -17,6 +17,7 @@ const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
   <Layout title="Diluv">
     <div className="text-center">
       {errors}
+
       <h2>Welcome to Diluv</h2>
       <p>
         Diluv is a platform for game fans to share their fan made content with the world.

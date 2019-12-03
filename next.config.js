@@ -30,7 +30,6 @@ const nextConfig = {
 };
 
 module.exports = withPlugins([
-    withNextEnv,
     withOffline({
       workboxOpts: {
         swDest: 'static/service-worker.js',
@@ -46,6 +45,7 @@ module.exports = withPlugins([
         },
       },
     }),
+    withNextEnv,
     withImages,
     withSCSS,
     withBundleAnalyzer,

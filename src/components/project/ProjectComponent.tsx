@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Tab, Tabs} from 'react-bootstrap';
+import {Media, Tab, Tabs} from 'react-bootstrap';
 import ProjectOverviewComponent from './ProjectOverviewComponent';
 import Router from 'next/router'
 import ProjectFilesComponent from "./ProjectFilesComponent";
@@ -24,9 +24,13 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
                                                           }) =>
   (
     <div className="container pt-md-5">
-      <div>
-        Card data
-      </div>
+      <Media>
+        <img className="mr-3" src={project.logoUrl} alt={`${project.name} Logo`}/>
+        <Media.Body>
+          <h2>{project.name}</h2>
+          {project.summary}
+        </Media.Body>
+      </Media>
       <Tabs activeKey={activeKey} id={"project"}
             onSelect={(eventKey: string) => {
               if (eventKey === "overview")
