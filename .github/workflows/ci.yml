@@ -49,3 +49,11 @@ jobs:
           urls: |
             http://localhost:3000/
           temporaryPublicStorage: true
+
+      - name: Analyze
+        run: yarn analyze
+      - name: Save results
+        uses: actions/upload-artifact@v1
+        with:
+          name: webpack-analyze
+          path: '.next/analyze'
