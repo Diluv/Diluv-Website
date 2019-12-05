@@ -30,15 +30,20 @@ const Layout: React.FunctionComponent<Props> = ({
           <Nav.Item>
             <Nav.Link href="/news">News</Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="https://ideas.diluv.com">Feedback</Nav.Link>
-          </Nav.Item>
+          {
+            // Currently disabled as the page doesn't exist
+            false && (
+              <Nav.Item>
+                <Nav.Link href="https://ideas.diluv.com">Feedback</Nav.Link>
+              </Nav.Item>
+            )
+          }
         </Nav>
 
         <Nav className="ml-auto">
           {/*TODO Add if/else*/}
           <Nav.Item>
-            <Nav.Link href="/signin">Sign in </Nav.Link>
+            <Nav.Link href="/login">Sign in </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link href="/register">Sign Up</Nav.Link>
@@ -68,9 +73,21 @@ const Layout: React.FunctionComponent<Props> = ({
           <h5>Product</h5>
           <ul className="list-unstyled text-small">
             <li><a href="/news">News</a></li>
-            <li><a href="https://ideas.diluv.com">Feedback</a></li>
-            <li><a href="https://blog.diluv.com">Blog</a></li>
-            <li><a href="https://developer.diluv.com">Developers</a></li>
+            {
+              false && (
+                <li><a href="https://ideas.diluv.com">Feedback</a></li>
+              )
+            }
+            {
+              false && (
+                <li><a href="https://blog.diluv.com">Blog</a></li>
+              )
+            }
+            {
+              false && (
+                <li><a href="https://developer.diluv.com">Developers</a></li>
+              )
+            }
             <li><a href="https://github.com/Diluv">Github</a></li>
           </ul>
         </div>
@@ -87,7 +104,11 @@ const Layout: React.FunctionComponent<Props> = ({
           <ul className="list-unstyled text-small">
             <li><a href="https://twitter.com/DiluvSupport">Twitter</a></li>
             <li><a href="https://www.reddit.com/r/diluv/">Reddit</a></li>
-            <li><a href="#">Discord</a></li>
+            {
+              false && (
+                <li><a href="#">Discord</a></li>
+              )
+            }
           </ul>
         </div>
       </div>
