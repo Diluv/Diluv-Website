@@ -22,7 +22,8 @@ const GamePage: NextPage<Props> = ({game, projectTypes, errors}) => (
             {projectTypes.map((type) =>
               <div className="col-md-4 mx-auto" key={type.slug}>
                 <a href={`/games/${game.slug}/${type.slug}`}>
-                  <GameCardComponent name={type.name} screenshot={"https://via.placeholder.com/348x225.png?text=" + type.name}/>
+                  <GameCardComponent name={type.name}
+                                     screenshot={"https://via.placeholder.com/348x225.png?text=" + type.name}/>
                 </a>
               </div>
             )}

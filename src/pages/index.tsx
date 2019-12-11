@@ -48,7 +48,8 @@ const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
             {games.map((game) =>
               <div className="col-md-4 mx-auto" key={game.slug}>
                 <a href={`/games/${game.slug}`}>
-                  <GameCardComponent name={game.name} screenshot={"https://via.placeholder.com/348x225.png?text=" + game.name}/>
+                  <GameCardComponent name={game.name}
+                                     screenshot={"https://via.placeholder.com/348x225.png?text=" + game.name}/>
                 </a>
               </div>
             )}
@@ -60,13 +61,14 @@ const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
     {
       // Don't show if logged in
       true && (
-        <div className = "container">
-          <div className = "text-center">
+        <div className="container">
+          <div className="text-center">
             <h2>Diluv Account</h2>
-            <div className = "row">
-              <div className = "col-4 mx-auto">
-                <div className = "text-center">
-                  It looks like you're not logged in! We recommend using Diluv account to get the best user experience. Creating an account is free
+            <div className="row">
+              <div className="col-4 mx-auto">
+                <div className="text-center">
+                  It looks like you're not logged in! We recommend using Diluv account to get the best user experience.
+                  Creating an account is free
                   and provides many great benefits!
                 </div>
               </div>

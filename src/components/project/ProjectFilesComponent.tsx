@@ -35,7 +35,7 @@ const ProjectFilesComponent: React.FunctionComponent<Props> = ({projectFiles}) =
                 </td>
                 <td>
                   {/*TODO Print in proper way*/}
-                  {value.sha512.substr(0,10)}
+                  {value.sha512.substr(0, 10)}
                 </td>
               </tr>
             )

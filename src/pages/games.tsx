@@ -20,7 +20,8 @@ const GamesPage: NextPage<Props> = ({games}) => (
             {games.map((game) =>
               <div className="col-md-4 mx-auto" key={game.slug}>
                 <a href={`/games/${game.slug}`}>
-                  <GameCardComponent name={game.name} screenshot={"https://via.placeholder.com/348x225.png?text=" + game.name}/>
+                  <GameCardComponent name={game.name}
+                                     screenshot={"https://via.placeholder.com/348x225.png?text=" + game.name}/>
                 </a>
               </div>
             )}
