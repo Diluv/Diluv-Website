@@ -16,6 +16,14 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Build (Staging)
+        if: startsWith(github.ref, 'refs/tags/v') != true
+        run: yarn build:staging
+
+      - name: Build (Release)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: yarn build
+
       - name: Run
         run: nohup yarn start &
 
