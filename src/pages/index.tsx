@@ -60,17 +60,19 @@ const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
     {
       // Don't show if logged in
       true && (
-        <div className="text-center">
-          <h2>Diluv Account</h2>
-          <div className="row">
-            <div className="col-4 mx-auto">
-              <div className="text-center">
-                It looks like you're not logged in! We recommend using Diluv account to get the best user experience.
-                Creating an account is free and provides many great benefits!
+        <div className = "container">
+          <div className = "text-center">
+            <h2>Diluv Account</h2>
+            <div className = "row">
+              <div className = "col-4 mx-auto">
+                <div className = "text-center">
+                  It looks like you're not logged in! We recommend using Diluv account to get the best user experience. Creating an account is free
+                  and provides many great benefits!
+                </div>
               </div>
             </div>
+            <p>TODO</p>
           </div>
-          <p>TODO</p>
         </div>
       )
     }

@@ -16,7 +16,7 @@ type Props = {
 const ProjectTypePage: NextPage<Props> = ({game, projectType, projects, errors}) => (
   <Layout title="Diluv">
     <div className="container pt-md-5">
-      <h2 className="text-center pt-md-5">{projectType.name}</h2>
+      <h2 className="text-center">{projectType.name}</h2>
       <ul className="list-unstyled">
         {projects.map((project) =>
           <a key={project.slug} href={`/games/${game.slug}/${projectType.slug}/${project.slug}`}>
