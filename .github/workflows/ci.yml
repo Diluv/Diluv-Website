@@ -20,7 +20,7 @@ jobs:
           token: ${{secrets.github_token}}
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --production
       - name: Check typescript files
         run: yarn tsc
 
@@ -32,28 +32,12 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: yarn build
 
+      - name: Production Yarn
+        run: yarn --production
+
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: diluv/diluv-website
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Run
-        run: nohup yarn start &
-
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v2
-        with:
-          runs: 3
-          urls: |
-            http://localhost:3000/
-          temporaryPublicStorage: true
-
-      - name: Analyze
-        run: yarn analyze
-      - name: Save results
-        uses: actions/upload-artifact@v1
-        with:
-          name: webpack-analyze
-          path: '.next/analyze'

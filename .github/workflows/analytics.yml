@@ -1,0 +1,37 @@
+name: Analaytics
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run
+          run: nohup yarn start &
+
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v2
+        with:
+          runs: 3
+          urls: |
+            http://localhost:3000/
+          temporaryPublicStorage: true
+
+      - name: Analyze
+        run: yarn analyze
+      - name: Save results
+        uses: actions/upload-artifact@v1
+        with:
+          name: webpack-analyze
+          path: '.next/analyze'
+
