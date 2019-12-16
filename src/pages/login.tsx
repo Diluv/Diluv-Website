@@ -9,7 +9,6 @@ const handleSubmit = (event: any) => {
     event.preventDefault();
     event.stopPropagation();
   }
-  console.log(form);
 };
 let showMFA = false;
 const RegisterPage: NextPage = () => (

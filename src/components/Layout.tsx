@@ -43,10 +43,10 @@ const Layout: React.FunctionComponent<Props> = ({
         <Nav className="ml-auto">
           {/*TODO Add if/else*/}
           <Nav.Item>
-            <Nav.Link href="/login">Sign in </Nav.Link>
+            <Nav.Link href="/register">Sign Up</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/register">Sign Up</Nav.Link>
+            <Nav.Link href="/login">Sign in </Nav.Link>
           </Nav.Item>
 
           <Dropdown as={NavItem}>
