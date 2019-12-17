@@ -19,8 +19,6 @@ const schema = yup.object().shape({
 });
 
 function register(data: object) {
-
-  console.log(data);
   // @ts-ignore
   const {email, username, password, terms} = data;
 
@@ -37,12 +35,10 @@ function register(data: object) {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
 
-    //make sure to serialize your JSON body
     body: formData
   })
     .then((response) => {
       console.log(response);
-      //do something awesome that makes the world a better place
     });
 }
 
