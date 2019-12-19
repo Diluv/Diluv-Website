@@ -19,47 +19,51 @@ const Layout: React.FunctionComponent<Props> = ({
       <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     </Head>
     <header>
-      <Navbar>
-        <Nav activeKey="/home">
-          <Nav.Item>
-            <Nav.Link href="/">Home</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/games">Games</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/news">News</Nav.Link>
-          </Nav.Item>
-          {
-            // Currently disabled as the page doesn't exist
-            false && (
-              <Nav.Item>
-                <Nav.Link href="https://ideas.diluv.com">Feedback</Nav.Link>
-              </Nav.Item>
-            )
-          }
-        </Nav>
+      <Navbar collapseOnSelect bg={"dark"} variant={"dark"} expand={"md"}>
+        <Navbar.Brand href="#home">Diluv</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav activeKey="/home">
+            <Nav.Item>
+              <Nav.Link href="/">Home</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/games">Games</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/news">News</Nav.Link>
+            </Nav.Item>
+            {
+              // Currently disabled as the page doesn't exist
+              false && (
+                <Nav.Item>
+                  <Nav.Link href="https://ideas.diluv.com">Feedback</Nav.Link>
+                </Nav.Item>
+              )
+            }
+          </Nav>
 
-        <Nav className="ml-auto">
-          {/*TODO Add if/else*/}
-          <Nav.Item>
-            <Nav.Link href="/register">Sign Up</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/login">Sign in </Nav.Link>
-          </Nav.Item>
+          <Nav className="ml-auto">
+            {/*TODO Add if/else*/}
+            <Nav.Item>
+              <Nav.Link href="/register">Sign Up</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/login">Sign in </Nav.Link>
+            </Nav.Item>
 
-          <Dropdown as={NavItem}>
-            <Dropdown.Toggle as={NavLink} id={'dropdown-nav'}>Username</Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item as={NavLink} href="/profile">My Profile</Dropdown.Item>
-              <Dropdown.Item as={NavLink}>Analytics</Dropdown.Item>
-              <Dropdown.Item as={NavLink}>Settings</Dropdown.Item>
-              <Dropdown.Divider/>
-              <Dropdown.Item as={NavLink}>Sign Out</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Nav>
+            <Dropdown as={NavItem}>
+              <Dropdown.Toggle as={NavLink} id={'dropdown-nav'}>Username</Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item as={NavLink} href="/profile">My Profile</Dropdown.Item>
+                <Dropdown.Item as={NavLink}>Analytics</Dropdown.Item>
+                <Dropdown.Item as={NavLink}>Settings</Dropdown.Item>
+                <Dropdown.Divider/>
+                <Dropdown.Item as={NavLink}>Sign Out</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     </header>
     {children}
