@@ -2,8 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import '../scss/index.scss';
 import diluv from '../../public/static/diluv.svg';
-import {Dropdown, Nav, Navbar, NavItem} from 'react-bootstrap';
-import NavLink from 'react-bootstrap/NavLink'
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 type Props = {
   title?: string
@@ -20,7 +19,7 @@ const Layout: React.FunctionComponent<Props> = ({
     </Head>
     <header>
       <Navbar collapseOnSelect bg={"dark"} variant={"dark"} expand={"md"}>
-        <Navbar.Brand href="#home">Diluv</Navbar.Brand>
+        <Navbar.Brand href="/">Diluv</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav activeKey="/home">
@@ -52,16 +51,13 @@ const Layout: React.FunctionComponent<Props> = ({
               <Nav.Link href="/login">Sign in </Nav.Link>
             </Nav.Item>
 
-            <Dropdown as={NavItem}>
-              <Dropdown.Toggle as={NavLink} id={'dropdown-nav'}>Username</Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item as={NavLink} href="/profile">My Profile</Dropdown.Item>
-                <Dropdown.Item as={NavLink}>Analytics</Dropdown.Item>
-                <Dropdown.Item as={NavLink}>Settings</Dropdown.Item>
-                <Dropdown.Divider/>
-                <Dropdown.Item as={NavLink}>Sign Out</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <NavDropdown title={"Username"} id={"username_dropdown"} alignRight>
+              <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
+              <NavDropdown.Item>Analytics</NavDropdown.Item>
+              <NavDropdown.Item>Settings</NavDropdown.Item>
+              <NavDropdown.Divider/>
+              <NavDropdown.Item>Sign Out</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
