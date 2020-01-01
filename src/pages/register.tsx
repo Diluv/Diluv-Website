@@ -7,6 +7,7 @@ import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Row from "react-bootstrap/Row";
 import Link from "next/link";
+import {post} from "../utils/request";
 
 type RequirementTest = {
   arguments: string,
@@ -43,25 +44,13 @@ function register(event: SyntheticEvent, fields: Record<string, InputField>, set
   formData.append('username', username.value);
   formData.append('password', password.value);
   formData.append('terms', terms.value);
-
-  fetch(`${API_URL}/v1/auth/register`, {
-    method: "post",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-
-    body: formData
-  }).then((response) => {
-    if (response.status == 200) {
-      setErrors([]);
-      setPostRegister(true);
-      return;
-    }
-    response.json().then(data => {
-      setErrors(data["message"]);
-    })
+  post(`${API_URL}/v1/auth/register`, formData).then(() => {
+    setErrors([]);
+    setPostRegister(true);
+  }).catch(Error => {
+    setErrors(Error.response?.statusText);
   });
+
 
 }
 
@@ -289,7 +278,7 @@ function RegisterPage({fields}) {
           </Form>
           <Row className={"justify-content-md-center pt-2"}>
             <Col md={4}>
-              <p className={"text-center"}>Already have an account? <Link href={"/login"}>Login!</Link></p>
+              <p className={"text-center"}>Already have an account? <Link href={"/login"}><a>Login!</a></Link></p>
             </Col>
           </Row>
         </Container>
