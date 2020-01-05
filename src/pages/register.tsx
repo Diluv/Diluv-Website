@@ -8,6 +8,11 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Row from "react-bootstrap/Row";
 import Link from "next/link";
 import {post} from "../utils/request";
+import {destroyCookie, parseCookies} from "nookies";
+import jwt from "jwt-decode";
+import {Router} from "next/router";
+import {NextPageContext} from "next";
+import {getTheme} from "../utils/theme";
 
 type RequirementTest = {
   arguments: string,
@@ -116,9 +121,9 @@ function fillRequirements(field: InputField): JSX.Element[] {
   for (let x in field.requirements) {
     let req: requirement = field.requirements[x];
     if (req.met) {
-      arr.push(<p className={"text-success mb-0"}>{req.validMsg}</p>);
+      arr.push(<p className={"text-success mb-0"} key={"validMsg" + x}>{req.validMsg}</p>);
     } else {
-      arr.push(<p className={"text-danger mb-0"}>{req.invalidMsg}</p>);
+      arr.push(<p className={"text-danger mb-0"} key={"invalidMsg" + x}>{req.invalidMsg}</p>);
     }
   }
 
@@ -136,7 +141,7 @@ function renderPostRegister() {
         <Container>
           <Row className={"justify-content-md-center"}>
             <Col md={4}>
-              <Card>
+              <Card bg={getTheme()}>
                 <Card.Body>
                   <Card.Title>Email Verification</Card.Title>
                   <Card.Text>
@@ -288,7 +293,26 @@ function RegisterPage({fields}) {
   );
 }
 
-RegisterPage.getInitialProps = async ({}) => {
+RegisterPage.getInitialProps = async (ctx: NextPageContext) => {
+  let cookies = parseCookies(ctx);
+  if (cookies["accessToken"]) {
+    let token = jwt<{ exp: number }>(cookies["accessToken"]);
+    let current_time = new Date().getTime() / 1000;
+    if (current_time > token.exp) {
+      destroyCookie(ctx, "username");
+      destroyCookie(ctx, "accessToken");
+    } else {
+      if (ctx.res) {
+        ctx.res.writeHead(302, {
+          Location: '/'
+        });
+        ctx.res.end()
+      } else {
+        // @ts-ignore
+        await Router.push('/');
+      }
+    }
+  }
   const fields: Record<string, InputField> = {
     "email": {
       name: "email",

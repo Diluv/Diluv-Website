@@ -6,11 +6,13 @@ import Row from "react-bootstrap/Row";
 import {SyntheticEvent} from "react";
 import {API_URL} from "../utils/api";
 import Link from "next/link";
+import jwt from 'jwt-decode'
+import {destroyCookie, parseCookies, setCookie} from 'nookies';
+import {NextRouter, Router, useRouter} from "next/router";
+import {NextPageContext} from "next";
 
-
-function login(event: SyntheticEvent, username: string, password: string, setErrors: Function) {
+function login(event: SyntheticEvent, username: string, password: string, setErrors: Function, router: NextRouter) {
   event.preventDefault();
-  console.log(event.target);
   const formData = new URLSearchParams();
   formData.append('username', username);
   formData.append('password', password);
@@ -27,7 +29,22 @@ function login(event: SyntheticEvent, username: string, password: string, setErr
   })
     .then((response) => {
       if (response.status == 200) {
+
+        response.json().then(data => {
+          setCookie(null, "accessToken", data.data.accessToken, {
+            expires: new Date(data.data.expiredAt)
+          });
+          // @ts-ignore
+          setCookie(null, "username", jwt(data.data.accessToken)["username"], {
+            expires: new Date(data.data.expiredAt)
+          });
+          setCookie(null, "refreshToken", data.data.refreshToken, {
+            expires: new Date(data.data.refreshExpiredAt)
+          });
+        });
         setErrors([]);
+
+        router.push("/");
         return;
       }
       response.json().then(data => {
@@ -37,12 +54,12 @@ function login(event: SyntheticEvent, username: string, password: string, setErr
 }
 
 
-function RegisterPage() {
+function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState([]);
-
+  const router = useRouter();
   return (<Layout title="Register | Diluv">
       <div className="container">
         <div className="pb-md-2 pt-md-3 text-center">
@@ -58,7 +75,7 @@ function RegisterPage() {
             </Col>
           </Row>
           }
-          <Form onSubmit={(e: SyntheticEvent) => login(e, username, password, setErrors)}>
+          <Form onSubmit={(e: SyntheticEvent) => login(e, username, password, setErrors, router)}>
             <Form.Row className={"justify-content-md-center"}>
               <Col md={4}>
                 <Form.Group controlId="usernameId" className={"mb-1"}>
@@ -98,7 +115,7 @@ function RegisterPage() {
           </Form>
           <Row className={"justify-content-md-center pt-2"}>
             <Col md={4}>
-              <p className={"text-center"}>Don't have an account? <Link href={"/register"}>Register now!</Link></p>
+              <p className={"text-center"}>Don't have an account? <Link href={"/register"}><a>Register now!</a></Link></p>
             </Col>
           </Row>
         </Container>
@@ -107,4 +124,28 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage
+LoginPage.getInitialProps = async (ctx: NextPageContext) => {
+  let cookies = parseCookies(ctx);
+  if (cookies["accessToken"]) {
+    let token = jwt<{ exp: number }>(cookies["accessToken"]);
+    let current_time = new Date().getTime() / 1000;
+    if (current_time > token.exp) {
+      destroyCookie(ctx, "username");
+      destroyCookie(ctx, "accessToken");
+    } else {
+      if (ctx.res) {
+        ctx.res.writeHead(302, {
+          Location: '/'
+        });
+        ctx.res.end()
+      } else {
+        // @ts-ignore
+        await Router.push('/');
+      }
+    }
+  }
+
+  return {}
+};
+
+export default LoginPage
