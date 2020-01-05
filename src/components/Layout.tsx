@@ -1,24 +1,41 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import Head from 'next/head'
 import '../scss/index.scss';
 import diluv from '../../public/static/diluv.svg';
-import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import {Nav, Navbar} from 'react-bootstrap';
+import {parseCookies} from 'nookies';
+import Dropdown from "react-bootstrap/Dropdown";
+import {getTheme, toggleTheme} from '../utils/theme';
 
 type Props = {
   title?: string
 }
+
 const Layout: React.FunctionComponent<Props> = ({
                                                   children,
                                                   title = 'Diluv',
-                                                }) => (
-  <React.Fragment>
+                                                }) => {
+
+  const [, forceUpdate] = useState({});
+  const [theme, setTheme] = useState<'light' | 'dark'>("light");
+  const updated = useRef(false);
+  useEffect(() => {
+    setTheme(getTheme());
+    forceUpdate({});
+    updated.current = true;
+  }, [theme]);
+
+  if (!updated.current) {
+    return <div></div>;
+  }
+  return (<React.Fragment>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8"/>
       <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     </Head>
     <header>
-      <Navbar collapseOnSelect bg={"dark"} variant={"dark"} expand={"md"}>
+      <Navbar collapseOnSelect bg={theme} variant={theme} expand={"md"}>
         <Navbar.Brand href="/">Diluv</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -43,27 +60,50 @@ const Layout: React.FunctionComponent<Props> = ({
           </Nav>
 
           <Nav className="ml-auto">
-            {/*TODO Add if/else*/}
-            <Nav.Item>
-              <Nav.Link href="/register">Sign Up</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="/login">Sign in </Nav.Link>
-            </Nav.Item>
+            {
+              !parseCookies()["accessToken"] &&
+              <Dropdown alignRight className={"nav-item"}>
+                <Dropdown.Toggle id="account_dropdown" as={'p'} className={"nav-link mb-0"} style={{cursor: "pointer"}}>
+                  Account
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/register">Sign Up</Dropdown.Item>
+                  <Dropdown.Item href="/login">Sign In</Dropdown.Item>
+                  <Dropdown.Divider/>
+                  <Dropdown.Item onClick={() => {
+                    setTheme(toggleTheme());
+                  }}>{"Theme: " + theme}</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            }
 
-            <NavDropdown title={"Username"} id={"username_dropdown"} alignRight>
-              <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
-              <NavDropdown.Item>Analytics</NavDropdown.Item>
-              <NavDropdown.Item>Settings</NavDropdown.Item>
-              <NavDropdown.Divider/>
-              <NavDropdown.Item>Sign Out</NavDropdown.Item>
-            </NavDropdown>
+            {parseCookies()["accessToken"] &&
+            <Dropdown alignRight className={"nav-item"}>
+              <Dropdown.Toggle id="username_dropdown" as={'p'} className={"nav-link mb-0"} style={{cursor: "pointer"}}>
+                {parseCookies()["username"]}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
+                <Dropdown.Item>Analytics</Dropdown.Item>
+                <Dropdown.Item>Settings</Dropdown.Item>
+                <Dropdown.Divider/>
+                <Dropdown.Item onClick={() => {
+                  setTheme(toggleTheme());
+                }}>{"Theme: " + theme}</Dropdown.Item>
+                <Dropdown.Divider/>
+                <Dropdown.Item>Sign Out</Dropdown.Item>
+
+              </Dropdown.Menu>
+            </Dropdown>
+            }
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     </header>
-    {children}
-    <footer className="pt-4 my-md-5 pt-md-5 border-top container">
+    <div className={"theme-" + theme}>
+      {children}
+    </div>
+    <footer className={"pt-4 py-md-5 pt-md-5 border-top container theme-" + theme}>
       <div className="row">
         <div className="col-12 col-md">
           <img className="mb-2" src={diluv} alt="" width="24" height="24"/>
@@ -113,7 +153,7 @@ const Layout: React.FunctionComponent<Props> = ({
         </div>
       </div>
     </footer>
-  </React.Fragment>
-);
+  </React.Fragment>);
+}
 
 export default Layout
