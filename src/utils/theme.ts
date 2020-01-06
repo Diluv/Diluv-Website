@@ -4,7 +4,7 @@ export function getTheme(): 'light' | 'dark' {
   }
   let item = localStorage.getItem("theme");
   if (!item) {
-    item = "light";
+    item = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     localStorage.setItem("theme", item);
   }
   // @ts-ignore
