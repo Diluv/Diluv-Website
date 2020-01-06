@@ -1,26 +1,22 @@
 import * as React from 'react'
 import Layout from '../components/Layout'
-import {NextPage} from 'next';
-import {Button, Form} from 'react-bootstrap';
-import {Formik} from 'formik';
-import * as yup from 'yup';
+import {useState} from "react";
+import {Alert, Button, Col, Container, Form} from "react-bootstrap";
+import Row from "react-bootstrap/Row";
+import {SyntheticEvent} from "react";
 import {API_URL} from "../utils/api";
+import Link from "next/link";
+import jwt from 'jwt-decode'
+import {destroyCookie, parseCookies, setCookie} from 'nookies';
+import {NextRouter, Router, useRouter} from "next/router";
+import {NextPageContext} from "next";
 
-const schema = yup.object().shape({
-  username: yup.string().required(),
-  password: yup.string().required(),
-  remember: yup.bool().required(),
-  mfa: yup.string(),
-});
-
-function login(data: object) {
-  // @ts-ignore
-  const {username, password, mfa} = data;
-
+function login(event: SyntheticEvent, username: string, password: string, setErrors: Function, router: NextRouter) {
+  event.preventDefault();
   const formData = new URLSearchParams();
   formData.append('username', username);
   formData.append('password', password);
-  formData.append('mfa', mfa);
+  // formData.append('mfa', mfa);
 
   fetch(`${API_URL}/v1/auth/login`, {
     method: "post",
@@ -32,93 +28,124 @@ function login(data: object) {
     body: formData
   })
     .then((response) => {
-      console.log(response);
+      if (response.status == 200) {
+
+        response.json().then(data => {
+          setCookie(null, "accessToken", data.data.accessToken, {
+            expires: new Date(data.data.expiredAt)
+          });
+          // @ts-ignore
+          setCookie(null, "username", jwt(data.data.accessToken)["username"], {
+            expires: new Date(data.data.expiredAt)
+          });
+          setCookie(null, "refreshToken", data.data.refreshToken, {
+            expires: new Date(data.data.refreshExpiredAt)
+          });
+        });
+        setErrors([]);
+
+        router.push("/");
+        return;
+      }
+      response.json().then(data => {
+        setErrors(data["message"]);
+      })
     });
 }
 
-let showMFA = false;
-const RegisterPage: NextPage = () => (
-  <Layout title="Login | Diluv">
-    <div className="container">
-      <div className="row">
-        <div className="col-sm">
+
+function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [errors, setErrors] = useState([]);
+  const router = useRouter();
+  return (<Layout title="Register | Diluv">
+      <div className="container">
+        <div className="pb-md-2 pt-md-3 text-center">
+          <h1>Login</h1>
         </div>
-        <div className="col-sm">
-          <div className="pb-md-5 text-center">
-            <h1>Login</h1>
-          </div>
-          <Formik
-            validationSchema={schema}
-            onSubmit={login}
-            initialValues={{
-              username: '',
-              password: '',
-              mfa: '',
-              remember: false
-            }}>
-            {({
-                handleSubmit,
-                handleChange,
-                values,
-                touched,
-                errors,
-              }) => (
-              <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group controlId="usernameId" hidden={showMFA}>
+        <Container>
+          {errors.length != 0 &&
+          <Row className={"justify-content-md-center"}>
+            <Col md={4}>
+              <Alert variant={"danger"}>
+                {errors}
+              </Alert>
+            </Col>
+          </Row>
+          }
+          <Form onSubmit={(e: SyntheticEvent) => login(e, username, password, setErrors, router)}>
+            <Form.Row className={"justify-content-md-center"}>
+              <Col md={4}>
+                <Form.Group controlId="usernameId" className={"mb-1"}>
                   <Form.Label>Username</Form.Label>
                   <Form.Control
-                    type="text"
-                    name="username"
-                    value={values.username}
-                    onChange={handleChange}
-                    isValid={touched.username && !errors.username}
+                    type={"username"}
+                    name={"username"}
+                    defaultValue={""}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                    minLength={3}
+                    maxLength={50}
+
                   />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group controlId="passwordId" hidden={showMFA}>
+              </Col>
+            </Form.Row>
+            <Form.Row className={"justify-content-md-center"}>
+              <Col md={4}>
+                <Form.Group controlId="passwordId" className={"mb-1"}>
                   <Form.Label>Password</Form.Label>
                   <Form.Control
-                    type="password"
-                    name="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    isValid={touched.password && !errors.password}
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group hidden={showMFA}>
-                  <Form.Check
-                    required
-                    name="remember"
-                    label="Remember Me"
-                    isInvalid={!!errors.remember}
-                    value={`${values.remember}`}
-                    feedback={errors.remember}
-                    onChange={handleChange}
-                    id="terms"
+                    type={"password"}
+                    name={"pasword"}
+                    defaultValue={""}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                    minLength={8}
+                    maxLength={70}
                   />
                 </Form.Group>
-                <Form.Group controlId="mfaId" hidden={!showMFA}>
-                  <Form.Label>MultiFactor</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="mfa"
-                    value={values.mfa}
-                    onChange={handleChange}
-                    isValid={touched.mfa && !errors.mfa}
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </Form.Group>
-                <Button type="submit">Submit form</Button>
-              </Form>
-            )}
-          </Formik>
-        </div>
-        <div className="col-sm">
-        </div>
+              </Col>
+            </Form.Row>
+            <Form.Row className={"justify-content-md-center pt-2"}>
+              <Col md={4}>
+                <Button type="submit" disabled={username.trim().length < 3 && password.trim().length < 8} block>Login</Button>
+              </Col>
+            </Form.Row>
+          </Form>
+          <Row className={"justify-content-md-center pt-2"}>
+            <Col md={4}>
+              <p className={"text-center"}>Don't have an account? <Link href={"/register"}><a>Register now!</a></Link></p>
+            </Col>
+          </Row>
+        </Container>
       </div>
-    </div>
-  </Layout>
-);
+    </Layout>
+  );
+}
 
-export default RegisterPage
+LoginPage.getInitialProps = async (ctx: NextPageContext) => {
+  let cookies = parseCookies(ctx);
+  if (cookies["accessToken"]) {
+    let token = jwt<{ exp: number }>(cookies["accessToken"]);
+    let current_time = new Date().getTime() / 1000;
+    if (current_time > token.exp) {
+      destroyCookie(ctx, "username");
+      destroyCookie(ctx, "accessToken");
+    } else {
+      if (ctx.res) {
+        ctx.res.writeHead(302, {
+          Location: '/'
+        });
+        ctx.res.end()
+      } else {
+        // @ts-ignore
+        await Router.push('/');
+      }
+    }
+  }
+
+  return {}
+};
+
+export default LoginPage
