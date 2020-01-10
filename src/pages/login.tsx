@@ -13,7 +13,7 @@ import {NextPageContext} from "next";
 
 function login(event: SyntheticEvent, username: string, password: string, setErrors: Function, router: NextRouter) {
   event.preventDefault();
-  const formData = new URLSearchParams();
+  const formData = new FormData();
   formData.append('username', username);
   formData.append('password', password);
   // formData.append('mfa', mfa);
@@ -21,8 +21,7 @@ function login(event: SyntheticEvent, username: string, password: string, setErr
   fetch(`${API_URL}/v1/auth/login`, {
     method: "post",
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Accept': 'application/json'
     },
 
     body: formData
@@ -60,7 +59,7 @@ function LoginPage() {
 
   const [errors, setErrors] = useState([]);
   const router = useRouter();
-  return (<Layout title="Register | Diluv">
+  return (<Layout title="Login | Diluv">
       <div className="container">
         <div className="pb-md-2 pt-md-3 text-center">
           <h1>Login</h1>

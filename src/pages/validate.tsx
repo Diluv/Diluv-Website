@@ -41,10 +41,9 @@ RegisterPage.getInitialProps = async ({query}: NextPageContext) => {
   let code: string = query["code"];
   let errors: string[] = [];
 
-  const formData = new URLSearchParams();
+  const formData = new FormData();
   formData.append('email', email);
   formData.append('code', code);
-
 
   await post(`${API_URL}/v1/auth/verify`, formData).then(() => {
     valid = true;

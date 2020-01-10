@@ -2,8 +2,7 @@ import axios from 'axios';
 
 
 export function post(url: string, data: any, headers: any = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/x-www-form-urlencoded'
+  'Accept': 'application/json'
 }) {
   if(process.browser) {
     if (!headers.Authorization && localStorage && localStorage.getItem("accessToken")) {

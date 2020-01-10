@@ -44,7 +44,7 @@ function register(event: SyntheticEvent, fields: Record<string, InputField>, set
   // @ts-ignore
   const {email, username, password, terms} = fields;
 
-  const formData = new URLSearchParams();
+  const formData = new FormData();
   formData.append('email', email.value);
   formData.append('username', username.value);
   formData.append('password', password.value);
