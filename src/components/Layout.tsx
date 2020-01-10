@@ -22,6 +22,7 @@ const Layout: React.FunctionComponent<Props> = ({
   useEffect(() => {
     setTheme(getTheme());
     forceUpdate({});
+    document.body.className = "theme-" + getTheme();
     updated.current = true;
   }, [theme]);
 
@@ -103,7 +104,7 @@ const Layout: React.FunctionComponent<Props> = ({
     <div className={"theme-" + theme}>
       {children}
     </div>
-    <footer className={"pt-4 py-md-5 pt-md-5 border-top theme-" + theme}>
+    <footer className={"pt-4 py-md-5 pt-md-5 border-top"}>
       <div className={"container"}>
         <div className="row">
           <div className="col-12 col-md">
