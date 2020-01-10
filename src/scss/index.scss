@@ -13,3 +13,15 @@ $enable-rounded: false;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
 }
+
+.content {
+  min-height: 70vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+}
+
+.footer {
+  bottom: 0;
+  width: 100%;
+}

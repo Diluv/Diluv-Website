@@ -101,10 +101,10 @@ const Layout: React.FunctionComponent<Props> = ({
         </Navbar.Collapse>
       </Navbar>
     </header>
-    <div className={"theme-" + theme}>
+    <div className={"content theme-" + theme}>
       {children}
     </div>
-    <footer className={"pt-4 py-md-5 pt-md-5 border-top"}>
+    <footer className={"pt-4 py-md-5 pt-md-5 border-top footer"}>
       <div className={"container"}>
         <div className="row">
           <div className="col-12 col-md">

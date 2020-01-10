@@ -44,7 +44,7 @@ const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
       {(games && games.length > 0 && (
         <React.Fragment>
           <h2 className="text-center pt-md-5">Games</h2>
-          <div className="row pt-md-5">
+          <div className="row">
             {games.map((game) =>
               <div className="col-md-4 mx-auto" key={game.slug}>
                 <a href={`/games/${game.slug}`}>
