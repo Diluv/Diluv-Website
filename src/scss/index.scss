@@ -3,13 +3,11 @@ $enable-rounded: false;
 
 
 .theme-dark {
-  transition: color, background-color 0.5s ease;
   background-color: rgb(43, 43, 43);
   color: rgb(169, 183, 198);
 }
 
 .theme-light {
-  transition: color, background-color 0.5s ease;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
 }
