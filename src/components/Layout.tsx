@@ -22,13 +22,14 @@ const Layout: React.FunctionComponent<Props> = ({
   useEffect(() => {
     setTheme(getTheme());
     forceUpdate({});
-    document.body.className = "theme-" + getTheme();
+
     updated.current = true;
   }, [theme]);
 
   if (!updated.current) {
     return <div></div>;
   }
+  document.body.className = "theme-" + theme;
   return (<React.Fragment>
     <Head>
       <title>{title}</title>
