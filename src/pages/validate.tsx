@@ -41,7 +41,7 @@ RegisterPage.getInitialProps = async ({query}: NextPageContext) => {
   let code: string = query["code"];
   let errors: string[] = [];
 
-  const formData = new FormData();
+  const formData = new URLSearchParams();
   formData.append('email', email);
   formData.append('code', code);
 
