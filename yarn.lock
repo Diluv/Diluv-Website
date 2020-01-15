@@ -1582,10 +1582,10 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.0.tgz#24390e6ad61386b0a747265754d2a17219de862c"
   integrity sha512-Uvq6hVe90D0B2WEnUqtdgY1bATGz3mw33nH9Y+dmA+w5DHvUmBgkr5rM/KCHpCsiFNRUfokW/szpPPgMK2hm4A==
 
-axios-auth-refresh@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/axios-auth-refresh/-/axios-auth-refresh-2.2.0.tgz#4340916714d18aeeae60603baff4141ca78b427b"
-  integrity sha512-mxqeuaEkainZPIsWhuAIdUp3N832TlmjZj1IQSno6CpkXCUhwIZ7YCM+wKzu5xlQqXgeuKWMGGeU3KNGsqDHhA==
+axios-auth-refresh@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/axios-auth-refresh/-/axios-auth-refresh-2.2.1.tgz#8e9c0955d3c1585bb06016af9d6b3bb3c44b6317"
+  integrity sha512-olZyeN82CCAUJM2LGU6R8ORaSdM4+sp7QsprrxwnKPkrIzYNWHZ3fiVB3pdEDdPPmu1MEKGWhmX7+byHxP1Nsw==
 
 axios@^0.19.1:
   version "0.19.1"
