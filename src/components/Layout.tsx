@@ -3,7 +3,7 @@ import Head from 'next/head'
 import '../scss/index.scss';
 import diluv from '../../public/static/diluv.svg';
 import {Nav, Navbar} from 'react-bootstrap';
-import {parseCookies} from 'nookies';
+import {destroyCookie, parseCookies} from 'nookies';
 import Dropdown from "react-bootstrap/Dropdown";
 import {getTheme, toggleTheme} from '../utils/theme';
 
@@ -93,7 +93,13 @@ const Layout: React.FunctionComponent<Props> = ({
                   setTheme(toggleTheme());
                 }}>{"Theme: " + theme}</Dropdown.Item>
                 <Dropdown.Divider/>
-                <Dropdown.Item>Sign Out</Dropdown.Item>
+                <Dropdown.Item onClick={() => {
+                  destroyCookie(null, "accessToken");
+                  destroyCookie(null, "refreshToken");
+                  destroyCookie(null, "username");
+
+                  forceUpdate({});
+                }}>Sign Out</Dropdown.Item>
 
               </Dropdown.Menu>
             </Dropdown>
