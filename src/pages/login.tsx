@@ -7,9 +7,10 @@ import {SyntheticEvent} from "react";
 import {API_URL} from "../utils/api";
 import Link from "next/link";
 import jwt from 'jwt-decode'
-import {destroyCookie, parseCookies, setCookie} from 'nookies';
-import {NextRouter, Router, useRouter} from "next/router";
-import {NextPageContext} from "next";
+import {setCookie} from 'nookies';
+import {NextRouter, useRouter} from "next/router";
+import {returnTo} from "../utils/navigation";
+import {ensureAuthed} from "../utils/auth";
 
 function login(event: SyntheticEvent, username: string, password: string, setErrors: Function, router: NextRouter) {
   event.preventDefault();
@@ -42,8 +43,7 @@ function login(event: SyntheticEvent, username: string, password: string, setErr
           });
         });
         setErrors([]);
-
-        router.push("/");
+        returnTo(router);
         return;
       }
       response.json().then(data => {
@@ -59,6 +59,7 @@ function LoginPage() {
 
   const [errors, setErrors] = useState([]);
   const router = useRouter();
+  ensureAuthed(null, "");
   return (<Layout title="Login | Diluv">
       <div className="container">
         <div className="pb-md-2 pt-md-3 text-center">
@@ -122,29 +123,5 @@ function LoginPage() {
     </Layout>
   );
 }
-
-LoginPage.getInitialProps = async (ctx: NextPageContext) => {
-  let cookies = parseCookies(ctx);
-  if (cookies["accessToken"]) {
-    let token = jwt<{ exp: number }>(cookies["accessToken"]);
-    let current_time = new Date().getTime() / 1000;
-    if (current_time > token.exp) {
-      destroyCookie(ctx, "username");
-      destroyCookie(ctx, "accessToken");
-    } else {
-      if (ctx.res) {
-        ctx.res.writeHead(302, {
-          Location: '/'
-        });
-        ctx.res.end()
-      } else {
-        // @ts-ignore
-        await Router.push('/');
-      }
-    }
-  }
-
-  return {}
-};
 
 export default LoginPage

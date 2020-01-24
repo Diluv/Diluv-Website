@@ -6,7 +6,6 @@ import {API_URL} from "../utils/api";
 import {post} from "../utils/request";
 
 function showErrors(errors: string[]) {
-  console.log(errors);
   return (<div>
     <h3 className={"text-center"}>Sorry, we couldn't verify your user!</h3>
     <h3 className={"text-center"}>Try click the link in your email again</h3>
