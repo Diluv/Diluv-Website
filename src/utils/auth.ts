@@ -18,7 +18,7 @@ export function ensureAuthed(ctx: NextPageContext | null | undefined, redirect =
         destroyCookie(ctx, "accessToken");
         if (redirect) {
           if (ctx && ctx.res) {
-            ctx.res.writeHead(302, {
+            ctx.res.writeHead(401, {
               Location: redirect
             });
             ctx.res.end()
@@ -31,7 +31,7 @@ export function ensureAuthed(ctx: NextPageContext | null | undefined, redirect =
     } else {
       if (redirect) {
         if (ctx && ctx.res) {
-          ctx.res.writeHead(302, {
+          ctx.res.writeHead(401, {
             Location: redirect
           });
           ctx.res.end()
