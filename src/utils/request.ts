@@ -14,13 +14,15 @@ function getRefreshToken() {
 }
 
 axios.interceptors.request.use(request => {
-  if (!request.url?.endsWith("v1/auth/refresh")) {
-    if (getAccessToken()) {
-      request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
-    }
-  } else {
-    if (getRefreshToken()) {
-      request.headers['Authorization'] = `Bearer ${getRefreshToken()}`;
+  if(!request.headers["Authorization"]) {
+    if (!request.url?.endsWith("v1/auth/refresh")) {
+      if (getAccessToken()) {
+        request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
+      }
+    } else {
+      if (getRefreshToken()) {
+        request.headers['Authorization'] = `Bearer ${getRefreshToken()}`;
+      }
     }
   }
   return request;
