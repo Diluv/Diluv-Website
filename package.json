@@ -6,6 +6,7 @@
     "next": "next",
     "apiserver": "nodemon mock/server.js",
     "build": "next build",
+    "dev": "next dev",
     "build:staging": "cross-env DOT_ENV=staging next build",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
