@@ -95,13 +95,10 @@ export function ensureAuthed(ctx: NextPageContext | null | undefined, redirect =
   useEffect(() => {
     let cookies = parseCookies(ctx);
 
-    console.log("refreshing");
-    console.log(hasValidAccessToken(ctx));
     if (!hasValidAccessToken(ctx)) {
 
       refresh(ctx);
     }
-    console.log(hasValidAccessToken(ctx));
     if(!hasValidAccessToken(ctx)){
       clearAuthCookies(ctx);
       if (redirect) {
