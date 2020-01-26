@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Layout from '../components/Layout'
 import {Container, Image, Row, Col} from 'react-bootstrap';
-import {ensureAuthed} from "../utils/auth";
+import {privateProps, requireAuth} from "../utils/auth";
 import {useEffect, useRef, useState} from "react";
 import {get} from "../utils/request";
 import {API_URL} from "../utils/api";
@@ -19,7 +19,6 @@ interface UserInfo {
 // @ts-ignore
 function ProfilePage() {
 
-  ensureAuthed(null, "/login?rt=/profile");
   const userInfo = useRef<UserInfo>({
     email: "loading...",
     mfa: false,
@@ -62,6 +61,8 @@ function ProfilePage() {
     </Layout>
   );
 }
+
+ProfilePage.getInitialProps = privateProps;
 
 
 export default ProfilePage
