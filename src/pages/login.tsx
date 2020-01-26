@@ -10,7 +10,6 @@ import jwt from 'jwt-decode'
 import {setCookie} from 'nookies';
 import {NextRouter, useRouter} from "next/router";
 import {returnTo} from "../utils/navigation";
-import {ensureAuthed} from "../utils/auth";
 
 function login(event: SyntheticEvent, username: string, password: string, setErrors: Function, router: NextRouter) {
   event.preventDefault();
@@ -59,7 +58,6 @@ function LoginPage() {
 
   const [errors, setErrors] = useState([]);
   const router = useRouter();
-  ensureAuthed(null, "");
   return (<Layout title="Login | Diluv">
       <div className="container">
         <div className="pb-md-2 pt-md-3 text-center">
