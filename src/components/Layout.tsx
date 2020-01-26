@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Head from 'next/head'
-import '../scss/index.scss';
 import diluv from '../../public/static/diluv.svg';
 import {Nav, Navbar} from 'react-bootstrap';
 import {destroyCookie, parseCookies} from 'nookies';
