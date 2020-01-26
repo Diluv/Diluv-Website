@@ -1,8 +1,6 @@
 import {destroyCookie, parseCookies, setCookie} from "nookies";
 import jwt from "jwt-decode";
-import {useRouter} from "next/router";
 import {NextPageContext} from "next";
-import {useEffect} from "react";
 import axios from "axios";
 import {API_URL} from "./api";
 
@@ -13,13 +11,18 @@ export function clearAuthCookies(ctx: NextPageContext | null | undefined) {
   destroyCookie(ctx, "refreshToken");
 }
 
-export function hasAccessToken(ctx: NextPageContext | null | undefined) {
+export function getAccessToken(ctx: NextPageContext | null | undefined) {
   let cookies = parseCookies(ctx);
   return cookies["accessToken"];
 }
 
+export function getRefreshToken(ctx: NextPageContext | null | undefined) {
+  let cookies = parseCookies(ctx);
+  return cookies["refreshToken"];
+}
+
 export function hasValidAccessToken(ctx: NextPageContext | null | undefined) {
-  if (!hasAccessToken(ctx)) {
+  if (!getAccessToken(ctx)) {
     return false;
   } else {
     let cookies = parseCookies(ctx);
@@ -29,46 +32,30 @@ export function hasValidAccessToken(ctx: NextPageContext | null | undefined) {
   }
 }
 
-export function refresh(ctx: NextPageContext | null | undefined) {
-  let cookies = parseCookies(ctx);
-  if (cookies["accessToken"]) {
-    let token = jwt<{ exp: number }>(cookies["accessToken"]);
+export function hasValidRefreshToken(ctx: NextPageContext | null | undefined) {
+  if (!getRefreshToken(ctx)) {
+    return false;
+  } else {
+    let cookies = parseCookies(ctx);
+    let token = jwt<{ exp: number }>(cookies["refreshToken"]);
     let current_time = new Date().getTime() / 1000;
-    if (current_time > token.exp) {
-      if (cookies["refreshToken"]) {
-        let refToken = jwt<{ exp: number }>(cookies["refreshToken"]);
-        if (current_time > refToken.exp) {
-          clearAuthCookies(ctx);
-        } else {
-          axios.post(API_URL + "/v1/auth/refresh", {}, {headers: {
-              "Authorization": "Bearer " + cookies["refreshToken"],
-              "asd": "dsa"
-            }}).then(resp => {
-            setCookie(ctx, "accessToken", resp.data.data.accessToken, {
-              expires: new Date(resp.data.data.expiredAt)
-            });
-            setCookie(ctx, "username", jwt<{ username: string }>(resp.data.data.accessToken)["username"], {
-              expires: new Date(resp.data.data.expiredAt)
-            });
-            setCookie(ctx, "refreshToken", resp.data.data.refreshToken, {
-              expires: new Date(resp.data.data.refreshExpiredAt)
-            });
-            return Promise.resolve();
-          }).catch(() => {
-            clearAuthCookies(ctx);
-          })
+    return current_time < token.exp;
+  }
+}
+
+export async function refresh(ctx: NextPageContext | null | undefined) {
+  // You can have a valid access token, but an invalid refresh token
+  if (hasValidAccessToken(ctx) && hasValidRefreshToken(ctx)) {
+    // Don't refresh if we don't need to
+    return Promise.resolve(true);
+  } else {
+    if (hasValidRefreshToken(ctx)) {
+      let refreshToken = getRefreshToken(ctx);
+      let refreshed = await axios.post(API_URL + "/v1/auth/refresh", {}, {
+        headers: {
+          "Authorization": "Bearer " + refreshToken,
         }
-      } else {
-        clearAuthCookies(ctx);
-      }
-    }
-  } else if (cookies["refreshToken"]) {
-    let refToken = jwt<{ exp: number }>(cookies["refreshToken"]);
-    let current_time = new Date().getTime() / 1000;
-    if (current_time > refToken.exp) {
-      clearAuthCookies(ctx);
-    } else {
-      axios.post(API_URL + "/v1/auth/refresh").then(resp => {
+      }).then(resp => {
         setCookie(ctx, "accessToken", resp.data.data.accessToken, {
           expires: new Date(resp.data.data.expiredAt)
         });
@@ -78,75 +65,49 @@ export function refresh(ctx: NextPageContext | null | undefined) {
         setCookie(ctx, "refreshToken", resp.data.data.refreshToken, {
           expires: new Date(resp.data.data.refreshExpiredAt)
         });
-        return Promise.resolve();
+        // We got a valid reply, cookies have been refreshed
+        return Promise.resolve(true);
       }).catch(() => {
+        // Error while refreshing, clear cookies (TODO this could be caused by the server being unreachable or from other issues such as invalid refresh tokens)
         clearAuthCookies(ctx);
-      })
+        return Promise.resolve(false);
+      });
+      return Promise.resolve(refreshed);
+    } else {
+      // If there is no refresh token, We can't refresh, clear the specific cookies
+      clearAuthCookies(ctx);
+      return Promise.resolve(false);
     }
-  } else {
-    clearAuthCookies(ctx);
   }
 
 }
 
+//TODO pages like login need "requireNotAuthed" just a matter of where to direct the user
+export function requireAuth(ctx: NextPageContext, redirectUrl = "/login") {
+  let url = "";
+  if (ctx.req && ctx.req.url) {
+    url = "?rt=" + ctx.req.url;
+  }
 
-export function ensureAuthed(ctx: NextPageContext | null | undefined, redirect = "/") {
-  const router = useRouter();
-  useEffect(() => {
-    let cookies = parseCookies(ctx);
-
-    if (!hasValidAccessToken(ctx)) {
-
-      refresh(ctx);
+  return refresh(ctx).then((refreshed): Promise<{}> | any => {
+    if (refreshed) {
+      return Promise.resolve({});
     }
-    if(!hasValidAccessToken(ctx)){
-      clearAuthCookies(ctx);
-      if (redirect) {
-        if (ctx && ctx.res) {
-          ctx.res.writeHead(401, {
-            Location: redirect
-          });
-          ctx.res.end()
-        } else if (router) {
-          // @ts-ignore
-          router.push(redirect);
-        }
-      }
+    if (ctx.res) {
+      // @ts-ignore
+      ctx.res.writeHead(302, {
+        Location: redirectUrl + url
+      });
+      return Promise.resolve(ctx.res.end());
     }
-    // if (cookies["accessToken"]) {
-    //   let token = jwt<{ exp: number }>(cookies["accessToken"]);
-    //   let current_time = new Date().getTime() / 1000;
-    //   if (current_time > token.exp) {
-    //     destroyCookie(ctx, "username");
-    //     destroyCookie(ctx, "accessToken");
-    //     if (redirect) {
-    //       if (ctx && ctx.res) {
-    //         ctx.res.writeHead(401, {
-    //           Location: redirect
-    //         });
-    //         ctx.res.end()
-    //       } else if (router) {
-    //         // @ts-ignore
-    //         router.push(redirect);
-    //       }
-    //     }
-    //   }
-    // } else {
-    //   if (redirect) {
-    //     if (ctx && ctx.res) {
-    //       ctx.res.writeHead(401, {
-    //         Location: redirect
-    //       });
-    //       ctx.res.end()
-    //     } else if (router) {
-    //
-    //       // @ts-ignore
-    //       router.push(redirect);
-    //     }
-    //   }
-    // }
-
+    return Promise.resolve({});
+  }).catch(() => {
+    return Promise.resolve({});
   });
 
-};
+}
+
+export function privateProps(ctx: NextPageContext) {
+  return requireAuth(ctx);
+}
 
