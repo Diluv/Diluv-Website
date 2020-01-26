@@ -28,18 +28,19 @@ function ProfilePage() {
   });
 
   const [, forceUpdate] = useState({});
-
+  const loadedData = useRef(false);
   useEffect(() => {
     get(API_URL + "/v1/users/me").then((value) => {
       userInfo.current = value.data.data;
+      loadedData.current = true;
       forceUpdate({});
     }).catch((Error: AxiosError) => {
       console.log(Error);
     });
   }, [userInfo]);
 
-  if (!userInfo.current) {
-    return <div></div>;
+  if (!loadedData) {
+    return <React.Fragment/>;
   }
   return (<Layout title="Profile | Diluv">
       <div className="container">
@@ -53,7 +54,7 @@ function ProfilePage() {
               <div className={"pt-4"}>
                 <h3>{userInfo.current["username"]}</h3>
                 <h3>{userInfo.current["email"]}</h3>
-                <h3>{userInfo.current["createdAt"]}</h3>
+                <h3>Member since: {new Date(userInfo.current["createdAt"]).toLocaleString()}</h3>
               </div>
             </Col>
           </Row>
