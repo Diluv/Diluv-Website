@@ -23,7 +23,7 @@ function ProfilePage() {
     email: "loading...",
     mfa: false,
     username: "loading...",
-    avatarURL: 'https://www.gravatar.com/avatar/00000000000000000000000000000000',
+    avatarURL: '',
     createdAt: 0
   });
 
@@ -46,7 +46,8 @@ function ProfilePage() {
         <Container className="pt-3">
           <Row>
             <Col md={3}>
-              <Image src={userInfo.current["avatarURL"]} roundedCircle width="100%"/>
+              {userInfo.current["avatarURL"] &&
+              <Image src={userInfo.current["avatarURL"]} roundedCircle width="100%"/>}
             </Col>
             <Col md={9}>
               <div className={"pt-4"}>
