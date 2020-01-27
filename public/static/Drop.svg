@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+     width="101.76px" height="195.6px" viewBox="0 0 101.76 195.6" enable-background="new 0 0 101.76 195.6" xml:space="preserve">
+	<polyline fill="#3AFFFF" points="53.271,64.581 46.458,58.94 50.724,33.706" shape-rendering="crispEdges"/>
+    <polyline fill="#38DDF8" points="60.599,60.425 50.724,33.706 53.271,64.581" shape-rendering="crispEdges"/>
+    <polyline fill="#2BAAC0" points="60.599,60.425 59.88,95.331 40.896,108.253" shape-rendering="crispEdges"/>
+    <polyline fill="#2CE2FA" points="53.271,64.581 60.599,60.425 40.896,108.253" shape-rendering="crispEdges"/>
+    <polyline fill="#30C0D8" points="24.099,105.487 40.896,108.253 53.271,64.581" shape-rendering="crispEdges"/>
+    <polyline fill="#33E4FF" points="53.271,64.581 46.458,58.94 11.177,104.05 24.099,105.487" shape-rendering="crispEdges"/>
+    <polyline fill="#26EAFF" points="24.099,105.487 11.177,104.05 0.271,136.931 24.567,138.144" shape-rendering="crispEdges"/>
+    <polyline fill="#26C8E2" points="24.099,105.487 40.896,108.253 24.567,138.144" shape-rendering="crispEdges"/>
+    <polyline fill="#26A1B6" points="24.567,138.144 45.567,126.175 40.896,108.253" shape-rendering="crispEdges"/>
+    <polyline fill="#26C9E1" points="59.88,95.331 40.896,108.253 45.567,126.175" shape-rendering="crispEdges"/>
+    <polyline fill="#21C3DD" points="45.567,126.175 57.089,130.092 59.88,95.331" shape-rendering="crispEdges"/>
+    <polyline fill="#188A9E" points="57.089,130.092 45.567,126.175 55.317,170.737" shape-rendering="crispEdges"/>
+    <polyline fill="#17D2ED" points="45.567,126.175 24.567,138.144 55.317,170.737" shape-rendering="crispEdges"/>
+    <polyline fill="#1C9DB3" points="24.567,138.144 0.271,136.931 0.067,137.487 14.546,179.925" shape-rendering="crispEdges"/>
+    <polyline fill="#25B2C9" points="55.317,170.737 14.546,179.925 24.567,138.144" shape-rendering="crispEdges"/>
+    <polyline fill="#13889C" points="55.317,170.737 14.546,179.925 53.942,195.175" shape-rendering="crispEdges"/>
+    <polyline fill="#135C6A" points="96.396,174.112 55.317,170.737 53.942,195.175" shape-rendering="crispEdges"/>
+    <polyline fill="#12C9E4" points="91.052,140.362 55.317,170.737 96.396,174.112" shape-rendering="crispEdges"/>
+    <polyline fill="#16899E" points="91.052,140.362 96.396,174.112 101.286,140.128" shape-rendering="crispEdges"/>
+    <polyline fill="#189BB1" points="55.317,170.737 57.089,130.092 91.052,140.362" shape-rendering="crispEdges"/>
+    <polyline fill="#19ADC6" points="67.317,120.425 57.089,130.092 91.052,140.362" shape-rendering="crispEdges"/>
+    <polyline fill="#218192" points="57.089,130.092 67.317,120.425 59.88,95.331" shape-rendering="crispEdges"/>
+    <polyline fill="#1F8EA1" points="91.052,140.362 70.775,95.55 67.317,120.425" shape-rendering="crispEdges"/>
+    <polyline fill="#22B1C8" points="70.775,95.55 59.88,95.331 67.317,120.425" shape-rendering="crispEdges"/>
+    <polyline fill="#2993A6" points="59.88,95.331 75.161,68.456 70.775,95.55" shape-rendering="crispEdges"/>
+    <polyline fill="#2FA5B9" points="78.442,90.894 70.775,95.55 75.161,68.456" shape-rendering="crispEdges"/>
+    <polyline fill="#179AB1" points="101.286,140.128 91.052,140.362 70.775,95.55" shape-rendering="crispEdges"/>
+    <polyline fill="#19798A" points="70.775,95.55 78.442,90.894 101.286,140.128" shape-rendering="crispEdges"/>
+    <polyline fill="#409DAE" points="52.177,14.769 61.052,31.112 64.192,13.347" shape-rendering="crispEdges"/>
+    <polygon fill="#49F9FF" points="57.958,0.128 52.177,14.769 64.192,13.347" shape-rendering="crispEdges"/>
+</svg>
