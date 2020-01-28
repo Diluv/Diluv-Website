@@ -1,11 +1,7 @@
 import * as React from 'react'
 import Layout from '../components/Layout'
-import {Alert, Button, Card, Col, Container, Form} from 'react-bootstrap';
 import {API_URL} from "../utils/api";
 import {SyntheticEvent, useState} from "react";
-import Popover from "react-bootstrap/Popover";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Row from "react-bootstrap/Row";
 import Link from "next/link";
 import {post} from "../utils/request";
 import {destroyCookie, parseCookies} from "nookies";
@@ -103,16 +99,16 @@ function handleChange(event: React.ChangeEvent<HTMLInputElement>, field: InputFi
 
 
 function getPopover(title: string, content: JSX.Element[]) {
-  return (
-    <Popover id="popover-basic">
-      <Popover.Title as="h3">{title}</Popover.Title>
-      <Popover.Content>
-        {content.map(val => {
-          return val;
-        })}
-      </Popover.Content>
-    </Popover>
-  );
+  // return (
+  //   <Popover id="popover-basic">
+  //     <Popover.Title as="h3">{title}</Popover.Title>
+  //     <Popover.Content>
+  //       {content.map(val => {
+  //         return val;
+  //       })}
+  //     </Popover.Content>
+  //   </Popover>
+  // );
 }
 
 function fillRequirements(field: InputField): JSX.Element[] {
@@ -138,27 +134,27 @@ function renderPostRegister() {
         <div className="pb-md-2 pt-md-3 text-center">
           <h1>Register</h1>
         </div>
-        <Container>
-          <Row className={"justify-content-md-center"}>
-            <Col md={4}>
-              <Card bg={getTheme()}>
-                <Card.Body>
-                  <Card.Title>Email Verification</Card.Title>
-                  <Card.Text>
-                    You should have received an email with a verification link.
-                  </Card.Text>
-                  <Card.Text>
-                    if you don't see it, check your spam folder
-                  </Card.Text>
-                  <Card.Text>
-                    {/*TODO send request for email*/}
-                    <Button block>Send Again</Button>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+        {/*<Container>*/}
+        {/*  <Row className={"justify-content-md-center"}>*/}
+        {/*    <Col md={4}>*/}
+        {/*      <Card bg={getTheme()}>*/}
+        {/*        <Card.Body>*/}
+        {/*          <Card.Title>Email Verification</Card.Title>*/}
+        {/*          <Card.Text>*/}
+        {/*            You should have received an email with a verification link.*/}
+        {/*          </Card.Text>*/}
+        {/*          <Card.Text>*/}
+        {/*            if you don't see it, check your spam folder*/}
+        {/*          </Card.Text>*/}
+        {/*          <Card.Text>*/}
+        {/*            /!*TODO send request for email*!/*/}
+        {/*            <Button block>Send Again</Button>*/}
+        {/*          </Card.Text>*/}
+        {/*        </Card.Body>*/}
+        {/*      </Card>*/}
+        {/*    </Col>*/}
+        {/*  </Row>*/}
+        {/*</Container>*/}
       </div>
     </Layout>
   );
@@ -179,114 +175,114 @@ function RegisterPage({fields}) {
         <div className="pb-md-2 pt-md-3 text-center">
           <h1>Register</h1>
         </div>
-        <Container>
-          {errors.length != 0 &&
-          <Row className={"justify-content-md-center"}>
-            <Col md={8}>
-              <Alert variant={"danger"}>
-                {errors}
-              </Alert>
-            </Col>
-          </Row>
-          }
-          <Form onSubmit={(e: SyntheticEvent) => register(e, fields, setErrors, setPostRegister)}>
-            <Form.Row className={"justify-content-md-center"}>
-              <Col md={4}>
-                <Form.Group controlId="usernameId">
-                  <Form.Label>Username</Form.Label>
-                  <OverlayTrigger trigger="focus" placement="top-start"
-                                  overlay={getPopover(fields["username"]["displayName"], fillRequirements(fields["username"]))}>
-                    <Form.Control
-                      type={fields["username"]["type"]}
-                      name={fields["username"]["name"]}
-                      defaultValue={fields["username"]["value"]}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["username"], fields, forceUpdate)}
-                      isValid={fields["username"]["isValid"]}
-                      minLength={fields["username"]["minLength"]}
-                      maxLength={fields["username"]["maxLength"]}
-                    />
-                  </OverlayTrigger>
-                </Form.Group>
-              </Col>
-              <Col md={4}>
-                <Form.Group controlId="emailId">
-                  <Form.Label>Email</Form.Label>
-                  <OverlayTrigger trigger="focus" placement="top-start"
-                                  overlay={getPopover(fields["email"]["displayName"], fillRequirements(fields["email"]))}>
-                    <Form.Control
-                      type={fields["email"]["type"]}
-                      name={fields["email"]["type"]}
-                      defaultValue={fields["email"]["value"]}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["email"], fields, forceUpdate)}
-                      isValid={fields["email"]["isValid"]}
-                      data-tip="hello world"
-                      data-event='click focus'
-                    />
-                  </OverlayTrigger>
-                </Form.Group>
-              </Col>
-            </Form.Row>
-            <Form.Row className={"justify-content-md-center"}>
-              <Col md={4}>
-                <Form.Group controlId="passwordId">
-                  <Form.Label>Password</Form.Label>
-                  <OverlayTrigger trigger="focus" placement="top-start"
-                                  overlay={getPopover(fields["password"]["displayName"], fillRequirements(fields["password"]))}>
-                    <Form.Control
-                      type={fields["password"]["type"]}
-                      name={fields["password"]["name"]}
-                      defaultValue={fields["password"]["value"]}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["password"], fields, forceUpdate)}
-                      isValid={fields["password"]["isValid"]}
-                      minLength={fields["password"]["minLength"]}
-                      maxLength={fields["password"]["maxLength"]}
-                    />
-                  </OverlayTrigger>
-                </Form.Group>
-              </Col>
-              <Col md={4}>
-                <Form.Group controlId="passwordConfirmId">
-                  <Form.Label>Password Confirmation</Form.Label>
-                  <OverlayTrigger trigger="focus" placement="top-start"
-                                  overlay={getPopover(fields["passwordConfirm"]["displayName"], fillRequirements(fields["passwordConfirm"]))}>
-                    <Form.Control
-                      type={fields["passwordConfirm"]["type"]}
-                      name={fields["passwordConfirm"]["type"]}
-                      defaultValue={fields["passwordConfirm"]["value"]}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["passwordConfirm"], fields, forceUpdate)}
-                      isValid={fields["passwordConfirm"]["isValid"]}
-                      minLength={fields["passwordConfirm"]["minLength"]}
-                      maxLength={fields["passwordConfirm"]["maxLength"]}
-                    />
-                  </OverlayTrigger>
-                </Form.Group>
-              </Col>
-            </Form.Row>
-            <Form.Row className={"justify-content-md-center"}>
-              <Col md={4} className={"text-center"}>
-                <Form.Check
-                  required
-                  name={fields["terms"]["name"]}
-                  label="Agree to terms and conditions"
-                  defaultChecked={fields["terms"]["value"] === "true"}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["terms"], fields, forceUpdate)}
-                  id="terms"
-                >
-                </Form.Check>
-              </Col>
-            </Form.Row>
-            <Form.Row className={"justify-content-md-center pt-2"}>
-              <Col md={4}>
-                <Button type="submit" disabled={!allValid(fields)} block>Register</Button>
-              </Col>
-            </Form.Row>
-          </Form>
-          <Row className={"justify-content-md-center pt-2"}>
-            <Col md={4}>
-              <p className={"text-center"}>Already have an account? <Link href={"/login"}><a>Login!</a></Link></p>
-            </Col>
-          </Row>
-        </Container>
+        {/*<Container>*/}
+        {/*  {errors.length != 0 &&*/}
+        {/*  <Row className={"justify-content-md-center"}>*/}
+        {/*    <Col md={8}>*/}
+        {/*      <Alert variant={"danger"}>*/}
+        {/*        {errors}*/}
+        {/*      </Alert>*/}
+        {/*    </Col>*/}
+        {/*  </Row>*/}
+        {/*  }*/}
+        {/*  <Form onSubmit={(e: SyntheticEvent) => register(e, fields, setErrors, setPostRegister)}>*/}
+        {/*    <Form.Row className={"justify-content-md-center"}>*/}
+        {/*      <Col md={4}>*/}
+        {/*        <Form.Group controlId="usernameId">*/}
+        {/*          <Form.Label>Username</Form.Label>*/}
+        {/*          <OverlayTrigger trigger="focus" placement="top-start"*/}
+        {/*                          overlay={getPopover(fields["username"]["displayName"], fillRequirements(fields["username"]))}>*/}
+        {/*            <Form.Control*/}
+        {/*              type={fields["username"]["type"]}*/}
+        {/*              name={fields["username"]["name"]}*/}
+        {/*              defaultValue={fields["username"]["value"]}*/}
+        {/*              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["username"], fields, forceUpdate)}*/}
+        {/*              isValid={fields["username"]["isValid"]}*/}
+        {/*              minLength={fields["username"]["minLength"]}*/}
+        {/*              maxLength={fields["username"]["maxLength"]}*/}
+        {/*            />*/}
+        {/*          </OverlayTrigger>*/}
+        {/*        </Form.Group>*/}
+        {/*      </Col>*/}
+        {/*      <Col md={4}>*/}
+        {/*        <Form.Group controlId="emailId">*/}
+        {/*          <Form.Label>Email</Form.Label>*/}
+        {/*          <OverlayTrigger trigger="focus" placement="top-start"*/}
+        {/*                          overlay={getPopover(fields["email"]["displayName"], fillRequirements(fields["email"]))}>*/}
+        {/*            <Form.Control*/}
+        {/*              type={fields["email"]["type"]}*/}
+        {/*              name={fields["email"]["type"]}*/}
+        {/*              defaultValue={fields["email"]["value"]}*/}
+        {/*              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["email"], fields, forceUpdate)}*/}
+        {/*              isValid={fields["email"]["isValid"]}*/}
+        {/*              data-tip="hello world"*/}
+        {/*              data-event='click focus'*/}
+        {/*            />*/}
+        {/*          </OverlayTrigger>*/}
+        {/*        </Form.Group>*/}
+        {/*      </Col>*/}
+        {/*    </Form.Row>*/}
+        {/*    <Form.Row className={"justify-content-md-center"}>*/}
+        {/*      <Col md={4}>*/}
+        {/*        <Form.Group controlId="passwordId">*/}
+        {/*          <Form.Label>Password</Form.Label>*/}
+        {/*          <OverlayTrigger trigger="focus" placement="top-start"*/}
+        {/*                          overlay={getPopover(fields["password"]["displayName"], fillRequirements(fields["password"]))}>*/}
+        {/*            <Form.Control*/}
+        {/*              type={fields["password"]["type"]}*/}
+        {/*              name={fields["password"]["name"]}*/}
+        {/*              defaultValue={fields["password"]["value"]}*/}
+        {/*              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["password"], fields, forceUpdate)}*/}
+        {/*              isValid={fields["password"]["isValid"]}*/}
+        {/*              minLength={fields["password"]["minLength"]}*/}
+        {/*              maxLength={fields["password"]["maxLength"]}*/}
+        {/*            />*/}
+        {/*          </OverlayTrigger>*/}
+        {/*        </Form.Group>*/}
+        {/*      </Col>*/}
+        {/*      <Col md={4}>*/}
+        {/*        <Form.Group controlId="passwordConfirmId">*/}
+        {/*          <Form.Label>Password Confirmation</Form.Label>*/}
+        {/*          <OverlayTrigger trigger="focus" placement="top-start"*/}
+        {/*                          overlay={getPopover(fields["passwordConfirm"]["displayName"], fillRequirements(fields["passwordConfirm"]))}>*/}
+        {/*            <Form.Control*/}
+        {/*              type={fields["passwordConfirm"]["type"]}*/}
+        {/*              name={fields["passwordConfirm"]["type"]}*/}
+        {/*              defaultValue={fields["passwordConfirm"]["value"]}*/}
+        {/*              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["passwordConfirm"], fields, forceUpdate)}*/}
+        {/*              isValid={fields["passwordConfirm"]["isValid"]}*/}
+        {/*              minLength={fields["passwordConfirm"]["minLength"]}*/}
+        {/*              maxLength={fields["passwordConfirm"]["maxLength"]}*/}
+        {/*            />*/}
+        {/*          </OverlayTrigger>*/}
+        {/*        </Form.Group>*/}
+        {/*      </Col>*/}
+        {/*    </Form.Row>*/}
+        {/*    <Form.Row className={"justify-content-md-center"}>*/}
+        {/*      <Col md={4} className={"text-center"}>*/}
+        {/*        <Form.Check*/}
+        {/*          required*/}
+        {/*          name={fields["terms"]["name"]}*/}
+        {/*          label="Agree to terms and conditions"*/}
+        {/*          defaultChecked={fields["terms"]["value"] === "true"}*/}
+        {/*          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, fields["terms"], fields, forceUpdate)}*/}
+        {/*          id="terms"*/}
+        {/*        >*/}
+        {/*        </Form.Check>*/}
+        {/*      </Col>*/}
+        {/*    </Form.Row>*/}
+        {/*    <Form.Row className={"justify-content-md-center pt-2"}>*/}
+        {/*      <Col md={4}>*/}
+        {/*        <Button type="submit" disabled={!allValid(fields)} block>Register</Button>*/}
+        {/*      </Col>*/}
+        {/*    </Form.Row>*/}
+        {/*  </Form>*/}
+        {/*  <Row className={"justify-content-md-center pt-2"}>*/}
+        {/*    <Col md={4}>*/}
+        {/*      <p className={"text-center"}>Already have an account? <Link href={"/login"}><a>Login!</a></Link></p>*/}
+        {/*    </Col>*/}
+        {/*  </Row>*/}
+        {/*</Container>*/}
 
       </div>
     </Layout>

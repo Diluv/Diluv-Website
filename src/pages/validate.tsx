@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Layout from '../components/Layout'
-import {Container} from 'react-bootstrap';
 import {NextPageContext} from "next/dist/next-server/lib/utils";
 import {API_URL} from "../utils/api";
 import {post} from "../utils/request";
@@ -22,9 +21,9 @@ function RegisterPage({valid, hasEmail, hasCode, errors}) {
         <div className="pb-md-2 pt-md-3 text-center">
           <h1>Validation {valid && hasEmail && hasCode ? "Complete!" : "Failed!"}</h1>
         </div>
-        <Container>
-          {errors && errors.length > 0 && showErrors(errors)}
-        </Container>
+        {/*<Container>*/}
+        {/*  {errors && errors.length > 0 && showErrors(errors)}*/}
+        {/*</Container>*/}
       </div>
     </Layout>
   );

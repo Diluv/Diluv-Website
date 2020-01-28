@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {Media, Tab, Tabs} from 'react-bootstrap';
 import ProjectOverviewComponent from './ProjectOverviewComponent';
 import Router from 'next/router'
 import ProjectFilesComponent from "./ProjectFilesComponent";
@@ -24,31 +23,31 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
                                                           }) =>
   (
     <div className="container pt-md-5">
-      <Media>
-        <img className="mr-3" src={project.logoUrl} alt={`${project.name} Logo`}/>
-        <Media.Body>
-          <h2>{project.name}</h2>
-          {project.summary}
-        </Media.Body>
-      </Media>
-      <Tabs activeKey={activeKey} id={"project"}
-            onSelect={(eventKey: string) => {
-              if (eventKey === "overview")
-                Router.push(`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}`);
-              else
-                Router.push(`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/${eventKey}`)
-            }}>
-        <Tab eventKey="overview" title="Overview">
-          <ProjectOverviewComponent description={project.description}/>
-        </Tab>
-        <Tab eventKey="files" title="Files">
-          {projectFiles && <ProjectFilesComponent projectFiles={projectFiles}/>}
-        </Tab>
-        <Tab eventKey="issues" title="Issues">
-        </Tab>
-        <Tab eventKey="source" title="Source">
-        </Tab>
-      </Tabs>
+      {/*<Media>*/}
+      {/*  <img className="mr-3" src={project.logoUrl} alt={`${project.name} Logo`}/>*/}
+      {/*  <Media.Body>*/}
+      {/*    <h2>{project.name}</h2>*/}
+      {/*    {project.summary}*/}
+      {/*  </Media.Body>*/}
+      {/*</Media>*/}
+      {/*<Tabs activeKey={activeKey} id={"project"}*/}
+      {/*      onSelect={(eventKey: string) => {*/}
+      {/*        if (eventKey === "overview")*/}
+      {/*          Router.push(`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}`);*/}
+      {/*        else*/}
+      {/*          Router.push(`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/${eventKey}`)*/}
+      {/*      }}>*/}
+      {/*  <Tab eventKey="overview" title="Overview">*/}
+      {/*    <ProjectOverviewComponent description={project.description}/>*/}
+      {/*  </Tab>*/}
+      {/*  <Tab eventKey="files" title="Files">*/}
+      {/*    {projectFiles && <ProjectFilesComponent projectFiles={projectFiles}/>}*/}
+      {/*  </Tab>*/}
+      {/*  <Tab eventKey="issues" title="Issues">*/}
+      {/*  </Tab>*/}
+      {/*  <Tab eventKey="source" title="Source">*/}
+      {/*  </Tab>*/}
+      {/*</Tabs>*/}
     </div>
   );
 
