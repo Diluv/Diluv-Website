@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import Drop from "../components/Drop"
 import DropDown, {DropDownItem, DropDownSpacer} from "./Dropdown";
+import Link from "next/link";
 
 function NavHead() {
 
-  const [showMenu, setShowMenu] = useState(true);
-  return (<nav className={"flex items-center justify-between flex-wrap bg-blue-500 px-4 py-1 h-16"}>
+  const [showMenu, setShowMenu] = useState(false);
+  return (<nav className={"flex items-center justify-between flex-wrap bg-blue-500 px-4 py-1"}>
     <div className="flex items-center flex-shrink-0 text-white mr-6">
       <Drop className={"fill-current text-red-500 hover:text-teal-500"} height={"54px"} width={"27px"}/>
       <span className="text-xl tracking-tight pl-2 font-hero">diluv</span>
@@ -20,34 +21,13 @@ function NavHead() {
         </svg>
       </button>
     </div>
-    {/*{showMenu && <div className={"block lg:hidden"}>*/}
-
-    {/*  <div className={"flex flex-row "}>*/}
-    {/*    <div className={"px-4 "}>*/}
-    {/*      asd*/}
-    {/*    </div>*/}
-    {/*    <div className={"px-4 "}>*/}
-    {/*      dsa*/}
-    {/*    </div>*/}
-    {/*    <div className={"px-4 "}>*/}
-    {/*      fgh*/}
-    {/*    </div>*/}
-    {/*  </div>*/}
-
-    {/*</div>}*/}
-    <div className="w-full block flex-grow md:flex md:items-center md:w-auto">
+    <div className={"w-full block flex-grow md:flex md:items-center md:w-auto" + (showMenu ? "" : " hidden")}>
       <div className="text-sm md:flex-grow">
-        <a href="#responsive-header" className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4">
-          Home
-        </a>
-        <a href="#responsive-header" className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4">
-          Games
-        </a>
-        <a href="#responsive-header" className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white">
-          News
-        </a>
+        <Link href={"/"}><p className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer">Home</p></Link>
+        <Link href={"/games"}><p className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer">Games</p></Link>
+        <Link href={"/news"}><p className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer">News</p></Link>
       </div>
-      <div>
+      <div className="block mt-4 md:inline-block">
         <DropDown name={"Account"} className={"text-teal-200"}>
           <DropDownItem>
             <a href={"/register"} className={"no-underline"}>Sign Up</a>
