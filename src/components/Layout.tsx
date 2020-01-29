@@ -29,20 +29,20 @@ const Layout: React.FunctionComponent<Props> = ({
   if (!updated.current) {
     return <div></div>;
   }
-  document.body.className = theme === "dark" ? "theme-dark" : "theme-light";
+  document.body.className = "flex flex-col min-h-screen " + (theme === "dark" ? "theme-dark" : "theme-light");
   return (<React.Fragment>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8"/>
       <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     </Head>
-    <header>
+    <header className={"items-start"}>
       <NavHead/>
     </header>
-    <div className={"content " + (theme === "dark" ? "theme-dark" : "theme-light")}>
+    <div className={"flex-grow " + (theme === "dark" ? "theme-dark" : "theme-light")}>
       {children}
     </div>
-    <footer className={"pt-4 py-md-5 pt-md-5 border-top footer"}>
+    <footer className={"pt-4 py-md-5 pt-md-5 border-top"}>
       <div className={"container"}>
         <div className="row">
           <div className="col-12 col-md">
