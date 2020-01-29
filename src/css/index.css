@@ -5,24 +5,17 @@
 @tailwind utilities;
 
 .theme-dark {
-    background-color: rgb(43, 43, 43);
-    color: rgb(169, 183, 198);
+  background-color: rgb(43, 43, 43);
+  color: rgb(169, 183, 198);
 }
 
 .theme-light {
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-}
-
-.content {
-    min-height: 70vh; /* will cover the 100% of viewport */
-    overflow: hidden;
-    display: block;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .footer {
-    bottom: 0;
-    width: 100%;
+//bottom: 0; width: 100%;
 }
 
 .font-hero {
