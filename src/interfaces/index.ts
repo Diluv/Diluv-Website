@@ -35,3 +35,14 @@ export type ProjectFiles = {
   createdAt: number,
   updatedAt: number,
 }
+
+export type BlogPost = {
+	
+	title: string
+	summary: string
+	createdAt: string
+	updatedAt: string
+	path: string
+	author: string
+	authorPath: string
+}
