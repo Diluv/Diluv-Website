@@ -27,7 +27,7 @@ function NavHead() {
         <Link href={"/games"}><p className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer">Games</p></Link>
         <Link href={"/news"}><p className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer">News</p></Link>
       </div>
-      <div className="block mt-4 md:inline-block">
+      <div className="block md:inline-block">
         <DropDown name={"Account"} className={"text-teal-200"}>
           <DropDownItem>
             <a href={"/register"} className={"no-underline"}>Sign Up</a>
@@ -38,8 +38,6 @@ function NavHead() {
         </DropDown>
       </div>
     </div>
-
-
   </nav>);
 }
 
