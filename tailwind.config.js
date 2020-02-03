@@ -1,9 +1,36 @@
 module.exports = {
-  theme: {
-    extend: {}
-  },
-  variants: {
-      fill: ['responsive', 'hover'],
-  },
-  plugins: []
+    theme: {
+        extend: {
+            spinner: (theme) => ({
+                default: {
+                    color: '#dae1e7', // color you want to make the spinner
+                    size: '1em', // size of the spinner (used for both width and height)
+                    border: '2px', // border-width of the spinner (shouldn't be bigger than half the spinner's size)
+                    speed: '750ms', // the speed at which the spinner should rotate
+                },
+            }),
+            colors: {
+                'diluv': {
+                    100: '#ECF6FC',
+                    200: '#CFE9F8',
+                    300: '#B1DBF4',
+                    400: '#77C1EC',
+                    500: '#3DA6E4',
+                    600: '#3795CD',
+                    700: '#256489',
+                    800: '#1B4B67',
+                    900: '#123244',
+                },
+            }
+        }
+    },
+    variants: {
+        fill: ['responsive', 'hover'],
+        spinner: ['responsive'],
+
+    },
+    plugins: [
+        require('tailwindcss-elevation')(['responsive']),
+        require('tailwindcss-spinner')()
+    ]
 }
