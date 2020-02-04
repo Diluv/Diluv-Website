@@ -1,9 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Head from 'next/head'
-import diluv from '../../public/static/diluv.svg';
-// import {Nav, Navbar} from 'react-bootstrap';
-import {destroyCookie, parseCookies} from 'nookies';
-// import Dropdown from "react-bootstrap/Dropdown";
 import {getTheme, toggleTheme} from '../utils/theme';
 import NavHead from "./NavHead";
 import Footer from "./Footer";
@@ -23,28 +19,27 @@ const Layout: React.FunctionComponent<Props> = ({
   useEffect(() => {
     setTheme(getTheme());
     forceUpdate({});
-
     updated.current = true;
   }, [theme]);
 
   if (!updated.current) {
     return <div></div>;
   }
-  document.body.className = "min-h-screen flex flex-col " + (theme === "dark" ? "theme-dark" : "theme-light");
-  return (<React.Fragment>
+  document.body.className = (theme === "dark" ? "theme-dark" : "theme-light");
+  return (<div className={"min-h-100vh flex flex-col"}>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8"/>
       <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     </Head>
-    <header className={"items-start"}>
-      <NavHead/>
+    <header className={""}>
+      <NavHead toggleTheme={toggleTheme} setTheme={setTheme}/>
     </header>
-    <div className={"flex-grow min-h-70vh " + (theme === "dark" ? "theme-dark" : "theme-light")}>
-        {children}
-    </div>
+    <main className={"flex-grow " + (theme === "dark" ? "theme-dark" : "theme-light")}>
+      {children}
+    </main>
     <Footer/>
-  </React.Fragment>);
+  </div>);
 }
 
 export default Layout

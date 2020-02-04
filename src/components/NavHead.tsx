@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import Drop from "../components/Drop"
-import DropDown, {DropDownItem, DropDownLink, DropDownSpacer} from "./Dropdown";
+import DropDown, {DropDownAction, DropDownItem, DropDownLink, DropDownSpacer} from "./Dropdown";
 import Link from "next/link";
+import {setTheme, toggleTheme} from "../utils/theme";
 
-function NavHead() {
+function NavHead(props: { toggleTheme: Function, setTheme: Function }) {
 
   const [showMenu, setShowMenu] = useState(false);
   return (<nav className={"flex items-center justify-between flex-wrap bg-diluv-500 px-4 py-1"}>
@@ -29,12 +30,18 @@ function NavHead() {
       </div>
       <div className="block mt-4 md:mt-0 md:inline-block">
         <DropDown name={"Account"} className={"text-teal-200 hover:text-white"}>
-          <DropDownLink className={"hover:bg-gray-400"} href={"/register"}>
+          <DropDownLink href={"/register"}>
             <p>Sign Up</p>
           </DropDownLink>
-          <DropDownLink className={"hover:bg-gray-400"} href={"/login"}>
+          <DropDownLink href={"/login"}>
             <p>Sign In</p>
           </DropDownLink>
+          <DropDownSpacer/>
+          <DropDownAction action={() => {
+            props.setTheme(toggleTheme());
+          }}>
+            Change Theme
+          </DropDownAction>
         </DropDown>
       </div>
     </div>
