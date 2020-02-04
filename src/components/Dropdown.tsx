@@ -13,7 +13,7 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
             <p className={"cursor-pointer "} onClick={() => setIsComponentVisible(!isComponentVisible)}>{props.name}</p>
         </div>
         <div
-            className={"fixed block bg-white mr-4  md:right-0 left-auto sm:inset-x-0 md:inset-auto" + (isComponentVisible ? "" : " hidden")}>
+            className={"absolute block bg-white mr-4  md:right-0 left-auto sm:inset-x-0 md:inset-auto bg-gray-300" + (isComponentVisible ? "" : " hidden")}>
             {props.children}
         </div>
     </div>);
@@ -27,14 +27,22 @@ export function DropDownItem(props: { children: ReactNode, className?: string })
 
 export function DropDownLink(props: { children: ReactNode, className?: string, href: string }) {
     return <a href={props.href}>
-        <div className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2"}>
+        <div className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 hover:bg-gray-400"}>
             {props.children}
         </div>
     </a>
 }
 
+export function DropDownAction(props: { children: ReactNode, className?: string, action: Function }) {
+  return <div onClick={(e) => props.action(e)}>
+    <div className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 cursor-pointer hover:bg-gray-400"}>
+      {props.children}
+    </div>
+  </div>
+}
+
 export function DropDownSpacer() {
-    return <div className={"border-black-300 border-b"}/>
+    return <div className={"border-gray-400 border-b"}/>
 }
 
 function useComponentVisible(initialIsVisible: false) {
