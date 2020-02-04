@@ -1,9 +1,9 @@
 module.exports = {
     theme: {
         minHeight: {
-            '0vh': '0',
-            '25vh': '25%',
-            '50vh': '50%',
+            '0vh': '0vh',
+            '25vh': '25vh',
+            '50vh': '50vh',
             '70vh': '70vh',
             '100vh': '100vh',
         },
