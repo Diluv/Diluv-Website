@@ -30,7 +30,7 @@ const Layout: React.FunctionComponent<Props> = ({
   if (!updated.current) {
     return <div></div>;
   }
-  document.body.className = "flex flex-col min-h-screen " + (theme === "dark" ? "theme-dark" : "theme-light");
+  document.body.className = "min-h-screen flex flex-col " + (theme === "dark" ? "theme-dark" : "theme-light");
   return (<React.Fragment>
     <Head>
       <title>{title}</title>
@@ -40,8 +40,8 @@ const Layout: React.FunctionComponent<Props> = ({
     <header className={"items-start"}>
       <NavHead/>
     </header>
-    <div className={"flex-grow " + (theme === "dark" ? "theme-dark" : "theme-light")}>
-      {children}
+    <div className={"flex-grow min-h-70vh " + (theme === "dark" ? "theme-dark" : "theme-light")}>
+        {children}
     </div>
     <Footer/>
   </React.Fragment>);

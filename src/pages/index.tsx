@@ -40,7 +40,7 @@ const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
       </React.Fragment>
     ))}
 
-    <div className="container">
+    <div className="">
       {(games && games.length > 0 && (
         <React.Fragment>
           <h2 className="text-center pt-md-5">Games</h2>
@@ -61,7 +61,7 @@ const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
     {
       // Don't show if logged in
       true && (
-        <div className="container">
+        <div className="">
           <div className="text-center">
             <h2>Diluv Account</h2>
             <div className="row">

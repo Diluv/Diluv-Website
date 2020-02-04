@@ -8,7 +8,7 @@ function NavHead() {
   const [showMenu, setShowMenu] = useState(false);
   return (<nav className={"flex items-center justify-between flex-wrap bg-diluv-500 px-4 py-1"}>
     <div className="flex items-center flex-shrink-0 text-white mr-6">
-      <Drop className={""} height={"54px"} width={"27px"}/>
+      <Drop height={"50px"} width={"25px"}/>
       <span className="text-xl tracking-tight pl-2 font-hero">diluv</span>
     </div>
     <div className="block md:hidden">

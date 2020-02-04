@@ -1,5 +1,12 @@
 module.exports = {
     theme: {
+        minHeight: {
+            '0vh': '0',
+            '25vh': '25%',
+            '50vh': '50%',
+            '70vh': '70vh',
+            '100vh': '100vh',
+        },
         extend: {
             spinner: (theme) => ({
                 default: {
@@ -21,7 +28,8 @@ module.exports = {
                     800: '#1B4B67',
                     900: '#123244',
                 },
-            }
+            },
+
         }
     },
     variants: {
