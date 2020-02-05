@@ -38,7 +38,7 @@ const Layout: React.FunctionComponent<Props> = ({
     <main className={"flex-grow " + (theme === "dark" ? "theme-dark" : "theme-light")}>
       {children}
     </main>
-    <Footer/>
+    <Footer themeClass={theme}/>
   </div>);
 }
 
