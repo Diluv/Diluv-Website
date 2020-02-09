@@ -4,7 +4,6 @@ import jwt from 'jwt-decode'
 import {API_URL} from "./api";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 
-
 function getAccessToken() {
   return parseCookies(null)["accessToken"];
 }

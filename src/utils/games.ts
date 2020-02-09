@@ -1,5 +1,3 @@
-// import fetch from 'isomorphic-unfetch'
-
 import {API_URL} from './api';
 import {Data, Game} from "../interfaces";
 import {get, post} from "./request";
