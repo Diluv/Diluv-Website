@@ -10,7 +10,7 @@ function NavHead(props: { toggleTheme: Function, setTheme: Function }) {
   return (<nav className={"flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1"}>
     <div className="flex items-center flex-shrink-0 text-white mr-6">
       <Drop height={"50px"} width={"25px"}/>
-      <span className="text-xl tracking-tight pl-2 font-hero">diluv</span>
+      <span className="text-xl tracking-tight pl-2 font-hero">Diluv</span>
     </div>
     <div className="block md:hidden">
       <button className="flex items-center px-3 py-2 border rounded text-diluv-200 border-diluv-400 hover:text-white hover:border-white"
