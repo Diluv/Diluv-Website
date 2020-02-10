@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'hero';
+  src:  url('Hero.woff') format('woff2'),
+  url('Hero.woff') format('woff');
+}
+
 /* purgecss start ignore */
 @tailwind base;
 @tailwind components;
@@ -16,4 +22,10 @@
 
 .font-hero {
   font-family: "hero", serif;
+}
+
+.fadeout {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.15s, opacity 0.15s ease-out;
 }

@@ -8,7 +8,7 @@ function Footer(props: { darkMode: boolean }) {
   if (props.darkMode) {
     themeBgClass = "bg-dark-600";
   }
-  return (<footer className={"pt-4 py-md-5 md:pt-5 pb-8 " + themeBgClass}>
+  return (<footer className={"pt-4 py-md-5 md:pt-5 pb-8 font-hero " + themeBgClass}>
     <div className={"flex flex-wrap justify-center text-center md:text-left"}>
       <div className="w-1/2 pt-2 md:w-1/6 md:ml-auto text-center md:text-left">
         <Drop className={"mx-auto md:mx-0"} height={"54px"} width={"27px"}/>

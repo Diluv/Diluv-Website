@@ -7,7 +7,7 @@ import {setTheme, toggleTheme} from "../utils/theme";
 function NavHead(props: { toggleTheme: Function, setTheme: Function }) {
 
   const [showMenu, setShowMenu] = useState(false);
-  return (<nav className={"flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1"}>
+  return (<nav className={"flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1 font-hero"}>
     <div className="flex items-center flex-shrink-0 text-white mr-6">
       <Drop height={"50px"} width={"25px"}/>
       <span className="text-xl tracking-tight pl-2 font-hero">Diluv</span>
