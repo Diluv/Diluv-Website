@@ -40,6 +40,6 @@ const Layout: React.FunctionComponent<Props> = ({
     </main>
     <Footer darkMode={(theme === "dark")}/>
   </div>);
-}
+};
 
 export default Layout

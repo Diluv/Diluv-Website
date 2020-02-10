@@ -1,9 +1,5 @@
 import React from "react";
 
-
-function col(){
-return Date.now().getSeconds() %255;
-}
 const Drop = ({
                   style = {},
                   fill = "#000",
