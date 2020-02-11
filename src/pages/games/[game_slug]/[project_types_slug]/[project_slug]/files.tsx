@@ -22,11 +22,9 @@ const ProjectFilesPage: NextPage<Props> = ({project, projectFiles, gameSlug, pro
   <Layout title={project.name + " Files | Diluv"}>
     <ProjectComponent activeKey='files'
                       project={project}
-                      projectFiles={projectFiles}
                       gameSlug={gameSlug}
                       projectTypesSlug={projectTypesSlug}
-                      projectSlug={projectSlug}
-    >
+                      projectSlug={projectSlug}>
       <ProjectFilesComponent projectFiles={projectFiles}/>
     </ProjectComponent>
     {errors}

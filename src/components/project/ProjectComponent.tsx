@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Project, ProjectFiles} from "../../interfaces";
+import {Project} from "../../interfaces";
 import Link from 'next/link';
 
 const ago = require('s-ago');
@@ -10,7 +10,6 @@ type Props = {
   projectTypesSlug: string
   projectSlug: string
   project: Project
-  projectFiles?: ProjectFiles[]
   children: any
 }
 
@@ -23,7 +22,6 @@ function getClass(activeName: string, key: string) {
   return css + 'text-blue-400 hover:text-blue-800';
 }
 
-const tabs = [{name: "Overview", key: ""}, {name: "Files", key: "files"}];
 const ProjectComponent: React.FunctionComponent<Props> = ({
                                                             activeKey = "",
                                                             gameSlug,
@@ -34,7 +32,7 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
                                                           }) =>
   (
     <div className="container mx-auto pt-6">
-      <div className="max-w-sm lg:max-w-full lg:flex pb-2">
+      <div className="max-w-sm lg:max-w-full lg:flex pb-4">
           <div className="h-48 lg:h-40 lg:w-40 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
                style={{backgroundImage: `url('https://via.placeholder.com/150'`}}
                title={project.name}>
@@ -47,6 +45,7 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
           </div>
           <div className="flex items-center">
             <div className="text-sm">
+              <p className="">Created: {new Date(project.createdAt).toLocaleString()}</p>
               <p className="">Last Updated: {ago(new Date(project.updatedAt))}</p>
               <p className="">Downloads: {project.cachedDownloads}</p>
             </div>
@@ -54,17 +53,16 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
         </div>
       </div>
       <ul className="flex border-b">
-        {
-          tabs.map(value => {
-            return (
-              <li className="-mb-px mr-1" key={value.key}>
-                <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/${value.key}`}>
-                  <a className={getClass(activeKey, value.key)}>{value.name}</a>
-                </Link>
-              </li>
-            )
-          })
-        }
+        <li className="-mb-px mr-1" key="overview">
+          <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/`}>
+            <a className={getClass(activeKey, "")}>Overview</a>
+          </Link>
+        </li>
+        <li className="-mb-px mr-1" key="files">
+          <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/files`}>
+            <a className={getClass(activeKey, "files")}>Files</a>
+          </Link>
+        </li>
       </ul>
       {children}
     </div>

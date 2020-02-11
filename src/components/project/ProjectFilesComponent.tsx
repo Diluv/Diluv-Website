@@ -8,40 +8,38 @@ type Props = {
 
 const ProjectFilesComponent: React.FunctionComponent<Props> = ({projectFiles}) =>
   (
-    <div className="container pt-md-3">
-      <div>
-        {/*<Table striped bordered hover>*/}
-        {/*  <thead>*/}
-        {/*  <tr>*/}
-        {/*    <th>File Name</th>*/}
-        {/*    <th>Date Uploaded</th>*/}
-        {/*    <th>Size</th>*/}
-        {/*    <th>Total Downloads</th>*/}
-        {/*    <th>Download</th>*/}
-        {/*    <th>SHA512</th>*/}
-        {/*  </tr>*/}
-        {/*  </thead>*/}
-        {/*  <tbody>*/}
-        {/*  {*/}
-        {/*    projectFiles.map(value =>*/}
-        {/*      <tr key={value.sha512 + "-" + value.createdAt}>*/}
-        {/*        <td>{value.name}</td>*/}
-        {/*        <td>{new Date(value.createdAt).toLocaleString()}</td>*/}
-        {/*        <td>{filesize(value.size)}</td>*/}
-        {/*        <td>1</td>*/}
-        {/*        <td>*/}
-        {/*          <Button variant="secondary">Download</Button>*/}
-        {/*        </td>*/}
-        {/*        <td>*/}
-        {/*          /!*TODO Print in proper way*!/*/}
-        {/*          {value.sha512.substr(0, 10)}*/}
-        {/*        </td>*/}
-        {/*      </tr>*/}
-        {/*    )*/}
-        {/*  }*/}
-        {/*  </tbody>*/}
-        {/*</Table>*/}
-      </div>
+    <div className="container mx-auto">
+      <table className="table-auto w-full text-center">
+        <thead>
+        <tr>
+          <th className="px-4 py-2">File Name</th>
+          <th className="px-4 py-2">Date Uploaded</th>
+          <th className="px-4 py-2">Size</th>
+          <th className="px-4 py-2">Total Downloads</th>
+          <th className="px-4 py-2">Download</th>
+          <th className="px-4 py-2">SHA512</th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          projectFiles.map(projectFile =>
+            <tr key={projectFile.sha512 + "-" + projectFile.createdAt}>
+              <td className="border px-4 py-2">{projectFile.name}</td>
+              <td className="border px-4 py-2">{new Date(projectFile.createdAt).toLocaleString()}</td>
+              <td className="border px-4 py-2">{filesize(projectFile.size)}</td>
+              <td className="border px-4 py-2">1</td>
+              <td className="border px-4 py-2">
+                <button>Download</button>
+              </td>
+              <td className="border px-4 py-2">
+                {/*TODO Print in proper way hover?*/}
+                {projectFile.sha512.substr(0, 10)}
+              </td>
+            </tr>
+          )
+        }
+        </tbody>
+      </table>
     </div>
   );
 

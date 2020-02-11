@@ -28,6 +28,7 @@ const ProjectCard: React.FunctionComponent<Props> = ({gameSlug, projectTypeSlug,
         </div>
         <div className="flex items-center">
           <div className="text-sm">
+            <p className="text-gray-900">Created: {new Date(project.createdAt).toLocaleString()}</p>
             <p className="text-gray-900">Last Updated: {ago(new Date(project.updatedAt))}</p>
             <p className="text-gray-900">Downloads: {project.cachedDownloads}</p>
           </div>
