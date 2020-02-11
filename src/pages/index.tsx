@@ -33,7 +33,7 @@ const IndexPage: NextPage<Props> = ({games, projects, errors}) => (
         <div className="row pt-md-5">
           {projects.map((_, i) =>
             <div className="col-md-4" key={'featured_mods_' + i}>
-              <ModCard name={"Featured Mods"} screenshot={"https://via.placeholder.com/348x225.png"}/>
+              <ModCard key={i} name={"Featured Mods"} screenshot={"https://via.placeholder.com/348x225.png"}/>
             </div>
           )}
         </div>
