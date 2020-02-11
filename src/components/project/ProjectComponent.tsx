@@ -38,8 +38,8 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
              title={project.name}>
         </div>
         <div
-          className="w-full lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-          <div className="mb-3">
+          className="w-full lg:rounded-r p-4 pt-3 flex flex-col justify-between leading-normal">
+          <div className="mb-2">
             <div className="font-bold text-3xl mb-2">{project.name}</div>
             <p className="text-base">{project.summary}</p>
           </div>
