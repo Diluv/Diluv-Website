@@ -4,6 +4,7 @@ import Layout from '../../../../components/Layout'
 import {Project} from "../../../../interfaces";
 import {getProjectByGameSlugAndProjectTypeSlugAndProjectSlug} from "../../../../utils/projects";
 import ProjectComponent from '../../../../components/project/ProjectComponent'
+import ProjectOverviewComponent from "../../../../components/project/ProjectOverviewComponent";
 
 type Props = {
   gameSlug: string
@@ -15,11 +16,13 @@ type Props = {
 const ProjectOverviewPage: NextPage<Props> = ({gameSlug, projectTypesSlug, projectSlug, project}) =>
   (
     <Layout title={project.name + " | Diluv"}>
-      <ProjectComponent activeKey={'overview'}
+      <ProjectComponent activeKey={''}
                         gameSlug={gameSlug}
                         projectTypesSlug={projectTypesSlug}
                         projectSlug={projectSlug}
-                        project={project}/>
+                        project={project}>
+        <ProjectOverviewComponent description={project.description}/>
+      </ProjectComponent>
     </Layout>
   );
 

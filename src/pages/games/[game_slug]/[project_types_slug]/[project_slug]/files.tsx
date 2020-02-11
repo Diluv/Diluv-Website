@@ -7,6 +7,7 @@ import {
   getProjectFilesByGameSlugAndProjectTypeSlugAndProjectSlug
 } from "../../../../../utils/projects";
 import ProjectComponent from '../../../../../components/project/ProjectComponent'
+import ProjectFilesComponent from "../../../../../components/project/ProjectFilesComponent";
 
 type Props = {
   gameSlug: string
@@ -25,7 +26,9 @@ const ProjectFilesPage: NextPage<Props> = ({project, projectFiles, gameSlug, pro
                       gameSlug={gameSlug}
                       projectTypesSlug={projectTypesSlug}
                       projectSlug={projectSlug}
-    />
+    >
+      <ProjectFilesComponent projectFiles={projectFiles}/>
+    </ProjectComponent>
     {errors}
   </Layout>
 );
