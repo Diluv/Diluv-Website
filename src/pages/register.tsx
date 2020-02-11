@@ -8,7 +8,6 @@ import jwt from "jwt-decode";
 import {Router} from "next/router";
 import {NextPageContext} from "next";
 import Link from "next/link";
-import Modal from "../components/Modal";
 
 type RequirementTest = {
   arguments: string,
@@ -305,9 +304,6 @@ function RegisterPage() {
     return renderPostRegister();
   }
   return (<Layout title="Register | Diluv">
-      <Modal>
-        <p>asd</p>
-      </Modal>
       <div className="">
         <div className="pb-md-2 md:pt-3 text-center">
           <h1 className={"text-5xl"}>Register</h1>
