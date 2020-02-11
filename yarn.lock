@@ -3603,6 +3603,11 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+hex-rgb@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/hex-rgb/-/hex-rgb-4.1.0.tgz#2d5d3a2943bd40e7dc9b0d5b98903d7d17035967"
+  integrity sha512-n7xsIfyBkFChITGPh6FLtxNzAt2HxZLcQIY9hYH4gm2gmMQJHMguMH3E+jnmvUbSTF5QrmFnGab5Ippi+D7e/g==
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -6382,6 +6387,11 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
+s-ago@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/s-ago/-/s-ago-2.1.0.tgz#70ac180803cbb6af22480caa379215d6abb6b50e"
+  integrity sha512-7leN5IaS79lNyO3s47NHQfMBgYLjx0IEWipN1VSf5uX7Jp1N8sX/2TrNJX30MPM63admF10hQOZFCzej8O4t3g==
+
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
@@ -6948,6 +6958,13 @@ supports-color@^6.1.0:
   integrity sha512-qe1jfm1Mg7Nq/NSh6XE24gPXROEVsWHxC1LIx//XNlD9iw7YZQGjZNjYN7xGaEG6iKdA8EtNFW6R0gjnVXp+wQ==
   dependencies:
     has-flag "^3.0.0"
+
+tailwindcss-elevation@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/tailwindcss-elevation/-/tailwindcss-elevation-0.3.3.tgz#b465a718687b728090759ad17ad6b11fdecad22a"
+  integrity sha512-mZazUrr2NwUm+wErtOhUgLrqUACXntWCzLmJjTOZIWN9wzFG3+XFkqXwDzuSMNRK1+5eWmczrt3IgLDriJ3Cxg==
+  dependencies:
+    hex-rgb "^4.1.0"
 
 tailwindcss-spinner@^1.0.0:
   version "1.0.0"
