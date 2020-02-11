@@ -8,7 +8,7 @@ function NavHead(props: { toggleTheme: Function, setTheme: Function }) {
 
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <nav className={"flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1"}>
+    <nav className={"flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1 font-hero"}>
       <Link href={"/"}>
         <a>
           <div className="flex items-center flex-shrink-0 text-white mr-6">
