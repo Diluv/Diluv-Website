@@ -14,7 +14,7 @@ type Props = {
 
 const GamePage: NextPage<Props> = ({game, projectTypes, errors}) => (
   <Layout title="Diluv">
-    <div className="container pt-md-5">
+    <div className="container mx-auto">
       {(projectTypes.length > 0 && (
         <React.Fragment>
           <h2 className="text-center">Project Types</h2>

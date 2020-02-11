@@ -12,7 +12,7 @@ type Props = {
 
 const GamesPage: NextPage<Props> = ({games}) => (
   <Layout title="Games | Diluv">
-    <div className="container pt-md-5">
+    <div className="container mx-auto">
       {(games && games.length > 0 && (
         <React.Fragment>
           <h2 className="text-center">Games</h2>

@@ -4,7 +4,7 @@ import {NextPage} from 'next'
 import {getGamesBySlug} from "../../../utils/games";
 import {Game, Project, ProjectType} from "../../../interfaces";
 import {getProjectsByGameSlugAndProjectTypeSlug, getProjectTypesByGameSlugAndProjectTypeSlug} from "../../../utils/projects";
-import ModMedia from "../../../components/ModMedia";
+import ProjectCard from "../../../components/project/ProjectCard";
 
 type Props = {
   game: Game
@@ -19,7 +19,7 @@ const ProjectTypePage: NextPage<Props> = ({game, projectType, projects, errors})
       <h2 className="text-center text-4xl font-bold pb-2">{projectType.name}</h2>
       <ul>
         {projects.map((project) =>
-          <ModMedia key={project.slug} gameSlug={game.slug} projectTypeSlug={projectType.slug} project={project}/>
+          <ProjectCard key={project.slug} gameSlug={game.slug} projectTypeSlug={projectType.slug} project={project}/>
         )}
       </ul>
       {errors}

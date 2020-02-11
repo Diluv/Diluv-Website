@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Project} from "../interfaces";
+import {Project} from "../../interfaces";
 
 const ago = require('s-ago');
 
@@ -9,7 +9,7 @@ type Props = {
   project: Project
 }
 
-const ModCard: React.FunctionComponent<Props> = ({gameSlug, projectTypeSlug, project}) =>
+const ProjectCard: React.FunctionComponent<Props> = ({gameSlug, projectTypeSlug, project}) =>
   (
     <div className="max-w-sm lg:max-w-full lg:flex pb-2">
       <a key={project.slug} href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
@@ -36,4 +36,4 @@ const ModCard: React.FunctionComponent<Props> = ({gameSlug, projectTypeSlug, pro
     </div>
   );
 
-export default ModCard
+export default ProjectCard

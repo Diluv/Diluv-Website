@@ -1,9 +1,8 @@
 import * as React from 'react'
-import ProjectOverviewComponent from './ProjectOverviewComponent';
-import Router from 'next/router'
-import ProjectFilesComponent from "./ProjectFilesComponent";
 import {Project, ProjectFiles} from "../../interfaces";
 import Link from 'next/link';
+
+const ago = require('s-ago');
 
 type Props = {
   activeKey: string
@@ -34,12 +33,24 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
                                                             children
                                                           }) =>
   (
-    <div className="container pt-md-5">
-      <div>
-        <img className="mr-3" src={project.logoUrl} alt={`${project.name} Logo`}/>
-        <div>
-          <h2>{project.name}</h2>
-          {project.summary}
+    <div className="container mx-auto pt-6">
+      <div className="max-w-sm lg:max-w-full lg:flex pb-2">
+          <div className="h-48 lg:h-40 lg:w-40 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+               style={{backgroundImage: `url('https://via.placeholder.com/150'`}}
+               title={project.name}>
+          </div>
+        <div
+          className="w-full lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          <div className="mb-3">
+              <div className="font-bold text-3xl mb-2">{project.name}</div>
+            <p className="text-base">{project.summary}</p>
+          </div>
+          <div className="flex items-center">
+            <div className="text-sm">
+              <p className="">Last Updated: {ago(new Date(project.updatedAt))}</p>
+              <p className="">Downloads: {project.cachedDownloads}</p>
+            </div>
+          </div>
         </div>
       </div>
       <ul className="flex border-b">
