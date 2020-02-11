@@ -14,12 +14,12 @@ type Props = {
 }
 
 function getClass(activeName: string, key: string) {
-  const css = "bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 font-semibold ";
+  const css = "inline-block border-l border-t border-r rounded-t py-2 px-4 font-semibold ";
   if (activeName == key) {
-    return css + 'text-blue-700';
+    return css + 'text-diluv-600';
   }
 
-  return css + 'text-blue-400 hover:text-blue-800';
+  return css + 'hover:text-white';
 }
 
 const ProjectComponent: React.FunctionComponent<Props> = ({
@@ -33,21 +33,21 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
   (
     <div className="container mx-auto pt-6">
       <div className="max-w-sm lg:max-w-full lg:flex pb-4">
-          <div className="h-48 lg:h-40 lg:w-40 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-               style={{backgroundImage: `url('https://via.placeholder.com/150'`}}
-               title={project.name}>
-          </div>
+        <div className="h-48 lg:h-40 lg:w-40 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+             style={{backgroundImage: `url('https://via.placeholder.com/150'`}}
+             title={project.name}>
+        </div>
         <div
           className="w-full lg:rounded-r p-4 flex flex-col justify-between leading-normal">
           <div className="mb-3">
-              <div className="font-bold text-3xl mb-2">{project.name}</div>
+            <div className="font-bold text-3xl mb-2">{project.name}</div>
             <p className="text-base">{project.summary}</p>
           </div>
           <div className="flex items-center">
             <div className="text-sm">
-              <p className="">Created: {new Date(project.createdAt).toLocaleString()}</p>
-              <p className="">Last Updated: {ago(new Date(project.updatedAt))}</p>
-              <p className="">Downloads: {project.cachedDownloads}</p>
+              <p>Created: {new Date(project.createdAt).toLocaleString()}</p>
+              <p>Last Updated: {ago(new Date(project.updatedAt))}</p>
+              <p>Downloads: {project.cachedDownloads}</p>
             </div>
           </div>
         </div>
