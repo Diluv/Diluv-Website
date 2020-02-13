@@ -1,13 +1,14 @@
 import * as React from 'react'
 import Layout from '../components/Layout'
 import {API_URL} from "../utils/api";
-import {RefObject, SyntheticEvent, useRef, useState} from "react";
+import {RefObject, SyntheticEvent, useContext, useRef, useState} from "react";
 import {post} from "../utils/request";
 import {destroyCookie, parseCookies} from "nookies";
 import jwt from "jwt-decode";
 import {Router} from "next/router";
 import {NextPageContext} from "next";
 import Link from "next/link";
+import {Theme} from "../utils/Contexts";
 
 type RequirementTest = {
   arguments: string,
@@ -114,19 +115,21 @@ function fillRequirements(field: InputField): JSX.Element[] {
 
 
 function renderPostRegister() {
-
+  let theme = useContext(Theme);
+  let darkMode = theme.theme === "dark";
   return (
     <Layout title="Register | Diluv">
       <div className="text-center">
         <h1 className={"text-5xl"}>Register</h1>
       </div>
-      <div className="w-5/6 md:w-1/2 mt-5 mx-auto max-w-sm shadow-lg border border-darken-300 bg-darken-100 rounded">
-
+      <div className={`w-5/6 md:w-1/2 mt-5 mx-auto max-w-sm focus:bg-black border ${darkMode ? "bg-dark-600 border-gray-500 shadow-light-lg" : "bg-gray-100 border-gray-500 shadow-lg"} rounded`}>
         <div className={"p-4"}>
           <h6 className={"text-2xl font-medium mb-2"}>Email Verification</h6>
           <p>You should have received an email with a verification link.</p>
           <p className={"my-3"}>if you don't see it, check your spam folder</p>
-          <button className={"block bg-diluv-700 hover:bg-diluv-500 text-diluv-200 hover:text-white py-2 w-full"}>Send Again</button>
+          <button className={"block bg-diluv-700 hover:bg-diluv-500 text-diluv-200 hover:text-white py-2 w-full transition-colors duration-200 ease-in"}>Send
+            Again
+          </button>
         </div>
       </div>
     </Layout>
@@ -345,9 +348,8 @@ function RegisterPage() {
             </div>
           </div>
           <div className={"md:w-1/4 w-5/6 mx-auto mt-2"}>
-            <button type={"submit"} className={"block bg-diluv-500 text-white p-2 w-full "}>Register</button>
+            <button disabled={true} type={"submit"} className={"block bg-diluv-700 hover:bg-diluv-500 text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in disabled:opacity-100 disabled:text-diluv-100 disabled:bg-diluv-700"}>Register</button>
           </div>
-
         </form>
         <div className={"md:w-1/2 w-5/6 mx-auto mt-3 text-center"}>
           <p>Already have an account? <Link href={"/login"}><span className={"hover:text-diluv-500 cursor-pointer"}>Login!</span></Link></p>
