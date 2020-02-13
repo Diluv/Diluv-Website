@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import Drop from "../components/Drop"
+import {ThemeContext} from "./Layout";
 
-function Footer(props: { darkMode: boolean }) {
+function Footer() {
 
   const year = new Date().getFullYear();
+
+  let theme = useContext(ThemeContext);
   let themeBgClass = "bg-gray-300";
-  if (props.darkMode) {
+  if (theme.theme === "dark") {
     themeBgClass = "bg-dark-600";
   }
   return (<footer className={"pt-4 py-md-5 md:pt-5 pb-8 font-hero " + themeBgClass}>

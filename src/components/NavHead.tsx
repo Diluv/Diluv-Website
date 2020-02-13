@@ -1,12 +1,14 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Drop from "../components/Drop"
 import DropDown, {DropDownAction, DropDownItem, DropDownLink, DropDownSpacer} from "./Dropdown";
 import Link from "next/link";
 import {setTheme, toggleTheme} from "../utils/theme";
+import {ThemeContext} from "./Layout";
 
-function NavHead(props: { toggleTheme: Function, setTheme: Function }) {
+function NavHead() {
 
   const [showMenu, setShowMenu] = useState(false);
+  let theme = useContext(ThemeContext);
   return (
     <nav className={"flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1 font-hero"}>
       <Link href={"/"}>
@@ -43,7 +45,7 @@ function NavHead(props: { toggleTheme: Function, setTheme: Function }) {
             </DropDownLink>
             <DropDownSpacer/>
             <DropDownAction action={() => {
-              props.setTheme(toggleTheme());
+              theme.toggleTheme();
             }}>
               Change Theme
             </DropDownAction>
