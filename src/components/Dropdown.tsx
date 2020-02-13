@@ -11,11 +11,11 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
   }: { ref: React.Ref<any>, isComponentVisible: boolean, setIsComponentVisible: Function } = useComponentVisible(false);
 
   return (<div ref={ref}>
-    <div className={(props.className ? props.className + " " : "") + "pb-1"}>
-      <p className={"cursor-pointer "} onClick={() => setIsComponentVisible(!isComponentVisible)}>{props.name}</p>
+    <div className={(props.className ? props.className + " " : "") + "pb-1 cursor-pointer"} onClick={() => setIsComponentVisible(!isComponentVisible)}>
+      <p>{props.name}</p>
     </div>
     <div
-      className={"absolute block bg-white mr-4  md:right-0 left-auto sm:inset-x-0 md:inset-auto bg-gray-300" + (isComponentVisible ? "" : " hidden")}>
+      className={"absolute block bg-white mr-4 border border-gray-800 md:right-0 left-auto sm:inset-x-0 md:inset-auto bg-gray-300" + (isComponentVisible ? "" : " hidden")}>
       {props.children}
     </div>
   </div>);
