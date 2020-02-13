@@ -2,13 +2,12 @@ import React, {useContext, useState} from "react";
 import Drop from "../components/Drop"
 import DropDown, {DropDownAction, DropDownItem, DropDownLink, DropDownSpacer} from "./Dropdown";
 import Link from "next/link";
-import {setTheme, toggleTheme} from "../utils/theme";
-import {ThemeContext} from "./Layout";
+import {Theme} from "../utils/Contexts";
 
 function NavHead() {
 
   const [showMenu, setShowMenu] = useState(false);
-  let theme = useContext(ThemeContext);
+  let theme = useContext(Theme);
   return (
     <nav className={"flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1 font-hero"}>
       <Link href={"/"}>

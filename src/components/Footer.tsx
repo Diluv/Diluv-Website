@@ -1,12 +1,12 @@
 import React, {useContext} from "react";
 import Drop from "../components/Drop"
-import {ThemeContext} from "./Layout";
+import {Theme} from "../utils/Contexts";
 
 function Footer() {
 
   const year = new Date().getFullYear();
 
-  let theme = useContext(ThemeContext);
+  let theme = useContext(Theme);
   let themeBgClass = "bg-gray-300";
   if (theme.theme === "dark") {
     themeBgClass = "bg-dark-600";
