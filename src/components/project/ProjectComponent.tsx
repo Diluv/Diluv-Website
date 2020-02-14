@@ -14,7 +14,7 @@ type Props = {
 }
 
 function getClass(activeName: string, key: string) {
-  const css = "inline-block border-l border-t border-r rounded-t py-2 px-4 font-semibold ";
+  const css = "inline-block border-l border-t border-r rounded-t py-2 px-4 font-bold ";
   if (activeName == key) {
     return css + 'text-diluv-600';
   }
@@ -38,8 +38,8 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
              title={project.name}>
         </div>
         <div
-          className="w-full lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-          <div className="mb-3">
+          className="w-full lg:rounded-r p-4 pt-3 flex flex-col justify-between leading-normal">
+          <div className="mb-2">
             <div className="font-bold text-3xl mb-2">{project.name}</div>
             <p className="text-base">{project.summary}</p>
           </div>

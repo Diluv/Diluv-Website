@@ -14,7 +14,7 @@ type Props = {
 
 const ProjectOverviewComponent: React.FunctionComponent<Props> = ({description}) =>
   (
-    <div className="container pt-md-3">
+    <div className="container whitespace-pre-wrap" style={{'overflowWrap': 'break-word'}}>
       <div dangerouslySetInnerHTML={{__html: marked(description)}}/>
     </div>
   );

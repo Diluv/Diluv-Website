@@ -15,7 +15,7 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
       <p>{props.name}</p>
     </div>
     <div
-      className={"absolute block bg-white mr-4 border border-gray-800 md:right-0 left-auto sm:inset-x-0 md:inset-auto bg-gray-300" + (isComponentVisible ? "opacity-100 transition-opacity duration-100 ease-in" : " opacity-0")}>
+      className={"absolute bg-white mr-4 border border-gray-800 md:right-0 left-auto sm:inset-x-0 md:inset-auto bg-gray-300" + (isComponentVisible ? "opacity-100 transition-opacity duration-100 ease-in block" : " opacity-0 hidden")}>
       {props.children}
     </div>
   </div>);
