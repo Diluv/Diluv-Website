@@ -1,18 +1,13 @@
-import React, {useContext, useEffect, useRef, useState} from 'react'
+import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from 'react'
 import Head from 'next/head'
 import {getTheme, toggleTheme} from '../utils/theme';
 import NavHead from "./NavHead";
 import Footer from "./Footer";
+import {Theme} from "../utils/Contexts";
 
 type Props = {
   title?: string
 }
-
-export const ThemeContext = React.createContext({
-  theme: "light", toggleTheme: () => {
-  }, setTheme: (theme: string) => {
-  }
-});
 
 const Layout: React.FunctionComponent<Props> = ({
                                                   children,
@@ -20,31 +15,17 @@ const Layout: React.FunctionComponent<Props> = ({
                                                 }) => {
 
   const [, forceUpdate] = useState({});
-  const [, setTheme] = useState<'light' | 'dark'>("light");
   const updated = useRef(false);
-  let themeCon = useContext(ThemeContext);
+  let themeCon = useContext(Theme);
   useEffect(() => {
-
-    setTheme(getTheme());
-    forceUpdate({});
     updated.current = true;
-  }, [theme]);
-
+    forceUpdate({});
+  }, [updated]);
   if (!updated.current) {
-    return <div></div>;
+    return <React.Fragment/>;
   }
-
   document.body.className = (themeCon.theme === "dark" ? "theme-dark" : "theme-light");
-  return (<ThemeContext.Provider value={{
-    theme: getTheme(), toggleTheme: () => {
-      //not like this
-      themeCon.theme = toggleTheme();
-      forceUpdate({});
-    },
-     setTheme: theme => {
-
-     }
-  }}>
+  return (
     <div className={"min-h-100vh flex flex-col"}>
       <Head>
         <title>{title}</title>
@@ -59,7 +40,7 @@ const Layout: React.FunctionComponent<Props> = ({
       </main>
       <Footer/>
     </div>
-  </ThemeContext.Provider>);
+  );
 };
 
 export default Layout

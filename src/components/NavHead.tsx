@@ -2,13 +2,12 @@ import React, {useContext, useState} from "react";
 import Drop from "../components/Drop"
 import DropDown, {DropDownAction, DropDownItem, DropDownLink, DropDownSpacer} from "./Dropdown";
 import Link from "next/link";
-import {setTheme, toggleTheme} from "../utils/theme";
-import {ThemeContext} from "./Layout";
+import {Theme} from "../utils/Contexts";
 
 function NavHead() {
 
   const [showMenu, setShowMenu] = useState(false);
-  let theme = useContext(ThemeContext);
+  let theme = useContext(Theme);
   return (
     <nav className={"flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1 font-hero"}>
       <Link href={"/"}>
@@ -31,12 +30,12 @@ function NavHead() {
       </div>
       <div className={"w-full block flex-grow md:flex md:items-center md:w-auto" + (showMenu ? "" : " hidden")}>
         <div className="text-sm md:flex-grow">
-          <Link href={"/"}><a className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer">Home</a></Link>
-          <Link href={"/games"}><a className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer">Games</a></Link>
-          <Link href={"/news"}><a className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer">News</a></Link>
+          <Link href={"/"}><a className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer transition-colors duration-150 ease-in">Home</a></Link>
+          <Link href={"/games"}><a className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer transition-colors duration-150 ease-in">Games</a></Link>
+          <Link href={"/news"}><a className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer transition-colors duration-150 ease-in">News</a></Link>
         </div>
         <div className="block mt-4 md:mt-0 md:inline-block">
-          <DropDown name={"Account"} className={"text-teal-200 hover:text-white"}>
+          <DropDown name={"Account"} className={"text-teal-200 hover:text-white transition-colors duration-200 ease-in"}>
             <DropDownLink href={"/register"}>
               <p>Sign Up</p>
             </DropDownLink>
