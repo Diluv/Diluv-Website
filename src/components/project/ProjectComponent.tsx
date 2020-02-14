@@ -14,7 +14,7 @@ type Props = {
 }
 
 function getClass(activeName: string, key: string) {
-  const css = "inline-block border-l border-t border-r rounded-t py-2 px-4 font-semibold ";
+  const css = "inline-block border-l border-t border-r rounded-t py-2 px-4 font-bold ";
   if (activeName == key) {
     return css + 'text-diluv-600';
   }
