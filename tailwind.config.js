@@ -108,7 +108,10 @@ module.exports = {
     variants: {
         fill: ['responsive', 'hover'],
         spinner: ['responsive'],
-
+        opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        cursor: ['responsive', 'disabled'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'disabled'],
+        textColor: ['responsive', 'hover', 'focus', 'disabled'],
     },
     plugins: [
         require('tailwindcss-elevation')(['responsive']),

@@ -122,13 +122,15 @@ function renderPostRegister() {
       <div className="text-center">
         <h1 className={"text-5xl"}>Register</h1>
       </div>
-      <div className={`w-5/6 md:w-1/2 mt-5 mx-auto max-w-sm focus:bg-black border ${darkMode ? "bg-dark-600 border-gray-500 shadow-light-lg" : "bg-gray-100 border-gray-500 shadow-lg"} rounded`}>
+      <div
+        className={`w-5/6 md:w-1/2 mt-5 mx-auto max-w-sm focus:bg-black border ${darkMode ? "bg-dark-600 border-gray-500 shadow-light-lg" : "bg-gray-100 border-gray-500 shadow-lg"} rounded`}>
         <div className={"p-4"}>
           <h6 className={"text-2xl font-medium mb-2"}>Email Verification</h6>
           <p>You should have received an email with a verification link.</p>
           <p className={"my-3"}>if you don't see it, check your spam folder</p>
-          <button className={"block bg-diluv-700 hover:bg-diluv-500 text-diluv-200 hover:text-white py-2 w-full transition-colors duration-200 ease-in"}>Send
-            Again
+          <button
+            className={"block bg-diluv-700 hover:bg-diluv-500 text-diluv-200 hover:text-white py-2 w-full transition-colors duration-200 ease-in"}>
+            Send Again
           </button>
         </div>
       </div>
@@ -343,15 +345,17 @@ function RegisterPage() {
                        // @ts-ignore
                        handleChange(e, fields.current.terms, fields.current, forceUpdate);
                      }}
-                     className={"focus:outline-none focus:shadow-outline border border-gray-300 mt-3 text-black mr-2"}/>
+                     className={"focus:outline-none focus:shadow-outline mt-3 mr-2"}/>
               <label className={"text-md"}>Agree to terms and conditions</label>
             </div>
           </div>
           <div className={"md:w-1/4 w-5/6 mx-auto mt-2"}>
-            <button disabled={true} type={"submit"} className={"block bg-diluv-700 hover:bg-diluv-500 text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in disabled:opacity-100 disabled:text-diluv-100 disabled:bg-diluv-700"}>Register</button>
+            <button disabled type={"submit"}
+                    className={"block bg-diluv-700 disabled:bg-diluv-700 hover:bg-diluv-500 text-diluv-200 disabled:text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"}>Register
+            </button>
           </div>
         </form>
-        <div className={"md:w-1/2 w-5/6 mx-auto mt-3 text-center"}>
+        <div className={"md:w-1/2 w-5/6 mx-auto my-3 text-center"}>
           <p>Already have an account? <Link href={"/login"}><span className={"hover:text-diluv-500 cursor-pointer"}>Login!</span></Link></p>
         </div>
       </div>
