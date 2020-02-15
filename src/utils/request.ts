@@ -13,7 +13,7 @@ function getRefreshToken() {
 }
 
 axios.interceptors.request.use(request => {
-  if(!request.headers["Authorization"]) {
+  if (!request.headers["Authorization"]) {
     if (!request.url?.endsWith("v1/auth/refresh")) {
       if (getAccessToken()) {
         request.headers['Authorization'] = `Bearer ${getAccessToken()}`;

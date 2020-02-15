@@ -1,7 +1,7 @@
 import * as React from 'react'
+import {SyntheticEvent, useContext, useRef, useState} from 'react'
 import Layout from '../components/Layout'
 import {API_URL} from "../utils/api";
-import {SyntheticEvent, useContext, useRef, useState} from "react";
 import {post} from "../utils/request";
 import {destroyCookie, parseCookies} from "nookies";
 import jwt from "jwt-decode";
@@ -357,8 +357,10 @@ function RegisterPage() {
             </div>
           </div>
           <div className={"md:w-1/4 w-5/6 mx-auto mt-2"}>
-            <button disabled={!(validTerms.current.valueOf() && validPasswordConfirm.current.valueOf() && validPassword.current.valueOf() && validEmail.current.valueOf() && validUserName.current.valueOf())} type={"submit"}
-                    className={"block bg-diluv-700 disabled:bg-diluv-700 hover:bg-diluv-500 text-diluv-200 disabled:text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"}>Register
+            <button
+              disabled={!(validTerms.current.valueOf() && validPasswordConfirm.current.valueOf() && validPassword.current.valueOf() && validEmail.current.valueOf() && validUserName.current.valueOf())}
+              type={"submit"}
+              className={"block bg-diluv-700 disabled:bg-diluv-700 hover:bg-diluv-500 text-diluv-200 disabled:text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"}>Register
             </button>
           </div>
         </form>

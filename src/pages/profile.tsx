@@ -1,7 +1,7 @@
 import * as React from 'react'
+import {useEffect, useRef, useState} from 'react'
 import Layout from '../components/Layout'
-import {privateProps, requireAuth} from "../utils/auth";
-import {useEffect, useRef, useState} from "react";
+import {privateProps} from "../utils/auth";
 import {get} from "../utils/request";
 import {API_URL} from "../utils/api";
 import {AxiosError} from "axios";

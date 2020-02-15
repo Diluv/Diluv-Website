@@ -4,8 +4,8 @@ import Layout from '../components/Layout'
 import {NextPage} from 'next';
 
 const AboutPage: NextPage = () => (
-  <Layout title="News | Diluv">
-    <h1>News</h1>
+  <Layout title="About | Diluv">
+    <h1>About</h1>
     <p>This is the about page</p>
     <p>
       <Link href="/">

@@ -1,6 +1,8 @@
 import * as React from 'react'
 import {ProjectFiles} from "../../interfaces";
 import filesize from 'filesize';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   projectFiles: ProjectFiles[]
@@ -17,23 +19,19 @@ const ProjectFilesComponent: React.FunctionComponent<Props> = ({projectFiles}) =
           <th className="px-4 py-2">Size</th>
           <th className="px-4 py-2">Total Downloads</th>
           <th className="px-4 py-2">Download</th>
-          <th className="px-4 py-2">SHA512</th>
         </tr>
         </thead>
         <tbody>
         {
-          projectFiles.map(projectFile =>
-            <tr key={projectFile.sha512 + "-" + projectFile.createdAt}>
+          projectFiles.map((projectFile, index) =>
+            <tr key={index}>
               <td className="border px-4 py-2">{projectFile.name}</td>
               <td className="border px-4 py-2">{new Date(projectFile.createdAt).toLocaleString()}</td>
               <td className="border px-4 py-2">{filesize(projectFile.size)}</td>
               <td className="border px-4 py-2">1</td>
               <td className="border px-4 py-2">
                 <button>Download</button>
-              </td>
-              <td className="border px-4 py-2">
-                {/*TODO Print in proper way hover?*/}
-                {projectFile.sha512.substr(0, 10)}
+                <a href={"url"}><FontAwesomeIcon icon={faInfoCircle}/></a>
               </td>
             </tr>
           )

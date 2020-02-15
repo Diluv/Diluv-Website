@@ -1,6 +1,5 @@
-import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import Head from 'next/head'
-import {getTheme, toggleTheme} from '../utils/theme';
 import NavHead from "./NavHead";
 import Footer from "./Footer";
 import {Theme} from "../utils/Contexts";
@@ -31,6 +30,7 @@ const Layout: React.FunctionComponent<Props> = ({
         <title>{title}</title>
         <meta charSet="utf-8"/>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
       </Head>
       <header className={""}>
         <NavHead/>

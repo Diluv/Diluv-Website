@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useRef, useState} from "react";
+import React, {ReactNode} from "react";
 import Link from "next/link";
 import {useComponentVisible} from "../utils/hooks";
 
@@ -11,7 +11,8 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
   }: { ref: React.Ref<any>, isComponentVisible: boolean, setIsComponentVisible: Function } = useComponentVisible(false);
 
   return (<div ref={ref}>
-    <div className={(props.className ? props.className + " " : "") + "pb-1 cursor-pointer"} onClick={() => setIsComponentVisible(!isComponentVisible)}>
+    <div className={(props.className ? props.className + " " : "") + "pb-1 cursor-pointer"}
+         onClick={() => setIsComponentVisible(!isComponentVisible)}>
       <p>{props.name}</p>
     </div>
     <div
@@ -30,7 +31,8 @@ export function DropDownItem(props: { children: ReactNode, className?: string })
 export function DropDownLink(props: { children: ReactNode, className?: string, href: string }) {
   return <Link href={props.href}>
     <div className={"cursor-pointer"}>
-      <div className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 hover:bg-gray-400 transition-colors duration-150 ease-in"}>
+      <div
+        className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 hover:bg-gray-400 transition-colors duration-150 ease-in"}>
         {props.children}
       </div>
     </div>
@@ -39,7 +41,8 @@ export function DropDownLink(props: { children: ReactNode, className?: string, h
 
 export function DropDownAction(props: { children: ReactNode, className?: string, action: Function }) {
   return <div onClick={(e) => props.action(e)}>
-    <div className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 cursor-pointer hover:bg-gray-400  transition-colors duration-150 ease-in"}>
+    <div
+      className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 cursor-pointer hover:bg-gray-400  transition-colors duration-150 ease-in"}>
       {props.children}
     </div>
   </div>

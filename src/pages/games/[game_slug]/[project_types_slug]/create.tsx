@@ -1,11 +1,10 @@
 import * as React from 'react'
-import {NextPage, NextPageContext} from 'next'
+import {useContext, useEffect, useState} from 'react'
+import {NextPageContext} from 'next'
 import Layout from '../../../../components/Layout'
-import {useCallback, useEffect, useState} from "react";
 import {useDropzone} from 'react-dropzone'
 import {post} from "../../../../utils/request";
 import {API_URL} from "../../../../utils/api";
-import {useContext} from "react";
 import {Theme} from "../../../../utils/Contexts";
 
 const sanitizeHtml = require('sanitize-html');
@@ -107,7 +106,7 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
               </div>
               <div className="px-4 flex flex-col justify-between leading-normal w-1/2">
                 <div className="mb-2">
-                  <label className="block text-diluv-700 text-md font-bold mb-2" htmlFor="username">
+                  <label className="block text-diluv-700 text-md font-bold mb-2" htmlFor="name">
                     Name
                   </label>
                   <input
@@ -127,7 +126,7 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
                     value={formData.name}/>
                 </div>
                 <div className="mb-2">
-                  <label className="block text-diluv-700 text-md font-bold mb-2" htmlFor="username">
+                  <label className="block text-diluv-700 text-md font-bold mb-2" htmlFor="summary">
                     Summary
                   </label>
                   <input

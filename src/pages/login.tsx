@@ -1,11 +1,9 @@
-import * as React from 'react'
-import Layout from '../components/Layout'
-import {useState} from "react";
 // import {Alert, Button, Col, Container, Form} from "react-bootstrap";
 // import Row from "react-bootstrap/Row";
-import {SyntheticEvent} from "react";
+import * as React from 'react'
+import {SyntheticEvent, useState} from 'react'
+import Layout from '../components/Layout'
 import {API_URL} from "../utils/api";
-import Link from "next/link";
 import jwt from 'jwt-decode'
 import {setCookie} from 'nookies';
 import {NextRouter, useRouter} from "next/router";

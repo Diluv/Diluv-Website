@@ -1,6 +1,6 @@
 import {API_URL} from './api';
 import {Data, Game} from "../interfaces";
-import {get, post} from "./request";
+import {get} from "./request";
 
 export async function getGames(): Promise<Game[]> {
   try {
