@@ -17,13 +17,17 @@ module.exports = {
                 },
             }),
             boxShadow: {
-                light: '0 1px 3px 0 rgba(255, 255, 255, .1), 0 1px 2px 0 rgba(255, 255, 255, .06)',
+                "light": '0 1px 3px 0 rgba(255, 255, 255, .1), 0 1px 2px 0 rgba(255, 255, 255, .06)',
                 "light-md": ' 0 4px 6px -1px rgba(255, 255, 255, .1), 0 2px 4px -1px rgba(255, 255, 255, .06)',
                 "light-lg": ' 0 10px 15px -3px rgba(255, 255, 255, .1), 0 4px 6px -2px rgba(255, 255, 255, .05)',
                 "light-xl": ' 0 20px 25px -5px rgba(255, 255, 255, .1), 0 10px 10px -5px rgba(255, 255, 255, .04)',
                 "light-2xl": '0 25px 50px -12px rgba(255, 255, 255, .25)',
                 "light-3xl": '0 35px 60px -15px rgba(255, 255, 255, .3)',
-                "light-inner": 'inset 0 2px 4px 0 rgba(255, 255, 255,0.06)'
+                "light-inner": 'inset 0 2px 4px 0 rgba(255, 255, 255,0.06)',
+                "valid-light": '0 0 0 3px rgba(72,187,120,0.5)',
+                "invalid-light": '0 0 0 3px rgba(245,101,101,0.5)',
+                "valid-dark": '0 0 0 3px rgba(72,187,120,0.8)',
+                "invalid-dark": '0 0 0 3px rgba(245,101,101,0.8)',
             },
             colors: {
                 'diluv': {
@@ -115,6 +119,22 @@ module.exports = {
     },
     plugins: [
         require('tailwindcss-elevation')(['responsive']),
-        require('tailwindcss-spinner')()
+        require('tailwindcss-spinner')(),
+        require("tailwindcss-triangle-after")({
+            triangles: {
+                select: {
+                    color: "#3DA6E4",
+                    direction: 'down',
+                    size: [10, 6],
+                },
+                expand: {
+                    color: "#B1DBF4",
+                    direction: 'down',
+                    right: "0px",
+                    top: "35%",
+                    size: [10, 6]
+                }
+            },
+        })
     ]
 }

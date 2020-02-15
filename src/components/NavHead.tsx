@@ -35,7 +35,7 @@ function NavHead() {
           <Link href={"/news"}><a className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer transition-colors duration-150 ease-in">News</a></Link>
         </div>
         <div className="block mt-4 md:mt-0 md:inline-block">
-          <DropDown name={"Account"} className={"text-teal-200 hover:text-white transition-colors duration-200 ease-in"}>
+          <DropDown name={"Account"} className={"text-teal-200 hover:text-white transition-colors duration-200 ease-in pr-3 triangle-after-expand"}>
             <DropDownLink href={"/register"}>
               <p>Sign Up</p>
             </DropDownLink>
