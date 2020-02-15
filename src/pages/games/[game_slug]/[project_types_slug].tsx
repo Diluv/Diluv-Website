@@ -1,25 +1,32 @@
 import * as React from 'react'
 import Layout from '../../../components/Layout'
 import {NextPage} from 'next'
-import {getGamesBySlug} from "../../../utils/games";
-import {Game, Project, ProjectType} from "../../../interfaces";
+import {Project, ProjectType} from "../../../interfaces";
 import {getProjectsByGameSlugAndProjectTypeSlug, getProjectTypesByGameSlugAndProjectTypeSlug} from "../../../utils/projects";
 import ProjectCard from "../../../components/project/ProjectCard";
+import Link from 'next/link';
 
 type Props = {
-  game: Game
+  gameSlug: string
   projectType: ProjectType
   projects: Project[]
   errors?: string
 }
 
-const ProjectTypePage: NextPage<Props> = ({game, projectType, projects, errors}) => (
+const ProjectTypePage: NextPage<Props> = ({gameSlug, projectType, projects, errors}) => (
   <Layout title="Diluv">
     <div className="container mx-auto">
-      <h2 className="text-center text-4xl font-bold pb-2">{projectType.name}</h2>
+      <div className="flex">
+        <h2 className="flex-grow text-center text-4xl font-bold pb-2">{projectType.name}</h2>
+        <Link href={`/games/${gameSlug}/${projectType.slug}/create`}>
+          <button className="bg-diluv-500 hover:bg-diluv-700 text-white font-bold py-2 px-4 rounded m-4">
+            Create Project
+          </button>
+        </Link>
+      </div>
       <ul>
         {projects.map((project) =>
-          <ProjectCard key={project.slug} gameSlug={game.slug} projectTypeSlug={projectType.slug} project={project}/>
+          <ProjectCard key={project.slug} gameSlug={gameSlug} projectTypeSlug={projectType.slug} project={project}/>
         )}
       </ul>
       {errors}
@@ -31,10 +38,9 @@ ProjectTypePage.getInitialProps = async ({query: {game_slug, project_types_slug}
   const gameSlug = Array.isArray(game_slug) ? game_slug[0] : game_slug;
   const projectTypesSlug = Array.isArray(project_types_slug) ? project_types_slug[0] : project_types_slug;
 
-  const game = await getGamesBySlug(gameSlug);
   const projectType = await getProjectTypesByGameSlugAndProjectTypeSlug(gameSlug, projectTypesSlug);
   const projects = await getProjectsByGameSlugAndProjectTypeSlug(gameSlug, projectTypesSlug);
-  return {game, projectType, projects};
+  return {gameSlug, projectType, projects};
 };
 
 export default ProjectTypePage

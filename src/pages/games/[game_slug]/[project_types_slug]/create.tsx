@@ -5,6 +5,8 @@ import {useCallback, useEffect, useState} from "react";
 import {useDropzone} from 'react-dropzone'
 import {post} from "../../../../utils/request";
 import {API_URL} from "../../../../utils/api";
+import {useContext} from "react";
+import {Theme} from "../../../../utils/Contexts";
 
 const sanitizeHtml = require('sanitize-html');
 const marked = require('marked');
@@ -24,6 +26,7 @@ type FormData = {
   description: string
   logo: File | undefined
   preview: string | undefined
+  valid: { name: boolean, summary: boolean, description: boolean }
 }
 
 function onSubmit(gameSlug: string, projectTypeSlug: string, formData: FormData) {
@@ -55,7 +58,14 @@ function getClass(activeName: string, key: string) {
 
 function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
   const [activeTab, setActiveTab] = useState("editor");
-  const [formData, setFormData] = useState<FormData>({name: "", summary: "", description: "", logo: undefined, preview: undefined});
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    summary: "",
+    description: "",
+    logo: undefined,
+    preview: undefined,
+    valid: {name: false, summary: false, description: false}
+  });
   const {getRootProps, getInputProps} = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
@@ -72,6 +82,10 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
     if (formData.preview)
       URL.revokeObjectURL(formData.preview);
   }, [formData.preview]);
+  let theme = useContext(Theme);
+
+  let shadowValid = theme.theme === "dark" ? "shadow-valid-dark" : "shadow-valid-light";
+  let shadowInvalid = theme.theme === "dark" ? "shadow-invalid-dark" : "shadow-invalid-light";
 
   return (
     <Layout title={"Create Project | Diluv"}>
@@ -87,33 +101,47 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
                      style={formData.logo ? {backgroundImage: `url('${formData.preview}'`} : {}}>
                   <div {...getRootProps({className: 'dropzone'})}>
                     <input {...getInputProps()} />
-                    {!formData.logo ? <p>Drag 'n' drop some files here, or click to select files</p> : ''}
+                    {!formData.logo ? <p>Click or drop a logo here.</p> : ''}
                   </div>
                 </div>
               </div>
-              <div className="px-4 flex flex-col justify-between leading-normal w-1/4">
+              <div className="px-4 flex flex-col justify-between leading-normal w-1/2">
                 <div className="mb-2">
                   <label className="block text-diluv-700 text-md font-bold mb-2" htmlFor="username">
                     Name
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-diluv-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={"shadow appearance-none border rounded w-full py-2 px-3 text-diluv-700 leading-tight focus:outline-none focus:shadow-outline " + (formData.valid.name ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
                     id="name" type="text" placeholder="Name"
+                    minLength={5}
+                    maxLength={50}
                     onChange={event => {
-                      setFormData({...formData, name: event.target.value})
+                      const minLength = event.target.minLength;
+                      const maxLength = event.target.maxLength;
+                      setFormData({
+                        ...formData,
+                        name: event.target.value,
+                        valid: {...formData.valid, name: new RegExp('^.{' + minLength + ',' + maxLength + '}$').test(event.target.value)}
+                      })
                     }}
-                    value={formData.name}
-                  />
+                    value={formData.name}/>
                 </div>
                 <div className="mb-2">
                   <label className="block text-diluv-700 text-md font-bold mb-2" htmlFor="username">
                     Summary
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-diluv-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={"shadow appearance-none border rounded w-full py-2 px-3 text-diluv-700 leading-tight focus:outline-none focus:shadow-outline " + (formData.valid.summary ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
                     id="summary" type="text" placeholder="Summary"
+                    minLength={10}
+                    maxLength={250}
                     onChange={event => {
-                      setFormData({...formData, summary: event.target.value})
+                      const minLength = event.target.minLength;
+                      const maxLength = event.target.maxLength;
+                      setFormData({
+                        ...formData, summary: event.target.value,
+                        valid: {...formData.valid, summary: new RegExp('^.{' + minLength + ',' + maxLength + '}$').test(event.target.value)}
+                      })
                     }}
                     value={formData.summary}
                   />
@@ -142,12 +170,23 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
                 {
                   (activeTab == "editor" || activeTab == "both") &&
                   <textarea id="description"
-                            className="flex-1 shadow appearance-none rounded py-2 px-3 text-diluv-700 mb-3 mr-4 leading-tight overflow-x-auto whitespace-pre h-full"
+                            className={"flex-1 shadow appearance-none rounded py-2 px-3 text-diluv-700 mb-3 mr-4 leading-tight overflow-x-auto whitespace-pre h-full " + (formData.valid.description ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
+                            minLength={50}
+                            maxLength={1000}
                             onChange={event => {
-                              setFormData({...formData, description: event.target.value})
+                              const minLength = event.target.minLength;
+                              const maxLength = event.target.maxLength;
+                              setFormData({
+                                ...formData,
+                                description: event.target.value,
+                                valid: {
+                                  ...formData.valid,
+                                  description: new RegExp('^.{' + minLength + ',' + maxLength + '}$').test(event.target.value)
+                                }
+                              })
+
                             }}
-                            value={formData.description}
-                  />
+                            value={formData.description}/>
                 }
                 {
                   (activeTab == "preview" || activeTab == "both") &&
@@ -159,9 +198,11 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
 
             </div>
             <div className="flex items-center justify-between">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      type="button"
-                      onClick={_ => onSubmit(gameSlug, projectTypesSlug, formData)}
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={!formData.valid.name || !formData.valid.summary || !formData.valid.description || !formData.logo}
+                type="button"
+                onClick={_ => onSubmit(gameSlug, projectTypesSlug, formData)}
               >
                 Submit
               </button>
