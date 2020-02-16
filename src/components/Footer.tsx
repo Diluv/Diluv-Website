@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import Drop from "../components/Drop"
-import  {NodecraftDark, NodecraftLight} from "../components/Nodecraft"
+import {NodecraftDark, NodecraftLight} from "../components/Nodecraft"
 import {Theme} from "../utils/Contexts";
 
 function Footer() {
@@ -63,9 +63,7 @@ function Footer() {
       <div className="w-1/2 pt-2 md:w-1/12 md:mr-auto">
         <h5 className={"text-xl font-bold pb-2"}>Sponsored</h5>
         <a href={"https://nodecraft.com"}>
-          {theme.theme === "dark" && <NodecraftDark/>}
-          {theme.theme !== "dark" && <NodecraftLight/>}
-
+          {theme.theme === "dark" ? <NodecraftDark/> : <NodecraftLight/>}
         </a>
       </div>
     </div>

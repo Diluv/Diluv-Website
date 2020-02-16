@@ -68,8 +68,10 @@ function ProjectUploadFilePage({gameSlug, projectTypesSlug, projectSlug}: Props)
   let shadowInvalid = theme.theme === "dark" ? "shadow-invalid-dark" : "shadow-invalid-light";
 
   return (
-    <Layout title={"Create Project | Diluv"}>
+    <Layout title={"Upload Project File | Diluv"}>
       <div className="container mx-auto">
+        <h2 className="flex-grow text-center text-4xl font-bold pb-2">Upload File</h2>
+
         <div className="w-full">
           <form className="rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-2">
