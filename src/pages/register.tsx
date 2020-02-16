@@ -104,7 +104,7 @@ function RegisterPage() {
 
   return (<Layout title="Register | Diluv">
       <div className="">
-        <div className="pb-md-2 md:pt-3 text-center">
+        <div className="md:pb-2 md:pt-3 text-center">
           <h1 className={"text-5xl"}>Register</h1>
         </div>
         {errors && showErrors(errors)}
