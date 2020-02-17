@@ -30,6 +30,15 @@
   transition: visibility 0s 0.15s, opacity 0.15s ease-out;
 }
 
+.expand-image {
+  transition: 0.8s cubic-bezier(1, -1, 0, 1);
+  clip-path: circle(50.0% at 50% 50%);
+}
+
+.expand-image:hover {
+  clip-path: circle(70.7% at 50% 50%);
+}
+
 #ncSupport {
   background: #0ea7e7 url(https://nodecraft.com/assets/images/community/banner/ncsupportborder.jpg) repeat-x bottom;
   height: 38px;

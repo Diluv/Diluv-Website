@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {useEffect, useRef, useState} from 'react'
 import Layout from '../components/Layout'
-import {privateProps} from "../utils/auth";
 import {get} from "../utils/request";
 import {API_URL} from "../utils/api";
 import {AxiosError} from "axios";
@@ -22,7 +21,7 @@ function ProfilePage() {
     email: "loading...",
     mfa: false,
     username: "loading...",
-    avatarURL: '',
+    avatarURL: 'https://i.blamejared.com/github%20(2).png',
     createdAt: 0
   });
 
@@ -42,28 +41,28 @@ function ProfilePage() {
     return <React.Fragment/>;
   }
   return (<Layout title="Profile | Diluv">
-      <div className="container">
-        {/*<Container className="pt-3">*/}
-        {/*  <Row>*/}
-        {/*    <Col md={3}>*/}
-        {/*      {userInfo.current["avatarURL"] &&*/}
-        {/*      <Image src={userInfo.current["avatarURL"]} roundedCircle width="100%"/>}*/}
-        {/*    </Col>*/}
-        {/*    <Col md={9}>*/}
-        {/*      <div className={"pt-4"}>*/}
-        {/*        <h3>{userInfo.current["username"]}</h3>*/}
-        {/*        <h3>{userInfo.current["email"]}</h3>*/}
-        {/*        <h3>Member since: {new Date(userInfo.current["createdAt"]).toLocaleString()}</h3>*/}
-        {/*      </div>*/}
-        {/*    </Col>*/}
-        {/*  </Row>*/}
-        {/*</Container>*/}
+      <div className="container mx-auto">
+        <div className={"pt-3"}>
+          <div className={"flex"}>
+            <div className={"w-1/4"}>
+              {userInfo.current["avatarURL"] &&
+              <img src={userInfo.current["avatarURL"]} className={"expand-image"} width="100%"/>}
+            </div>
+            <div className={"w-3/4"}>
+              <div className={"pt-4"}>
+                <h3>{userInfo.current["username"]}</h3>
+                <h3>{userInfo.current["email"]}</h3>
+                <h3>Member since: {new Date(userInfo.current["createdAt"]).toLocaleString()}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   );
 }
 
-ProfilePage.getInitialProps = privateProps;
+// ProfilePage.getInitialProps = privateProps;
 
 
 export default ProfilePage
