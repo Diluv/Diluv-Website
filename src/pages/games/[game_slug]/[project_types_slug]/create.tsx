@@ -110,7 +110,7 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
                     Name
                   </label>
                   <input
-                    className={"shadow appearance-none border rounded w-full py-2 px-3 text-diluv-700 leading-tight focus:outline-none focus:shadow-outline " + (formData.valid.name ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
+                    className={"focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black " + (formData.valid.name ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
                     id="name" type="text" placeholder="Name"
                     minLength={5}
                     maxLength={50}
@@ -130,7 +130,7 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
                     Summary
                   </label>
                   <input
-                    className={"shadow appearance-none border rounded w-full py-2 px-3 text-diluv-700 leading-tight focus:outline-none focus:shadow-outline " + (formData.valid.summary ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
+                    className={"focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black " + (formData.valid.summary ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
                     id="summary" type="text" placeholder="Summary"
                     minLength={10}
                     maxLength={250}
@@ -169,7 +169,7 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
                 {
                   (activeTab == "editor" || activeTab == "both") &&
                   <textarea id="description"
-                            className={"flex-1 shadow appearance-none rounded py-2 px-3 text-diluv-700 mb-3 mr-4 leading-tight overflow-x-auto whitespace-pre h-full " + (formData.valid.description ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
+                            className={"flex-1 focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black overflow-x-auto whitespace-pre h-full min-h-25vh " + (formData.valid.description ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
                             minLength={50}
                             maxLength={1000}
                             onChange={event => {
