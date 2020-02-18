@@ -93,7 +93,7 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
           <form className=" rounded px-8 pt-6 pb-8 mb-4">
             <div className="max-w-sm lg:max-w-full lg:flex pb-3">
               <div className="mb-2">
-                <label className="inline-block px-4 font-bold text-diluv-700 text-md font-bold mb-2" htmlFor="logo">
+                <label className="inline-block font-bold text-diluv-700 text-md font-bold mb-2" htmlFor="logo">
                   Logo
                 </label>
                 <div className="lg:h-40 lg:w-40 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden border"
