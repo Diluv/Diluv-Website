@@ -30,12 +30,12 @@ export function DropDownItem(props: { children: ReactNode, className?: string })
 
 export function DropDownLink(props: { children: ReactNode, className?: string, href: string }) {
   return <Link href={props.href}>
-    <div className={"cursor-pointer"}>
+    <a>
       <div
         className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 hover:bg-gray-400 transition-colors duration-150 ease-in"}>
         {props.children}
       </div>
-    </div>
+    </a>
   </Link>
 }
 
