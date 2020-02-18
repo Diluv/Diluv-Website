@@ -28,7 +28,7 @@ function register(event: React.SyntheticEvent, fields: Fields, setErrors: Functi
   formData.append('username', username.value);
   formData.append('password', password.value);
   formData.append('passwordConfirm', passwordConfirm.value);
-  formData.append('terms', terms.value);
+  formData.append('terms', terms.checked ? 'true' : 'false');
   post(`${API_URL}/v1/auth/register`, formData).then(() => {
     setErrors([]);
     setPostRegister(true);

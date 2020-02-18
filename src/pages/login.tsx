@@ -1,5 +1,3 @@
-// import {Alert, Button, Col, Container, Form} from "react-bootstrap";
-// import Row from "react-bootstrap/Row";
 import * as React from 'react'
 import {SyntheticEvent, useRef, useState} from 'react'
 import Layout from '../components/Layout'
@@ -17,7 +15,6 @@ interface Fields {
   password: HTMLInputElement,
 }
 
-
 function login(event: SyntheticEvent, fields: Fields, setErrors: Function, router: NextRouter) {
   event.preventDefault();
   const formData = new FormData();
@@ -25,23 +22,24 @@ function login(event: SyntheticEvent, fields: Fields, setErrors: Function, route
   formData.append('password', fields.password.value);
   // formData.append('mfa', mfa);
 
+  post(`${API_URL}/v1/auth/login`, formData).then((response) => {
 
-  post(`${API_URL}/v1/auth/login`, formData).then((data) => {
-
-    setCookie(null, "accessToken", data.data.accessToken, {
-      expires: new Date(data.data.expiredAt)
+    setCookie(null, "accessToken", response.data.data.accessToken, {
+      expires: new Date(response.data.data.expiredAt)
     });
     // @ts-ignore
-    setCookie(null, "username", jwt(data.data.accessToken)["username"], {
-      expires: new Date(data.data.expiredAt)
+    setCookie(null, "username", jwt(response.data.data.accessToken)["username"], {
+      expires: new Date(response.data.data.expiredAt)
     });
-    setCookie(null, "refreshToken", data.data.refreshToken, {
-      expires: new Date(data.data.refreshExpiredAt)
+    setCookie(null, "refreshToken", response.data.data.refreshToken, {
+      expires: new Date(response.data.data.refreshExpiredAt)
     });
     setErrors([]);
     returnTo(router);
   }).catch(Error => {
     let errors = [];
+    console.log(Error.message);
+
     if (Error.message)
       errors.push(Error.message);
     if (Error.response?.statusText)
@@ -107,7 +105,8 @@ function LoginPage() {
             <button
               disabled={(fieldUserName.current && fieldPassword.current ? fieldUserName.current.value.trim().length === 0 || fieldPassword.current.value.trim().length === 0 : true)}
               type={"submit"}
-              className={"block bg-diluv-700 disabled:bg-diluv-700 hover:bg-diluv-500 text-diluv-200 disabled:text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"}>Register
+              className={"block bg-diluv-700 disabled:bg-diluv-700 hover:bg-diluv-500 text-diluv-200 disabled:text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"}>
+              Login
             </button>
           </div>
         </form>
