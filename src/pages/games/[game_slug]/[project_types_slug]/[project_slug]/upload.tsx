@@ -111,7 +111,7 @@ function ProjectUploadFilePage({gameSlug, projectTypesSlug, projectSlug}: Props)
               </div>
             </div>
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-blue-700 disabled:bg-diluv-700 hover:bg-blue-500 text-diluv-200 hover:text-white font-bold p-2 duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={!formData.validChangelog || !formData.file}
               type="button"
               onClick={_ => onSubmit(gameSlug, projectTypesSlug, projectSlug, formData)}>

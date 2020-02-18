@@ -198,7 +198,7 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
             </div>
             <div className="flex items-center justify-between">
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-blue-700 disabled:bg-diluv-700 hover:bg-blue-500 text-diluv-200 hover:text-white font-bold py-2 px-4 duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={!formData.valid.name || !formData.valid.summary || !formData.valid.description || !formData.logo}
                 type="button"
                 onClick={_ => onSubmit(gameSlug, projectTypesSlug, formData)}

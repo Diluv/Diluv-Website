@@ -19,7 +19,7 @@ const ProjectTypePage: NextPage<Props> = ({gameSlug, projectType, projects, erro
       <div className="flex">
         <h2 className="flex-grow text-center text-4xl font-bold pb-2">{projectType.name}</h2>
         <Link href={`/games/${gameSlug}/${projectType.slug}/create`}>
-          <button className="bg-diluv-500 hover:bg-diluv-700 text-white font-bold py-2 px-4 rounded m-4">
+          <button className="bg-blue-700 hover:bg-blue-500 text-diluv-200 hover:text-white font-bold py-2 px-4 m-4 duration-200 ease-in">
             Create Project
           </button>
         </Link>
