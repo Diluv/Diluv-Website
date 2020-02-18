@@ -10,6 +10,7 @@ type Props = {
   projectTypesSlug: string
   projectSlug: string
   project: Project
+  permissions: string
   children: any
 }
 
@@ -28,6 +29,7 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
                                                             projectTypesSlug,
                                                             projectSlug,
                                                             project,
+                                                            permissions,
                                                             children
                                                           }) =>
   (
@@ -38,13 +40,24 @@ const ProjectComponent: React.FunctionComponent<Props> = ({
              title={project.name}>
         </div>
         <div
-          className="w-full lg:rounded-r p-4 pt-3 flex flex-col justify-between leading-normal">
-          <div className="mb-2">
-            <div className="font-bold text-3xl mb-2">{project.name}</div>
-            <p className="text-base">{project.summary}</p>
+          className="w-full lg:rounded-r p-4 pt-3 flex flex-col justify-between leading-normal pr-0">
+          <div className="mb-2 flex">
+            <div className="flex-grow font-bold text-3xl mb-2">{project.name}</div>
+
+            {
+              permissions == 'all' && (
+                <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/upload`}>
+                  <button className="bg-diluv-500 hover:bg-diluv-700 text-white font-bold py-2 px-3 rounded m-1">
+                    Upload file
+                  </button>
+                </Link>
+              )
+            }
           </div>
           <div className="flex items-center">
             <div className="text-sm">
+              <p className="text-base">{project.summary}</p>
+
               <p>Created: {new Date(project.createdAt).toLocaleString()}</p>
               <p>Last Updated: {ago(new Date(project.updatedAt))}</p>
               <p>Downloads: {project.cachedDownloads}</p>
