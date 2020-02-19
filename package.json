@@ -18,7 +18,7 @@
     "@fortawesome/free-regular-svg-icons": "5.12.1",
     "@fortawesome/free-solid-svg-icons": "5.12.1",
     "@fortawesome/react-fontawesome": "0.1.4",
-    "@next/bundle-analyzer": "9.2.1",
+    "@next/bundle-analyzer": "9.2.2",
     "@zeit/next-css": "1.0.1",
     "axios": "0.19.2",
     "axios-auth-refresh": "2.2.1",
