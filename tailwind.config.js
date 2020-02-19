@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
     theme: {
         minHeight: {
@@ -6,6 +8,9 @@ module.exports = {
             '50vh': '50vh',
             '70vh': '70vh',
             '100vh': '100vh',
+            '1/4': '25%',
+            '1/2': '50%',
+            '3/4': '70%',
         },
         extend: {
             spinner: (theme) => ({
@@ -135,6 +140,16 @@ module.exports = {
                     size: [10, 6]
                 }
             },
+        }),
+        plugin(function({ addBase, config }) {
+            addBase({
+                'h1': { fontSize: config('theme.fontSize.4xl') },
+                'h2': { fontSize: config('theme.fontSize.2xl') },
+                'h3': { fontSize: config('theme.fontSize.lg') },
+                'h4': { fontSize: config('theme.fontSize.base') },
+                'h5': { fontSize: config('theme.fontSize.sm') },
+                'h6': { fontSize: config('theme.fontSize.xs') },
+            })
         })
     ]
 }

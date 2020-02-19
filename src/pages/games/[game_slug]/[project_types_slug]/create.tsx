@@ -6,12 +6,13 @@ import {useDropzone} from 'react-dropzone'
 import {post} from "../../../../utils/request";
 import {API_URL} from "../../../../utils/api";
 import {Theme} from "../../../../utils/Contexts";
+import {ColouredDrop} from "../../../../components/Drop";
 
 const sanitizeHtml = require('sanitize-html');
 const marked = require('marked');
 
 marked.setOptions({
-  sanitize: true,
+  sanitize: true
 });
 
 type Props = {
@@ -55,6 +56,22 @@ function getClass(activeName: string, key: string) {
   return css + 'hover:text-white';
 }
 
+function hashCode(str: string) { // java String#hashCode
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return hash;
+}
+
+function intToRGB(i: number) {
+  var c = (i & 0x00FFFFFF)
+    .toString(16)
+    .toUpperCase();
+
+  return "00000".substring(0, 6 - c.length) + c;
+}
+
 function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
   const [activeTab, setActiveTab] = useState("editor");
   const [formData, setFormData] = useState<FormData>({
@@ -96,11 +113,12 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
                 <label className="inline-block font-bold text-diluv-700 text-md font-bold mb-2" htmlFor="logo">
                   Logo
                 </label>
-                <div className="lg:h-40 lg:w-40 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden border"
+                <div className="lg:h-40 lg:w-40 flex-none bg-cover text-center text-diluv-200 hover:text-white overflow-hidden cursor-pointer bg-blue-700 hover:bg-blue-500"
                      style={formData.logo ? {backgroundImage: `url('${formData.preview}'`} : {}}>
                   <div {...getRootProps({className: 'dropzone'})}>
                     <input {...getInputProps()} />
-                    {!formData.logo ? <p>Click or drop a logo here.</p> : ''}
+                    {!formData.logo ?
+                      <div><span className={"text-sm"}>Click or drop a logo here</span><ColouredDrop className={"mx-auto"} height={"8rem"} width={"8rem"} style={{fill: "#" + intToRGB(hashCode(formData.name))}}/></div> : ''}
                   </div>
                 </div>
               </div>
@@ -169,7 +187,7 @@ function ProjectCreatePage({gameSlug, projectTypesSlug}: Props) {
                 {
                   (activeTab == "editor" || activeTab == "both") &&
                   <textarea id="description"
-                            className={"flex-1 focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black overflow-x-auto whitespace-pre h-full min-h-25vh " + (formData.valid.description ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
+                            className={"flex-1 overflow-y-scroll overflow-x-hidden overflow-scroll focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black whitespace-pre h-64 " + (formData.valid.description ? "focus:shadow-valid " + shadowValid : "focus:shadow-invalid " + shadowInvalid)}
                             minLength={50}
                             maxLength={1000}
                             onChange={event => {
