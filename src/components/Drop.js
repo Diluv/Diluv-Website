@@ -54,7 +54,7 @@ const Drop = ({
 
 export const ColouredDrop = ({
                                  style = {},
-                                 fill = "#000",
+                                 fill = "",
                                  width = "101.76px",
                                  height = "195.6px",
                                  className = "",
