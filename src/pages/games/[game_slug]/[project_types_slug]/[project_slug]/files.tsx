@@ -24,7 +24,8 @@ const ProjectFilesPage: NextPage<Props> = ({project, projectFiles, gameSlug, pro
                       project={project}
                       gameSlug={gameSlug}
                       projectTypesSlug={projectTypesSlug}
-                      projectSlug={projectSlug}>
+                      projectSlug={projectSlug}
+                      permissions={""}>
       <ProjectFilesComponent projectFiles={projectFiles}/>
     </ProjectComponent>
     {errors}
