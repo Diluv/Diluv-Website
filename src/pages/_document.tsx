@@ -1,14 +1,17 @@
-import Document, {DocumentContext, Head, Html, Main, NextScript} from 'next/document'
+import React from 'react';
+import Document, {
+  DocumentContext, Head, Html, Main, NextScript,
+} from 'next/document';
 
 class _document extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-    return {...initialProps}
+    return { ...initialProps };
   }
 
   render() {
     return (
-      <Html lang='en'>
+      <Html lang="en">
         <Head>
           <link rel="manifest" href="/manifest.json"/>
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
@@ -20,12 +23,12 @@ class _document extends Document {
           <meta name="theme-color" content="#ffffff"/>
         </Head>
         <body>
-        <Main/>
-        <NextScript/>
+          <Main/>
+          <NextScript/>
         </body>
       </Html>
-    )
+    );
   }
 }
 
-export default _document
+export default _document;

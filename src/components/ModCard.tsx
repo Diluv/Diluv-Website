@@ -1,18 +1,22 @@
-import * as React from 'react'
+import React from 'react';
 
 type Props = {
-  name?: string
-  screenshot?: string
-}
+  name: string
+  screenshot: string
+};
 
-const ModCard: React.FunctionComponent<Props> = ({
-                                                   name = 'This is the default title',
-                                                   screenshot = "https://via.placeholder.com/348x225.png",
-                                                 }) =>
-  (
+function ModCard({
+  name = 'This is the default title',
+  screenshot = 'https://via.placeholder.com/348x225.png',
+}: Props) {
+  return (
     <div className="card mb-4 box-shadow">
-      <img className="card-img-top" alt={'game/mod name'} style={{height: 225, width: '100%', display: 'block'}}
-           src={screenshot}/>
+      <img
+        className="card-img-top"
+        alt="game/mod name"
+        style={{ height: 225, width: '100%', display: 'block' }}
+        src={screenshot}
+      />
       <div className="card-body">
         <p className="card-text">{name}</p>
         <div className="d-flex justify-content-between align-items-center">
@@ -25,5 +29,6 @@ const ModCard: React.FunctionComponent<Props> = ({
       </div>
     </div>
   );
+}
 
-export default ModCard
+export default ModCard;

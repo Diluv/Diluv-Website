@@ -1,55 +1,82 @@
-import React, {ReactNode} from "react";
-import Link from "next/link";
-import {useComponentVisible} from "../utils/hooks";
+import React, { ReactNode } from 'react';
+import Link from 'next/link';
+import useComponentVisible from '../utils/hooks';
 
 function DropDown(props: { name: string, children: ReactNode, className?: string }) {
-
   const {
     ref,
     isComponentVisible,
-    setIsComponentVisible
-  }: { ref: React.Ref<any>, isComponentVisible: boolean, setIsComponentVisible: Function } = useComponentVisible(false);
+    setIsComponentVisible,
+  }: {
+    ref: React.Ref<any>,
+    isComponentVisible: boolean,
+    setIsComponentVisible: Function
+  } = useComponentVisible(false);
 
-  return (<div ref={ref}>
-    <div className={(props.className ? props.className + " " : "") + "pb-1 cursor-pointer"}
-         onClick={() => setIsComponentVisible(!isComponentVisible)}>
-      <p>{props.name}</p>
+  const { name, children, className } = props;
+  return (
+    <div ref={ref}>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div
+        className={`${className || ''} pb-1 cursor-pointer`}
+        onClick={() => setIsComponentVisible(!isComponentVisible)}
+      >
+        <p>{name}</p>
+      </div>
+      <div
+        className={
+          `absolute bg-white mr-4 border border-gray-800 md:right-0 left-auto sm:inset-x-0 md:inset-auto bg-gray-300 
+          ${isComponentVisible ? '' : 'opacity-0 hidden'}`
+        }
+      >
+        {children}
+      </div>
     </div>
-    <div
-      className={"absolute bg-white mr-4 border border-gray-800 md:right-0 left-auto sm:inset-x-0 md:inset-auto bg-gray-300" + (isComponentVisible ? "" : " opacity-0 hidden")}>
-      {props.children}
-    </div>
-  </div>);
+  );
 }
 
 export function DropDownItem(props: { children: ReactNode, className?: string }) {
-  return <div className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2"}>
-    {props.children}
-  </div>
+  const { children, className } = props;
+  return (
+    <div className={`${className || ''} text-gray-800 px-6 py-2`}>
+      {children}
+    </div>
+  );
 }
 
 export function DropDownLink(props: { children: ReactNode, className?: string, href: string }) {
-  return <Link href={props.href}>
-    <a>
+  const { href, children, className } = props;
+  return (
+    <Link href={href}>
       <div
-        className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 hover:bg-gray-400 transition-colors duration-150 ease-in"}>
-        {props.children}
+        className={`${className || ''} text-gray-800 px-6 py-2 hover:bg-gray-400 transition-colors duration-150 ease-in cursor-pointer`}
+      >
+        {children}
       </div>
-    </a>
-  </Link>
+    </Link>
+  );
 }
 
-export function DropDownAction(props: { children: ReactNode, className?: string, action: Function }) {
-  return <div onClick={(e) => props.action(e)}>
-    <div
-      className={(props.className ? props.className + " " : "") + "text-gray-800 px-6 py-2 cursor-pointer hover:bg-gray-400  transition-colors duration-150 ease-in"}>
-      {props.children}
+export function DropDownAction(props: {
+  children: ReactNode,
+  className?: string,
+  action: Function
+}) {
+  const { children, action, className } = props;
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+    <div onClick={(e) => action(e)}>
+      <div
+        className={`${className || ''} text-gray-800 px-6 py-2 cursor-pointer hover:bg-gray-400  transition-colors duration-150 ease-in`}
+      >
+        {children}
+      </div>
     </div>
-  </div>
+  );
 }
 
 export function DropDownSpacer() {
-  return <div className={"border-gray-400 border-b"}/>
+  return <div className="border-gray-400 border-b"/>;
 }
 
 

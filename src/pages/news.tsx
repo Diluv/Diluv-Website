@@ -1,18 +1,20 @@
-import * as React from 'react'
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import {NextPage} from 'next';
+import React from 'react';
 
-const NewsPage: NextPage = () => (
-  <Layout title="News | Diluv">
-    <h1>News</h1>
-    <p>This is the News page</p>
-    <p>
-      <Link href="/">
-        <a>Go home</a>
-      </Link>
-    </p>
-  </Layout>
-);
+import Link from 'next/link';
+import Layout from '../components/Layout';
 
-export default NewsPage
+function NewsPage() {
+  return (
+    <Layout title="News | Diluv">
+      <h1>News</h1>
+      <p>This is the News page</p>
+      <p>
+        <Link href="/">
+          <button type="button">Go home</button>
+        </Link>
+      </p>
+    </Layout>
+  );
+}
+
+export default NewsPage;

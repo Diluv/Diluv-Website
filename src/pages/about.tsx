@@ -1,18 +1,19 @@
-import * as React from 'react'
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import {NextPage} from 'next';
+import React from 'react';
+import Link from 'next/link';
+import Layout from '../components/Layout';
 
-const AboutPage: NextPage = () => (
-  <Layout title="About | Diluv">
-    <h1>About</h1>
-    <p>This is the about page</p>
-    <p>
-      <Link href="/">
-        <a>Go home</a>
-      </Link>
-    </p>
-  </Layout>
-);
+function AboutPage() {
+  return (
+    <Layout title="About | Diluv">
+      <h1>About</h1>
+      <p>This is the about page</p>
+      <p>
+        <Link href="/">
+          <button type="button">Go home</button>
+        </Link>
+      </p>
+    </Layout>
+  );
+}
 
-export default AboutPage
+export default AboutPage;
