@@ -19,7 +19,7 @@ export type Project = {
   slug: string
   summary: string
   description: string
-  logoUrl: string,
+  logo: string,
   cachedDownloads: number,
   createdAt: number,
   updatedAt: number

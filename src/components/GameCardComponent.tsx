@@ -6,7 +6,7 @@ type Props = {
 };
 
 function GameCardComponent({
-  screenshot = 'https://via.placeholder.com/348x225.png',
+  screenshot = 'https://images.placeholders.dev/?width=348&height=225',
 }: Props) {
   return (
     <div className="card mb-4 box-shadow">

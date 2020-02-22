@@ -4,7 +4,7 @@
     "slug": "bookshelf",
     "summary": "Bookshelf summary",
     "description": "# Markdown: Doing fancy stuff in Discord text\n\nYou may have noticed some discord messages have fancy formatting. This is acomplished by using the markdown format. Discord only allows for a specific subset of the format right now. \n\n### Basics\n*Italics* - `*Italics*`    \n**Bold** - `**Bold**`    \n~~Strikeout~~ - `~~StrikeOut~~`    \n__Underline__ - `__Underline__`    \n\n### Combos\n***Bold Italics*** - `***Bold Italics***`    \n__*Underline Italics*__ - `__*Underline Italics*__`    \n__**Underline Bold**__ - `__**Underline Bold**__`    \n__***Underline Bold Italics***__ - `__***Underline Bold Italics***__`\n\n### Disabling Markdown\nDiscord also provides a way to prevent markdown from being applied, just add a backslash `\\` before the markdown character. For example, `\\**Not Bold**` will prevent the text from being bold, and the backslash will disapear from the visible text. In the case of combined formats, you may need multiple backslashes. Using the example with all three, you would need four backslashes to disable the markdown. `\\__\\*\\*\\*Not Underline Bold Italics***__`\n\n### Quotes and Code\n\nIf you want to do some quoted text, surround the text in backticks \\`.    \n`This is quoted text`\n\nIf you want to do a multiline quote, surround the text in three backticks. \\```    \n```\nThis is a haiku \nabout a wonderful thing \ncalled markdown Format.\n```\n\nIf you want to add code highlighting to your message, do a multiline quote, but add the name of the language after the first three backticks. For example \\```java will apply Java syntax highlighting to the code.    \n```java\n    \n    /**\n     * Safely drops an ItemStack into the world. Used for mob drops.\n     *\n     * @param world The world to drop the item in.\n     * @param pos The base pos to drop the item.\n     * @param stack The stack to drop.\n     */\n    public static void dropStackInWorld (@Nonnull World world, @Nonnull BlockPos pos, @Nonnull ItemStack stack) {\n        \n        if (!world.isRemote && world.getGameRules().getBoolean(\"doTileDrops\")) {\n            \n            final float offset = 0.7F;\n            final double offX = world.rand.nextFloat() * offset + (1.0F - offset) * 0.5D;\n            final double offY = world.rand.nextFloat() * offset + (1.0F - offset) * 0.5D;\n            final double offZ = world.rand.nextFloat() * offset + (1.0F - offset) * 0.5D;\n            final EntityItem entityitem = new EntityItem(world, pos.getX() + offX, pos.getY() + offY, pos.getZ() + offZ, stack);\n            entityitem.setPickupDelay(10);\n            world.spawnEntity(entityitem);\n        }\n    }\n``` ",
-    "logoUrl": "https://via.placeholder.com/64",
+    "logoUrl": "https://images.placeholders.dev/?width=64&height=64",
     "cachedDownloads": 32923285,
     "createdAt": 1573482394,
     "updatedAt": 1573482394
@@ -14,7 +14,7 @@
     "slug": "caliper",
     "summary": "Caliper summary",
     "description": "Caliper description",
-    "logoUrl": "https://via.placeholder.com/64",
+    "logoUrl": "https://images.placeholders.dev/?width=64&height=64",
     "cachedDownloads": 3176949,
     "createdAt": 1573482589,
     "updatedAt": 1573482589
@@ -24,7 +24,7 @@
     "slug": "crafttweaker",
     "summary": "CraftTweaker summary",
     "description": "CraftTweaker description",
-    "logoUrl": "https://via.placeholder.com/64",
+    "logoUrl": "https://images.placeholders.dev/?width=64&height=64",
     "cachedDownloads": 43825671,
     "createdAt": 1573482589,
     "updatedAt": 1573482589

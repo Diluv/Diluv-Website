@@ -17,23 +17,21 @@ function GamePage({ game, projectTypes, errors }: Props) {
   return (
     <Layout title="Diluv">
       <div className="container mx-auto">
-        {(projectTypes.length > 0 && (
-          <>
-            <h2 className="text-center">Project Types</h2>
-            <div className="row pt-md-5">
-              {projectTypes.map((type) => (
-                <div className="col-md-4 mx-auto" key={type.slug}>
-                  <a href={`/games/${game.slug}/${type.slug}`}>
-                    <GameCardComponent
-                      name={type.name}
-                      screenshot={`https://via.placeholder.com/348x225.png?text=${type.name}`}
-                    />
-                  </a>
-                </div>
-              ))}
-            </div>
-          </>
-        ))}
+        <>
+          <h2 className="text-center">Project Types</h2>
+          <div className="row pt-md-5">
+            {projectTypes.map((type) => (
+              <div className="col-md-4 mx-auto" key={type.slug}>
+                <a href={`/games/${game.slug}/${type.slug}`}>
+                  <GameCardComponent
+                    name={type.name}
+                    screenshot={`https://images.placeholders.dev/?width=348&height=225&text=${type.name}`}
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        </>
         {errors}
       </div>
     </Layout>

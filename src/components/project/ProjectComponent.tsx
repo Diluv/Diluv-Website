@@ -38,7 +38,7 @@ function ProjectComponent({
       <div className="max-w-sm lg:max-w-full lg:flex pb-4">
         <div
           className="h-48 lg:h-40 lg:w-40 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-          style={{ backgroundImage: 'url(\'https://via.placeholder.com/150\'' }}
+          style={{ backgroundImage: `url('${project.logo}'` }}
           title={project.name}
         />
         <div className="w-full lg:rounded-r p-4 pt-3 flex flex-col justify-between leading-normal pr-0">

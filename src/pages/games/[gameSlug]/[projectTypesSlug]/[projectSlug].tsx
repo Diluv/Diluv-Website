@@ -22,10 +22,10 @@ function ProjectOverviewPage({
     <Layout title={`${project.name} | Diluv`}>
       <ProjectComponent
         activeKey=""
+        project={project}
         gameSlug={gameSlug}
         projectTypesSlug={projectTypesSlug}
         projectSlug={projectSlug}
-        project={project}
         permissions={permissions}
       >
         <ProjectOverviewComponent description={project.description}/>

@@ -36,38 +36,32 @@ function IndexPage({ games, projects, errors }: Props) {
       </div>
 
       <>
-        {(projects && projects.length > 0 && (
-          <>
-            <h2 className="text-center">Featured Mods</h2>
-            <div className="row pt-md-5">
-              {projects.map((project) => (
-                <div className="col-md-4" key={project.slug}>
-                  <ModCard name="Featured Mods" screenshot="https://via.placeholder.com/348x225.png"/>
-                </div>
-              ))}
+        <h2 className="text-center">Featured Mods</h2>
+        <div className="row pt-md-5">
+          {projects.map((project) => (
+            <div className="col-md-4" key={project.slug}>
+              <ModCard name="Featured Mods" screenshot="https://images.placeholders.dev/?width=348&height=225"/>
             </div>
-          </>
-        ))}
+          ))}
+        </div>
       </>
 
       <div className="">
-        {(games && games.length > 0 && (
-          <>
-            <h2 className="text-center pt-md-5">Games</h2>
-            <div className="row">
-              {games.map((game) => (
-                <div className="col-md-4 mx-auto" key={game.slug}>
-                  <a href={`/games/${game.slug}`}>
-                    <GameCardComponent
-                      name={game.name}
-                      screenshot={`https://via.placeholder.com/348x225.png?text=${game.name}`}
-                    />
-                  </a>
-                </div>
-              ))}
-            </div>
-          </>
-        ))}
+        <>
+          <h2 className="text-center pt-md-5">Games</h2>
+          <div className="row">
+            {games.map((game) => (
+              <div className="col-md-4 mx-auto" key={game.slug}>
+                <a href={`/games/${game.slug}`}>
+                  <GameCardComponent
+                    name={game.name}
+                    screenshot={`https://images.placeholders.dev/?width=348&height=225&text=${game.name}`}
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        </>
       </div>
 
       {

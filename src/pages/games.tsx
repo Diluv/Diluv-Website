@@ -13,23 +13,21 @@ function GamesPage({ games }: Props) {
   return (
     <Layout title="Games | Diluv">
       <div className="container mx-auto">
-        {(games && games.length > 0 && (
-          <>
-            <h2 className="text-center">Games</h2>
-            <div className="row pt-md-5">
-              {games.map((game) => (
-                <div className="col-md-4 mx-auto" key={game.slug}>
-                  <a href={`/games/${game.slug}`}>
-                    <GameCardComponent
-                      name={game.name}
-                      screenshot={`https://via.placeholder.com/348x225.png?text=${game.name}`}
-                    />
-                  </a>
-                </div>
-              ))}
-            </div>
-          </>
-        ))}
+        <>
+          <h2 className="text-center">Games</h2>
+          <div className="row pt-md-5">
+            {games.map((game) => (
+              <div className="col-md-4 mx-auto" key={game.slug}>
+                <a href={`/games/${game.slug}`}>
+                  <GameCardComponent
+                    name={game.name}
+                    screenshot={`https://images.placeholders.dev/?width=348&height=225&text=${game.name}`}
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        </>
       </div>
     </Layout>
   );
