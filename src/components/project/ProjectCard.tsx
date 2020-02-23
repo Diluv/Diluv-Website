@@ -26,7 +26,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {
       >
         <div className=" mb-2">
           <a key={project.slug} href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
-            <div className=" hover:text-white font-bold text-xl mb-1">{project.name}</div>
+            <div className=" hover:text-diluv-500 font-bold text-xl mb-1 transition-colors duration-100 ease-in">{project.name}</div>
           </a>
           <p className=" text-base">{project.summary}</p>
         </div>
