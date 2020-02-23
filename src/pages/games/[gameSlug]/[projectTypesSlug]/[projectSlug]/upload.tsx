@@ -26,7 +26,6 @@ function onSubmit(gameSlug: string, projectTypeSlug: string, projectSlug: string
 
     post(`${API_URL}/v1/games/${gameSlug}/${projectTypeSlug}/${projectSlug}/files`, data).then(() => {
     }).catch((Error) => {
-      // eslint-disable-next-line no-console
       console.log(Error.response?.statusText);
     });
   }

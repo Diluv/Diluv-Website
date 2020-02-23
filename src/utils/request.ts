@@ -37,7 +37,6 @@ const refreshAuthLogic = (failedRequest) => axios.post(`${API_URL}/v1/auth/refre
   setCookie(null, 'refreshToken', tokenRefreshResponse.data.data.refreshToken, {
     expires: new Date(tokenRefreshResponse.data.data.refreshExpiredAt),
   });
-  // eslint-disable-next-line no-param-reassign
   failedRequest.response.config.headers.Authorization = `Bearer ${tokenRefreshResponse.data.data.accessToken}`;
   return Promise.resolve();
 }).catch(() => {

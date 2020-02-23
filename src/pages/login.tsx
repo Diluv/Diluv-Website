@@ -38,7 +38,6 @@ function login(event: SyntheticEvent, fields: Fields, setErrors: Function, route
     returnTo(router);
   }).catch((Error) => {
     const errors = [];
-    // eslint-disable-next-line no-console
     console.log(Error.message);
 
     if (Error.message) errors.push(Error.message);

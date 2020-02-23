@@ -29,7 +29,6 @@ function ProfilePage() {
       loadedData.current = true;
       forceUpdate({});
     }).catch((Error: AxiosError) => {
-      // eslint-disable-next-line no-console
       console.log(Error);
     });
   }, [userInfo]);

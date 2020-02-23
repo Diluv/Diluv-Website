@@ -16,7 +16,6 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
   const { name, children, className } = props;
   return (
     <div ref={ref}>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div
         className={`${className || ''} pb-1 cursor-pointer`}
         onClick={() => setIsComponentVisible(!isComponentVisible)}
@@ -64,7 +63,6 @@ export function DropDownAction(props: {
 }) {
   const { children, action, className } = props;
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
     <div onClick={(e) => action(e)}>
       <div
         className={`${className || ''} text-gray-800 px-6 py-2 cursor-pointer hover:bg-gray-400  transition-colors duration-150 ease-in`}

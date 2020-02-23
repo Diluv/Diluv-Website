@@ -37,10 +37,8 @@ function onSubmit(gameSlug: string, projectTypeSlug: string, formData: FormData)
     data.append('logo', formData.logo);
 
     post(`${API_URL}/v1/games/${gameSlug}/${projectTypeSlug}`, data).then(() => {
-      // eslint-disable-next-line no-console
       console.log('test');
     }).catch((Error) => {
-      // eslint-disable-next-line no-console
       console.log(Error.response?.statusText);
     });
   }
@@ -189,7 +187,6 @@ function ProjectCreatePage({ gameSlug, projectTypesSlug }: Props) {
             <div className="mb-6">
               <ul className="flex justify-end">
                 <li className="-mb-px mr-1 mr-auto">
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                   <label className="inline-block py-2 pr-4 font-bold text-diluv-700 " htmlFor="description">
                     Description
                   </label>
