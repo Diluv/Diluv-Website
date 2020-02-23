@@ -13,56 +13,66 @@ type Props = {
 
 // TODO add back error, this shouldn't happen but could mean the API is down.
 function IndexPage({ games, projects, errors }: Props) {
+  console.log(projects);
   return (
     <Layout title="Diluv">
       <div className="text-center">
         {errors}
-
         <h2>Welcome to Diluv</h2>
         <p>
           Diluv is a platform for game fans to share their fan made content with the world.
         </p>
         <p>
-          We are currently home to
-
-          {5}
-
-          projects and
-
-          {5}
-
-          authors.
+          We are currently home to {5} projects and {5} authors.
         </p>
+      </div>
+
+
+      <div className="md:flex">
+          <div className={"md:w-1/2"}>
+            <h2 className="text-center md:pt-5">Popular Games</h2>
+            <div className="md:flex w-5/6 pt-2 mx-auto">
+              {games.map((game) => (
+                <div className="md:w-1/3 mx-1" key={game.slug}>
+                  <a href={`/games/${game.slug}`}>
+                    <GameCardComponent
+                      name={game.name}
+                      screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
+                    />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={"md:w-1/2"}>
+            <h2 className="text-center md:pt-5">New Games</h2>
+            <div className="md:flex w-5/6 pt-2 mx-auto">
+              {games.map((game) => (
+                <div className="md:w-1/3 mx-1" key={game.slug}>
+                  <a href={`/games/${game.slug}`}>
+                    <GameCardComponent
+                      name={game.name}
+                      screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
+                    />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
       </div>
 
       <>
         <h2 className="text-center">Featured Mods</h2>
-        <div className="row pt-md-5">
-          {projects.map((project) => (
-            <div className="col-md-4" key={project.slug}>
-              <ModCard name="Featured Mods" screenshot="https://images.placeholders.dev/?width=348&height=225"/>
+        <div className="flex md:pt-5">
+          <div className={"w-2/3 mx-auto"}>
+            {/*{projects.map((project) => (*/}
+            <div className="w-1/3">
+              <ModCard name="Featured Mods" screenshot="https://images.placeholders.dev/?width=250&height=131"/>
             </div>
-          ))}
+            {/*))}*/}
+          </div>
         </div>
       </>
-
-      <div className="">
-        <>
-          <h2 className="text-center pt-md-5">Games</h2>
-          <div className="row">
-            {games.map((game) => (
-              <div className="col-md-4 mx-auto" key={game.slug}>
-                <a href={`/games/${game.slug}`}>
-                  <GameCardComponent
-                    name={game.name}
-                    screenshot={`https://images.placeholders.dev/?width=348&height=225&text=${game.name}`}
-                  />
-                </a>
-              </div>
-            ))}
-          </div>
-        </>
-      </div>
 
       {
         // Don't show if logged in
