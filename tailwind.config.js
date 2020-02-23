@@ -109,6 +109,16 @@ module.exports = {
                     700: 'rgba(0,0,0,0.7)',
                     800: 'rgba(0,0,0,0.8)',
                     900: 'rgba(0,0,0,0.9)',
+                }, 'lighten': {
+                    100: 'rgba(255,255,255,0.1)',
+                    200: 'rgba(255,255,255,0.2)',
+                    300: 'rgba(255,255,255,0.3)',
+                    400: 'rgba(255,255,255,0.4)',
+                    500: 'rgba(255,255,255,0.5)',
+                    600: 'rgba(255,255,255,0.6)',
+                    700: 'rgba(255,255,255,0.7)',
+                    800: 'rgba(255,255,255,0.8)',
+                    900: 'rgba(255,255,255,0.9)',
                 },
             },
 
@@ -141,14 +151,14 @@ module.exports = {
                 }
             },
         }),
-        plugin(function({ addBase, config }) {
+        plugin(function ({addBase, config}) {
             addBase({
-                'h1': { fontSize: config('theme.fontSize.4xl') },
-                'h2': { fontSize: config('theme.fontSize.2xl') },
-                'h3': { fontSize: config('theme.fontSize.lg') },
-                'h4': { fontSize: config('theme.fontSize.base') },
-                'h5': { fontSize: config('theme.fontSize.sm') },
-                'h6': { fontSize: config('theme.fontSize.xs') },
+                'h1': {fontSize: config('theme.fontSize.4xl')},
+                'h2': {fontSize: config('theme.fontSize.2xl')},
+                'h3': {fontSize: config('theme.fontSize.lg')},
+                'h4': {fontSize: config('theme.fontSize.base')},
+                'h5': {fontSize: config('theme.fontSize.sm')},
+                'h6': {fontSize: config('theme.fontSize.xs')},
             })
         })
     ]
