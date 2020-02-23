@@ -9,7 +9,7 @@ function PrivacyPage() {
       <p>This is the Privacy page</p>
       <p>
         <Link href="/">
-          <button type="button">Go home</button>
+          <a >Go home</a>
         </Link>
       </p>
     </Layout>

@@ -48,11 +48,11 @@ export function DropDownLink(props: { children: ReactNode, className?: string, h
   const { href, children, className } = props;
   return (
     <Link href={href}>
-      <div
-        className={`${className || ''} text-gray-800 px-6 py-2 hover:bg-gray-400 transition-colors duration-150 ease-in cursor-pointer`}
+      <a
+        className={`${className || ''} text-gray-800 px-6 py-2 hover:bg-gray-400 transition-colors duration-150 ease-in cursor-pointer block`}
       >
         {children}
-      </div>
+      </a>
     </Link>
   );
 }

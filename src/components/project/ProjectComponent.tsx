@@ -47,9 +47,9 @@ function ProjectComponent({
             {
               permissions === 'all' && (
                 <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/upload`}>
-                  <button className="bg-diluv-500 hover:bg-diluv-700 text-white font-bold py-2 px-3 rounded m-1" type="button">
+                  <a className="bg-diluv-500 hover:bg-diluv-700 text-white font-bold py-2 px-3 rounded m-1">
                     Upload file
-                  </button>
+                  </a>
                 </Link>
               )
             }
@@ -73,12 +73,12 @@ function ProjectComponent({
       <ul className="flex border-b">
         <li className="-mb-px mr-1" key="overview">
           <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/`}>
-            <button className={getClass(activeKey, '')} type="button">Overview</button>
+            <a className={getClass(activeKey, '')}>Overview</a>
           </Link>
         </li>
         <li className="-mb-px mr-1" key="files">
           <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/files`}>
-            <button className={getClass(activeKey, 'files')} type="button">Files</button>
+            <a className={getClass(activeKey, 'files')}>Files</a>
           </Link>
         </li>
       </ul>

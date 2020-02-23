@@ -10,12 +10,12 @@ function NavHead() {
   return (
     <nav className="flex items-center justify-between flex-wrap bg-diluv-800 px-4 py-1 font-hero">
       <Link href="/">
-        <button type="button">
+        <a>
           <div className="flex items-center flex-shrink-0 text-white mr-6">
             <Drop height="50px" width="25px"/>
             <span className="text-xl tracking-tight pl-2 font-hero">Diluv</span>
           </div>
-        </button>
+        </a>
       </Link>
       <div className="block md:hidden">
         <button
@@ -34,28 +34,25 @@ function NavHead() {
       <div className={`w-full block flex-grow md:flex md:items-center md:w-auto${showMenu ? '' : ' hidden'}`}>
         <div className="text-sm md:flex-grow">
           <Link href="/">
-            <button
-              type="button"
+            <a
               className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer transition-colors duration-150 ease-in"
             >
               Home
-            </button>
+            </a>
           </Link>
           <Link href="/games">
-            <button
-              type="button"
+            <a
               className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer transition-colors duration-150 ease-in"
             >
               Games
-            </button>
+            </a>
           </Link>
           <Link href="/news">
-            <button
-              type="button"
+            <a
               className="block mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 cursor-pointer transition-colors duration-150 ease-in"
             >
               News
-            </button>
+            </a>
           </Link>
         </div>
         <div className="block mt-4 md:mt-0 md:inline-block">
