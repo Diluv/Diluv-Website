@@ -133,7 +133,7 @@ function LoginPage() {
         <div className="md:w-1/2 w-5/6 mx-auto my-3 text-center">
           <p>
             Don't have an account?
-            <Link href="/register"><span className="hover:text-diluv-500 cursor-pointer">Register now!</span></Link>
+            <Link href="/register"><span className="hover:text-diluv-500 cursor-pointer"> Register now!</span></Link>
           </p>
         </div>
       </div>
