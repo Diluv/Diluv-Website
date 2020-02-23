@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Theme } from "../utils/context";
 
 type Props = {
   name: string
@@ -9,15 +10,16 @@ function ModCard({
   name = 'This is the default title',
   screenshot = 'https://images.placeholders.dev/?width=348&height=225',
 }: Props) {
+  const theme = useContext(Theme);
   return (
-    <div className="card mb-4 box-shadow">
+    <div className={"flex mb-4 box-shadow rounded border " +(theme.theme === "dark" ? "bg-dark-600 border-lighten-100" : "bg-gray-200 border-darken-100")}>
       <img
-        className="card-img-top"
+        className="w-1/2"
         alt="game/mod name"
-        style={{ height: 225, width: '100%', display: 'block' }}
+        style={{ width: '100%' }}
         src={screenshot}
       />
-      <div className="card-body">
+      <div className="w-1/2">
         <p className="card-text">{name}</p>
         <div className="d-flex justify-content-between align-items-center">
           <div className="btn-group">
