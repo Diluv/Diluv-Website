@@ -41,19 +41,6 @@ function Layout({
         {children}
       </main>
       <Footer/>
-      <div id="ncSupport" className="">
-        <div className="max-w-screen-lg mx-auto">
-          <a className="box-content" id="ncSupportLink" href="https://nodecraft.com/r/diluv" target="_blank" rel="noopener noreferrer">
-            <span>In partnership with</span>
-            <img
-              src="https://nodecraft.com/assets/images/logo-dark.svg"
-              alt="Nodecraft Logo"
-              title="Nodecraft | Minecraft Hosting"
-              className="inline m-0"
-            />
-          </a>
-        </div>
-      </div>
     </div>
   );
 }
