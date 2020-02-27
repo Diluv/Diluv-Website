@@ -4,6 +4,7 @@ import GameCardComponent from '../components/GameCardComponent';
 import { getGames } from '../utils/games';
 import { Game, Project } from '../interfaces';
 import ModCard from '../components/ModCard';
+import { getProjectsByGameSlugAndProjectTypeSlug } from "../utils/projects";
 
 type Props = {
   games: Game[]
@@ -28,48 +29,48 @@ function IndexPage({ games, projects, errors }: Props) {
       </div>
 
 
-      <div className="md:flex">
-          <div className={"md:w-1/2"}>
-            <h2 className="text-center md:pt-5">Popular Games</h2>
-            <div className="md:flex w-5/6 pt-2 mx-auto">
-              {games.map((game) => (
-                <div className="md:w-1/3 mx-1" key={game.slug}>
-                  <a href={`/games/${game.slug}`}>
-                    <GameCardComponent
-                      name={game.name}
-                      screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
-                    />
-                  </a>
-                </div>
-              ))}
-            </div>
+      <div className="md:flex w-5/6 mx-auto">
+        <div className={"md:w-1/2 ml-auto"}>
+          <h2 className="text-center md:pt-5">Popular Games</h2>
+          <div className="md:flex md:flex-wrap w-5/6 pt-2 mx-auto">
+            {games.map((game) => (
+              <div className={`${games.length === 1 ? "md:w-full" : "md:w-1/" + Math.min(games.length, 3)} px-1`} key={game.slug}>
+                <a href={`/games/${game.slug}`}>
+                  <GameCardComponent
+                    name={game.name}
+                    screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
+                  />
+                </a>
+              </div>
+            ))}
           </div>
-          <div className={"md:w-1/2"}>
-            <h2 className="text-center md:pt-5">New Games</h2>
-            <div className="md:flex w-5/6 pt-2 mx-auto">
-              {games.map((game) => (
-                <div className="md:w-1/3 mx-1" key={game.slug}>
-                  <a href={`/games/${game.slug}`}>
-                    <GameCardComponent
-                      name={game.name}
-                      screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
-                    />
-                  </a>
-                </div>
-              ))}
-            </div>
+        </div>
+        <div className={"md:w-1/2 mr-auto"}>
+          <h2 className="text-center md:pt-5">New Games</h2>
+          <div className="md:flex md:flex-wrap w-5/6 pt-2 mx-auto">
+            {games.map((game) => (
+              <div className={`${games.length === 1 ? "md:w-full" : "md:w-1/" + Math.min(games.length, 3)} px-1`} key={game.slug}>
+                <a href={`/games/${game.slug}`}>
+                  <GameCardComponent
+                    name={game.name}
+                    screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
+                  />
+                </a>
+              </div>
+            ))}
           </div>
+        </div>
       </div>
 
       <>
         <h2 className="text-center">Featured Mods</h2>
-        <div className="flex md:pt-5">
-          <div className={"w-2/3 mx-auto"}>
-            {/*{projects.map((project) => (*/}
-            <div className="w-1/3">
-              <ModCard name="Featured Mods" screenshot="https://images.placeholders.dev/?width=250&height=131"/>
-            </div>
-            {/*))}*/}
+        <div className={"md:w-1/2 mx-auto pt-2"}>
+          <div className="flex flex-wrap w-5/6 mx-auto">
+            {projects.map((project) => (
+              <div className="w-1/2 px-2 mb-3">
+                <ModCard name={project.name} author={project.author} summary={project.summary} screenshot="https://images.placeholders.dev/?width=100&height=100"/>
+              </div>
+            ))}
           </div>
         </div>
       </>
@@ -101,8 +102,8 @@ function IndexPage({ games, projects, errors }: Props) {
 IndexPage.getInitialProps = async () => {
   try {
     const games = await getGames();
-    // const projects = await getProjects();
-    return { games, projects: [] };
+    const projects = await getProjectsByGameSlugAndProjectTypeSlug("minecraft", "mods");
+    return { games, projects };
   } catch (err) {
     return { errors: err.message };
   }
