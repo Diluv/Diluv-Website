@@ -16,6 +16,7 @@ export type ProjectType = {
 
 export type Project = {
   name: string
+  author: string
   slug: string
   summary: string
   description: string
