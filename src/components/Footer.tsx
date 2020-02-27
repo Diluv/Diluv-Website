@@ -9,7 +9,7 @@ function Footer() {
   let themeBgClass = 'bg-gray-300';
   let hoverText = "hover:text-diluv-500";
   if (theme.theme === 'dark') {
-    themeBgClass = 'bg-dark-600';
+    themeBgClass = 'bg-gray-900';
   }
   return (
     <footer className={`pt-4 py-md-5 md:pt-5 pb-8 font-hero ${themeBgClass}`}>
