@@ -21,11 +21,11 @@ function ModCard({
         <p className={"font-light text-xs text-center py-2 border-b border-darken-200 bg-darken-200"}><span className="font-bold text-lg">{name}</span> by <span className={"text-sm"}>{author}</span></p>
         <div className={"flex flex-row"}>
           <img
-            className="w-1/3 mr-2"
+            className="w-5/12 mr-2"
             alt="game/mod name"
             src={screenshot}
           />
-          <div className="w-2/2 mt-1">
+          <div className="w-7/12 mt-1">
             <p className={"text-sm"}>{summary}</p>
           </div>
         </div>
