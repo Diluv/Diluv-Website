@@ -16,9 +16,10 @@ function ModCard({
 }: Props) {
   const theme = useContext(Theme);
   return (
-    <div className={"flex border " + (theme.theme === "dark" ? "bg-gray-700 border-gray-600 text-gray-100 shadow-light" : "bg-gray-300 border-gray-500 text-black shadow")}>
+    <div className={"flex border border-darken-200 " + (theme.theme === "dark" ? "bg-gray-700 text-gray-100" : "bg-gray-100 text-black")}>
       <div className={"flex flex-col w-full"}>
-        <p className={"font-light text-xs text-center py-2 border-b border-darken-200 bg-darken-200"}><span className="font-bold text-lg">{name}</span> by <span className={"text-sm"}>{author}</span></p>
+        <p className={"font-light text-xs text-center py-2 border-b border-darken-200 bg-darken-200"}><span
+          className="font-bold text-lg">{name}</span> by <span className={"text-sm"}>{author}</span></p>
         <div className={"flex flex-row"}>
           <img
             className="w-5/12 mr-2"
