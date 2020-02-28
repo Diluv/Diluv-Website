@@ -239,24 +239,24 @@ function RegisterPage() {
               </label>
             </div>
           </div>
-          <div className="md:w-1/4 w-5/6 mx-auto mt-2">
+          <div className="md:w-1/4 w-5/6 mx-auto mt-1">
             <button
               disabled={
-                !(validTerms.current.valueOf()
+                (validTerms.current.valueOf()
                   && validPasswordConfirm.current.valueOf()
                   && validPassword.current.valueOf()
                   && validEmail.current.valueOf()
                   && validUserName.current.valueOf())
               }
               type="submit"
-              className="block bg-diluv-700 disabled:bg-diluv-700 hover:bg-diluv-500 text-diluv-200 disabled:text-diluv-200 hover:text-white p-2
+              className="font-bold block bg-diluv-500 disabled:bg-diluv-500 hover:bg-diluv-700 text-white p-2
               w-full transition-colors duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Register
             </button>
           </div>
         </form>
-        <div className="md:w-1/2 w-5/6 mx-auto my-3 text-center">
+        <div className="md:w-1/2 w-5/6 mx-auto mt-1 text-center">
           <p>
             Already have an account?
             <Link href="/login"><span className="hover:text-diluv-500 cursor-pointer"> Login!</span></Link>
