@@ -1,6 +1,4 @@
-import React, {
-  SyntheticEvent, useContext, useRef, useState,
-} from 'react';
+import React, { SyntheticEvent, useContext, useRef, useState, } from 'react';
 import { destroyCookie, parseCookies } from 'nookies';
 import jwt from 'jwt-decode';
 import { Router } from 'next/router';
@@ -11,6 +9,7 @@ import { API_URL } from '../utils/api';
 import Layout from '../components/Layout';
 import { Theme } from '../utils/context';
 import Alert from '../components/Alert';
+import Button from "../components/Button";
 
 interface Fields {
   username: HTMLInputElement,
@@ -240,20 +239,16 @@ function RegisterPage() {
             </div>
           </div>
           <div className="md:w-1/4 w-5/6 mx-auto mt-1">
-            <button
+            <Button
               disabled={
                 !(validTerms.current.valueOf()
                   && validPasswordConfirm.current.valueOf()
                   && validPassword.current.valueOf()
                   && validEmail.current.valueOf()
                   && validUserName.current.valueOf())
-              }
-              type="submit"
-              className="font-bold block bg-diluv-500 disabled:bg-diluv-500 hover:bg-diluv-700 text-white p-2
-              w-full transition-colors duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+              }>
               Register
-            </button>
+            </Button>
           </div>
         </form>
         <div className="md:w-1/2 w-5/6 mx-auto mt-1 text-center">
