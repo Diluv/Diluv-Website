@@ -242,7 +242,7 @@ function RegisterPage() {
           <div className="md:w-1/4 w-5/6 mx-auto mt-1">
             <button
               disabled={
-                (validTerms.current.valueOf()
+                !(validTerms.current.valueOf()
                   && validPasswordConfirm.current.valueOf()
                   && validPassword.current.valueOf()
                   && validEmail.current.valueOf()
