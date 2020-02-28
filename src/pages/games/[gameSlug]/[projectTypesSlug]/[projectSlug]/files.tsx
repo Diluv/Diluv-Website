@@ -29,7 +29,6 @@ function ProjectFilesPage({
         gameSlug={gameSlug}
         projectTypesSlug={projectTypesSlug}
         projectSlug={projectSlug}
-        permissions=""
       >
         <ProjectFilesComponent projectFiles={projectFiles}/>
       </ProjectComponent>

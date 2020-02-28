@@ -14,7 +14,6 @@ type Props = {
 
 // TODO add back error, this shouldn't happen but could mean the API is down.
 function IndexPage({ games, projects, errors }: Props) {
-  console.log(projects);
   return (
     <Layout title="Diluv">
       <div className="text-center">
@@ -68,7 +67,7 @@ function IndexPage({ games, projects, errors }: Props) {
           <div className="flex flex-wrap w-5/6 mx-auto">
             {projects.map((project) => (
               <div className="w-1/2 px-2 mb-3">
-                <ModCard name={project.name} author={project.author} summary={project.summary} screenshot="https://images.placeholders.dev/?width=100&height=100"/>
+                <ModCard name={project.name} contributors={project.contributors} summary={project.summary} screenshot={project.logo}/>
               </div>
             ))}
           </div>

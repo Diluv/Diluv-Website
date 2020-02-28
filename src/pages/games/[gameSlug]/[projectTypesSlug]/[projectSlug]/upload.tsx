@@ -116,10 +116,8 @@ function ProjectUploadFilePage({ gameSlug, projectTypesSlug, projectSlug }: Prop
 }
 
 ProjectUploadFilePage.getInitialProps = async ({ query: { gameSlug, projectTypesSlug, projectSlug } }: NextPageContext) => {
-  // TODO Check for permissions
-  const permissions = '';
   return {
-    gameSlug, projectTypesSlug, projectSlug, permissions,
+    gameSlug, projectTypesSlug, projectSlug,
   };
 };
 

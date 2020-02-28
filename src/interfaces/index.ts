@@ -14,16 +14,23 @@ export type ProjectType = {
   gameSlug: string
 };
 
+export type Contributors = {
+  userId: number
+  username: string
+  role: string
+}
+
 export type Project = {
   name: string
-  author: string
+  contributors: Contributors[]
   slug: string
   summary: string
   description: string
   logo: string,
-  cachedDownloads: number,
+  downloads: number,
   createdAt: number,
-  updatedAt: number
+  updatedAt: number,
+  permissions: string[] | undefined
 };
 
 export type ProjectFiles = {

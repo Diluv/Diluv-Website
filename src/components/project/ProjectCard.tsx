@@ -39,7 +39,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {
               {`Last Updated: ${ago(new Date(project.updatedAt))}`}
             </p>
             <p>
-              {`Downloads: ${project.cachedDownloads}`}
+              {`Downloads: ${project.downloads}`}
             </p>
           </div>
         </div>
