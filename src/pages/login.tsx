@@ -9,7 +9,6 @@ import Layout from '../components/Layout';
 import Alert from '../components/Alert';
 import { post } from '../utils/request';
 import { AccessToken, Data, Login } from '../interfaces';
-import Button from "../components/Button";
 
 interface Fields {
   username: HTMLInputElement,
@@ -118,11 +117,16 @@ function LoginPage() {
             </label>
           </div>
           <div className="md:w-1/3 w-5/6 mx-auto mt-4">
-            <Button
+            <button
               disabled={(fieldUserName.current && fieldPassword.current
-                ? fieldUserName.current.value.trim().length === 0 || fieldPassword.current.value.trim().length === 0 : true)}>
+                ? fieldUserName.current.value.trim().length === 0 || fieldPassword.current.value.trim().length === 0 : true)}
+              type="submit"
+              className="block bg-diluv-700 disabled:bg-diluv-700 hover:bg-diluv-500 text-diluv-200
+              disabled:text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in
+              disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               Login
-            </Button>
+            </button>
           </div>
         </form>
         <div className="md:w-1/2 w-5/6 mx-auto my-3 text-center">
