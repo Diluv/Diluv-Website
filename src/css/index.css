@@ -8,6 +8,19 @@
 @tailwind base;
 @tailwind components;
 /* purgecss end ignore */
+
+.btn-diluv {
+  @apply font-bold block bg-diluv-500 text-white p-2 w-full transition-colors duration-200 ease-in;
+}
+
+.btn-diluv:hover {
+  @apply bg-diluv-700;
+}
+
+.btn-diluv:disabled {
+  @apply bg-diluv-500 opacity-50 cursor-not-allowed;
+}
+
 @tailwind utilities;
 
 .theme-dark {

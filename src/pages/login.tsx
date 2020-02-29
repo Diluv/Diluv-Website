@@ -121,9 +121,7 @@ function LoginPage() {
               disabled={(fieldUserName.current && fieldPassword.current
                 ? fieldUserName.current.value.trim().length === 0 || fieldPassword.current.value.trim().length === 0 : true)}
               type="submit"
-              className="block bg-diluv-700 disabled:bg-diluv-700 hover:bg-diluv-500 text-diluv-200
-              disabled:text-diluv-200 hover:text-white p-2 w-full transition-colors duration-200 ease-in
-              disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-diluv"
             >
               Login
             </button>

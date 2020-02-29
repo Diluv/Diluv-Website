@@ -249,8 +249,7 @@ function RegisterPage() {
                   && validUserName.current.valueOf())
               }
               type="submit"
-              className="font-bold block bg-diluv-500 disabled:bg-diluv-500 hover:bg-diluv-700 text-white p-2
-              w-full transition-colors duration-200 ease-in disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-diluv"
             >
               Register
             </button>

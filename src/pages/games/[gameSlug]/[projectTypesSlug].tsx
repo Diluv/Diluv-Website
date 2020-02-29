@@ -24,7 +24,7 @@ function ProjectTypePage({
           <h2 className="flex-grow text-center text-4xl font-bold pb-2">{projectType.name}</h2>
           <Link href={`/games/${gameSlug}/${projectType.slug}/create`}>
             <a
-              className="bg-blue-700 hover:bg-blue-500 text-diluv-200 hover:text-white font-bold py-2 px-4 m-4 duration-200 ease-in"
+              className="btn-diluv w-auto py-2 px-4 m-4"
             >
               Create Project
             </a>
