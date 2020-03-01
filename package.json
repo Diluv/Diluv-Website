@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "5.12.1",
-    "@fullhuman/postcss-purgecss": "2.0.6",
+    "@fullhuman/postcss-purgecss": "2.1.0",
     "@types/jwt-decode": "2.2.1",
     "@types/node": "13.7.2",
     "@types/react": "16.9.20",
