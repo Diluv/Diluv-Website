@@ -9,7 +9,7 @@ function GameCardComponent({
   screenshot = 'https://images.placeholders.dev/?width=348&height=225',
 }: Props) {
   return (
-    <div className="pb-2">
+    <div className="mb-2">
       <img
         className="w-full"
         alt="game/mod name"
