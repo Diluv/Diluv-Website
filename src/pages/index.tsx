@@ -37,7 +37,7 @@ function IndexPage({ games, projects, errors }: Props) {
                 <a href={`/games/${game.slug}`}>
                   <GameCardComponent
                     name={game.name}
-                    screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
+                    screenshot={`${game.image}`}
                   />
                 </a>
               </div>
@@ -52,7 +52,7 @@ function IndexPage({ games, projects, errors }: Props) {
                 <a href={`/games/${game.slug}`}>
                   <GameCardComponent
                     name={game.name}
-                    screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
+                    screenshot={`${game.image}`}
                   />
                 </a>
               </div>
