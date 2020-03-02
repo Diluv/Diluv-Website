@@ -19,13 +19,11 @@ function ProjectTypePage({
 }: Props) {
   return (
     <Layout title="Diluv">
-      <div className="container mx-auto">
+      <div className="w-4/6 mx-auto">
         <div className="flex">
-          <h2 className="flex-grow text-center text-4xl font-bold pb-2">{projectType.name}</h2>
+          <h1 className="flex-grow text-center font-bold py-2">{projectType.name}</h1>
           <Link href={`/games/${gameSlug}/${projectType.slug}/create`}>
-            <a
-              className="btn-diluv w-auto py-2 px-4 m-4"
-            >
+            <a className="btn-diluv w-auto py-2 px-4 m-4">
               Create Project
             </a>
           </Link>
