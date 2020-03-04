@@ -66,7 +66,7 @@ function IndexPage({ games, projects, errors }: Props) {
         <div className={"md:w-1/2 mx-auto pt-2"}>
           <div className="flex flex-wrap w-5/6 mx-auto">
             {projects.map((project) => (
-              <div className="w-1/2 px-2 mb-3">
+              <div className="w-1/2 px-2 mb-3" key={project.name}>
                 <ModCard name={project.name} contributors={project.contributors} summary={project.summary} screenshot={project.logo}/>
               </div>
             ))}
