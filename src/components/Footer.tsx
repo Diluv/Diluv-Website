@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Drop from './Drop';
+import Drop from './icons/Drop';
 import { Theme } from '../utils/context';
 
 function Footer() {

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Link from 'next/link';
-import Drop from './Drop';
+import Drop from './icons/Drop';
 import DropDown, { DropDownAction, DropDownLink, DropDownSpacer } from './Dropdown';
 import { Theme } from '../utils/context';
 

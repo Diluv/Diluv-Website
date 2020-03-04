@@ -5,7 +5,7 @@ import Layout from '../../../../components/Layout';
 import { post } from '../../../../utils/request';
 import { API_URL } from '../../../../utils/api';
 import { Theme } from '../../../../utils/context';
-import { ColouredDrop } from '../../../../components/Drop';
+import { ColouredDrop } from '../../../../components/icons/Drop';
 
 const sanitizeHtml = require('sanitize-html');
 const marked = require('marked');
