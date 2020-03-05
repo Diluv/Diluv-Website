@@ -131,26 +131,28 @@ module.exports = {
         cursor: ['responsive', 'disabled'],
         backgroundColor: ['responsive', 'hover', 'focus', 'disabled'],
         textColor: ['responsive', 'hover', 'focus', 'disabled'],
+        transitionProperty: ['responsive', 'hover', 'focus']
     },
     plugins: [
         require('tailwindcss-elevation')(['responsive']),
         require('tailwindcss-spinner')(),
         require("tailwindcss-triangle-after")({
-            triangles: {
-                select: {
-                    color: "#3DA6E4",
-                    direction: 'down',
-                    size: [10, 6],
-                },
-                expand: {
-                    color: "#B1DBF4",
-                    direction: 'down',
-                    right: "0px",
-                    top: "35%",
-                    size: [10, 6]
+                    triangles: {
+                        select: {
+                            color: "#3DA6E4",
+                            direction: 'down',
+                            size: [10, 6],
+                        },
+                        expand: {
+                            color: "#B1DBF4",
+                            direction: 'down',
+                            right: "0px",
+                            top: "35%",
+                            size: [10, 6]
+                        }
+                    },
                 }
-            },
-        }),
+        ),
         plugin(function ({addBase, config}) {
             addBase({
                 'h1': {fontSize: config('theme.fontSize.4xl')},

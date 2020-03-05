@@ -24,38 +24,38 @@ function Footer() {
         <div className="w-1/2 pt-2 md:w-1/6">
           <h5 className="text-xl font-bold pb-2">Product</h5>
           <ul className="list-none items-center">
-            <li><a href="/news" className={`${hoverText} transition-colors duration-150 ease-in`}>News</a></li>
+            <li><a href="/news" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>News</a></li>
             {
               false && (
-                <li><a href="https://ideas.diluv.com" className={`${hoverText} transition-colors duration-150 ease-in`}>Feedback</a></li>
+                <li><a href="https://ideas.diluv.com" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>Feedback</a></li>
               )
             }
             {
               false && (
-                <li><a href="https://blog.diluv.com" className={`${hoverText} transition-colors duration-150 ease-in`}>Blog</a></li>
+                <li><a href="https://blog.diluv.com" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>Blog</a></li>
               )
             }
             {
               false && (
-                <li><a href="https://developer.diluv.com" className={`${hoverText} transition-colors duration-150 ease-in`}>Developers</a></li>
+                <li><a href="https://developer.diluv.com" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>Developers</a></li>
               )
             }
-            <li><a href="https://github.com/Diluv" className={`${hoverText} transition-colors duration-150 ease-in`}>Github</a></li>
+            <li><a href="https://github.com/Diluv" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>Github</a></li>
           </ul>
         </div>
         <div className="w-1/2 pt-2 md:w-1/6">
           <h5 className="text-xl font-bold pb-2">About</h5>
           <ul className="list-none">
-            <li><a href="/about" className={`${hoverText} transition-colors duration-150 ease-in`}>About</a></li>
-            <li><a href="/privacy" className={`${hoverText} transition-colors duration-150 ease-in`}>Privacy</a></li>
-            <li><a href="/terms" className={`${hoverText} transition-colors duration-150 ease-in`}>Terms</a></li>
+            <li><a href="/about" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>About</a></li>
+            <li><a href="/privacy" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>Privacy</a></li>
+            <li><a href="/terms" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>Terms</a></li>
           </ul>
         </div>
         <div className="w-1/2 pt-2 md:w-1/6 md:mr-auto">
           <h5 className="text-xl font-bold pb-2 ">Contact</h5>
           <ul className="list-none">
-            <li><a href="https://twitter.com/DiluvSupport" className={`${hoverText} transition-colors duration-150 ease-in`}>Twitter</a></li>
-            <li><a href="https://www.reddit.com/r/diluv/" className={`${hoverText} transition-colors duration-150 ease-in`}>Reddit</a></li>
+            <li><a href="https://twitter.com/DiluvSupport" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>Twitter</a></li>
+            <li><a href="https://www.reddit.com/r/diluv/" className={`${hoverText} transition-none hover:transition-colors duration-150 ease-in`}>Reddit</a></li>
             {
               false && (
                 <li><a href="https://discordapp.com">Discord</a></li>

@@ -258,7 +258,7 @@ function RegisterPage() {
         <div className="md:w-1/2 w-5/6 mx-auto mt-1 text-center">
           <p>
             Already have an account?
-            <Link href="/login"><span className="hover:text-diluv-500 cursor-pointer"> Login!</span></Link>
+            <Link href="/login"><span className="hover:text-diluv-500 cursor-pointer transition-none hover:transition-colors duration-100 ease-in"> Login!</span></Link>
           </p>
         </div>
       </div>
