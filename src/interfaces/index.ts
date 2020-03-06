@@ -7,6 +7,7 @@ export type Game = {
   slug: string
   url: string
   image: string
+  hero: string
 };
 
 export type ProjectType = {

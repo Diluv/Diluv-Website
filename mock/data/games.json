@@ -3,36 +3,42 @@
     "name": "Minecraft",
     "slug": "minecraft",
     "url": "https://minecraft.net",
-    "image": "https://imja.red/diluv/minecraft-java.webp"
+    "image": "https://imja.red/diluv/minecraft-java.webp",
+    "hero": "https://imja.red/diluv/minecraft-hero.png"
   },
   {
     "name": "Stardew Valley",
     "slug": "stardewvalley",
     "url": "https://www.stardewvalley.net/",
-    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley"
+    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley",
+    "hero": "https://imja.red/diluv/minecraft-hero.png"
   },
   {
     "name": "Stardew Valley",
     "slug": "stardewvalley",
     "url": "https://www.stardewvalley.net/",
-    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley"
+    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley",
+    "hero": "https://imja.red/diluv/minecraft-hero.png"
   },
   {
     "name": "Stardew Valley",
     "slug": "stardewvalley",
     "url": "https://www.stardewvalley.net/",
-    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley"
+    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley",
+    "hero": "https://imja.red/diluv/minecraft-hero.png"
   },
   {
     "name": "Stardew Valley",
     "slug": "stardewvalley",
     "url": "https://www.stardewvalley.net/",
-    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley"
+    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley",
+    "hero": "https://imja.red/diluv/minecraft-hero.png"
   },
   {
     "name": "Stardew Valley",
     "slug": "stardewvalley",
     "url": "https://www.stardewvalley.net/",
-    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley"
+    "image": "https://images.placeholders.dev/?width=250&height=131&text=Stardew Valley",
+    "hero": "https://imja.red/diluv/minecraft-hero.png"
   }
 ]
