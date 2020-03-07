@@ -39,26 +39,39 @@ function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {
   createdAt.setUTCSeconds(project.createdAt);
   let updatedAt = new Date(0);
   updatedAt.setUTCSeconds(project.updatedAt);
+
+
   return (
-    <div className={"my-2"}>
-      <div className="md:flex md:flex-row border border-gray-600 bg-gray-400 ">
-        <div className={"h-32 w-full md:h-24 md:w-24 md:border-r md:border-darken-200 bg-darken-100 md:flex-none"}>
+    <div className="flex flex-wrap">
+      <div className="flex w-full mb-5 md:mb-0">
+        <div className="w-24 min-w-24 md:min-w-32 md:w-32 mr-5" >
           <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
-            <a> <img className={"h-32 w-32 md:h-24 md:w-24 mx-auto md:mx-0"} src={project.logo}/></a>
+            <a>
+              <img className="w-full" src={project.logo}/>
+            </a>
           </Link>
         </div>
-        <div className={"w-full"}>
-          <div className={"pl-1 border-b border-gray-600 "}>
-            <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
-              <a className={"text-lg hover:text-diluv-500 font-semibold transition-none hover:transition-colors duration-100 ease-in"}>{project.name}</a>
-            </Link>
-            <div className={"flex flex-row"}>
-              <UserGroup className={"mr-1 my-auto fill-current"} width={"15px"} height={"15px"}/>
+        <div>
+          <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
+            <a className="text-2xl transition-none hover:transition-colors duration-100 ease-in hover:text-diluv-500 ">
+              {project.name}
+            </a>
+          </Link>
+          <div className="hidden md:block">
+            <div className="flex">
+              <UserGroup className="mr-1 my-auto fill-current" width="15px" height="15px"/>
               {listContributors(project)}
             </div>
+            <p className="ml-1 hidden md:block">{project.summary}</p>
           </div>
-          <p className={"ml-1"}>{project.summary}</p>
         </div>
+      </div>
+      <div className="md:hidden w-full">
+        <div className="flex">
+          <UserGroup className="mr-1 my-auto fill-current" width="15px" height="15px"/>
+          {listContributors(project)}
+        </div>
+        <p className="ml-1">{project.summary}</p>
       </div>
     </div>
   );

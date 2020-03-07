@@ -23,19 +23,23 @@ function ProjectTypePage({
       <div>
           <img src={"https://imja.red/diluv/minecraft-hero.png"} className={"w-full"}/>
       </div>
-      <div className="w-5/6 mx-auto">
-        <div className="">
-          <h1 className="text-center font-bold ">{projectType.name}</h1>
+      <div className="w-full px-5 sm:w-8/12 sm:mx-auto">
+        <div className="flex pt-5">
+          <h1>{projectType.name}</h1>
+          <div className="order-2 ml-auto">
+            <Link href={`/games/${game.slug}/${projectType.slug}/create`}>
+              <a className="btn-diluv">
+                Create Project
+              </a>
+            </Link>
+          </div>
         </div>
-        <div className={"mb-3 mx-auto w-1/3"}>
-          <Link href={`/games/${game.slug}/${projectType.slug}/create`}>
-            <a className="btn-diluv text-center">
-              Create Project
-            </a>
-          </Link>
-        </div>
-        <div className={"w-5/6 mx-auto"}>
-          {projects.map((project) => <ProjectCard key={project.slug} gameSlug={game.slug} projectTypeSlug={projectType.slug} project={project}/>)}
+        <div>
+          {projects.map((project) => 
+            <>
+              <ProjectCard key={project.slug} gameSlug={game.slug} projectTypeSlug={projectType.slug} project={project}/>
+              <hr className="my-5"/>
+            </>)}
           {errors}
         </div>
       </div>

@@ -2,6 +2,15 @@ const plugin = require('tailwindcss/plugin');
 
 module.exports = {
     theme: {
+        minWidth: {
+          '0': '0',
+          '1/4': '25%',
+          '1/2': '50%',
+          '3/4': '75%',
+          'full': '100%',
+          '32': '3.2rem',
+          '24': '2.4rem'
+        },
         minHeight: {
             '0vh': '0vh',
             '25vh': '25vh',
@@ -40,6 +49,7 @@ module.exports = {
                     200: '#CFE9F8',
                     300: '#B1DBF4',
                     400: '#77C1EC',
+                    default: '#3DA6E4',
                     500: '#3DA6E4',
                     600: '#3795CD',
                     700: '#256489',
