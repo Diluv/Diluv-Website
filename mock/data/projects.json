@@ -54,5 +54,83 @@
     "downloads": 43825671,
     "createdAt": 1573482589,
     "updatedAt": 1506482589
+  },
+  {
+    "name": "Caliper",
+    "contributors": [
+      {
+        "userId": 1,
+        "username": "Darkhax",
+        "role": "Owner"
+      },
+      {
+        "userId": 2,
+        "username": "Jaredlll08",
+        "role": "Contributor"
+      }
+    ],
+    "slug": "caliper",
+    "summary": "A collection of tools for testing and developing mods and modpacks.",
+    "description": "Caliper description",
+    "logo": "https://media.forgecdn.net/avatars/thumbnails/97/837/64/64/636294951433848056.png",
+    "downloads": 3176949,
+    "createdAt": 1573482589,
+    "updatedAt": 1574482589
+  },
+  {
+    "name": "CraftTweaker",
+    "contributors": [
+      {
+        "userId": 2,
+        "username": "Jaredlll08",
+        "role": "Owner"
+      }
+    ],
+    "slug": "crafttweaker",
+    "summary": "A continuation of MineTweaker originally by StanH",
+    "description": "CraftTweaker description",
+    "logo": "https://i.blamejared.com/crafttweaker.svg",
+    "downloads": 43825671,
+    "createdAt": 1573482589,
+    "updatedAt": 1506482589
+  },
+  {
+    "name": "Caliper",
+    "contributors": [
+      {
+        "userId": 1,
+        "username": "Darkhax",
+        "role": "Owner"
+      },
+      {
+        "userId": 2,
+        "username": "Jaredlll08",
+        "role": "Contributor"
+      }
+    ],
+    "slug": "caliper",
+    "summary": "A collection of tools for testing and developing mods and modpacks.",
+    "description": "Caliper description",
+    "logo": "https://media.forgecdn.net/avatars/thumbnails/97/837/64/64/636294951433848056.png",
+    "downloads": 3176949,
+    "createdAt": 1573482589,
+    "updatedAt": 1574482589
+  },
+  {
+    "name": "CraftTweaker",
+    "contributors": [
+      {
+        "userId": 2,
+        "username": "Jaredlll08",
+        "role": "Owner"
+      }
+    ],
+    "slug": "crafttweaker",
+    "summary": "A continuation of MineTweaker originally by StanH",
+    "description": "CraftTweaker description",
+    "logo": "https://i.blamejared.com/crafttweaker.svg",
+    "downloads": 43825671,
+    "createdAt": 1573482589,
+    "updatedAt": 1506482589
   }
 ]
