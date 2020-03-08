@@ -21,7 +21,7 @@ function ProjectTypePage({
   return (
     <Layout title="Diluv">
       <div>
-          <img src={"https://imja.red/diluv/minecraft-hero.png"} className={"w-full"}/>
+        <img src={"https://imja.red/diluv/minecraft-hero.png"} className={"w-full"}/>
       </div>
       <div className="w-full px-5 sm:w-8/12 sm:mx-auto">
         <div className="flex pt-5">
@@ -35,11 +35,11 @@ function ProjectTypePage({
           </div>
         </div>
         <div>
-          {projects.map((project) => 
-            <>
-              <ProjectCard key={project.slug} gameSlug={game.slug} projectTypeSlug={projectType.slug} project={project}/>
+          {projects.map((project) =>
+            <React.Fragment key={project.slug}>
+              <ProjectCard gameSlug={game.slug} projectTypeSlug={projectType.slug} project={project}/>
               <hr className="my-5"/>
-            </>)}
+            </React.Fragment>)}
           {errors}
         </div>
       </div>
