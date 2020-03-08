@@ -10,7 +10,7 @@
 /* purgecss end ignore */
 
 .btn-diluv {
-  @apply bg-diluv-500 text-white p-2 transition-colors duration-200 ease-in;
+  @apply block w-full bg-diluv-500 text-white p-2 transition-colors duration-200 ease-in;
 }
 
 .btn-diluv:hover {
