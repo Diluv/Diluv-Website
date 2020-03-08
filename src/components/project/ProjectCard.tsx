@@ -43,35 +43,38 @@ function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {
 
   return (
     <div className="flex flex-wrap">
-      <div className="flex w-full mb-5 md:mb-0">
-        <div className="w-24 min-w-24 md:min-w-32 md:w-32 mr-5" >
-          <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
-            <a>
-              <img className="w-full" src={project.logo}/>
-            </a>
-          </Link>
-        </div>
-        <div>
-          <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
-            <a className="text-2xl transition-none hover:transition-colors duration-100 ease-in hover:text-diluv-500 ">
-              {project.name}
-            </a>
-          </Link>
-          <div className="hidden md:block">
-            <div className="flex">
-              <UserGroup className="mr-1 my-auto fill-current" width="15px" height="15px"/>
-              {listContributors(project)}
+      <div className={"mb-5 md:mb-0"}>
+        <div className="flex w-full">
+          <div className="w-20 min-w-20 md:min-w-20 md:w-20 mb-2 mr-5 flex-none">
+            <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
+              <a>
+                <img className="w-full" src={project.logo}/>
+              </a>
+            </Link>
+          </div>
+          <div>
+            <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
+              <a className="text-2xl transition-none hover:transition-colors duration-100 ease-in hover:text-diluv-500 ">
+                {project.name}
+              </a>
+            </Link>
+            <div className="hidden md:block">
+              <div className="flex">
+                <UserGroup className="mr-1 my-auto fill-current" width="15px" height="15px"/>
+                {listContributors(project)}
+              </div>
+
             </div>
-            <p className="ml-1 hidden md:block">{project.summary}</p>
           </div>
         </div>
+        <p className="hidden md:block leading-snug">{project.summary}</p>
       </div>
       <div className="md:hidden w-full">
         <div className="flex">
           <UserGroup className="mr-1 my-auto fill-current" width="15px" height="15px"/>
           {listContributors(project)}
         </div>
-        <p className="ml-1">{project.summary}</p>
+        <p className="">{project.summary}</p>
       </div>
     </div>
   );

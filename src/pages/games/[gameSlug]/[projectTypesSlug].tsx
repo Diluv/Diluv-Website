@@ -20,13 +20,13 @@ function ProjectTypePage({
 }: Props) {
   return (
     <Layout title="Diluv">
-      <div>
-        <img src={"https://imja.red/diluv/minecraft-hero.png"} className={"w-full"}/>
+      <div className={"w-full"}>
+          <div style={{backgroundImage: "url(https://imja.red/diluv/minecraft-hero.png)"}} className={"bg-cover bg-center h-48"}/>
       </div>
       <div className="w-full px-5 sm:w-8/12 sm:mx-auto">
-        <div className="flex pt-5">
+        <div className="flex py-2">
           <h1>{projectType.name}</h1>
-          <div className="order-2 ml-auto">
+          <div className="order-2 ml-auto my-auto">
             <Link href={`/games/${game.slug}/${projectType.slug}/create`}>
               <a className="btn-diluv">
                 Create Project
@@ -38,7 +38,7 @@ function ProjectTypePage({
           {projects.map((project) =>
             <React.Fragment key={project.slug}>
               <ProjectCard gameSlug={game.slug} projectTypeSlug={projectType.slug} project={project}/>
-              <hr className="my-5"/>
+              <hr className="my-3"/>
             </React.Fragment>)}
           {errors}
         </div>
