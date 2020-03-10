@@ -4,6 +4,29 @@ import {
 } from '../interfaces';
 import { get } from './request';
 
+
+export async function getProjectType(gameSlug: string, projectTypeSlug: string): Promise<ProjectType> {
+  try {
+    const data: Data<ProjectType> = await get(`${API_URL}/v1/games/${gameSlug}/${projectTypeSlug}`)
+      .then((Response) => Promise.resolve(Response.data).catch((reason) => Promise.resolve(reason)));
+    return data.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
+
+export async function getProjects(gameSlug: string, projectTypeSlug: string, page = 1, limit = 20): Promise<Project[]> {
+  try {
+    let cursor = encodeURI(new Buffer(JSON.stringify({offset: (page-1)*limit})).toString("base64"));
+    const data: Data<Project[]> = await get(`${API_URL}/v1/games/${gameSlug}/${projectTypeSlug}/projects?cursor=${cursor}&limit=${limit}`)
+      .then((Response) => Promise.resolve(Response.data).catch((reason) => Promise.resolve(reason)));
+    return data.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
 export async function getProjectTypesByGameSlug(gameSlug: string | string[]): Promise<ProjectType[]> {
   try {
     const data: Data<ProjectType[]> = await get(`${API_URL}/v1/games/${gameSlug}/types`)
