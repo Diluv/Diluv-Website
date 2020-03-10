@@ -4,13 +4,21 @@ import { NextPageContext } from 'next';
 import Link from 'next/link';
 import Layout from '../../../components/Layout';
 import { Game, Project, ProjectType } from '../../../interfaces';
-import { getProjectsByGameSlugAndProjectTypeSlug, getProjectTypesByGameSlugAndProjectTypeSlug } from '../../../utils/projects';
+import {
+  getProjects,
+  getProjectsByGameSlugAndProjectTypeSlug,
+  getProjectType,
+  getProjectTypesByGameSlugAndProjectTypeSlug
+} from '../../../utils/projects';
 import ProjectCard from '../../../components/project/ProjectCard';
 import { getGamesBySlug } from "../../../utils/games";
 import DropDown, { DropDownItem } from "../../../components/Dropdown";
 import { useRouter } from "next/router";
 import Chart from "../../../components/icons/Chart";
 import Search from "../../../components/icons/Search";
+import CheveronLeft from "../../../components/icons/CheveronLeft";
+import CheveronRight from "../../../components/icons/CheveronRight";
+import NavigationMore from "../../../components/icons/NavigationMore";
 
 type Props = {
   projectType: ProjectType
@@ -18,20 +26,30 @@ type Props = {
   errors?: string
   gameVersion?: string
   category?: string
+  page?: string
 };
 
+type FilterProps = {
+  gameVersion: string
+  category: string
+  search: string
+  page: number
+}
+
 function ProjectTypePage({
-  projectType, projects, errors, gameVersion, category
+  projectType, projects, errors, gameVersion, category, page
 }: Props) {
   const [showCategories, setShowingCategories] = useState(true);
   const router = useRouter();
-  const filter = useRef({ gameVersion: "all", category: "all", search: "", page: 0 });
+  const filter = useRef<FilterProps>({ gameVersion: "all", category: "all", search: "", page: 0 });
   const [, forceUpdate] = useState({});
   useEffect(() => {
     filter.current.gameVersion = gameVersion ?? "all";
     filter.current.category = category ?? "";
+    filter.current.page = page ? parseInt(page) : 0;
     forceUpdate({});
   }, []);
+
 
   return (
     <Layout title="Diluv">
@@ -107,30 +125,46 @@ function ProjectTypePage({
                 <div className={"items-end ml-auto"}>
                   <div className={"flex-grow"}>
                     <div className={"flex flex-row text-center justify-between "}>
-                      <div className={"mr-1 p-1 hover:bg-diluv-300"}>
-                        {"<"}
-                      </div>
-                      <div className={"mr-1 p-1 bg-diluv-200 hover:bg-diluv-300"}>
-                        1
-                      </div>
-                      <div className={"mr-1 p-1 hover:bg-diluv-300"}>
-                        2
-                      </div>
-                      <div className={"mr-1 p-1 hover:bg-diluv-300"}>
-                        3
-                      </div>
-                      <div className={"mr-1 p-1 hover:bg-diluv-300"}>
-                        4
-                      </div>
-                      <div className={"mr-1 p-1"}>
-                        ...
+                      {filter.current.page > 1 ?
+                        <Link href={`?page=${Math.max(1, filter.current.page - 1)}`}>
+                          <a>
+                            <CheveronLeft width={"1rem"} height={"2rem"} className={"mr-1 my-auto hover:bg-diluv-300"}/>
+                          </a>
+                        </Link> :
+                        <CheveronLeft width={"1rem"} height={"2rem"} className={"mr-1 my-auto hover:bg-diluv-300"}/>
+                      }
+
+                      <Link href={"?page=1"}>
+                        <a className={"mr-1 p-1 bg-diluv-200 hover:bg-diluv-300"}>
+                          1
+                        </a>
+                      </Link>
+                      <Link href={"?page=2"}>
+                        <a className={"mr-1 p-1 hover:bg-diluv-300"}>
+                          2
+                        </a>
+                      </Link>
+                      <Link href={"?page=3"}>
+                        <a className={"mr-1 p-1 hover:bg-diluv-300"}>
+                          3
+                        </a>
+                      </Link>
+                      <Link href={"?page=4"}>
+                        <a className={"mr-1 p-1 hover:bg-diluv-300"}>
+                          4
+                        </a>
+                      </Link>
+                      <div className={""}>
+                        <NavigationMore width={"1rem"} height={"2rem"} className={"mr-1 my-auto"}/>
                       </div>
                       <div className={"mr-1 p-1 hover:bg-diluv-300"}>
                         500
                       </div>
-                      <div className={"mr-1 p-1 hover:bg-diluv-300"}>
-                        {">"}
-                      </div>
+                      <Link href={`?page=${filter.current.page + 1}`}>
+                        <a>
+                          <CheveronRight width={"1rem"} height={"2rem"} className={"mr-1 my-auto hover:bg-diluv-300"}/>
+                        </a>
+                      </Link>
                     </div>
                   </div>
 
@@ -153,10 +187,10 @@ function ProjectTypePage({
   );
 }
 
-ProjectTypePage.getInitialProps = async ({ query: { gameSlug, projectTypesSlug, gameVersion, category } }: NextPageContext) => {
-  const projectType = await getProjectTypesByGameSlugAndProjectTypeSlug(gameSlug, projectTypesSlug);
-  const projects = await getProjectsByGameSlugAndProjectTypeSlug(gameSlug, projectTypesSlug);
-  return { projectType, projects, gameVersion, category };
+ProjectTypePage.getInitialProps = async ({ query: { gameSlug, projectTypesSlug, gameVersion, category, page } }: NextPageContext) => {
+  const projectType = await getProjectType(gameSlug as string, projectTypesSlug as string);
+  const projects = await getProjects(gameSlug as string, projectTypesSlug as string, page ? parseInt(page as string) : 1);
+  return { projectType, projects, gameVersion, category, page };
 };
 
 export default ProjectTypePage;
