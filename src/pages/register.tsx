@@ -11,6 +11,10 @@ import { API_URL } from '../utils/api';
 import Layout from '../components/Layout';
 import { Theme } from '../utils/context';
 import Alert from '../components/Alert';
+import Search from "../components/icons/Search";
+import User from "../components/icons/User";
+import AtSymbol from "../components/icons/AtSymbol";
+import LockClosed from "../components/icons/LockClosed";
 
 interface Fields {
   username: HTMLInputElement,
@@ -129,112 +133,143 @@ function RegisterPage() {
           terms: fieldTerms.current,
         } as Fields, setErrors, setPostRegister)}
         >
-          <div className="md:flex">
-            <div className="md:w-1/4 w-5/6 mx-auto md:mx-0 md:ml-auto md:pr-2 mt-3 md:mt-0">
-              <label className="font-bold text-lg" htmlFor="username">
-                Username
-                <input
-                  defaultValue=""
-                  type="text"
-                  name="username"
-                  minLength={3}
-                  maxLength={49}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    validUserName.current = /^.{3,49}$/.test(e.target.value);
-                    forceUpdate({});
-                  }}
-                  id="username"
-                  ref={fieldUserName}
-                  className={`focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black 
-                ${validUserName.current ? `focus:shadow-valid ${shadowValid}` : `focus:shadow-invalid ${shadowInvalid}`}`}
-                />
-              </label>
+          <div className="md:w-1/3 w-5/6 mx-auto mt-3">
+            <label className="text-lg" htmlFor="username">
+              Username
+            </label>
+            <div className={"relative my-auto group"}>
+              <User
+                className={`absolute pointer-events-none ml-2 my-3 fill-current ${fieldUserName.current && fieldUserName.current.value ? `transition-colors duration-200 ease-in ` + (validUserName.current ? `text-green-500` : `text-red-500`) : ""}`}
+                width={"1rem"} height={"1rem"}/>
+              <input
+                defaultValue=""
+                type="text"
+                name="username"
+                minLength={3}
+                maxLength={49}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  validUserName.current = /^.{3,49}$/.test(e.target.value);
+                  forceUpdate({});
+                }}
+                id="username"
+                ref={fieldUserName}
+                placeholder={"Enter your Username"}
+                style={{ textIndent: "1.75rem" }}
+                className={`focus:outline-none bg-transparent border-b ${fieldUserName.current && fieldUserName.current.value ? validUserName.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-3 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+              />
             </div>
-            <div className="md:w-1/4 w-5/6 mx-auto md:mx-0 md:mr-auto md:pl-2 mt-3 md:mt-0">
-              <label className="font-bold text-lg" htmlFor="email">
-                Email
-                <input
-                  defaultValue=""
-                  type="text"
-                  name="username"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    validEmail.current = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value);
-                    forceUpdate({});
-                  }}
-                  ref={fieldEmail}
-                  id="email"
-                  className={`focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black 
-                ${validEmail.current ? `focus:shadow-valid ${shadowValid}` : `focus:shadow-invalid ${shadowInvalid}`}`}
-                />
-              </label>
+
+          </div>
+          <div className="md:w-1/3 w-5/6 mx-auto mt-3">
+            <label className="text-lg" htmlFor="email">
+              Email
+            </label>
+            <div className={"relative my-auto"}>
+              <AtSymbol
+                className={`absolute pointer-events-none ml-2 my-3 fill-current ${fieldEmail.current && fieldEmail.current.value ? `transition-colors duration-200 ease-in ` + (validEmail.current ? `text-green-500` : `text-red-500`) : ""}`}
+                width={"1rem"} height={"1rem"}/>
+              <input
+                defaultValue=""
+                type="text"
+                name="email"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  validEmail.current = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value);
+                  forceUpdate({});
+                }}
+                ref={fieldEmail}
+                id="email"
+                placeholder={"Enter your Email"}
+                style={{ textIndent: "1.75rem" }}
+                className={`focus:outline-none bg-transparent border-b ${fieldEmail.current && fieldEmail.current.value ? validEmail.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-3 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+              />
             </div>
           </div>
-          <div className="md:flex md:pt-4">
-            <div className="md:w-1/4 w-5/6 mx-auto md:mx-0 md:ml-auto md:pr-2 mt-3 md:mt-0">
-              <label className="font-bold text-lg" htmlFor="password">
-                Password
-                <input
-                  defaultValue=""
-                  type="password"
-                  name="password"
-                  minLength={8}
-                  maxLength={70}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    const validLength = /^.{8,}/.test(e.target.value);
-                    // TODO maybe more here, like forcing characters
-                    validPassword.current = validLength;
-                    forceUpdate({});
-                  }}
-                  id="password"
-                  ref={fieldPassword}
-                  className={`focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black 
-                ${validPassword.current ? `focus:shadow-valid ${shadowValid}` : `focus:shadow-invalid ${shadowInvalid}`}`}
-                />
-              </label>
-            </div>
-            <div className="md:w-1/4 w-5/6 mx-auto md:mx-0 md:mr-auto md:pl-2 mt-3 md:mt-0">
-              <label className="font-bold text-lg" htmlFor="passwordConfirm">
-                Confirm Password
-                <input
-                  defaultValue=""
-                  type="password"
-                  name="passwordConfirm"
-                  minLength={8}
-                  maxLength={70}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          <div className="md:w-1/3 w-5/6 mx-auto mt-3">
+            <label className="text-lg" htmlFor="password">
+              Password
+            </label>
+            <div className={"relative my-auto"}>
+              <LockClosed
+                className={`absolute pointer-events-none ml-2 my-3 fill-current ${fieldPassword.current && fieldPassword.current.value ? `transition-colors duration-200 ease-in ` + (validPassword.current ? `text-green-500` : `text-red-500`) : ""}`}
+                width={"1rem"} height={"1rem"}/>
+              <input
+                defaultValue=""
+                type="password"
+                name="password"
+                minLength={8}
+                maxLength={70}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const validLength = /^.{8,}/.test(e.target.value);
+                  // TODO maybe more here, like forcing characters
+                  validPassword.current = validLength;
+
+                  if (fieldPasswordConfirm.current) {
                     let valid = false;
-                    if (fieldPassword.current) {
-                      if (e.target.value === fieldPassword.current.value) {
-                        valid = true;
-                      }
+                    if (e.target.value === fieldPasswordConfirm.current.value) {
+                      valid = true;
                     }
-                    validPasswordConfirm.current = valid;
-                    forceUpdate({});
-                  }}
-                  id="passwordConfirm"
-                  ref={fieldPasswordConfirm}
-                  className={`focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black 
-                ${validPasswordConfirm.current ? `focus:shadow-valid ${shadowValid}` : `focus:shadow-invalid ${shadowInvalid}`}`}
-                />
-              </label>
+                    validPasswordConfirm.current = validLength && valid;
+                  }
+                  forceUpdate({});
+                }}
+                id="password"
+                ref={fieldPassword}
+                placeholder={"Enter your Password"}
+                style={{ textIndent: "1.75rem" }}
+                className={`focus:outline-none bg-transparent border-b ${fieldPassword.current && fieldPassword.current.value ? validPassword.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-3 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+              />
             </div>
+
+          </div>
+          <div className="md:w-1/3 w-5/6 mx-auto mt-3">
+            <label className="text-lg" htmlFor="passwordConfirm">
+              Confirm Password
+            </label>
+            <div className={"relative my-auto"}>
+              <LockClosed
+                className={`absolute pointer-events-none ml-2 my-3 fill-current ${fieldPasswordConfirm.current && fieldPasswordConfirm.current.value ? `transition-colors duration-200 ease-in ` + (validPasswordConfirm.current ? `text-green-500` : `text-red-500`) : ""}`}
+                width={"1rem"} height={"1rem"}/>
+              <input
+                defaultValue=""
+                type="password"
+                name="passwordConfirm"
+                minLength={8}
+                maxLength={70}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  let valid = false;
+                  if (fieldPassword.current) {
+                    if (e.target.value === fieldPassword.current.value) {
+                      valid = true;
+                    }
+                  }
+                  validPasswordConfirm.current = valid && validPassword.current;
+                  forceUpdate({});
+                }}
+                id="passwordConfirm"
+                ref={fieldPasswordConfirm}
+                placeholder={"Confirm your password"}
+                style={{ textIndent: "1.75rem" }}
+                className={`focus:outline-none bg-transparent border-b ${fieldPasswordConfirm.current && fieldPasswordConfirm.current.value ? validPasswordConfirm.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-3 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+              />
+            </div>
+
           </div>
           <div className="md:w-full w-5/6 mx-auto md:pl-2 mt-3 md:mt-0">
             <div className="text-center">
+              <input
+                defaultValue="false"
+                type="checkbox"
+                name="terms"
+                defaultChecked={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  validTerms.current = e.target.checked;
+                  forceUpdate({});
+                }}
+                id="terms"
+                ref={fieldTerms}
+                className="focus:outline-none focus:shadow-outline mt-3 mr-2"
+              />
               <label htmlFor="terms" className="text-md">
-                <input
-                  defaultValue="false"
-                  type="checkbox"
-                  name="terms"
-                  defaultChecked={false}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    validTerms.current = e.target.checked;
-                    forceUpdate({});
-                  }}
-                  id="terms"
-                  ref={fieldTerms}
-                  className="focus:outline-none focus:shadow-outline mt-3 mr-2"
-                />
                 Agree to terms and conditions
               </label>
             </div>
@@ -258,7 +293,8 @@ function RegisterPage() {
         <div className="md:w-1/2 w-5/6 mx-auto mt-1 text-center">
           <p>
             Already have an account?
-            <Link href="/login"><span className="hover:text-diluv-500 cursor-pointer transition-none hover:transition-colors duration-100 ease-in"> Login!</span></Link>
+            <Link href="/login"><span
+              className="hover:text-diluv-500 cursor-pointer transition-none hover:transition-colors duration-100 ease-in"> Login!</span></Link>
           </p>
         </div>
       </div>
