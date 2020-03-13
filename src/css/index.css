@@ -18,7 +18,7 @@
 }
 
 .btn-diluv:disabled {
-  @apply bg-diluv-500 opacity-50 cursor-not-allowed;
+  @apply bg-diluv-500 opacity-50 cursor-default;
 }
 
 @tailwind utilities;
