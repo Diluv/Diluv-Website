@@ -1,10 +1,10 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import GameCardComponent from '../components/GameCardComponent';
-import { getGames } from '../utils/games';
+import { getFeaturedGames, getGames } from '../utils/games';
 import { Game, Project } from '../interfaces';
 import ModCard from '../components/ModCard';
-import { getProjectsByGameSlugAndProjectTypeSlug } from "../utils/projects";
+import { getFeaturedProjects, getProjectsByGameSlugAndProjectTypeSlug } from "../utils/projects";
 
 type Props = {
   games: Game[]
@@ -28,39 +28,25 @@ function IndexPage({ games, projects, errors }: Props) {
       </div>
 
 
-      <div className="md:flex w-5/6 mx-auto">
-        <div className={"md:w-1/2 ml-auto"}>
-          <h2 className="text-center md:pt-5">Popular Games</h2>
-          <div className="md:flex md:flex-wrap w-5/6 pt-2 mx-auto">
-            {games.map((game) => (
-              <div className={`${games.length === 1 ? "md:w-full" : "md:w-1/" + Math.min(games.length, 3)} px-1`} key={game.slug}>
-                <a href={`/games/${game.slug}`}>
-                  <GameCardComponent
-                    name={game.name}
-                    screenshot={`${game.image}`}
-                  />
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className={"md:w-1/2 mr-auto"}>
-          <h2 className="text-center md:pt-5">New Games</h2>
-          <div className="md:flex md:flex-wrap w-5/6 pt-2 mx-auto">
-            {games.map((game) => (
-              <div className={`${games.length === 1 ? "md:w-full" : "md:w-1/" + Math.min(games.length, 3)} px-1`} key={game.slug}>
-                <a href={`/games/${game.slug}`}>
-                  <GameCardComponent
-                    name={game.name}
-                    screenshot={`${game.image}`}
-                  />
-                </a>
-              </div>
-            ))}
+      <div className={"py-2 md:mt-5"}>
+        <div className="md:flex w-5/6 mx-auto">
+          <div className={"md:w-1/2 mx-auto"}>
+            <h2 className="text-center ">Popular Games</h2>
+            <div className="md:flex md:flex-wrap w-3/6 pt-2 mx-auto">
+              {games.map((game) => (
+                <div className={`${games.length === 1 ? "md:w-full" : "md:w-1/" + Math.min(games.length, 3)} px-1`} key={game.slug}>
+                  <a href={`/games/${game.slug}`}>
+                    <GameCardComponent
+                      name={game.name}
+                      screenshot={`https://images.placeholders.dev/?width=250&height=131&text=${game.name}`}
+                    />
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-
       <>
         <h2 className="text-center">Featured Mods</h2>
         <div className={"md:w-1/2 mx-auto pt-2"}>
@@ -100,8 +86,8 @@ function IndexPage({ games, projects, errors }: Props) {
 
 IndexPage.getInitialProps = async () => {
   try {
-    const games = await getGames();
-    const projects = await getProjectsByGameSlugAndProjectTypeSlug("minecraft", "mods");
+    const games = await getFeaturedGames();
+    const projects = await getFeaturedProjects();
     return { games, projects };
   } catch (err) {
     return { errors: err.message };
