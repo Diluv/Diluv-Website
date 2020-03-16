@@ -9,6 +9,8 @@ import Layout from '../components/Layout';
 import Alert from '../components/Alert';
 import { post } from '../utils/request';
 import { AccessToken, Data, Login } from '../interfaces';
+import User from "../components/icons/User";
+import LockClosed from "../components/icons/LockClosed";
 
 interface Fields {
   username: HTMLInputElement,
@@ -66,6 +68,8 @@ function LoginPage() {
 
   const fieldUserName = useRef<HTMLInputElement>(null);
   const fieldPassword = useRef<HTMLInputElement>(null);
+  const [focusedUsername, setFocusedUsername] = useState(false);
+  const [focusedPassword, setFocusedPassword] = useState(false);
 
   return (
     <Layout title="Login | Diluv">
@@ -82,8 +86,13 @@ function LoginPage() {
           } as Fields, setErrors, router)}
         >
           <div className="md:w-1/3 w-5/6 mx-auto mt-3">
-            <label className="font-bold text-lg" htmlFor="username">
+            <label className="text-lg" htmlFor="username">
               Username
+            </label>
+            <div className={"relative my-auto group"}>
+              <User
+                className={`absolute pointer-events-none ml-2 my-3 fill-current duration-200 ease-in ${focusedUsername || (fieldUserName.current && fieldUserName.current.value) ? `transition-colors ` + (focusedUsername ? `text-diluv-500` : `text-diluv-400`): `transition-none`}`}
+                width={"1rem"} height={"1rem"}/>
               <input
                 defaultValue=""
                 type="text"
@@ -94,27 +103,40 @@ function LoginPage() {
                 onChange={() => {
                   forceUpdate({});
                 }}
-                className="focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black"
+                placeholder={"Enter your Username"}
+                onFocus={() => setFocusedUsername(true)}
+                onBlur={() => setFocusedUsername(false)}
+                style={{ textIndent: "1.75rem" }}
+                className={`focus:outline-none bg-transparent border-b border-gray-300 focus:border-diluv-500 mt-2 py-2 px-1 block w-full transition-none focus:transition-colors duration-200 ease-in`}
               />
-            </label>
+            </div>
           </div>
           <div className="md:w-1/3 w-5/6 mx-auto mt-3">
-            <label className="font-bold text-lg" htmlFor="password">
+            <label className="text-lg" htmlFor="password">
               Password
-              <input
-                defaultValue=""
-                type="password"
-                name="password"
-                minLength={8}
-                maxLength={70}
-                id="password"
-                ref={fieldPassword}
-                onChange={() => {
-                  forceUpdate({});
-                }}
-                className="focus:outline-none focus:shadow-outline border border-gray-300 mt-3 py-2 px-4 block w-full text-black"
-              />
             </label>
+            <div className={"relative my-auto group"}>
+              <LockClosed
+                className={`absolute pointer-events-none ml-2 my-3 fill-current duration-200 ease-in ${focusedPassword || (fieldPassword.current && fieldPassword.current.value) ? `transition-colors ` + (focusedPassword ? `text-diluv-500` : `text-diluv-400`): `transition-none`}`}
+                width={"1rem"} height={"1rem"}/>
+            <input
+              defaultValue=""
+              type="password"
+              name="password"
+              minLength={8}
+              maxLength={70}
+              id="password"
+              ref={fieldPassword}
+              onChange={() => {
+                forceUpdate({});
+              }}
+              placeholder={"Enter your Password"}
+              onFocus={() => setFocusedPassword(true)}
+              onBlur={() => setFocusedPassword(false)}
+              style={{ textIndent: "1.75rem" }}
+              className={`focus:outline-none bg-transparent border-b border-gray-300 focus:border-diluv-500 mt-2 py-2 px-1 block w-full transition-none focus:transition-colors duration-200 ease-in`}
+            />
+            </div>
           </div>
           <div className="md:w-1/3 w-5/6 mx-auto mt-4">
             <button
