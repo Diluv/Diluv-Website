@@ -109,14 +109,36 @@ function RegisterPage() {
   const validPasswordConfirm = useRef<boolean>(false);
   const validTerms = useRef<boolean>(false);
 
+  const [focusedUsername, setFocusedUsername] = useState<boolean>(false);
+  const [focusedEmail, setFocusedEmail] = useState<boolean>(false);
+  const [focusedPassword, setFocusedPassword] = useState<boolean>(false);
+  const [focusedPasswordConfirm, setFocusedPasswordConfirm] = useState<boolean>(false);
+
 
   if (postRegister) {
     return renderPostRegister();
   }
   const theme = useContext(Theme);
 
-  const shadowValid = theme.theme === 'dark' ? 'shadow-valid-dark' : 'shadow-valid-light';
-  const shadowInvalid = theme.theme === 'dark' ? 'shadow-invalid-dark' : 'shadow-invalid-light';
+
+  function handleInputColours(focused: boolean, valid: boolean, value: string) {
+    let retString = ``;
+
+    if (focused || valid) {
+      retString = `transition-colors duration-200 ease-in `;
+      if (value) {
+        if (valid) {
+          retString += `text-green-500`;
+        } else {
+          retString += `text-red-500`;
+        }
+      } else {
+        retString += `text-diluv-500`;
+      }
+
+    }
+    return retString;
+  }
 
   return (
     <Layout title="Register | Diluv">
@@ -139,7 +161,7 @@ function RegisterPage() {
             </label>
             <div className={"relative my-auto group"}>
               <User
-                className={`absolute pointer-events-none ml-2 my-3 fill-current ${fieldUserName.current && fieldUserName.current.value ? `transition-colors duration-200 ease-in ` + (validUserName.current ? `text-green-500` : `text-red-500`) : ""}`}
+                className={`absolute pointer-events-none ml-2 my-3 fill-current ${handleInputColours(focusedUsername, validUserName.current, fieldUserName.current ? fieldUserName.current.value : "")}`}
                 width={"1rem"} height={"1rem"}/>
               <input
                 defaultValue=""
@@ -154,8 +176,10 @@ function RegisterPage() {
                 id="username"
                 ref={fieldUserName}
                 placeholder={"Enter your Username"}
+                onFocus={() => setFocusedUsername(true)}
+                onBlur={() => setFocusedUsername(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b ${fieldUserName.current && fieldUserName.current.value ? validUserName.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-3 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b ${fieldUserName.current && fieldUserName.current.value ? validUserName.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-2 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
 
@@ -179,8 +203,10 @@ function RegisterPage() {
                 ref={fieldEmail}
                 id="email"
                 placeholder={"Enter your Email"}
+                onFocus={() => setFocusedEmail(true)}
+                onBlur={() => setFocusedEmail(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b ${fieldEmail.current && fieldEmail.current.value ? validEmail.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-3 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b ${fieldEmail.current && fieldEmail.current.value ? validEmail.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-2 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
           </div>
@@ -190,7 +216,7 @@ function RegisterPage() {
             </label>
             <div className={"relative my-auto"}>
               <LockClosed
-                className={`absolute pointer-events-none ml-2 my-3 fill-current ${fieldPassword.current && fieldPassword.current.value ? `transition-colors duration-200 ease-in ` + (validPassword.current ? `text-green-500` : `text-red-500`) : ""}`}
+                className={`absolute ml-2 my-3 fill-current ${fieldPassword.current && fieldPassword.current.value ? `transition-colors duration-200 ease-in ` + (validPassword.current ? `text-green-500` : `text-red-500`) : ""}`}
                 width={"1rem"} height={"1rem"}/>
               <input
                 defaultValue=""
@@ -215,8 +241,10 @@ function RegisterPage() {
                 id="password"
                 ref={fieldPassword}
                 placeholder={"Enter your Password"}
+                onFocus={() => setFocusedPassword(true)}
+                onBlur={() => setFocusedPassword(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b ${fieldPassword.current && fieldPassword.current.value ? validPassword.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-3 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b ${fieldPassword.current && fieldPassword.current.value ? validPassword.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-2 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
 
@@ -248,8 +276,10 @@ function RegisterPage() {
                 id="passwordConfirm"
                 ref={fieldPasswordConfirm}
                 placeholder={"Confirm your password"}
+                onFocus={() => setFocusedPasswordConfirm(true)}
+                onBlur={() => setFocusedPasswordConfirm(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b ${fieldPasswordConfirm.current && fieldPasswordConfirm.current.value ? validPasswordConfirm.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-3 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b ${fieldPasswordConfirm.current && fieldPasswordConfirm.current.value ? validPasswordConfirm.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-2 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
 
