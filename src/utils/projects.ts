@@ -28,7 +28,6 @@ export async function getProjects(gameSlug: string, projectTypeSlug: string, pag
 
 export async function getFeaturedProjects(): Promise<Project[]> {
   try {
-    console.log(`${API_URL}/v1/featured/projects`);
     const data: Data<Project[]> = await get(`${API_URL}/v1/featured/projects`)
       .then((Response) => Promise.resolve(Response.data).catch((reason) => Promise.resolve(reason)));
     return data.data;
