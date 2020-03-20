@@ -107,7 +107,7 @@ function LoginPage() {
                 onFocus={() => setFocusedUsername(true)}
                 onBlur={() => setFocusedUsername(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b border-gray-300 focus:border-diluv-500 mt-2 py-2 px-1 block w-full transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b border-gray-300 focus:border-diluv-500 mt-1 py-2 px-1 block w-full transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
           </div>
@@ -134,7 +134,7 @@ function LoginPage() {
               onFocus={() => setFocusedPassword(true)}
               onBlur={() => setFocusedPassword(false)}
               style={{ textIndent: "1.75rem" }}
-              className={`focus:outline-none bg-transparent border-b border-gray-300 focus:border-diluv-500 mt-2 py-2 px-1 block w-full transition-none focus:transition-colors duration-200 ease-in`}
+              className={`focus:outline-none bg-transparent border-b border-gray-300 focus:border-diluv-500 mt-1 py-2 px-1 block w-full transition-none focus:transition-colors duration-200 ease-in`}
             />
             </div>
           </div>

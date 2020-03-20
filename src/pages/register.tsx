@@ -57,24 +57,16 @@ function renderPostRegister() {
   const darkMode = theme.theme === 'dark';
   return (
     <Layout title="Register | Diluv">
-      <div className="text-center">
-        <h1 className="text-5xl">Register</h1>
-      </div>
-      <div
-        className={`w-5/6 md:w-1/2 mt-5 mx-auto max-w-sm focus:bg-black border rounded
-        ${darkMode ? 'bg-dark-600 border-gray-500 shadow-light-lg' : 'bg-gray-100 border-gray-500 shadow-lg'}`}
-      >
-        <div className="p-4">
-          <h6 className="text-2xl font-medium mb-2">Email Verification</h6>
-          <p>You should have received an email with a verification link.</p>
-          <p className="my-3">if you don't see it, check your spam folder</p>
-          <button
-            type="button"
-            className="block bg-diluv-700 hover:bg-diluv-500 text-diluv-200 hover:text-white py-2 w-full transition-colors duration-200 ease-in"
-          >
-            Send Again
-          </button>
-        </div>
+      <div className={`w-5/6 md:w-1/2 mx-auto max-w-md text-center`}>
+        <h4 className="text-5xl mb-2">Email Verification</h4>
+        <p>You should have received an email with a verification link.</p>
+        <p className="my-3">if you don't see it, check your spam folder</p>
+        <button
+          type="button"
+          className="btn-diluv"
+        >
+          Send Again
+        </button>
       </div>
     </Layout>
   );
@@ -179,7 +171,7 @@ function RegisterPage() {
                 onFocus={() => setFocusedUsername(true)}
                 onBlur={() => setFocusedUsername(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b ${fieldUserName.current && fieldUserName.current.value ? validUserName.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-2 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b ${fieldUserName.current && fieldUserName.current.value ? validUserName.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-1 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
 
@@ -190,7 +182,7 @@ function RegisterPage() {
             </label>
             <div className={"relative my-auto"}>
               <AtSymbol
-                className={`absolute pointer-events-none ml-2 my-3 fill-current ${fieldEmail.current && fieldEmail.current.value ? `transition-colors duration-200 ease-in ` + (validEmail.current ? `text-green-500` : `text-red-500`) : ""}`}
+                className={`absolute pointer-events-none ml-2 my-3 fill-current ${handleInputColours(focusedEmail, validEmail.current, fieldEmail.current ? fieldEmail.current.value : "")}`}
                 width={"1rem"} height={"1rem"}/>
               <input
                 defaultValue=""
@@ -206,7 +198,7 @@ function RegisterPage() {
                 onFocus={() => setFocusedEmail(true)}
                 onBlur={() => setFocusedEmail(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b ${fieldEmail.current && fieldEmail.current.value ? validEmail.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-2 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b ${fieldEmail.current && fieldEmail.current.value ? validEmail.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-1 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
           </div>
@@ -216,7 +208,7 @@ function RegisterPage() {
             </label>
             <div className={"relative my-auto"}>
               <LockClosed
-                className={`absolute ml-2 my-3 fill-current ${fieldPassword.current && fieldPassword.current.value ? `transition-colors duration-200 ease-in ` + (validPassword.current ? `text-green-500` : `text-red-500`) : ""}`}
+                className={`absolute pointer-events-none ml-2 my-3 fill-current ${handleInputColours(focusedPassword, validPassword.current, fieldPassword.current ? fieldPassword.current.value : "")}`}
                 width={"1rem"} height={"1rem"}/>
               <input
                 defaultValue=""
@@ -244,7 +236,7 @@ function RegisterPage() {
                 onFocus={() => setFocusedPassword(true)}
                 onBlur={() => setFocusedPassword(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b ${fieldPassword.current && fieldPassword.current.value ? validPassword.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-2 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b ${fieldPassword.current && fieldPassword.current.value ? validPassword.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-1 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
 
@@ -255,7 +247,7 @@ function RegisterPage() {
             </label>
             <div className={"relative my-auto"}>
               <LockClosed
-                className={`absolute pointer-events-none ml-2 my-3 fill-current ${fieldPasswordConfirm.current && fieldPasswordConfirm.current.value ? `transition-colors duration-200 ease-in ` + (validPasswordConfirm.current ? `text-green-500` : `text-red-500`) : ""}`}
+                className={`absolute pointer-events-none ml-2 my-3 fill-current ${handleInputColours(focusedPasswordConfirm, validPasswordConfirm.current, fieldPasswordConfirm.current ? fieldPasswordConfirm.current.value : "")}`}
                 width={"1rem"} height={"1rem"}/>
               <input
                 defaultValue=""
@@ -279,7 +271,7 @@ function RegisterPage() {
                 onFocus={() => setFocusedPasswordConfirm(true)}
                 onBlur={() => setFocusedPasswordConfirm(false)}
                 style={{ textIndent: "1.75rem" }}
-                className={`focus:outline-none bg-transparent border-b ${fieldPasswordConfirm.current && fieldPasswordConfirm.current.value ? validPasswordConfirm.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-2 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
+                className={`focus:outline-none bg-transparent border-b ${fieldPasswordConfirm.current && fieldPasswordConfirm.current.value ? validPasswordConfirm.current ? `border-green-500` : `border-red-500` : "border-gray-300 focus:border-diluv-500"} mt-1 py-2 px-1 block w-full text-black transition-none focus:transition-colors duration-200 ease-in`}
               />
             </div>
 

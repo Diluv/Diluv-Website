@@ -3,16 +3,17 @@ import { NextPageContext } from 'next/dist/next-server/lib/utils';
 import Layout from '../components/Layout';
 import { API_URL } from '../utils/api';
 import { post } from '../utils/request';
+import { AxiosError } from "axios";
 
-// function showErrors(errors: string[]) {
-//   return (
-//     <div>
-//       <h3 className="text-center">Sorry, we couldn't verify your user!</h3>
-//       <h3 className="text-center">Try click the link in your email again</h3>
-//       <h4 className="text-center text-danger">{errors}</h4>
-//     </div>
-//   );
-// }
+function showErrors(errors: string[]) {
+  return (
+    <div className="mx-auto">
+      <h3 className="text-center">Sorry, we couldn't verify your user!</h3>
+      <h3 className="text-center">Try click the link in your email again</h3>
+      <h4 className="text-center text-danger">{errors}</h4>
+    </div>
+  );
+}
 
 type Props = {
   valid: boolean
@@ -22,43 +23,42 @@ type Props = {
 };
 
 function RegisterPage({
-  valid, hasEmail, hasCode,
+  valid, hasEmail, hasCode, errors
 }: Props) {
-  return (
-    <Layout title="Validation | Diluv">
-      <div className="container">
-        <div className="pb-md-2 pt-md-3 text-center">
-          <h1>
-            Validation
-            {valid && hasEmail && hasCode ? 'Complete!' : 'Failed!'}
-          </h1>
+  if (valid) {
+    return (
+      <Layout title="Validation | Diluv">
+        <div className={`w-5/6 md:w-1/2 mt-5 mx-auto max-w-md text-center`}>
+          <h1 className="text-4xl mb-2">Validation Complete!</h1>
+          <h2>You can now log in and enjoy the text that darkhax needs to write</h2>
         </div>
-        {/* <Container> */}
-        {/*  {errors && errors.length > 0 && showErrors(errors)} */}
-        {/* </Container> */}
-      </div>
-    </Layout>
-  );
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout title="Validation | Diluv">
+        <div className={`w-5/6 md:w-1/2 mt-5 mx-auto max-w-md text-center`}>
+          <h1 className="text-4xl mb-2">Validation Failed!</h1>
+          <h2>Something went wrong, maybe Darkhax has more info to go with the error below</h2>
+          {errors && errors.length > 0 && showErrors(errors)}
+        </div>
+
+      </Layout>
+    );
+  }
 }
 
 
-RegisterPage.getInitialProps = async ({ query: { emailQuery, queryCode } }: NextPageContext) => {
+RegisterPage.getInitialProps = async ({ query: { email, code }, res }: NextPageContext) => {
   let valid: boolean = true;
-  const email = Array.isArray(emailQuery) ? emailQuery[0] : emailQuery;
-  const code = Array.isArray(queryCode) ? queryCode[0] : queryCode;
   const errors: string[] = [];
 
-  const formData = new URLSearchParams();
-  formData.append('email', email);
-  formData.append('code', code);
-
-  await post(`${API_URL}/v1/auth/verify`, formData).then(() => {
+  await post(`${API_URL}/v1/auth/verify`, { email: email, code: code }).then(() => {
     valid = true;
-  }).catch((Error) => {
-    errors.push(Error.response?.statusText);
+  }).catch((Error: AxiosError) => {
     valid = false;
+    errors.push(Error.response?.data.message);
   });
-
   return {
     valid, hasEmail: email.length > 0, hasCode: code.length > 0, errors,
   };

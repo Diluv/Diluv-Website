@@ -71,7 +71,7 @@ function ProjectTypePage({
             <div className={"flex flex-row mb-2"}>
               <label htmlFor={"gameVersionSelect"} className={"text-center w-3/4 my-auto font-bold"}>Game Version:</label>
               <select defaultValue={filter.current.gameVersion} id={"gameVersionSelect"}
-                      className={"my-auto bg-transparent focus:outline-none focus:shadow-outline appearance-none py-2 px-2 ml-2 block w-full text-black"}
+                      className={"my-auto bg-transparent focus:outline-none focus:shadow-outline py-2 px-2 ml-2 block w-full"}
                       onChange={async event => {
                         if (event.target.value !== "all") {
                           await router.push(location.pathname + "?gameVersion=" + event.target.value);
