@@ -40,7 +40,7 @@
     "tailwindcss-elevation": "0.3.3"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "5.12.1",
+    "@fortawesome/fontawesome-free": "5.13.0",
     "@fullhuman/postcss-purgecss": "2.0.6",
     "@types/jwt-decode": "2.2.1",
     "@types/node": "13.7.2",
