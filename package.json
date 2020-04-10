@@ -43,7 +43,7 @@
     "@fortawesome/fontawesome-free": "5.13.0",
     "@fullhuman/postcss-purgecss": "2.1.2",
     "@types/jwt-decode": "2.2.1",
-    "@types/node": "13.7.2",
+    "@types/node": "13.11.1",
     "@types/react": "16.9.20",
     "@types/react-dom": "16.9.6",
     "cross-env": "7.0.2",
