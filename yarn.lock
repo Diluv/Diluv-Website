@@ -1655,10 +1655,10 @@ autoprefixer@^9.4.5, autoprefixer@^9.6.1:
     postcss "^7.0.26"
     postcss-value-parser "^4.0.2"
 
-axios-auth-refresh@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/axios-auth-refresh/-/axios-auth-refresh-2.2.1.tgz#8e9c0955d3c1585bb06016af9d6b3bb3c44b6317"
-  integrity sha512-olZyeN82CCAUJM2LGU6R8ORaSdM4+sp7QsprrxwnKPkrIzYNWHZ3fiVB3pdEDdPPmu1MEKGWhmX7+byHxP1Nsw==
+axios-auth-refresh@2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/axios-auth-refresh/-/axios-auth-refresh-2.2.4.tgz#7ebfd1da7ac19203c6dbb75d0fa6d20e8976d272"
+  integrity sha512-IBpPlnTvZyIotwib0gvoEsyVkhL3NdfhDcX1Y32sXrFsVhRWuRRHFWESkNR93axjHhwIpxvpxpPk3D4Cu9JDYg==
 
 axios@0.19.2:
   version "0.19.2"
