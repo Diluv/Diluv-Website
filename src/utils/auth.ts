@@ -3,7 +3,11 @@ import jwt from 'jwt-decode';
 import { NextPageContext } from 'next';
 import axios from 'axios';
 import { API_URL } from './api';
+import dynamic from "next/dynamic";
 
+export const Auth = dynamic(() => import("../components/auth/Auth"), {
+  ssr: false,
+});
 
 export function clearAuthCookies(ctx: NextPageContext | null | undefined) {
   destroyCookie(ctx, 'username');

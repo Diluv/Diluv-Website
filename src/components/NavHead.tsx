@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Drop from './icons/Drop';
 import DropDown, { DropDownAction, DropDownLink, DropDownSpacer } from './Dropdown';
 import { Theme } from '../utils/context';
+import { Auth } from "../utils/auth";
+import NavDropAuth from "./auth/NavDropAuth";
 
 function NavHead() {
   const [showMenu, setShowMenu] = useState(false);
@@ -56,21 +58,9 @@ function NavHead() {
           </Link>
         </div>
         <div className="block mt-4 md:mt-0 md:inline-block">
-          <DropDown name="Account" className="text-teal-200 hover:text-white transition-colors duration-200 ease-in pr-3 triangle-after-expand">
-            <DropDownLink href="/register">
-              <p>Sign Up</p>
-            </DropDownLink>
-            <DropDownLink href="/login">
-              <p>Sign In</p>
-            </DropDownLink>
-            <DropDownSpacer/>
-            <DropDownAction action={() => {
-              theme.toggleTheme();
-            }}
-            >
-              Change Theme
-            </DropDownAction>
-          </DropDown>
+          <Auth>
+            <NavDropAuth/>
+          </Auth>
         </div>
       </div>
     </nav>

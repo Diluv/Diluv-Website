@@ -28,6 +28,7 @@
     "next-images": "1.4.0",
     "next-offline": "5.0.0",
     "nookies": "2.2.1",
+    "oidc-react": "^1.0.0-alpha.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-dropzone": "10.2.2",
