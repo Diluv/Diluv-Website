@@ -2,22 +2,17 @@
   "name": "diluv-website",
   "version": "0.1.0",
   "scripts": {
-    "serve": "npm-run-all --parallel next apiserver",
     "next": "next",
-    "apiserver": "nodemon mock/server.js",
     "build": "next build",
     "dev": "next dev",
     "fast-dev": "next build && next start",
     "build:staging": "cross-env DOT_ENV=staging next build",
     "start": "next start",
-    "analyze": "cross-env ANALYZE=true next build",
     "type-check": "tsc"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "9.3.4",
     "@zeit/next-css": "1.0.1",
     "axios": "0.19.2",
-    "axios-auth-refresh": "2.2.4",
     "dotenv-flow": "3.1.0",
     "filesize": "6.1.0",
     "jwt-decode": "2.2.0",
@@ -33,8 +28,7 @@
     "react-dom": "16.13.1",
     "react-dropzone": "10.2.2",
     "s-ago": "2.1.0",
-    "sanitize-html": "1.23.0",
-    "tailwindcss-elevation": "0.3.3"
+    "sanitize-html": "1.23.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "2.1.2",
@@ -43,9 +37,6 @@
     "@types/react": "16.9.34",
     "@types/react-dom": "16.9.6",
     "cross-env": "7.0.2",
-    "express": "4.17.1",
-    "nodemon": "2.0.2",
-    "npm-run-all": "4.1.5",
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.7.0",
     "tailwindcss": "1.2.0",
