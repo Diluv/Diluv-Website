@@ -2,33 +2,33 @@ const plugin = require('tailwindcss/plugin');
 
 module.exports = {
     theme: {
-        minWidth: {
-            '0': '0',
-            '1/4': '25%',
-            '1/2': '50%',
-            '3/4': '75%',
-            'full': '100%',
-            '32': '3.2rem',
-            '24': '2.4rem',
-            '20': '2rem'
-        },
-        minHeight: {
-            '0vh': '0vh',
-            '25vh': '25vh',
-            '50vh': '50vh',
-            '70vh': '70vh',
-            '100vh': '100vh',
-            '1/4': '25%',
-            '1/2': '50%',
-            '3/4': '70%',
-            '10': '2.5rem',
-            '12': '3rem',
-            '24': '6rem',
-            '28': '7rem',
-            '32': '8rem',
-            '40': '10rem'
-        },
         extend: {
+            minWidth: {
+                '0': '0',
+                '1/4': '25%',
+                '1/2': '50%',
+                '3/4': '75%',
+                'full': '100%',
+                '32': '3.2rem',
+                '24': '2.4rem',
+                '20': '2rem'
+            },
+            minHeight: {
+                '0vh': '0vh',
+                '25vh': '25vh',
+                '50vh': '50vh',
+                '70vh': '70vh',
+                '100vh': '100vh',
+                '1/4': '25%',
+                '1/2': '50%',
+                '3/4': '70%',
+                '10': '2.5rem',
+                '12': '3rem',
+                '24': '6rem',
+                '28': '7rem',
+                '32': '8rem',
+                '40': '10rem'
+            },
             spinner: (theme) => ({
                 default: {
                     color: '#dae1e7', // color you want to make the spinner
@@ -151,7 +151,6 @@ module.exports = {
         transitionProperty: ['responsive', 'hover', 'focus']
     },
     plugins: [
-        require('tailwindcss-elevation')(['responsive']),
         require('tailwindcss-spinner')(),
         require("tailwindcss-triangle-after")({
                     triangles: {
