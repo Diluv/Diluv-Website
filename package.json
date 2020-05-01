@@ -31,7 +31,7 @@
     "oidc-react": "^1.0.0-alpha.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-dropzone": "10.2.2",
+    "react-dropzone": "11.0.1",
     "s-ago": "2.1.0",
     "sanitize-html": "1.23.0",
     "tailwindcss-elevation": "0.3.3"
