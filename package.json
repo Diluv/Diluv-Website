@@ -14,7 +14,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "9.3.4",
+    "@next/bundle-analyzer": "9.3.6",
     "@zeit/next-css": "1.0.1",
     "axios": "0.19.2",
     "axios-auth-refresh": "2.2.4",
