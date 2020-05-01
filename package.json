@@ -34,7 +34,7 @@
     "react-dropzone": "10.2.2",
     "s-ago": "2.1.0",
     "sanitize-html": "1.23.0",
-    "tailwindcss-elevation": "0.3.3"
+    "tailwindcss-elevation": "0.3.4"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "2.1.2",
