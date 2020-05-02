@@ -32,6 +32,28 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: yarn build
 
+      # Analytics data
+      - name: Run
+        run: nohup yarn start &
+
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v2
+        with:
+          runs: 3
+          urls: |
+            http://localhost:3000/
+          temporaryPublicStorage: true
+
+      - name: Analyze
+        run: yarn analyze
+
+      - name: Save results
+        uses: actions/upload-artifact@v1
+        with:
+          name: webpack-analyze
+          path: '.next/analyze'
+
+      # Release
       - name: Production Yarn
         run: yarn --production
 
