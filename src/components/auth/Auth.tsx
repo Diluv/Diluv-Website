@@ -11,7 +11,6 @@ const oidcConfig = {
     "DILUV_WEBSITE",
   responseType: "id_token",
   scope: "openid profile",
-  autoSignIn: false,
   redirectUri: "http://localhost:3000"
 };
 
