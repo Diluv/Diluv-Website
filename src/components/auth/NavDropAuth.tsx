@@ -5,7 +5,7 @@ import { Theme } from "../../utils/context";
 import { Auth } from "../../utils/auth";
 
 function getName(userData:any){
-  return userData.profile.name;
+  return userData.profile.username;
 }
 const NavDropAuth = () => {
   const auth = useAuth();
