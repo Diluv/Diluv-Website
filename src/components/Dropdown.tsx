@@ -1,8 +1,11 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import Link from 'next/link';
 import useComponentVisible from '../utils/hooks';
+import { usePopper } from "react-popper";
+
 
 function DropDown(props: { name: string, children: ReactNode, className?: string }) {
+
   const {
     ref,
     isComponentVisible,
@@ -13,24 +16,33 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
     setIsComponentVisible: Function
   } = useComponentVisible(false);
 
+  const popperRef = useRef(null);
+  const { styles, attributes } = usePopper(
+    ref.current,
+    popperRef.current,
+    {
+      placement: "bottom-end",
+      modifiers: []
+    }
+  );
+
   const { name, children, className } = props;
   return (
-    <div ref={ref}>
-      <div
-        className={`${className || ''} pb-1 cursor-pointer`}
-        onClick={() => setIsComponentVisible(!isComponentVisible)}
-      >
-        <p>{name}</p>
+    <>
+      <div ref={ref} onMouseLeave={event => setIsComponentVisible(false)} onMouseEnter={event => {
+        setIsComponentVisible(true)
+      }}>
+        <div className={`${className || ''} cursor-pointer`} onClick={() => setIsComponentVisible(!isComponentVisible)}>
+          <span>{name}</span>
+        </div>
+        <div ref={popperRef} style={styles.popper} {...attributes.popper}>
+          <div className={`bg-white border border-gray-800 bg-gray-300 transition-all duration 150 ease-in-out ${isComponentVisible ? '' : 'hidden'}`}
+               style={styles.offset}>
+            {children}
+          </div>
+        </div>
       </div>
-      <div
-        className={
-          `absolute bg-white mr-4 border border-gray-800 md:right-0 left-auto sm:inset-x-0 md:inset-auto bg-gray-300 
-          ${isComponentVisible ? '' : 'opacity-0 hidden'}`
-        }
-      >
-        {children}
-      </div>
-    </div>
+    </>
   );
 }
 
@@ -65,7 +77,7 @@ export function DropDownAction(props: {
   return (
     <div onClick={(e) => action(e)}>
       <div
-        className={`${className || ''} text-gray-800 px-6 py-2 cursor-pointer hover:bg-gray-400  transition-colors duration-150 ease-in`}
+        className={`${className || ''} text-gray-800 px-6 py-2 cursor-pointer select-none hover:bg-gray-400  transition-colors duration-150 ease-in`}
       >
         {children}
       </div>
@@ -76,6 +88,5 @@ export function DropDownAction(props: {
 export function DropDownSpacer() {
   return <div className="border-gray-400 border-b"/>;
 }
-
 
 export default DropDown;
