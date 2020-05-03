@@ -11,12 +11,13 @@ function Layout({
   children,
   title = 'Diluv',
 }: Props) {
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col`}>
       <header>
         <NavBar/>
       </header>
-      <main className={`flex-grow `}>
+      <main className={`flex-grow`}>
         {children}
       </main>
       <Footer/>

@@ -146,12 +146,13 @@ module.exports = {
         spinner: ['responsive'],
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
         cursor: ['responsive', 'disabled'],
-        backgroundColor: ['responsive', 'hover', 'focus', 'disabled'],
-        textColor: ['responsive', 'hover', 'focus', 'disabled'],
-        transitionProperty: ['responsive', 'hover', 'focus']
+        backgroundColor: ['responsive', 'hover', 'focus', 'disabled', 'dark', 'dark-hover', 'dark-group-hover', 'dark-even', 'dark-odd'],
+        textColor: ['responsive', 'hover', 'focus', 'disabled', 'dark', 'dark-hover', 'dark-active', 'dark-placeholder'],
+        transitionProperty: ['responsive', 'hover', 'focus'],
     },
     plugins: [
         require('tailwindcss-spinner')(),
+        require('tailwindcss-dark-mode')(),
         require("tailwindcss-triangle-after")({
                     triangles: {
                         select: {
