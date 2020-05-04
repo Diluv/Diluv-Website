@@ -10,7 +10,7 @@ function Alert(props: { className?: string, children?: ReactNode, type: 'danger'
   const bg = `bg-${type}-200`;
   const color = `text-${type}-800`;
   const hoverColor = `hover:text-${type}-500`;
-  const border = `border:text-${type}-400`;
+  const border = `border-${type}-400`;
 
   const alertRef = useRef(null);
   if (closed) {
