@@ -29,14 +29,12 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
   const { name, children, className } = props;
   return (
     <>
-      <div ref={ref} onMouseLeave={event => setIsComponentVisible(false)} onMouseEnter={event => {
-        setIsComponentVisible(true)
-      }}>
+      <div ref={ref}>
         <div className={`${className || ''} cursor-pointer`} onClick={() => setIsComponentVisible(!isComponentVisible)}>
           <span>{name}</span>
         </div>
         <div ref={popperRef} style={styles.popper} {...attributes.popper}>
-          <div className={`bg-white border border-gray-800 bg-gray-300 transition-all duration 150 ease-in-out ${isComponentVisible ? '' : 'hidden'}`}
+          <div className={`border border-gray-800 bg-gray-300 transition-all duration 150 ease-in-out ${isComponentVisible ? '' : 'hidden'}`}
                style={styles.offset}>
             {children}
           </div>
