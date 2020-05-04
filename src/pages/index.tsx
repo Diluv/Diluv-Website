@@ -1,73 +1,80 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import Alert from "../components/Alert";
 
 export default function IndexPage() {
   return (
     <Layout title="Diluv">
       <>
-        <section id={"intro"} className={`text-center my-4 w-1/2 mx-auto`}>
-          <h1 className={`text-3xl`}>Welcome to Diluv</h1>
-          <h3 className={`text-xl`}>Diluv is a hosting platform dedicated to fan-made gaming content. We aim to support players and creators of all gaming communities.</h3>
-          <h3 className={`text-xl`}>We are currently home to {`{$project_count}`} and {`{$author_count}`} authors.</h3>
+        <section id={"intro"} className={`text-center mt-4 mb-6 w-full lg:w-5/6 mx-auto`}>
+          <div className={`w-5/6 xl:w-auto mx-auto xl:mx-0`}>
+            <h1 className={`text-3xl`}>Welcome to Diluv</h1>
+            <h3 className={`text-xl`}>Diluv is a hosting platform dedicated to fan-made gaming content. We aim to support players and creators of all
+              gaming communities.</h3>
+            <h3 className={`text-xl`}>We are currently home to {`{$project_count}`} and {`{$author_count}`} authors.</h3>
+          </div>
         </section>
-        <div id={"promoGames"} className={`w-4/6 mx-auto`}>
-          <div className={`flex flex-row justify-between`}>
-            <div className={`w-5/12 mx-2 text-center`}>
-              <h3>Popular Games</h3>
-              <div className={`flex flex-row flex-wrap -mx-2`}>
-                <div className={`w-1/3 p-2`}>
-                  <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
+        <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
+          <div className={`xl:flex xl:flex-row justify-between`}>
+            <div className={`w-5/6 xl:w-11/12 mx-auto xl:mx-2 text-center`}>
+              <div className={`xl:w-11/12`}>
+                <h3>Popular Games</h3>
+                <div className={`flex flex-row flex-wrap -mx-2`}>
+                  <div className={`w-1/2 lg:w-1/3 p-2`}>
+                    <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
                     <img src={"https://imja.red/diluv/factorio.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
                     <img src={"https://imja.red/diluv/rimworld.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
                     <img src={"https://imja.red/diluv/sdv_night.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
                     <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
                     <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`w-full`}/>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className={`w-5/12 mx-2 text-center`}>
-              <h3>New Games</h3>
-              <div className={`flex flex-row flex-wrap -mx-2`}>
-                <div className={`w-1/3 p-2`}>
-                  <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
-                  <img src={"https://imja.red/diluv/factorio.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
-                  <img src={"https://imja.red/diluv/rimworld.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
-                  <img src={"https://imja.red/diluv/sdv_night.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
-                  <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`w-full`}/>
-                </div>
-                <div className={`w-1/3 p-2 `}>
-                  <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`w-full`}/>
+            <div className={`w-5/6 xl:w-11/12 mx-auto xl:mx-2 mt-4 xl:mt-0 text-center`}>
+              <div className={`xl:w-11/12`}>
+                <h3>New Games</h3>
+                <div className={`flex flex-row flex-wrap -mx-2`}>
+                  <div className={`w-1/2 lg:w-1/3 p-2`}>
+                    <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
+                    <img src={"https://imja.red/diluv/factorio.png"} className={`w-full`}/>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
+                    <img src={"https://imja.red/diluv/rimworld.png"} className={`w-full`}/>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
+                    <img src={"https://imja.red/diluv/sdv_night.png"} className={`w-full`}/>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
+                    <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`w-full`}/>
+                  </div>
+                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
+                    <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`w-full`}/>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div id={"promoMods"} className={`w-4/6 mx-auto pt-10 dark:bg-black`}>
-          <div className={`flex flex-row justify-between`}>
-            <div className={`w-full mx-2`}>
+        </section>
+        <section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10 dark:bg-gray-700`}>
+          <div className={`w-5/6 xl:w-auto mx-auto xl:mx-0`}>
+            <div className={`mx-2`}>
               <h3 className={`text-center`}>Featured Projects</h3>
-              <div className={`flex flex-row flex-wrap -mx-2`}>
-                <div className={`w-1/2 p-2`}>
+              <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
+                <div className={`lg:w-1/2 p-2`}>
                   <div className={`py-4`}>
                     <div className={`flex flex-row`}>
                       <div className={`w-24 h-24 flex-none`}>
@@ -82,7 +89,7 @@ export default function IndexPage() {
                     </div>
                   </div>
                 </div>
-                <div className={`w-1/2 p-2`}>
+                <div className={`lg:w-1/2 p-2`}>
                   <div className={`py-4`}>
                     <div className={`flex flex-row`}>
                       <div className={`w-24 h-24 flex-none`}>
@@ -97,7 +104,7 @@ export default function IndexPage() {
                     </div>
                   </div>
                 </div>
-                <div className={`w-1/2 p-2`}>
+                <div className={`lg:w-1/2 p-2`}>
                   <div className={`py-4`}>
                     <div className={`flex flex-row`}>
                       <div className={`w-24 h-24 flex-none`}>
@@ -112,7 +119,7 @@ export default function IndexPage() {
                     </div>
                   </div>
                 </div>
-                <div className={`w-1/2 p-2`}>
+                <div className={`lg:w-1/2 p-2`}>
                   <div className={`py-4`}>
                     <div className={`flex flex-row`}>
                       <div className={`w-24 h-24 flex-none`}>
@@ -130,17 +137,18 @@ export default function IndexPage() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <section id={"diluvAccounts"} className={`text-center my-10 w-5/6 mx-auto`}>
-          <h2 className={`text-2xl pb-4`}>Diluv Accounts</h2>
-          <h4 className={`pb-4`}>It looks like you're not logged in! We recommend using a Diluv account to get the best user experience. Creating an
-            account is free and provides many benefits!</h4>
-          <h4 className={``}>No Download Limits</h4>
-          <h4 className={``}>Less Capchas</h4>
-          <h4 className={``}>Post Your Own Projects</h4>
-          <h4 className={``}>Rate and Review Projects</h4>
-
+        <section id={"diluvAccounts"} className={`w-full lg:w-5/6 mx-auto text-center my-10`}>
+          <div className={`w-5/6 xl:w-auto mx-auto xl:mx-0`}>
+            <h2 className={`text-2xl pb-4`}>Diluv Accounts</h2>
+            <h4 className={`pb-4`}>It looks like you're not logged in! We recommend using a Diluv account to get the best user experience. Creating an
+              account is free and provides many benefits!</h4>
+            <h4 className={``}>No Download Limits</h4>
+            <h4 className={``}>Less Capchas</h4>
+            <h4 className={``}>Post Your Own Projects</h4>
+            <h4 className={``}>Rate and Review Projects</h4>
+          </div>
         </section>
       </>
     </Layout>
