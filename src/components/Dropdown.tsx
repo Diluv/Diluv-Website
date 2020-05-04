@@ -41,7 +41,7 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
           <span className={`select-none`}>{name}</span>
         </div>
         <div ref={popperRef} style={styles.popper} {...attributes.popper}>
-          <div className={`border border-gray-800 bg-gray-300 transition-all duration 150 ease-in-out ${isComponentVisible ? '' : 'hidden'}`}
+          <div className={`z-10 border border-gray-800 bg-gray-300 transition-all duration 150 ease-in-out ${isComponentVisible ? '' : 'hidden'}`}
                style={styles.offset}>
             {children}
           </div>
