@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from './NavBar';
 import Footer from './Footer';
+import Head from "next/head";
 
 type Props = {
   children: JSX.Element | JSX.Element[]
@@ -14,6 +15,10 @@ function Layout({
 
   return (
     <div className={`min-h-screen flex flex-col`}>
+      <Head>
+        <title>{title}</title>
+        <meta charSet="utf-8"/>
+      </Head>
       <header>
         <NavBar/>
       </header>
