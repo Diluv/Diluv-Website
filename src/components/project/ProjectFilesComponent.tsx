@@ -1,7 +1,5 @@
 import React from 'react';
 import filesize from 'filesize';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { ProjectFiles } from '../../interfaces';
 
 type Props = {
@@ -32,7 +30,7 @@ function ProjectFilesComponent({ projectFiles }: Props) {
               <td className="border px-4 py-2">
                 <button type="button">Download</button>
                 <button type="button">
-                  <FontAwesomeIcon icon={faInfoCircle}/>
+                  {/*<FontAwesomeIcon icon={faInfoCircle}/>*/}
                 </button>
               </td>
             </tr>

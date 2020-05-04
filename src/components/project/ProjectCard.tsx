@@ -1,9 +1,6 @@
 import React from 'react';
 import { Project } from '../../interfaces';
 import Link from "next/link";
-import Chart from "../icons/Chart";
-import DateAdded from "../icons/DateAdded";
-import HourGlass from "../icons/HourGlass";
 import UserGroup from "../icons/UserGroup";
 
 const ago = require('s-ago');

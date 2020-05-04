@@ -2,7 +2,6 @@ import { useAuth } from "oidc-react";
 import React, { useContext } from "react";
 import DropDown, { DropDownAction, DropDownLink, DropDownSpacer } from "../Dropdown";
 import { Theme } from "../../utils/context";
-import { Auth } from "../../utils/auth";
 
 function getName(userData:any){
   return userData.profile.name;
