@@ -18,7 +18,7 @@ export default function IndexPage() {
           <div className={`xl:flex xl:flex-row justify-between`}>
             <div className={`w-5/6 xl:w-11/12 mx-auto xl:mx-2 text-center`}>
               <div className={`xl:w-11/12`}>
-                <h3>Popular Games</h3>
+                <h3 className={`border-b-2 pb-1`}>Popular Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
                   <div className={`w-1/2 lg:w-1/3 p-2`}>
                     <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
@@ -44,7 +44,7 @@ export default function IndexPage() {
 
             <div className={`w-5/6 xl:w-11/12 mx-auto xl:mx-2 mt-4 xl:mt-0 text-center`}>
               <div className={`xl:w-11/12`}>
-                <h3>New Games</h3>
+                <h3 className={`border-b-2 pb-1`}>New Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
                   <div className={`w-1/2 lg:w-1/3 p-2`}>
                     <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
@@ -69,10 +69,10 @@ export default function IndexPage() {
             </div>
           </div>
         </section>
-        <section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10 dark:bg-gray-700`}>
+        <section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10`}>
           <div className={`w-5/6 xl:w-auto mx-auto xl:mx-0`}>
             <div className={`mx-2`}>
-              <h3 className={`text-center`}>Featured Projects</h3>
+              <h3 className={`text-center border-b-2 pb-1`}>Featured Projects</h3>
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
                 <div className={`lg:w-1/2 p-2`}>
                   <div className={`py-4`}>

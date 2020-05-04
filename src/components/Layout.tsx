@@ -17,7 +17,7 @@ function Layout({
       <header>
         <NavBar/>
       </header>
-      <main className={`flex-grow`}>
+      <main className={`flex-grow dark:bg-gray-800 dark:text-white`}>
         {children}
       </main>
       <Footer/>
