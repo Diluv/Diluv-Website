@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import useComponentVisible from '../utils/hooks';
 import { usePopper } from "react-popper";
@@ -17,7 +17,7 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
   } = useComponentVisible(false);
 
   const popperRef = useRef(null);
-  const { styles, attributes } = usePopper(
+  const { styles, attributes, update } = usePopper(
     ref.current,
     popperRef.current,
     {
@@ -30,8 +30,15 @@ function DropDown(props: { name: string, children: ReactNode, className?: string
   return (
     <>
       <div ref={ref}>
-        <div className={`${className || ''} cursor-pointer`} onClick={() => setIsComponentVisible(!isComponentVisible)}>
-          <span>{name}</span>
+        <div className={`${className || ''} cursor-pointer`} onClick={() => {
+          setIsComponentVisible(!isComponentVisible);
+          // This is needed to make sure it stays in the right position...
+          if (update) {
+            update().then(() => {
+            });
+          }
+        }}>
+          <span className={`select-none`}>{name}</span>
         </div>
         <div ref={popperRef} style={styles.popper} {...attributes.popper}>
           <div className={`border border-gray-800 bg-gray-300 transition-all duration 150 ease-in-out ${isComponentVisible ? '' : 'hidden'}`}
