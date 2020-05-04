@@ -7,13 +7,14 @@ import useDarkMode from "use-dark-mode";
 function NavBar() {
 
   const [showingMenu, setShowingMenu] = useState(false);
+  const [showUserMenu, setShowingUserMenu] = useState(false);
   const darkMode = useDarkMode(false, { classNameDark: `mode-dark`, classNameLight: `mode-light` });
   return <>
-    <header className="text-gray-500 bg-diluv-900 font-hero">
+    <header className="text-gray-400 bg-diluv-900 font-hero">
       <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row justify-between md:justify-start items-center">
         <div className={`w-full md:w-auto flex flex-row justify-between items-center`}>
           <Link href={"/"}>
-            <a className="flex title-font font-medium items-center text-white md:mb-0">
+            <a className="flex font-medium items-center text-white md:mb-0">
               <Drop className={`w-10 h-10`}/>
               <span className="ml-3 text-xl">Diluv</span>
             </a>
@@ -32,23 +33,22 @@ function NavBar() {
 
           </button>
         </div>
-        <div className={`md:flex-grow flex flex-col md:flex-row justify-between md:inline-flex ${showingMenu ? `block` : `hidden`}`}>
-          <nav
-            className="md:mr-auto md:ml-4 md:py-auto md:pl-4 md:border-l md:border-gray-700 flex flex-col md:flex-row flex-wrap items-center text-base justify-center">
+        <div className={`w-full md:w-auto md:flex-grow flex flex-col md:flex-row justify-between md:inline-flex ${showingMenu ? `block` : `hidden`}`}>
+          <nav className="md:mr-auto md:ml-4 md:py-auto md:pl-4 md:border-l md:border-gray-700 flex flex-col md:flex-row flex-wrap items-center text-base text-center justify-center">
             <Link href={"/"}>
-              <a className="mr-5 hover:text-white">Home</a>
+              <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Home</a>
             </Link>
             <Link href={"/games"}>
-              <a className="mr-5 hover:text-white">Games</a>
+              <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Games</a>
             </Link>
             <Link href={"/news"}>
-              <a className="mr-5 hover:text-white">News</a>
+              <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">News</a>
             </Link>
             <Link href={"/feedback"}>
-              <a className="mr-5 hover:text-white">Feedback</a>
+              <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Feedback</a>
             </Link>
           </nav>
-          <div className="">
+          <div className="hidden md:block">
             <DropDown name={"Account"} className={`hover:text-white`}>
               <DropDownLink href={`/login`}>
                 Login
@@ -61,6 +61,23 @@ function NavBar() {
                 Toggle Theme
               </DropDownAction>
             </DropDown>
+          </div>
+          <div className={`block md:hidden text-center`}>
+            <p className={`hover:text-white cursor-pointer`} onClick={() => setShowingUserMenu(!showUserMenu)}>Account</p>
+            <div className={`${showUserMenu ? `block` : `hidden`}`}>
+              <div className={`flex flex-col`}>
+                <Link href={`/login`}>
+                  <a className={`hover:text-white`}>Login</a>
+                </Link>
+                <Link href={`/login`}>
+                  <a className={`hover:text-white`}>Register</a>
+                </Link>
+                <span className={`hover:text-white cursor-pointer select-none`} onClick={() => darkMode.toggle()}>
+                  Change Theme
+                </span>
+              </div>
+
+            </div>
           </div>
         </div>
 
