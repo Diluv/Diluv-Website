@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import Alert from "../components/Alert";
+import FeaturedProjectCard from "../components/index/FeaturedProjectCard";
 
 export default function IndexPage() {
   return (
@@ -74,66 +74,54 @@ export default function IndexPage() {
             <div className={`mx-2`}>
               <h3 className={`text-center border-b-2 pb-1`}>Featured Projects</h3>
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
-                <div className={`lg:w-1/2 p-2`}>
-                  <div className={`py-4`}>
-                    <div className={`flex flex-row`}>
-                      <div className={`w-24 h-24 flex-none`}>
-                        <img src={`https://media.forgecdn.net/avatars/35/77/635919513306138024.jpeg`}/>
-                      </div>
-                      <div className={`flex-grow ml-4`}>
-                        <p className={`mb-1`}>Dark Utilities by Darkhax</p>
-                        <p className={`text-sm leading-tight`}>
-                          This mod adds many useful and interesting blocks and items to Minecraft.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={`lg:w-1/2 p-2`}>
-                  <div className={`py-4`}>
-                    <div className={`flex flex-row`}>
-                      <div className={`w-24 h-24 flex-none`}>
-                        <img src={`https://media.forgecdn.net/avatars/196/601/636886365505927366.png`}/>
-                      </div>
-                      <div className={`flex-grow ml-4`}>
-                        <p className={`mb-1`}>Atum by TeamMetallurgy</p>
-                        <p className={`text-sm leading-tight`}>
-                          Journey to the sands of Atum with this new minecraft dimension mod!
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={`lg:w-1/2 p-2`}>
-                  <div className={`py-4`}>
-                    <div className={`flex flex-row`}>
-                      <div className={`w-24 h-24 flex-none`}>
-                        <img src={`https://media.forgecdn.net/avatars/180/203/636791763973279045.png`}/>
-                      </div>
-                      <div className={`flex-grow ml-4`}>
-                        <p className={`mb-1`}>You've Got Mail - Twitch Integration by Jaredlll08</p>
-                        <p className={`text-sm leading-tight`}>
-                          Allows for viewers to buy ingame mail for streamers!
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={`lg:w-1/2 p-2`}>
-                  <div className={`py-4`}>
-                    <div className={`flex flex-row`}>
-                      <div className={`w-24 h-24 flex-none`}>
-                        <img src={`https://i.blamejared.com/ideUl.png`}/>
-                      </div>
-                      <div className={`flex-grow ml-4`}>
-                        <p className={`mb-1`}>Liam's Mod by icic98</p>
-                        <p className={`text-sm leading-tight`}>
-                          Liam doesn't have any mods, but if he did they would be here.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <FeaturedProjectCard project={{
+                  id: 1,
+                  name: 'Dark Utilities',
+                  contributors: [{ userId: 2, username: 'Darkhax', role: 'owner' }],
+                  slug: '',
+                  summary: 'This mod adds many useful and interesting blocks and items to Minecraft.',
+                  description: '',
+                  logo: 'https://media.forgecdn.net/avatars/35/77/635919513306138024.jpeg',
+                  downloads: 0,
+                  createdAt: 0,
+                  updatedAt: 0,
+                }}/>
+                <FeaturedProjectCard project={{
+                  id: 2,
+                  name: 'Atum',
+                  contributors: [{ userId: 2, username: 'TeamMetallurgy', role: 'owner' }],
+                  slug: 'atum',
+                  summary: 'Journey to the sands of Atum with this new minecraft dimension mod!',
+                  description: '',
+                  logo: 'https://media.forgecdn.net/avatars/196/601/636886365505927366.png',
+                  downloads: 0,
+                  createdAt: 0,
+                  updatedAt: 0,
+                }}/>
+                <FeaturedProjectCard project={{
+                  id: 3,
+                  name: 'You\'ve Got Mail - Twitch Integration',
+                  contributors: [{ userId: 1, username: 'Jaredlll08', role: 'owner' }],
+                  slug: '',
+                  summary: 'Allows for viewers to buy ingame mail for streamers!',
+                  description: '',
+                  logo: 'https://media.forgecdn.net/avatars/180/203/636791763973279045.png',
+                  downloads: 0,
+                  createdAt: 0,
+                  updatedAt: 0,
+                }}/>
+                <FeaturedProjectCard project={{
+                  id: 4,
+                  name: 'Liam\'s Mod',
+                  contributors: [{   userId: 2, username: 'icic98', role: 'owner' }],
+                  slug: '',
+                  summary: 'Liam doesn\'t have any mods, but if he did they would be here.',
+                  description: '',
+                  logo: 'https://i.blamejared.com/ideUl.png',
+                  downloads: 0,
+                  createdAt: 0,
+                  updatedAt: 0
+                }}/>
               </div>
             </div>
           </div>
