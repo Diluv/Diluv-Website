@@ -16,8 +16,8 @@ export default function IndexPage() {
         </section>
         <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
           <div className={`xl:flex xl:flex-row justify-between`}>
-            <div className={`w-5/6 xl:w-11/12 mx-auto xl:mx-2 text-center`}>
-              <div className={`xl:w-11/12`}>
+            <div className={`w-5/6 xl:w-11/12 mx-auto text-center`}>
+              <div className={`xl:w-11/12 mx-auto`}>
                 <h3 className={`border-b-2 pb-1`}>Popular Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
                   <div className={`w-1/2 lg:w-1/3 p-2`}>
@@ -42,8 +42,8 @@ export default function IndexPage() {
               </div>
             </div>
 
-            <div className={`w-5/6 xl:w-11/12 mx-auto xl:mx-2 mt-4 xl:mt-0 text-center`}>
-              <div className={`xl:w-11/12`}>
+            <div className={`w-5/6 xl:w-11/12 mx-auto mt-4 xl:mt-0 text-center`}>
+              <div className={`xl:w-11/12 mx-auto`}>
                 <h3 className={`border-b-2 pb-1`}>New Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
                   <div className={`w-1/2 lg:w-1/3 p-2`}>
