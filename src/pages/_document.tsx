@@ -8,8 +8,8 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head/>
-        <script src="noflash.js"/>
         <body>
+        <script src="noflash.js"/>
         <Main/>
         <NextScript/>
         </body>
