@@ -22,17 +22,23 @@ export type Contributors = {
   role: string
 }
 
-export type Project = {
+export type Categories = {
+  slug: string
   name: string
-  contributors: Contributors[]
+  iconURL: string
+}
+export type Project = {
+  id: number
+  name: string
   slug: string
   summary: string
   description: string
-  logo: string,
-  downloads: number,
-  createdAt: number,
-  updatedAt: number,
-  permissions: string[] | undefined
+  logo: string
+  downloads: number
+  createdAt: number
+  updatedAt: number
+  contributors: Contributors[]
+  categories?: Categories[]
 };
 
 export type ProjectFiles = {
