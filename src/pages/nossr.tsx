@@ -8,7 +8,8 @@ import { API_URL } from '../utils/api';
 import { Project } from "../interfaces";
 import { NextPageContext } from "next";
 
-export default function IndexPage(props: { featuredProjects: Project[] }) {
+export default function IndexPage() {
+  const { data, error } = useSWR(`${API_URL}/v1/featured/projects`, get);
   return (
     <Layout title="Diluv">
       <>
@@ -75,13 +76,13 @@ export default function IndexPage(props: { featuredProjects: Project[] }) {
             </div>
           </div>
         </section>
-        {<section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10`}>
+        {!error && <section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10`}>
           <div className={`mx-auto`}>
             <div className={``}>
               <h3 className={`text-center border-b-2 pb-1`}>Featured Projects</h3>
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
                 {
-                  props.featuredProjects.map((project: Project) =>
+                  data ? data.data.data.map((project: Project) =>
                     <FeaturedProjectCard project={{
                       id: project.id,
                       name: project.name,
@@ -94,6 +95,15 @@ export default function IndexPage(props: { featuredProjects: Project[] }) {
                       createdAt: project.createdAt,
                       updatedAt: project.updatedAt,
                     }} key={project.id}/>
+                  ) : [0, 1, 2, 3].map(value =>
+                    <div className={`lg:w-1/2 p-2 border`} key={value}>
+                      <div className={`py-4`}>
+                        <div className={`flex flex-row`}>
+                          <div className={`w-24 h-24 flex-none`}>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   )
                 }
               </div>
@@ -115,11 +125,4 @@ export default function IndexPage(props: { featuredProjects: Project[] }) {
       </>
     </Layout>
   );
-}
-
-export async function getServerSideProps(context: NextPageContext) {
-  let featuredProjects = await get(`${API_URL}/v1/featured/projects`);
-  return {
-    props: { featuredProjects: featuredProjects.data.data }, // will be passed to the page component as props
-  }
 }

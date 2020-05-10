@@ -41,12 +41,10 @@ function NavBar() {
             <Link href={"/games"}>
               <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Games</a>
             </Link>
-            <Link href={"/news"}>
-              <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">News</a>
+            <Link href={"/nossr"}>
+              <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">NoSSR</a>
             </Link>
-            <Link href={"/feedback"}>
-              <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Feedback</a>
-            </Link>
+
           </nav>
           <div className="hidden md:block">
             <DropDown name={"Account"} className={`hover:text-white`}>
