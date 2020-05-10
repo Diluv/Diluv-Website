@@ -1,8 +1,15 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import FeaturedProjectCard from "../components/index/FeaturedProjectCard";
+import useSWR from 'swr';
+import axios from "axios";
+import { get } from '../utils/request';
+import { API_URL } from '../utils/api';
+import { Project } from "../interfaces";
+import { NextPageContext } from "next";
 
 export default function IndexPage() {
+  const { data, error } = useSWR(`${API_URL}/v1/featured/projects`, get);
   return (
     <Layout title="Diluv">
       <>
@@ -17,115 +24,92 @@ export default function IndexPage() {
         <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
           <div className={`xl:flex xl:flex-row justify-between`}>
             <div className={`w-5/6 xl:w-11/12 mx-auto text-center`}>
-              <div className={`xl:w-11/12 mx-auto`}>
+              <div className={`xl:w-11/12 mr-auto`}>
                 <h3 className={`border-b-2 pb-1`}>Popular Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  <div className={`w-1/2 lg:w-1/3 p-2`}>
-                    <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
+                    <img src={"https://imja.red/diluv/minecraft-je.png"} className={`mx-auto h-28`}/>
                   </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/factorio.png"} className={`w-full`}/>
+                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
+                    <img src={"https://imja.red/diluv/factorio.png"} className={`mx-auto h-28`}/>
                   </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/rimworld.png"} className={`w-full`}/>
+                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
+                    <img src={"https://imja.red/diluv/rimworld.png"} className={`mx-auto h-28`}/>
                   </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/sdv_night.png"} className={`w-full`}/>
+                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
+                    <img src={"https://imja.red/diluv/sdv_night.png"} className={`mx-auto h-28`}/>
                   </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`w-full`}/>
+                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
+                    <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`mx-auto h-28`}/>
                   </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`w-full`}/>
+                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
+                    <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`mx-auto h-28`}/>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className={`w-5/6 xl:w-11/12 mx-auto mt-4 xl:mt-0 text-center`}>
-              <div className={`xl:w-11/12 mx-auto`}>
+            <div className={`w-5/6 xl:w-11/12 mt-4 xl:mt-0 mx-auto text-center`}>
+              <div className={`xl:w-11/12 ml-auto`}>
                 <h3 className={`border-b-2 pb-1`}>New Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
                   <div className={`w-1/2 lg:w-1/3 p-2`}>
-                    <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+                    <img src={"https://imja.red/diluv/minecraft-je.png"} className={`mx-auto h-28`}/>
                   </div>
                   <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/factorio.png"} className={`w-full`}/>
+                    <img src={"https://imja.red/diluv/factorio.png"} className={`mx-auto h-28`}/>
                   </div>
                   <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/rimworld.png"} className={`w-full`}/>
+                    <img src={"https://imja.red/diluv/rimworld.png"} className={`mx-auto h-28`}/>
                   </div>
                   <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/sdv_night.png"} className={`w-full`}/>
+                    <img src={"https://imja.red/diluv/sdv_night.png"} className={`mx-auto h-28`}/>
                   </div>
                   <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`w-full`}/>
+                    <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`mx-auto h-28`}/>
                   </div>
                   <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`w-full`}/>
+                    <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`mx-auto h-28`}/>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10`}>
-          <div className={`w-5/6 xl:w-auto mx-auto xl:mx-0`}>
-            <div className={`mx-2`}>
+        {!error && <section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10`}>
+          <div className={`mx-auto`}>
+            <div className={``}>
               <h3 className={`text-center border-b-2 pb-1`}>Featured Projects</h3>
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
-                <FeaturedProjectCard project={{
-                  id: 1,
-                  name: 'Dark Utilities',
-                  contributors: [{ userId: 2, username: 'Darkhax', role: 'owner' }],
-                  slug: '',
-                  summary: 'This mod adds many useful and interesting blocks and items to Minecraft.',
-                  description: '',
-                  logo: 'https://media.forgecdn.net/avatars/35/77/635919513306138024.jpeg',
-                  downloads: 0,
-                  createdAt: 0,
-                  updatedAt: 0,
-                }}/>
-                <FeaturedProjectCard project={{
-                  id: 2,
-                  name: 'Atum',
-                  contributors: [{ userId: 2, username: 'TeamMetallurgy', role: 'owner' }],
-                  slug: 'atum',
-                  summary: 'Journey to the sands of Atum with this new minecraft dimension mod!',
-                  description: '',
-                  logo: 'https://media.forgecdn.net/avatars/196/601/636886365505927366.png',
-                  downloads: 0,
-                  createdAt: 0,
-                  updatedAt: 0,
-                }}/>
-                <FeaturedProjectCard project={{
-                  id: 3,
-                  name: 'You\'ve Got Mail - Twitch Integration',
-                  contributors: [{ userId: 1, username: 'Jaredlll08', role: 'owner' }],
-                  slug: '',
-                  summary: 'Allows for viewers to buy ingame mail for streamers!',
-                  description: '',
-                  logo: 'https://media.forgecdn.net/avatars/180/203/636791763973279045.png',
-                  downloads: 0,
-                  createdAt: 0,
-                  updatedAt: 0,
-                }}/>
-                <FeaturedProjectCard project={{
-                  id: 4,
-                  name: 'Liam\'s Mod',
-                  contributors: [{   userId: 2, username: 'icic98', role: 'owner' }],
-                  slug: '',
-                  summary: 'Liam doesn\'t have any mods, but if he did they would be here.',
-                  description: '',
-                  logo: 'https://i.blamejared.com/ideUl.png',
-                  downloads: 0,
-                  createdAt: 0,
-                  updatedAt: 0
-                }}/>
+                {
+                  data ? data.data.data.map((project: Project) =>
+                    <FeaturedProjectCard project={{
+                      id: project.id,
+                      name: project.name,
+                      contributors: project.contributors,
+                      slug: project.slug,
+                      summary: project.summary,
+                      description: project.description,
+                      logo: project.logo,
+                      downloads: project.downloads,
+                      createdAt: project.createdAt,
+                      updatedAt: project.updatedAt,
+                    }} key={project.id}/>
+                  ) : [0, 1, 2, 3].map(value =>
+                    <div className={`lg:w-1/2 p-2 border`} key={value}>
+                      <div className={`py-4`}>
+                        <div className={`flex flex-row`}>
+                          <div className={`w-24 h-24 flex-none`}>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
               </div>
             </div>
           </div>
-        </section>
+        </section>}
 
         <section id={"diluvAccounts"} className={`w-full lg:w-5/6 mx-auto text-center my-10`}>
           <div className={`w-5/6 xl:w-auto mx-auto xl:mx-0`}>
@@ -142,3 +126,10 @@ export default function IndexPage() {
     </Layout>
   );
 }
+
+// export async function getServerSideProps(context: NextPageContext) {
+//   let featuredProjects = await get(`${API_URL}/v1/featured/projects`);
+//   return {
+//     props: { featuredProjects: featuredProjects.data.data }, // will be passed to the page component as props
+//   }
+// }
