@@ -43,13 +43,13 @@ function ProjectComponent({
           <div className="mb-2 flex">
             <div className="flex-grow font-bold text-3xl mb-2">{project.name}</div>
             {
-              project.permissions && project.permissions.includes('file.upload') && (
-                <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/upload`}>
-                  <a className="bg-diluv-500 hover:bg-diluv-700 text-white font-bold py-2 px-3 rounded m-1">
-                    Upload file
-                  </a>
-                </Link>
-              )
+              // project.permissions && project.permissions.includes('file.upload') && (
+              //   <Link href={`/games/${gameSlug}/${projectTypesSlug}/${projectSlug}/upload`}>
+              //     <a className="bg-diluv-500 hover:bg-diluv-700 text-white font-bold py-2 px-3 rounded m-1">
+              //       Upload file
+              //     </a>
+              //   </Link>
+              // )
             }
           </div>
           <div className="flex items-center">
