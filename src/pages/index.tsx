@@ -14,7 +14,7 @@ export default function IndexPage(props: { featuredProjects: Project[] }) {
       <>
         <section id={"intro"} className={`text-center mt-4 mb-6 w-full lg:w-5/6 mx-auto`}>
           <div className={`w-5/6 xl:w-auto mx-auto xl:mx-0`}>
-            <h1 className={`text-3xl`}>Welcome to Diluv</h1>
+            <h1 className={`text-3xl`}>Welcome to Diluv - with SSR</h1>
             <h3 className={`text-xl`}>Diluv is a hosting platform dedicated to fan-made gaming content. We aim to support players and creators of all
               gaming communities.</h3>
             <h3 className={`text-xl`}>We are currently home to {`{$project_count}`} and {`{$author_count}`} authors.</h3>
