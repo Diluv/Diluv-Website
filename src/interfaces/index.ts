@@ -16,9 +16,14 @@ export type ProjectType = {
   gameSlug: string
 };
 
-export type Contributors = {
+export type Users = {
   userId: number
   username: string
+  displayName: string
+  avatarURL: string
+  createdAt: number
+}
+export type Contributors = Users & {
   role: string
 }
 

@@ -82,18 +82,7 @@ export default function IndexPage(props: { featuredProjects: Project[] }) {
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
                 {
                   props.featuredProjects.map((project: Project) =>
-                    <FeaturedProjectCard project={{
-                      id: project.id,
-                      name: project.name,
-                      contributors: project.contributors,
-                      slug: project.slug,
-                      summary: project.summary,
-                      description: project.description,
-                      logo: project.logo,
-                      downloads: project.downloads,
-                      createdAt: project.createdAt,
-                      updatedAt: project.updatedAt,
-                    }} key={project.id}/>
+                    <FeaturedProjectCard project={project} key={project.id}/>
                   )
                 }
               </div>
