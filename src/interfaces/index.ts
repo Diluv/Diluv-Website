@@ -60,5 +60,5 @@ export type Featured = {
   projects: Project[]
   games: Games[]
   projectCount: number
-  userCount: number
+  contributorCount: number
 };

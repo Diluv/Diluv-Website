@@ -17,7 +17,7 @@ export default function IndexPage(props: { featured: Featured }) {
             <h1 className={`text-3xl`}>Welcome to Diluv</h1>
             <h3 className={`text-xl`}>Diluv is a hosting platform dedicated to fan-made gaming content. We aim to support players and creators of all
               gaming communities.</h3>
-            <h3 className={`text-xl`}>We are currently home to {props.featured.projectCount} and {props.featured.userCount} authors.</h3>
+            <h3 className={`text-xl`}>We are currently home to {props.featured.projectCount} and {props.featured.contributorCount} authors.</h3>
           </div>
         </section>
         <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
