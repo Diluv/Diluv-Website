@@ -5,10 +5,10 @@ import useSWR from 'swr';
 import axios from "axios";
 import { get } from '../utils/request';
 import { API_URL } from '../utils/api';
-import { Project } from "../interfaces";
+import { Featured, Project } from "../interfaces";
 import { NextPageContext } from "next";
 
-export default function IndexPage(props: { featuredProjects: Project[] }) {
+export default function IndexPage(props: { featured: Featured }) {
   return (
     <Layout title="Diluv">
       <>
@@ -17,7 +17,7 @@ export default function IndexPage(props: { featuredProjects: Project[] }) {
             <h1 className={`text-3xl`}>Welcome to Diluv</h1>
             <h3 className={`text-xl`}>Diluv is a hosting platform dedicated to fan-made gaming content. We aim to support players and creators of all
               gaming communities.</h3>
-            <h3 className={`text-xl`}>We are currently home to {`{$project_count}`} and {`{$author_count}`} authors.</h3>
+            <h3 className={`text-xl`}>We are currently home to {props.featured.projectCount} and {props.featured.userCount} authors.</h3>
           </div>
         </section>
         <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
@@ -81,7 +81,7 @@ export default function IndexPage(props: { featuredProjects: Project[] }) {
               <h3 className={`text-center border-b-2 pb-1`}>Featured Projects</h3>
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
                 {
-                  props.featuredProjects.map((project: Project) =>
+                  props.featured.projects.map((project: Project) =>
                     <FeaturedProjectCard project={project} key={project.id}/>
                   )
                 }
@@ -107,8 +107,8 @@ export default function IndexPage(props: { featuredProjects: Project[] }) {
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-  let featuredProjects = await get(`${API_URL}/v1/featured/projects`);
+  let featured = await get(`${API_URL}/v1/featured`);
   return {
-    props: { featuredProjects: featuredProjects.data.data }, // will be passed to the page component as props
+    props: { featured: featured.data.data }, // will be passed to the page component as props
   }
 }
