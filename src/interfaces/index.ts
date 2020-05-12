@@ -2,7 +2,7 @@ export type Data<T> = {
   data: T
 };
 
-export type Game = {
+export type Games = {
   name: string
   slug: string
   url: string
@@ -16,9 +16,14 @@ export type ProjectType = {
   gameSlug: string
 };
 
-export type Contributors = {
+export type Users = {
   userId: number
   username: string
+  displayName: string
+  avatarURL: string
+  createdAt: number
+}
+export type Contributors = Users & {
   role: string
 }
 
@@ -51,13 +56,9 @@ export type ProjectFiles = {
   updatedAt: number,
 };
 
-export type Login = {
-  accessToken: string,
-  refreshToken: string,
-  expiredAt: number,
-  refreshExpiredAt: number
-};
-
-export type AccessToken = {
-  username: string
+export type Featured = {
+  projects: Project[]
+  games: Games[]
+  projectCount: number
+  contributorCount: number
 };
