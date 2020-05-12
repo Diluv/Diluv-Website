@@ -1,12 +1,12 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import FeaturedProjectCard from "../components/index/FeaturedProjectCard";
-import useSWR from 'swr';
-import axios from "axios";
+import FeaturedProjectCard from "../components/featured/FeaturedProjectCard";
 import { get } from '../utils/request';
 import { API_URL } from '../utils/api';
 import { Featured, Project } from "../interfaces";
 import { NextPageContext } from "next";
+import games from "./games";
+import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 
 export default function IndexPage(props: { featured: Featured }) {
   return (
@@ -26,24 +26,7 @@ export default function IndexPage(props: { featured: Featured }) {
               <div className={`xl:w-11/12 mr-auto`}>
                 <h3 className={`border-b-2 pb-1`}>Popular Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
-                    <img src={"https://imja.red/diluv/minecraft-je.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
-                    <img src={"https://imja.red/diluv/factorio.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
-                    <img src={"https://imja.red/diluv/rimworld.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
-                    <img src={"https://imja.red/diluv/sdv_night.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
-                    <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 mx-auto`}>
-                    <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`mx-auto h-28`}/>
-                  </div>
+                  {props.featured.games.map(games => <FeaturedGameCard game={games} key={games.slug}/>)}
                 </div>
               </div>
             </div>
@@ -52,24 +35,7 @@ export default function IndexPage(props: { featured: Featured }) {
               <div className={`xl:w-11/12 ml-auto`}>
                 <h3 className={`border-b-2 pb-1`}>New Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  <div className={`w-1/2 lg:w-1/3 p-2`}>
-                    <img src={"https://imja.red/diluv/minecraft-je.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/factorio.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/rimworld.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/sdv_night.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`mx-auto h-28`}/>
-                  </div>
-                  <div className={`w-1/2 lg:w-1/3 p-2 `}>
-                    <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`mx-auto h-28`}/>
-                  </div>
+                  {props.featured.games.map(games => <FeaturedGameCard game={games} key={games.slug}/>)}
                 </div>
               </div>
             </div>

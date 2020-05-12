@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import FeaturedProjectCard from "../components/index/FeaturedProjectCard";
+import FeaturedProjectCard from "../components/featured/FeaturedProjectCard";
 import useSWR from 'swr';
 import axios from "axios";
 import { get } from '../utils/request';

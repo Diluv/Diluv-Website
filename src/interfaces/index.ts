@@ -3,11 +3,11 @@ export type Data<T> = {
 };
 
 export type Games = {
+  bannerURL: string
+  logoURL: string
   name: string
   slug: string
   url: string
-  image: string
-  hero: string
 };
 
 export type ProjectType = {
