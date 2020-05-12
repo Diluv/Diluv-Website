@@ -12,7 +12,7 @@ function FeaturedProjectCard(props: { project: Project}) {
           </div>
           <div className={`flex-grow ml-4`}>
             {/*Contributor = owner role*/}
-            <p className={`mb-1`}>{props.project.name} by {props.project.contributors[0].username}</p>
+            <p className={`mb-1`}>{props.project.name} by {props.project.contributors[0].displayName}</p>
             <p className={`text-sm leading-tight`}>
               {props.project.summary}
             </p>
