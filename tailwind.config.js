@@ -29,6 +29,9 @@ module.exports = {
                 '32': '8rem',
                 '40': '10rem'
             },
+            height: {
+                'screen': '100vh'
+            },
             spinner: (theme) => ({
                 default: {
                     color: '#dae1e7', // color you want to make the spinner

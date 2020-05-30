@@ -5,7 +5,6 @@ import { get } from '../utils/request';
 import { API_URL } from '../utils/api';
 import { Featured, Project } from "../interfaces";
 import { NextPageContext } from "next";
-import games from "./games";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 
 export default function IndexPage(props: { featured: Featured }) {
@@ -26,7 +25,7 @@ export default function IndexPage(props: { featured: Featured }) {
               <div className={`xl:w-11/12 mr-auto`}>
                 <h3 className={`border-b-2 pb-1`}>Popular Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  {props.featured.games.map(games => <FeaturedGameCard game={games} key={games.slug}/>)}
+                  {props.featured.games.map(games => <FeaturedGameCard game={games}  total={props.featured.games.length} key={games.slug}/>)}
                 </div>
               </div>
             </div>
@@ -35,7 +34,7 @@ export default function IndexPage(props: { featured: Featured }) {
               <div className={`xl:w-11/12 ml-auto`}>
                 <h3 className={`border-b-2 pb-1`}>New Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  {props.featured.games.map(games => <FeaturedGameCard game={games} key={games.slug}/>)}
+                  {props.featured.games.map(games => <FeaturedGameCard game={games} total={props.featured.games.length} key={games.slug}/>)}
                 </div>
               </div>
             </div>

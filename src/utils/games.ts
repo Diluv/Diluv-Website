@@ -1,10 +1,10 @@
 import { API_URL } from './api';
-import { Data, Game } from '../interfaces';
+import { Data, Games } from '../interfaces';
 import { get } from './request';
 
-export async function getGames(): Promise<Game[]> {
+export async function getGames(): Promise<Games[]> {
   try {
-    const data: Data<Game[]> = await get(`${API_URL}/v1/games`)
+    const data: Data<Games[]> = await get(`${API_URL}/v1/games`)
       .then((Response) => Promise.resolve(Response.data).catch((reason) => Promise.resolve(reason)));
     return data.data;
   } catch (err) {
@@ -12,9 +12,9 @@ export async function getGames(): Promise<Game[]> {
   }
 }
 
-export async function getFeaturedGames(): Promise<Game[]> {
+export async function getFeaturedGames(): Promise<Games[]> {
   try {
-    const data: Data<Game[]> = await get(`${API_URL}/v1/featured/games`)
+    const data: Data<Games[]> = await get(`${API_URL}/v1/featured/games`)
       .then((Response) => Promise.resolve(Response.data).catch((reason) => Promise.resolve(reason)));
     return data.data;
   } catch (err) {
@@ -22,9 +22,9 @@ export async function getFeaturedGames(): Promise<Game[]> {
   }
 }
 
-export async function getGamesBySlug(slug: string | string[]): Promise<Game> {
+export async function getGamesBySlug(slug: string | string[]): Promise<Games> {
   try {
-    const data: Data<Game> = await get(`${API_URL}/v1/games/${slug}`)
+    const data: Data<Games> = await get(`${API_URL}/v1/games/${slug}`)
       .then((Response) => Promise.resolve(Response.data).catch((reason) => Promise.resolve(reason)));
     return data.data;
   } catch (err) {

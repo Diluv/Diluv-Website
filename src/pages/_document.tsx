@@ -8,7 +8,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head/>
-        <body>
+        <body className={`min-h-100vh`}>
         <script src="noflash.js"/>
         <Main/>
         <NextScript/>
