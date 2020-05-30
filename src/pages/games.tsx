@@ -16,95 +16,89 @@ export default function IndexPage() {
     setSelectedField("");
   }
 
+  // <div className={`w-1/2 lg:w-1/6 p-2`}>
+  //   <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+  // </div>
 
+  let className = `mx-auto w-5/6 md:w-1/2 lg:w-1/4 xl:w-1/6 p-2`;
   return (
     <Layout title="Games">
       <>
-        <section id={"header"} className={`text-center my-4 w-full lg:w-5/6 mx-auto`}>
+        <div id={"header"} className={`text-center my-4 w-full lg:w-5/6 mx-auto`}>
           <h1 className={`text-3xl`}>Games</h1>
-        </section>
-        <section className={`w-4/6 mx-auto`}>
-          <div className={`w-5/6 xl:w-11/12 mx-auto xl:mx-2`}>
-            <div className={``}>
-              <div className={`flex flex-row justify-between`}>
-                <div className={`flex flex-row`}>
-                  <label className={"p-1 pr-2 my-auto font-bold"} htmlFor={"searchBox"}>Search games: </label>
-                  <div className={"relative my-auto"}>
-                    <Search className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchBox" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`} width={"1rem"} height={"1rem"}/>
-                    <input className={"p-1 bg-transparent"} type={"text"} placeholder={"Search games"} id={"searchBox"} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => setSearch(event.target.value)}/>
-                  </div>
-                </div>
-                <div>
-                  <div className={`flex flex-row`}>
-                    <label className={"p-1 pr-2 my-auto font-bold"} htmlFor={"sortBox"}>Sort: </label>
-                    <div className={"relative my-auto"}>
-                      <Filter className={`pointer-events-none ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-colours duration-300 ease-in-out ${selectedField === "sortBox" ? "text-diluv-500" : ""}`} width={"1rem"} height={"1rem"}/>
-                      <select className={`p-1 mr-16 appearance-none bg-transparent w-full`} id={`sortBox`} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => setSort(event.target.value)}>
-                        <option className={`text-black`}>
-                          Popularity
-                        </option>
-                        <option className={`text-black`}>
-                          Alphabetical
-                        </option>
-                        <option className={`text-black`}>
-                          Date Added
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        </div>
 
+        <div className={`mx-auto w-5/6 md:w-4/6`}>
+          <div className={`flex justify-between w-5/6 md:w-full mx-auto`} id={`filter options`}>
+            <div className={`w-1/3 flex`}>
+              <label htmlFor={`searchGames`} className={`flex-none my-auto`}>
+                Search
+              </label>
+              <div className={"relative my-auto flex-grow ml-1"}>
+                <Search className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`} width={"1rem"} height={"1rem"}/>
+                <input className={"p-1 bg-transparent"} type={"text"} placeholder={"Search games"} id={"searchGames"} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => setSearch(event.target.value)}/>
+              </div>
+            </div>
+            <div className={`w-1/3 flex justify-end`}>
+              <label htmlFor={`sortGames`} className={`flex-none ml-auto my-auto`}>
+                Sort:
+              </label>
+              <div className={"relative flex-grow ml-1"}>
+                <Filter className={`pointer-events-none ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-colours duration-300 ease-in-out ${selectedField === "sortBox" ? "text-diluv-500" : ""}`} width={"1rem"} height={"1rem"}/>
+                <select className={`p-1 mr-16 appearance-none bg-transparent w-full`} id={`sortBox`} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => setSort(event.target.value)}>
+                  <option className={`text-black`}>
+                    Popularity
+                  </option>
+                  <option className={`text-black`}>
+                    Alphabetical
+                  </option>
+                  <option className={`text-black`}>
+                    Date Added
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
-        </section>
-        <section id={"games"} className={`w-4/6 mx-auto`}>
-          <div className={`w-5/6 xl:w-11/12 mx-auto text-center`}>
-            <div className={`flex flex-row flex-wrap -mx-2`}>
-              <div className={`w-1/2 lg:w-1/6 p-2`}>
-                <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/factorio.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/rimworld.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/sdv_night.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`w-full`}/>
-              </div>
-
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/terraria_forrest.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/slay_the_spire.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/sdv_night.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/factorio.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2 `}>
-                <img src={"https://imja.red/diluv/rimworld.png"} className={`w-full`}/>
-              </div>
-              <div className={`w-1/2 lg:w-1/6 p-2`}>
-                <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
-              </div>
-
-
+          <div className={`flex flex-wrap`} id={`gameContainer`}>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
+            </div>
+            <div className={className}>
+              <img src={"https://imja.red/diluv/minecraft-je.png"} className={`w-full`}/>
             </div>
 
           </div>
-        </section>
-
+        </div>
       </>
     </Layout>
   );
