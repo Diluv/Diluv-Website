@@ -35,7 +35,7 @@ export default function IndexPage() {
                 Search
               </label>
               <div className={"relative my-auto flex-grow ml-1"}>
-                <Search className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`} width={"1rem"} height={"1rem"}/>
+                <Search className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : ``} ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`} width={"1rem"} height={"1rem"}/>
                 <input className={"p-1 bg-transparent"} type={"text"} placeholder={"Search games"} id={"searchGames"} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => setSearch(event.target.value)}/>
               </div>
             </div>
