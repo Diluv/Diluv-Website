@@ -1,12 +1,19 @@
 import React from 'react';
-import { Games } from "../../interfaces";
+import { Game } from "../../interfaces";
+import Link from "next/link";
 
-function FeaturedGameCard(props: { game: Games, total: number }) {
-  return <>
-    <div className={`w-1/2 lg:w-${props.total === 1 ? `full` : `1/` + props.total} p-2`}>
-      <img src={props.game.logoURL} className={`w-full mx-auto`}/>
-    </div>
-  </>
+function FeaturedGameCard({ game, total }: { game: Game, total: number }) {
+  return <div className={`w-1/2 lg:w-${total === 1 ? `full` : `1/` + total} p-2 mx-auto`}>
+    <Link href={`/games/[gameSlug]/`} as={`/games/${game.slug}/`}>
+
+      <a>
+
+        <img src={game.logoURL} className={`w-full mx-auto`}/>
+
+      </a>
+
+    </Link>
+  </div>
 }
 
 export default FeaturedGameCard;

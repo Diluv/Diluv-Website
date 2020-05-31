@@ -9,7 +9,7 @@ class MyDocument extends Document {
       <Html>
         <Head/>
         <body className={`min-h-100vh`}>
-        <script src="noflash.js"/>
+        <script src="/noflash.js"/>
         <Main/>
         <NextScript/>
         </body>

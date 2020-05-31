@@ -30,7 +30,11 @@ module.exports = {
                 '40': '10rem'
             },
             height: {
-                'screen': '100vh'
+                'screen': '100vh',
+                '28': '7rem'
+            },
+            width: {
+                '28': '7rem'
             },
             spinner: (theme) => ({
                 default: {

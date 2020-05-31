@@ -7,16 +7,16 @@ import { Featured, Project } from "../interfaces";
 import { NextPageContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 
-export default function IndexPage(props: { featured: Featured }) {
+export default function IndexPage({ featured }: { featured: Featured }) {
   return (
     <Layout title="Diluv">
       <>
         <section id={"intro"} className={`text-center mt-4 mb-6 w-full lg:w-5/6 mx-auto`}>
           <div className={`w-5/6 xl:w-auto mx-auto xl:mx-0`}>
-            <h1 className={`text-3xl`}>Welcome to Diluv - with SSR</h1>
+            <h1 className={`text-3xl`}>Welcome to Diluv</h1>
             <h3 className={`text-xl`}>Diluv is a hosting platform dedicated to fan-made gaming content. We aim to support players and creators of all
               gaming communities.</h3>
-            <h3 className={`text-xl`}>We are currently home to {props.featured.projectCount} and {props.featured.contributorCount} authors.</h3>
+            <h3 className={`text-xl`}>We are currently home to {featured.projectCount} and {featured.contributorCount} authors.</h3>
           </div>
         </section>
         <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
@@ -25,7 +25,7 @@ export default function IndexPage(props: { featured: Featured }) {
               <div className={`xl:w-11/12 mr-auto`}>
                 <h3 className={`border-b-2 pb-1`}>Popular Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  {props.featured.games.map(games => <FeaturedGameCard game={games}  total={props.featured.games.length} key={games.slug}/>)}
+                  {featured.games.map(game => <FeaturedGameCard game={game} total={featured.games.length} key={game.slug}/>)}
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@ export default function IndexPage(props: { featured: Featured }) {
               <div className={`xl:w-11/12 ml-auto`}>
                 <h3 className={`border-b-2 pb-1`}>New Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  {props.featured.games.map(games => <FeaturedGameCard game={games} total={props.featured.games.length} key={games.slug}/>)}
+                  {featured.games.map(game => <FeaturedGameCard game={game} total={featured.games.length} key={game.slug}/>)}
                 </div>
               </div>
             </div>
@@ -46,7 +46,7 @@ export default function IndexPage(props: { featured: Featured }) {
               <h3 className={`text-center border-b-2 pb-1`}>Featured Projects</h3>
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
                 {
-                  props.featured.projects.map((project: Project) =>
+                  featured.projects.map((project: Project) =>
                     <FeaturedProjectCard project={project} key={project.id}/>
                   )
                 }

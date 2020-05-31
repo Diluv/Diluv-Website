@@ -21,9 +21,9 @@ function listContributors(project: Project) {
   for (let contributor of project.contributors) {
     count++;
     arr.push(<span key={contributor.username}>
-      <Link href={`/author/${""}/`}>
+      <Link href={`/author/${contributor.username}/`}>
         <a
-          className={"text-base font-semibold hover:text-diluv-500 transition-none hover:transition-colors duration-100 ease-in"}>{contributor.username}</a>
+          className={"hover:text-diluv-500"}>{contributor.username}</a>
       </Link>
       {(count) !== project.contributors.length && <span className={"mr-1"}>,</span>}
     </span>)
@@ -38,43 +38,23 @@ function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {
   updatedAt.setUTCSeconds(project.updatedAt);
 
 
-  return (
-    <div className="flex flex-wrap">
-      <div className={"mb-5 md:mb-0"}>
-        <div className="flex w-full">
-          <div className="w-20 min-w-20 md:min-w-20 md:w-20 mb-2 mr-5 flex-none">
-            <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
-              <a>
-                <img className="w-full" src={project.logo}/>
-              </a>
-            </Link>
-          </div>
-          <div>
-            <Link href={`/games/${gameSlug}/${projectTypeSlug}/${project.slug}`}>
-              <a className="text-2xl transition-none hover:transition-colors duration-100 ease-in hover:text-diluv-500 ">
-                {project.name}
-              </a>
-            </Link>
-            <div className="hidden md:block">
-              <div className="flex">
-                <UserGroup className="mr-1 my-auto fill-current" width="15px" height="15px"/>
-                {listContributors(project)}
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <p className="hidden md:block leading-snug">{project.summary}</p>
+  return <>
+    <div className={`flex my-4`}>
+      <div className={`flex-none`}>
+        <img src={project.logo} className={`w-28 h-28`}/>
       </div>
-      <div className="md:hidden w-full">
-        <div className="flex">
-          <UserGroup className="mr-1 my-auto fill-current" width="15px" height="15px"/>
-          {listContributors(project)}
-        </div>
-        <p className="">{project.summary}</p>
+      <div className={`flex-grow flex flex-col ml-4`}>
+        <h4 className={`font-semibold`}>{project.name}</h4>
+        <span className={`text-gray-500`}>
+          by {listContributors(project)}
+        </span>
+        <p>
+          {project.summary}
+        </p>
       </div>
     </div>
-  );
+
+  </>
 }
 
 // function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {

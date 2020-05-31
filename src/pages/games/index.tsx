@@ -1,7 +1,7 @@
-import React, { useState, FocusEvent } from 'react';
-import Layout from '../components/Layout';
-import Search from "../components/icons/Search";
-import Filter from "../components/icons/Filter";
+import React, { FocusEvent, useState } from 'react';
+import Layout from "components/Layout";
+import Search from "components/icons/Search";
+import Filter from "components/icons/Filter";
 
 export default function IndexPage() {
   const [selectedField, setSelectedField] = useState("");

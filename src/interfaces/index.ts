@@ -2,37 +2,39 @@ export type Data<T> = {
   data: T
 };
 
-export type Games = {
-  bannerURL: string
-  logoURL: string
-  name: string
-  slug: string
-  url: string
-};
+export interface Version {
+  version: string
+  type: string
+  release: number
+}
 
-export type ProjectType = {
+export interface GameData {
+  slug: string
+  name: string
+  url: string
+  logoURL: string
+  bannerURL: string
+  versions: Version[]
+}
+
+export interface ProjectType {
   name: string
   slug: string
   gameSlug: string
-};
-
-export type Users = {
-  userId: number
-  username: string
-  displayName: string
-  avatarURL: string
-  createdAt: number
-}
-export type Contributors = Users & {
-  role: string
+  maxFileSize: number
+  projectCount: number
 }
 
-export type Categories = {
-  slug: string
-  name: string
-  iconURL: string
+export interface ProjectData {
+  name: string,
+  slug: string,
+  gameSlug: string
+  maxFileSize: number,
+  tags: Tag[],
+  projectCount: number
 }
-export type Project = {
+
+export interface Project {
   id: number
   name: string
   slug: string
@@ -42,9 +44,34 @@ export type Project = {
   downloads: number
   createdAt: number
   updatedAt: number
+  tags: Tag[]
   contributors: Contributors[]
-  categories?: Categories[]
+}
+
+export interface Tag {
+  slug: string
+  name: string
+}
+
+export type Game = {
+  bannerURL: string
+  logoURL: string
+  name: string
+  slug: string
+  url: string
 };
+
+export interface Users {
+  userId: number
+  username: string
+  displayName: string
+  avatarURL: string
+  createdAt: number
+}
+
+export interface Contributors extends Users {
+  role: string
+}
 
 export type ProjectFiles = {
   name: string,
@@ -58,7 +85,7 @@ export type ProjectFiles = {
 
 export type Featured = {
   projects: Project[]
-  games: Games[]
+  games: Game[]
   projectCount: number
   contributorCount: number
 };
