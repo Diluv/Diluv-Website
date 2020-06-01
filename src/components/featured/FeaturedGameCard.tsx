@@ -8,8 +8,11 @@ function FeaturedGameCard({ game, total }: { game: Game, total: number }) {
 
       <a>
 
-        <img src={game.logoURL} className={`w-full mx-auto`}/>
-
+        <picture>
+          {game.logoURL.sources.map(value => <source key={value.src + "-" + value.type} srcSet={value.src} type={value.type}/>)}
+          <source srcSet={game.logoURL.fallback.src} type={game.logoURL.fallback.type}/>
+          <img src={game.logoURL.fallback.src} className={`w-full mx-auto`}/>
+        </picture>
       </a>
 
     </Link>

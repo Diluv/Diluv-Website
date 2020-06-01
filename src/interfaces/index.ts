@@ -54,12 +54,22 @@ export interface Tag {
 }
 
 export type Game = {
-  bannerURL: string
-  logoURL: string
+  bannerURL: Picture
+  logoURL: Picture
   name: string
   slug: string
   url: string
 };
+
+export interface Picture {
+  fallback: PictureSource,
+  sources: PictureSource[]
+}
+
+export interface PictureSource {
+  src: string
+  type: string
+}
 
 export interface Users {
   userId: number
@@ -84,8 +94,8 @@ export type ProjectFiles = {
 };
 
 export type Featured = {
-  projects: Project[]
-  games: Game[]
+  featuredProjects: Project[]
+  featuredGames: Game[]
   projectCount: number
   contributorCount: number
 };

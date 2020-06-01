@@ -9,11 +9,11 @@ export default function GameSlug() {
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-  let { GameSlug } = context.query;
-  let types = await get(`${API_URL}/v1/games/${GameSlug}/types`);
+  let { GameSlug} = context.query;
+  let type = await get(`${API_URL}/v1/site/games/${GameSlug}`);
 
   context.res?.writeHead(302, {
-    Location: `/games/${GameSlug}/${types.data.data[0].slug}`,
+    Location: `/games/${GameSlug}/${type.data}`,
     'Content-Type': 'text/html; charset=utf-8',
   });
   context.res?.end();

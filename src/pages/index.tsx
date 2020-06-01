@@ -25,7 +25,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
               <div className={`xl:w-11/12 mr-auto`}>
                 <h3 className={`border-b-2 pb-1`}>Popular Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  {featured.games.map(game => <FeaturedGameCard game={game} total={featured.games.length} key={game.slug}/>)}
+                  {featured.featuredGames.map(game => <FeaturedGameCard game={game} total={featured.featuredGames.length} key={game.slug}/>)}
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
               <div className={`xl:w-11/12 ml-auto`}>
                 <h3 className={`border-b-2 pb-1`}>New Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
-                  {featured.games.map(game => <FeaturedGameCard game={game} total={featured.games.length} key={game.slug}/>)}
+                  {featured.featuredGames.map(game => <FeaturedGameCard game={game} total={featured.featuredGames.length} key={game.slug}/>)}
                 </div>
               </div>
             </div>
@@ -46,7 +46,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
               <h3 className={`text-center border-b-2 pb-1`}>Featured Projects</h3>
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
                 {
-                  featured.projects.map((project: Project) =>
+                  featured.featuredProjects.map((project: Project) =>
                     <FeaturedProjectCard project={project} key={project.id}/>
                   )
                 }
@@ -72,8 +72,8 @@ export default function IndexPage({ featured }: { featured: Featured }) {
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-  let featured = await get(`${API_URL}/v1/featured`);
+  let featured = await get(`${API_URL}/v1/site`);
   return {
-    props: { featured: featured.data.data }, // will be passed to the page component as props
+    props: { featured: featured.data }, // will be passed to the page component as props
   }
 }
