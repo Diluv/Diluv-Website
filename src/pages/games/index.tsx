@@ -9,7 +9,7 @@ import { Game } from "../../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function IndexPage({ games, sorts, currentSort }: { games: Game[], sorts: string[], currentSort?: string }) {
+export default function GameIndex({ games, sorts, currentSort }: { games: Game[], sorts: string[], currentSort?: string }) {
   const [selectedField, setSelectedField] = useState("");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
@@ -64,8 +64,8 @@ export default function IndexPage({ games, sorts, currentSort }: { games: Game[]
           </div>
           <div className={`grid ${makeGridClass(games.length)} gap-4 my-4`} id={`gameContainer`}>
             {games.map(game => {
-              return <div className={className}>
-                <Link href={`/games/[GameSlug]`} as={`/games/${game.slug}`}>
+              return <div className={className} key={game.slug}>
+                <Link href={`/games/[gameslug]`} as={`/games/${game.slug}`}>
 
                   <a>
                     <picture>
