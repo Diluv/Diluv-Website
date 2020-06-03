@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function FeaturedGameCard({ game, total }: { game: Game, total: number }) {
   return <div className={`w-1/2 lg:w-${total === 1 ? `full` : `1/` + total} p-2 mx-auto`}>
-    <Link href={`/games/[gameSlug]/`} as={`/games/${game.slug}/`}>
+    <Link href={`/games/[GameSlug]/`} as={`/games/${game.slug}/`}>
 
       <a>
 

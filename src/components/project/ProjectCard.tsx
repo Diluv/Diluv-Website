@@ -41,11 +41,11 @@ function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {
   return <>
     <div className={`flex my-4`}>
       <div className={`flex-none`}>
-        <img src={project.logo} className={`w-28 h-28`}/>
+        <img src={project.logo} className={`w-32 h-32`}/>
       </div>
       <div className={`flex-grow flex flex-col ml-4`}>
         <h4 className={`font-semibold`}>{project.name}</h4>
-        <span className={`text-gray-500`}>
+        <span className={`text-gray-600`}>
           by {listContributors(project)}
         </span>
         <p>

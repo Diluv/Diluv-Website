@@ -156,6 +156,7 @@ module.exports = {
         backgroundColor: ['responsive', 'hover', 'focus', 'disabled', 'dark', 'dark-hover', 'dark-group-hover', 'dark-even', 'dark-odd'],
         textColor: ['responsive', 'hover', 'focus', 'disabled', 'dark', 'dark-hover', 'dark-active', 'dark-placeholder'],
         transitionProperty: ['responsive', 'hover', 'focus'],
+        borderWidth: ['responsive', 'hover', 'focus'],
     },
     plugins: [
         require('tailwindcss-spinner')(),

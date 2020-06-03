@@ -65,7 +65,7 @@ export default function GameIndex({ games, sorts, currentSort }: { games: Game[]
           <div className={`grid ${makeGridClass(games.length)} gap-4 my-4`} id={`gameContainer`}>
             {games.map(game => {
               return <div className={className} key={game.slug}>
-                <Link href={`/games/[gameslug]`} as={`/games/${game.slug}`}>
+                <Link href={`/games/[GameSlug]`} as={`/games/${game.slug}`}>
 
                   <a>
                     <picture>
