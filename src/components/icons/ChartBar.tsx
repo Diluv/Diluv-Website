@@ -5,17 +5,16 @@ type Props = {
     width?: number | string;
     height?: number | string;
     className?: string;
-    dark?: boolean;
 };
 
-export const CheveronLeft = ({
+export const ChartBar = ({
     width = "20px",
     height = "20px",
-    className = "",
-    dark = false
+    className = ""
 }: Props) => (
     <svg width={width} height={height} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className={`svg-icon ${className || ""}`}>
-        <path d="M7.05 9.293L6.343 10 12 15.657l1.414-1.414L9.172 10l4.242-4.243L12 4.343z"/>
+        <path d="M1 10h3v10H1V10zM6 0h3v20H6V0zm5 8h3v12h-3V8zm5-4h3v16h-3V4z"/>
     </svg>
 );
-export default CheveronLeft;
+
+export default ChartBar;

@@ -3,6 +3,15 @@ const plugin = require('tailwindcss/plugin');
 module.exports = {
     theme: {
         extend: {
+            gridTemplateColumns: {
+                "9-auto": "auto auto auto auto auto auto auto auto auto"
+            },
+            opacity: {
+                '95': "95%",
+                '90': "90%",
+                '85': "85%",
+                '80': "80%",
+            },
             minWidth: {
                 '0': '0',
                 '1/4': '25%',
@@ -157,6 +166,7 @@ module.exports = {
         textColor: ['responsive', 'hover', 'focus', 'disabled', 'dark', 'dark-hover', 'dark-active', 'dark-placeholder'],
         transitionProperty: ['responsive', 'hover', 'focus'],
         borderWidth: ['responsive', 'hover', 'focus'],
+        borderColor: ['responsive', 'hover', 'focus', 'active', 'group-hover', 'dark', 'dark-hover', 'dark-active'],
     },
     plugins: [
         require('tailwindcss-spinner')(),

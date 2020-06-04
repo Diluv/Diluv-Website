@@ -12,10 +12,10 @@ import Select from "react-select";
 import { reactSelectStyle } from "../../../../utils/theme";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
-import Link from "next/link";
 import NavigationMore from "../../../../components/icons/NavigationMore";
 import CheveronLeft from "../../../../components/icons/CheveronLeft";
 import CheveronRight from "../../../../components/icons/CheveronRight";
+import Link from "next/link";
 
 function buildURL(page: number, sort: string, version: string) {
     let params = new URLSearchParams();
@@ -53,7 +53,18 @@ function buildPageNumbers(currentPage: number, maxPages: number) {
     return numbers;
 }
 
-export default function Projects({ gameSlug, projectData, types, projects, sorts, currentSort, page, version }: { gameSlug: string, projectData: ProjectType, types: ProjectType[], projects: Project[], sorts: string[], currentSort: string, page: number, version: string }) {
+interface Props {
+    gameSlug: string,
+    projectData: ProjectType,
+    types: ProjectType[],
+    projects: Project[],
+    sorts: string[],
+    currentSort: string,
+    page: number,
+    version: string
+}
+
+export default function Projects({ gameSlug, projectData, types, projects, sorts, currentSort, page, version }: Props) {
     let [search, setSearch] = useState("");
     const [selectedField, setSelectedField] = useState("");
     let router = useRouter();
@@ -66,8 +77,11 @@ export default function Projects({ gameSlug, projectData, types, projects, sorts
                     <h1 className={`text-3xl`}>{projectData.name}</h1>
                 </div>
 
+                <div id={`types`} className={`grid grid-cols-4 border-b my-2 pb-2`}>
+                    {types.map(value => <Link href={`/games/[GameSlug]/[ProjectType]/`} as={`/games/minecraft-je/${value.slug}`}><a  key={value.gameSlug} className={`${value.slug === projectData.slug ? `bg-red-500` : ``}`}>{value.name}</a></Link>)}
+                </div>
                 <div id={`options`}>
-                    <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4  w-4/6  w-full`}>
+                    <div className={`grid gap-4 w-4/6 w-full`} style={{ gridTemplateColumns: "0.25fr 0.5fr auto auto" }}>
                         <div className={`flex`}>
                             <label htmlFor={`searchProjects`} className={`flex-none my-auto mr-1`}>
                                 Search
@@ -106,8 +120,7 @@ export default function Projects({ gameSlug, projectData, types, projects, sorts
                                         options={sorts.map(value => {
                                             return { value: value, label: value };
                                         })}
-                                        styles={reactSelectStyle} onChange={(e) => {
-                                    // @ts-ignore
+                                        styles={reactSelectStyle} onChange={(e: any) => {
                                     router.push(`/games/[GameSlug]/[ProjectType]?sort=${e.value}`, `/games/${gameSlug}/${projectData.slug}?sort=${e.value}`, { shallow: false });
                                 }}/>
 
@@ -115,27 +128,28 @@ export default function Projects({ gameSlug, projectData, types, projects, sorts
                         </div>
                         <div className={``}>
                             <ReactPaginate
-                                previousLabel={<CheveronLeft/>}
-                                nextLabel={<CheveronRight/>}
-                                breakLabel={<NavigationMore/>}
+                                previousLabel={<CheveronLeft className={`mx-auto`}/>}
+                                nextLabel={<CheveronRight className={`mx-auto`}/>}
+                                breakLabel={<NavigationMore className={`mx-auto`}/>}
                                 pageCount={maxPage}
                                 marginPagesDisplayed={1}
-                                initialPage={page}
+                                initialPage={page - 1}
+                                disableInitialCallback={true}
                                 pageRangeDisplayed={2}
                                 onPageChange={(e) => {
                                     router.push(`/games/[GameSlug]/[ProjectType]${buildURL(e.selected + 1, currentSort, version)}`, `/games/${gameSlug}/${projectData.slug}${buildURL(e.selected + 1, currentSort, version)}`, { shallow: false });
                                 }}
-                                containerClassName={`grid grid-cols-9 inline-block`}
-                                activeClassName={`p-1 bg-gray-400 border text-center`}
+                                containerClassName={`grid grid-cols-9-auto`}
+                                activeClassName={`bg-gray-400 hover:bg-gray-400 dark:bg-gray-800 dark-hover:bg-gray-800`}
                                 activeLinkClassName={`block`}
-                                pageClassName={`block p-1 bg-gray-200 hover:bg-gray-300 border text-center`}
-                                pageLinkClassName={`block`}
-                                nextClassName={`p-1 py-2 border text-center ${page === maxPage ? `bg-white` : `bg-gray-200 hover:bg-gray-300`}`}
-                                nextLinkClassName={`block`}
-                                previousClassName={`p-1 py-2 border text-center ${page === 1 ? `bg-white` : `bg-gray-200 hover:bg-gray-300`}`}
-                                previousLinkClassName={`block`}
-                                breakClassName={`p-1 py-2 bg-gray-200  hover:bg-gray-300 border text-center `}
-                                breakLinkClassName={`block`}
+                                pageClassName={` block bg-gray-200 hover:bg-gray-300 dark-hover:bg-gray-600 dark:bg-gray-700 border dark:border-gray-600 text-center`}
+                                pageLinkClassName={`block py-2`}
+                                nextClassName={`border dark:border-gray-600 text-center px-auto ${page === maxPage ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
+                                nextLinkClassName={`mx-auto fill-current py-2 `}
+                                previousClassName={`border dark:border-gray-600 text-center ${page === 1 ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
+                                previousLinkClassName={`block fill-current py-2 `}
+                                breakClassName={`bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 border dark:border-gray-600 text-center`}
+                                breakLinkClassName={`block fill-current py-2 `}
                             />
                         </div>
                     </div>
@@ -167,6 +181,9 @@ export async function getServerSideProps(context: NextPageContext) {
         params.set("version", `${version}`);
     }
     let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`); // got
+    if (page > Math.ceil(data.data.currentType.projectCount / 20)) {
+        page = Math.ceil(data.data.currentType.projectCount / 20);
+    }
     return {
         props: {
             gameSlug: GameSlug,
