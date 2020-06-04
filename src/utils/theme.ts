@@ -43,5 +43,9 @@ export const reactSelectStyle = ({
         "&:hover": {
             borderColor:  "#A0AEC0"
         }
+    }),
+    option: (provided: CSSProperties, state: any) => ({
+        ...provided,
+        color: "black"
     })
 });
