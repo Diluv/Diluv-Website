@@ -1,5 +1,5 @@
 import React from "react";
-import { Project } from "../../interfaces";
+import { Project, SelectData } from "../../interfaces";
 import Link from "next/link";
 import Tag from "../misc/Tag";
 import moment from "moment";
@@ -11,11 +11,13 @@ import ChartBar from "../icons/ChartBar";
 
 const ago = require("s-ago");
 
-type Props = {
+interface Props {
     gameSlug: string
     projectTypeSlug: string
     project: Project
-};
+    setTagFilter: Function
+    tagFilter: SelectData[]
+}
 
 function format(number: number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -40,7 +42,7 @@ function listContributors(project: Project) {
     return arr;
 }
 
-function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {
+function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props) {
     // @ts-ignore
     return <>
         <div className={`grid my-4 grid-cols-3`} style={{ gridTemplateColumns: "8rem 1fr" }}>
@@ -103,7 +105,8 @@ function ProjectCard({ gameSlug, projectTypeSlug, project }: Props) {
 
                     <div className={`my-auto text-center`}>
                         <div className={`grid cursor-default`} style={{ gridTemplateColumns: "auto auto auto auto" }}>
-                            {project.tags.map(value => <Tag key={value.slug} tagSlug={value.slug} tagName={value.name}/>)}
+                            {project.tags.map(value => <Tag key={value.slug} tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter}
+                                                            setTagFilter={setTagFilter}/>)}
                         </div>
                     </div>
                 </div>

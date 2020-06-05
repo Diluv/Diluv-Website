@@ -45,6 +45,10 @@ export interface Tag {
     name: string
 }
 
+export interface Sort {
+    slug: string,
+    displayName: string
+}
 export type Game = {
     bannerURL: Picture
     logoURL: Picture
@@ -91,3 +95,10 @@ export type Featured = {
     projectCount: number
     contributorCount: number
 };
+
+
+export interface SelectData {
+    value: string,
+    label: string,
+
+}

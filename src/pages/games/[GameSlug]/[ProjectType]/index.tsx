@@ -1,26 +1,30 @@
 import { NextPageContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { Project, ProjectType } from "../../../../interfaces";
+import { Project, ProjectType, SelectData, Sort } from "../../../../interfaces";
 import { get } from "../../../../utils/request";
 
 import { API_URL } from "../../../../utils/api";
 import ProjectCard from "../../../../components/project/ProjectCard";
 import Search from "../../../../components/icons/Search";
 import { onBlur, onFocus } from "../../../../utils/util";
-import Select from "react-select";
+import Select, { ActionMeta } from "react-select";
 import { reactSelectStyle } from "../../../../utils/theme";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import NavigationMore from "../../../../components/icons/NavigationMore";
 import CheveronLeft from "../../../../components/icons/CheveronLeft";
 import CheveronRight from "../../../../components/icons/CheveronRight";
-import Link from "next/link";
+import { DebounceInput } from "react-debounce-input";
 
-function buildURL(page: number, sort: string, version: string) {
+function buildURL(search: string, page: number, sort: string, version: string) {
     let params = new URLSearchParams();
 
-    if (page !== 0) {
+    if (search) {
+        params.set("search", search);
+    }
+
+    if (page !== 1) {
         params.set("page", page + "");
     }
     if (sort !== "POPULARITY") {
@@ -36,52 +40,45 @@ function buildURL(page: number, sort: string, version: string) {
     return ``;
 }
 
-function buildPageNumbers(currentPage: number, maxPages: number) {
-    let numbers: number[] = [];
-    let endPages = 3;
-    let startPages = 2;
-    if (currentPage < 4) {
-        endPages = 6 - currentPage;
-    } else if (currentPage > maxPages - 3) {
-        startPages = 4 - currentPage;
-    }
-
-    for (let i = Math.max(currentPage - startPages, 1); i < Math.min(Number(currentPage) + endPages, maxPages + 1); i++) {
-        numbers.push(i);
-    }
-
-    return numbers;
-}
-
 interface Props {
+    search: string
     gameSlug: string,
     projectData: ProjectType,
     types: ProjectType[],
     projects: Project[],
-    sorts: string[],
+    sorts: Sort[],
     currentSort: string,
     page: number,
     version: string
 }
 
-export default function Projects({ gameSlug, projectData, types, projects, sorts, currentSort, page, version }: Props) {
-    let [search, setSearch] = useState("");
+export default function Projects({ search, gameSlug, projectData, types, projects, sorts, currentSort, page, version }: Props) {
     const [selectedField, setSelectedField] = useState("");
     let router = useRouter();
     let maxPage = Math.ceil(projectData.projectCount / 20);
     page = Number(page);
+
+    let [tagFilter, setTagFilter] = useState<SelectData[]>([]);
+
+    function getSortFromCurrent(): Sort {
+        for (let sort of sorts) {
+            if (sort.slug === currentSort) {
+                return sort;
+            }
+        }
+        return sorts[0];
+    }
+
     return <Layout title={projectData.name}>
+        <div>
+        </div>
         <div className={`container mx-auto`}>
             <div className={`w-11/12 mx-auto`}>
                 <div id={"header"} className={`text-center my-4 `}>
                     <h1 className={`text-3xl`}>{projectData.name}</h1>
                 </div>
-
-                <div id={`types`} className={`grid grid-cols-4 border-b my-2 pb-2`}>
-                    {types.map(value => <Link href={`/games/[GameSlug]/[ProjectType]/`} as={`/games/minecraft-je/${value.slug}`}><a  key={value.gameSlug} className={`${value.slug === projectData.slug ? `bg-red-500` : ``}`}>{value.name}</a></Link>)}
-                </div>
                 <div id={`options`}>
-                    <div className={`grid gap-4 w-4/6 w-full`} style={{ gridTemplateColumns: "0.25fr 0.5fr auto auto" }}>
+                    <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-project-4 gap-4 w-full`}>
                         <div className={`flex`}>
                             <label htmlFor={`searchProjects`} className={`flex-none my-auto mr-1`}>
                                 Search
@@ -90,12 +87,17 @@ export default function Projects({ gameSlug, projectData, types, projects, sorts
                                 <Search
                                     className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchProjects" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
                                     width={"1rem"} height={"1rem"}/>
-                                <input className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow"}
-                                       placeholder={"Search projects"} id={"searchProjects"}
-                                       style={{ textIndent: "2rem" }} onFocus={event => onFocus(
+                                <DebounceInput
+                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow"}
+                                    minLength={3}
+                                    debounceTimeout={500}
+                                    placeholder={"Search projects"} id={"searchProjects"}
+                                    style={{ textIndent: "2rem" }} onFocus={(event: React.FocusEvent<any>) => onFocus(
                                     setSelectedField,
-                                    event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => setSearch(
-                                    event.target.value)}/>
+                                    event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                    let newUrl = buildURL(event.target.value, page, currentSort, version);
+                                    router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
+                                }}/>
                             </div>
                         </div>
                         <div className={`flex`}>
@@ -107,6 +109,44 @@ export default function Projects({ gameSlug, projectData, types, projects, sorts
                                         options={projectData.tags.map(value => {
                                             return { value: value.slug, label: value.name };
                                         })}
+                                        value={[...tagFilter].map((value: SelectData) => {
+                                            return { value: value.value, label: value.label };
+                                        })}
+                                        onChange={(e, meta: ActionMeta<SelectData>) => {
+                                            let newData: SelectData[] = tagFilter;
+                                            let valid = true;
+                                            switch (meta.action) {
+                                                case "select-option":
+                                                    for (let data of tagFilter) {
+                                                        if (data.value === meta.option?.value) {
+                                                            valid = false;
+                                                        }
+                                                    }
+                                                    if (valid)
+                                                        newData = newData.concat({
+                                                            value: meta.option?.value,
+                                                            label: meta.option?.label
+                                                        } as SelectData);
+                                                    setTagFilter(newData);
+                                                    break;
+                                                case "remove-value":
+                                                    newData = [];
+                                                    for (let key in tagFilter) {
+                                                        if (tagFilter[key].value !== meta.removedValue?.value) {
+                                                            newData.push(tagFilter[key]);
+                                                        }
+                                                    }
+                                                    setTagFilter(newData);
+                                                    break;
+                                                case "clear":
+                                                    setTagFilter([]);
+                                                    break;
+                                                case "pop-value":
+                                                    newData = newData.slice(0, newData.length - 1);
+                                                    setTagFilter(newData);
+                                                    break;
+                                            }
+                                        }}
                                         styles={reactSelectStyle}
                                 />
                             </div>
@@ -116,40 +156,46 @@ export default function Projects({ gameSlug, projectData, types, projects, sorts
                                 Sort
                             </label>
                             <div className={"relative my-auto flex-grow ml-1"}>
-                                <Select isSearchable={true} inputId="sort" defaultValue={{ value: currentSort, label: currentSort }}
+                                <Select isSearchable={true} inputId="sort"
+                                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
                                         options={sorts.map(value => {
-                                            return { value: value, label: value };
+                                            return { value: value.slug, label: value.displayName };
                                         })}
                                         styles={reactSelectStyle} onChange={(e: any) => {
-                                    router.push(`/games/[GameSlug]/[ProjectType]?sort=${e.value}`, `/games/${gameSlug}/${projectData.slug}?sort=${e.value}`, { shallow: false });
+                                    let newUrl = buildURL(search, page, e.value, version);
+                                    router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
                                 }}/>
 
                             </div>
                         </div>
-                        <div className={``}>
+                        <div className={`my-auto`}>
                             <ReactPaginate
-                                previousLabel={<CheveronLeft className={`mx-auto`}/>}
-                                nextLabel={<CheveronRight className={`mx-auto`}/>}
-                                breakLabel={<NavigationMore className={`mx-auto`}/>}
+                                previousLabel={<CheveronLeft className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
+                                nextLabel={<CheveronRight className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
+                                breakLabel={<NavigationMore className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
                                 pageCount={maxPage}
                                 marginPagesDisplayed={1}
                                 initialPage={page - 1}
                                 disableInitialCallback={true}
                                 pageRangeDisplayed={2}
                                 onPageChange={(e) => {
-                                    router.push(`/games/[GameSlug]/[ProjectType]${buildURL(e.selected + 1, currentSort, version)}`, `/games/${gameSlug}/${projectData.slug}${buildURL(e.selected + 1, currentSort, version)}`, { shallow: false });
+                                    let newUrl = buildURL(search, e.selected + 1, currentSort, version);
+                                    router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
                                 }}
                                 containerClassName={`grid grid-cols-9-auto`}
                                 activeClassName={`bg-gray-400 hover:bg-gray-400 dark:bg-gray-800 dark-hover:bg-gray-800`}
                                 activeLinkClassName={`block`}
-                                pageClassName={` block bg-gray-200 hover:bg-gray-300 dark-hover:bg-gray-600 dark:bg-gray-700 border dark:border-gray-600 text-center`}
-                                pageLinkClassName={`block py-2`}
-                                nextClassName={`border dark:border-gray-600 text-center px-auto ${page === maxPage ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
-                                nextLinkClassName={`mx-auto fill-current py-2 `}
-                                previousClassName={`border dark:border-gray-600 text-center ${page === 1 ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
-                                previousLinkClassName={`block fill-current py-2 `}
-                                breakClassName={`bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 border dark:border-gray-600 text-center`}
-                                breakLinkClassName={`block fill-current py-2 `}
+                                pageClassName={`block bg-gray-200 hover:bg-gray-300 dark-hover:bg-gray-600 dark:bg-gray-700 border dark:border-gray-600 text-center`}
+                                pageLinkClassName={`block py-1`}
+
+                                previousClassName={`border dark:border-gray-600 text-center px-auto ${page === 1 ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
+                                previousLinkClassName={`block fill-current py-2`}
+
+                                breakClassName={`block bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 border dark:border-gray-600 text-center`}
+                                breakLinkClassName={`block fill-current py-2`}
+
+                                nextClassName={`block border dark:border-gray-600 text-center ${page === maxPage ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
+                                nextLinkClassName={`block fill-current py-2`}
                             />
                         </div>
                     </div>
@@ -159,7 +205,8 @@ export default function Projects({ gameSlug, projectData, types, projects, sorts
                 <div id={`projects`}>
                     <div className={``}>
                         {projects.map(value => {
-                            return <ProjectCard gameSlug={gameSlug} projectTypeSlug={projectData.slug} project={value} key={value.slug}/>;
+                            return <ProjectCard gameSlug={gameSlug} projectTypeSlug={projectData.slug} project={value} key={value.slug}
+                                                tagFilter={tagFilter} setTagFilter={setTagFilter}/>;
                         })}
                     </div>
                 </div>
@@ -169,7 +216,7 @@ export default function Projects({ gameSlug, projectData, types, projects, sorts
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-    let { GameSlug, ProjectType, page = 1, sort = "", version = "" } = context.query;
+    let { GameSlug, ProjectType, page = 1, sort = "", version = "", search = "" } = context.query;
     let params = new URLSearchParams();
     if (page) {
         params.set("page", `${page}`);
@@ -180,12 +227,16 @@ export async function getServerSideProps(context: NextPageContext) {
     if (version && version.length) {
         params.set("version", `${version}`);
     }
+    if (search && search.length) {
+        params.set("search", `${search}`);
+    }
     let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`); // got
     if (page > Math.ceil(data.data.currentType.projectCount / 20)) {
         page = Math.ceil(data.data.currentType.projectCount / 20);
     }
     return {
         props: {
+            search: search ?? ``,
             gameSlug: GameSlug,
             projectData: data.data.currentType,
             types: data.data.types,

@@ -5,11 +5,11 @@ import Filter from "components/icons/Filter";
 import { NextPageContext } from "next";
 import { get } from "../../utils/request";
 import { API_URL } from "../../utils/api";
-import { Game } from "../../interfaces";
+import { Game, Sort } from "../../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function GameIndex({ games, sorts, currentSort }: { games: Game[], sorts: string[], currentSort?: string }) {
+export default function GameIndex({ games, sorts, currentSort }: { games: Game[], sorts: Sort[], currentSort?: string }) {
   const [selectedField, setSelectedField] = useState("");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
@@ -56,7 +56,7 @@ export default function GameIndex({ games, sorts, currentSort }: { games: Game[]
                   router.push(`/games?sort=${event.target.value}`, undefined,{shallow: false})
                 }} defaultValue={currentSort}>
                   {sorts.map(value => {
-                    return <option key={value} value={value}>{value}</option>
+                    return <option key={value.sort} value={value.sort}>{value.displayName}</option>
                   })}
                 </select>
               </div>
@@ -71,7 +71,7 @@ export default function GameIndex({ games, sorts, currentSort }: { games: Game[]
                     <picture>
                       {game.logoURL.sources.map(value => <source key={value.src + "-" + value.type} srcSet={value.src} type={value.type}/>)}
                       <source srcSet={game.logoURL.fallback.src} type={game.logoURL.fallback.type}/>
-                      <img src={game.logoURL.fallback.src} className={`w-full`}/>
+                      <img src={game.logoURL.fallback.src} className={`w-full`} style={{imageRendering: "pixelated"}}/>
                     </picture>
                   </a>
 

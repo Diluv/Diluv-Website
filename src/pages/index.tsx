@@ -23,7 +23,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
           <div className={`xl:flex xl:flex-row justify-between`}>
             <div className={`w-5/6 xl:w-11/12 mx-auto text-center`}>
               <div className={`xl:w-11/12 mr-auto`}>
-                <h3 className={`border-b-2 pb-1`}>Popular Games</h3>
+                <h3 className={`border-b-2 pb-1 font-medium text-xl`}>Popular Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
                   {featured.featuredGames.map(game => <FeaturedGameCard game={game} total={featured.featuredGames.length} key={game.slug}/>)}
                 </div>
@@ -32,7 +32,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
 
             <div className={`w-5/6 xl:w-11/12 mt-4 xl:mt-0 mx-auto text-center`}>
               <div className={`xl:w-11/12 ml-auto`}>
-                <h3 className={`border-b-2 pb-1`}>New Games</h3>
+                <h3 className={`border-b-2 pb-1 font-medium text-xl`}>New Games</h3>
                 <div className={`flex flex-row flex-wrap -mx-2`}>
                   {featured.featuredGames.map(game => <FeaturedGameCard game={game} total={featured.featuredGames.length} key={game.slug}/>)}
                 </div>
@@ -43,7 +43,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
         {<section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10`}>
           <div className={`mx-auto`}>
             <div className={``}>
-              <h3 className={`text-center border-b-2 pb-1`}>Featured Projects</h3>
+              <h3 className={`text-center border-b-2 pb-1 font-medium text-xl`}>Featured Projects</h3>
               <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
                 {
                   featured.featuredProjects.map((project: Project) =>

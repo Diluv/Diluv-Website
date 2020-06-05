@@ -4,7 +4,8 @@ module.exports = {
     theme: {
         extend: {
             gridTemplateColumns: {
-                "9-auto": "auto auto auto auto auto auto auto auto auto"
+                "9-auto": "auto auto auto auto auto auto auto auto auto",
+                "project-4": "0.25fr 1fr 0.60fr 1fr"
             },
             opacity: {
                 '95': "95%",
@@ -67,6 +68,20 @@ module.exports = {
                 "invalid-dark": '0 0 0 3px rgba(245,101,101,0.8)',
             },
             colors: {
+                'hsl': {
+                    "100": "hsl(0,0%,10%)",
+                    "200": "hsl(0,0%,20%)",
+                    "300": "hsl(0,0%,30%)",
+                    "400": "hsl(0,0%,40%)",
+                    "500": "hsl(0,0%,50%)",
+                    "600": "hsl(0,0%,60%)",
+                    "700": "hsl(0,0%,70%)",
+                    "800": "hsl(0,0%,80%)",
+                    "900": "hsl(0,0%,90%)",
+                },
+                'tag': {
+                    default: '#DEEBFF'
+                },
                 'diluv': {
                     100: '#ECF6FC',
                     200: '#CFE9F8',
