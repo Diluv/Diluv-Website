@@ -17,9 +17,12 @@ export interface GameData {
     versions: Version[]
 }
 
-export interface ProjectType {
+export interface ProjectTypeBase {
     name: string
     slug: string
+}
+
+export interface ProjectType extends ProjectTypeBase {
     gameSlug: string
     maxFileSize: number
     tags: Tag[]
@@ -37,7 +40,15 @@ export interface Project {
     createdAt: number
     updatedAt: number
     tags: Tag[]
+    game: GameBase
+    projectType: ProjectType
     contributors: Contributors[]
+    links: Link[]
+}
+
+export interface Link {
+    type: string
+    url: string
 }
 
 export interface Tag {
@@ -49,13 +60,17 @@ export interface Sort {
     slug: string,
     displayName: string
 }
-export type Game = {
-    bannerURL: Picture
-    logoURL: Picture
+
+export interface GameBase {
     name: string
     slug: string
+}
+
+export interface Game extends GameBase {
+    logoURL: Picture
     url: string
-};
+    defaultProjectType: string
+}
 
 export interface Picture {
     fallback: PictureSource,

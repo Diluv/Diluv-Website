@@ -43,13 +43,22 @@ function listContributors(project: Project) {
 }
 
 function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props) {
-    // @ts-ignore
+    let projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
+    let projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
     return <>
         <div className={`grid my-4 grid-cols-3`} style={{ gridTemplateColumns: "8rem 1fr" }}>
-            <img src={project.logo} className={` h-32`}/>
+            <Link href={projectUrlRef} as={projectUrl}>
+                <a>
+                    <img src={project.logo} className={` h-32`}/>
+                </a>
+            </Link>
             <div className={`ml-4 grid`} style={{ gridTemplateRows: "0.5fr 0.75fr 0.5fr" }}>
                 <div>
-                    <h4 className={`font-semibold`}>{project.name}</h4>
+                    <Link href={projectUrlRef} as={projectUrl}>
+                        <a>
+                            <h4 className={`font-semibold`}>{project.name}</h4>
+                        </a>
+                    </Link>
                     <span className={`text-gray-600`}>
                     by {listContributors(project)}
                 </span>
@@ -63,7 +72,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             <p>
                                 {project.downloads} Downloads
                             </p>
-                        </div>} followCursor={true} plugins={[followCursor]} duration={0}>
+                        </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
                             <div className={`flex mx-auto`}>
                                 <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                                 <span className={`cursor-default`}>
@@ -78,7 +87,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                                 Created On
                             </p>
                             <p>{moment(project.createdAt).format("MMMM Do YYYY")}</p>
-                        </div>} followCursor={true} plugins={[followCursor]} duration={0}>
+                        </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
                             <div className={`flex mx-auto`}>
                                 <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                                 <span className={`cursor-default`}>
@@ -93,7 +102,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                                 Updated On
                             </p>
                             <p>{moment(project.updatedAt).format("MMMM Do YYYY")}</p>
-                        </div>} followCursor={true} plugins={[followCursor]} duration={0}>
+                        </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
                             <div className={`flex mx-auto`}>
                                 <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                                 <span className={`cursor-default`}>

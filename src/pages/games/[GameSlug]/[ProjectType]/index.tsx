@@ -16,6 +16,9 @@ import NavigationMore from "../../../../components/icons/NavigationMore";
 import CheveronLeft from "../../../../components/icons/CheveronLeft";
 import CheveronRight from "../../../../components/icons/CheveronRight";
 import { DebounceInput } from "react-debounce-input";
+import { type } from "os";
+import Alert from "../../../../components/Alert";
+import Link from "next/link";
 
 function buildURL(search: string, page: number, sort: string, version: string) {
     let params = new URLSearchParams();
@@ -70,13 +73,26 @@ export default function Projects({ search, gameSlug, projectData, types, project
     }
 
     return <Layout title={projectData.name}>
-        <div>
-        </div>
         <div className={`container mx-auto`}>
             <div className={`w-11/12 mx-auto`}>
-                <div id={"header"} className={`text-center my-4 `}>
-                    <h1 className={`text-3xl`}>{projectData.name}</h1>
+                <div id={"header"} className={` my-4`}>
+                    <div className={`grid grid-cols-auto my-auto`}>
+                        {types.map(value => {
+                            if (value.slug === projectData.slug) {
+                                return <h1 className={`text-2xl`}>{value.name}</h1>;
+                            } else {
+                                return <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${gameSlug}/${value.slug}`}>
+
+                                    <a className={`text-2xl text-hsl-500`}>
+                                        {value.name}
+                                    </a>
+
+                                </Link>;
+                            }
+                        })}
+                    </div>
                 </div>
+
                 <div id={`options`}>
                     <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-project-4 gap-4 w-full`}>
                         <div className={`flex`}>
