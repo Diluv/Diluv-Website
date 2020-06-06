@@ -1,6 +1,11 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
+    purge: [
+        './src/**/*.html',
+        './src/**/*.tsx',
+        './src/**/*.ts',
+    ],
     theme: {
         extend: {
             gridTemplateColumns: {
