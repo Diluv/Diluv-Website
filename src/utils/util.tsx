@@ -18,7 +18,7 @@ export function listContributors(project: Project) {
         arr.push(<span key={contributor.username}>
         <Link href={`/author/${contributor.username}/`}>
         <a
-            className={"hover:text-diluv-500"}>{contributor.username}</a>
+            className={"hover:text-diluv-500"}>{contributor.displayName}</a>
             </Link>
             {(count) !== project.contributors.length && <span className={"mr-1"}>,</span>}
         </span>);

@@ -33,7 +33,6 @@ module.exports = withPlugins([
                 },
             }),
             withNextEnv,
-            withImages,
         ],
         nextConfig
 );
