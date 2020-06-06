@@ -1,15 +1,14 @@
 import React from "react";
 import { Project, SelectData } from "../../interfaces";
 import Link from "next/link";
-import Tag from "../misc/Tag";
+import { FilterTag } from "../misc/FilterTag";
 import moment from "moment";
 import HourGlass from "../icons/HourGlass";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 import Time from "../icons/Time";
 import ChartBar from "../icons/ChartBar";
-
-const ago = require("s-ago");
+import { listContributors } from "../../utils/util";
 
 interface Props {
     gameSlug: string
@@ -23,24 +22,6 @@ function format(number: number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function makeTooltip() {
-}
-
-function listContributors(project: Project) {
-    let arr = [];
-    let count = 0;
-    for (let contributor of project.contributors) {
-        count++;
-        arr.push(<span key={contributor.username}>
-      <Link href={`/author/${contributor.username}/`}>
-        <a
-            className={"hover:text-diluv-500"}>{contributor.username}</a>
-      </Link>
-            {(count) !== project.contributors.length && <span className={"mr-1"}>,</span>}
-    </span>);
-    }
-    return arr;
-}
 
 function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props) {
     let projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
@@ -59,9 +40,12 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             <h4 className={`font-semibold`}>{project.name}</h4>
                         </a>
                     </Link>
-                    <span className={`text-gray-600`}>
-                    by {listContributors(project)}
-                </span>
+                    <div className={`text-gray-600`}>
+                        <span>
+                            {`by `}
+                        </span>
+                        {listContributors(project)}
+                    </div>
                 </div>
                 <div>
                     <p> {project.summary}</p>
@@ -113,9 +97,9 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                     </div>
 
                     <div className={`my-auto text-center`}>
-                        <div className={`grid cursor-default`} style={{ gridTemplateColumns: "auto auto auto auto" }}>
-                            {project.tags.map(value => <Tag key={value.slug} tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter}
-                                                            setTagFilter={setTagFilter}/>)}
+                        <div className={`grid cursor-default  gap-2`} style={{ gridTemplateColumns: "auto auto auto auto" }}>
+                            {project.tags.map(value => <FilterTag key={value.slug} tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter}
+                                                                  setTagFilter={setTagFilter}/>)}
                         </div>
                     </div>
                 </div>
