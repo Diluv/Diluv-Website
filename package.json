@@ -6,7 +6,6 @@
     "build": "next build",
     "dev": "next dev",
     "fast-dev": "next build && next start",
-    "build:staging": "cross-env DOT_ENV=staging next build",
     "start": "next start",
     "type-check": "tsc"
   },

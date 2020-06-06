@@ -24,12 +24,7 @@ jobs:
       - name: Check typescript files
         run: npm run type-check
 
-      - name: Build (Staging)
-        if: startsWith(github.ref, 'refs/tags/v') != true
-        run: npm run build:staging
-
-      - name: Build (Release)
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Build
         run: npm run build
 
       - name: Production npm
