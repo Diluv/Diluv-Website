@@ -11,13 +11,12 @@ import { onBlur, onFocus } from "../../../../utils/util";
 import Select, { ActionMeta } from "react-select";
 import { reactSelectStyle } from "../../../../utils/theme";
 import { useRouter } from "next/router";
-import ReactPaginate from "react-paginate";
+// @ts-ignore
+import ReactPaginate from "@jaredlll08/react-paginate";
 import NavigationMore from "../../../../components/icons/NavigationMore";
 import CheveronLeft from "../../../../components/icons/CheveronLeft";
 import CheveronRight from "../../../../components/icons/CheveronRight";
 import { DebounceInput } from "react-debounce-input";
-import { type } from "os";
-import Alert from "../../../../components/Alert";
 import Link from "next/link";
 
 function buildURL(search: string, page: number, sort: string, version: string) {
@@ -79,9 +78,9 @@ export default function Projects({ search, gameSlug, projectData, types, project
                     <div className={`grid grid-cols-auto my-auto`}>
                         {types.map(value => {
                             if (value.slug === projectData.slug) {
-                                return <h1 className={`text-2xl`}>{value.name}</h1>;
+                                return <h1  key={value.slug} className={`text-2xl`}>{value.name}</h1>;
                             } else {
-                                return <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${gameSlug}/${value.slug}`}>
+                                return <Link key={value.slug} href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${gameSlug}/${value.slug}`}>
 
                                     <a className={`text-2xl text-hsl-500`}>
                                         {value.name}
@@ -189,22 +188,19 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                 previousLabel={<CheveronLeft className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
                                 nextLabel={<CheveronRight className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
                                 breakLabel={<NavigationMore className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
-                                pageCount={maxPage}
+                                pageCount={maxPage === 0 ? 1 : maxPage}
                                 marginPagesDisplayed={1}
                                 initialPage={page - 1}
+                                forcePage={page - 1}
                                 disableInitialCallback={true}
-                                pageRangeDisplayed={2}
-                                onPageChange={(e) => {
-                                    let newUrl = buildURL(search, e.selected + 1, currentSort, version);
-                                    router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
-                                }}
-                                containerClassName={`grid grid-cols-9-auto`}
+                                pageRangeDisplayed={3}
+                                containerClassName={`grid grid-cols-pagination`}
                                 activeClassName={`bg-gray-400 hover:bg-gray-400 dark:bg-gray-800 dark-hover:bg-gray-800`}
                                 activeLinkClassName={`block`}
                                 pageClassName={`block bg-gray-200 hover:bg-gray-300 dark-hover:bg-gray-600 dark:bg-gray-700 border dark:border-gray-600 text-center`}
                                 pageLinkClassName={`block py-1`}
 
-                                previousClassName={`border dark:border-gray-600 text-center px-auto ${page === 1 ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
+                                previousClassName={`border dark:border-gray-600 text-center px-auto ${page === 1 || (maxPage === 0) ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
                                 previousLinkClassName={`block fill-current py-2`}
 
                                 breakClassName={`block bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 border dark:border-gray-600 text-center`}
@@ -212,6 +208,20 @@ export default function Projects({ search, gameSlug, projectData, types, project
 
                                 nextClassName={`block border dark:border-gray-600 text-center ${page === maxPage ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
                                 nextLinkClassName={`block fill-current py-2`}
+                                asBuilder={(pageIndex: number) => {
+                                    if (pageIndex === 1 && maxPage === 0) {
+                                        return "";
+                                    }
+                                    let newUrl = buildURL(search, pageIndex, currentSort, version);
+                                    return `/games/${gameSlug}/${projectData.slug}${newUrl}`;
+                                }}
+                                hrefBuilder={(pageIndex: number) => {
+                                    if (pageIndex === 1 && maxPage === 0) {
+                                        return "";
+                                    }
+                                    let newUrl = buildURL(search, pageIndex, currentSort, version);
+                                    return `/games/[GameSlug]/[ProjectType]${newUrl}`;
+                                }}
                             />
                         </div>
                     </div>
@@ -233,6 +243,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
 
 export async function getServerSideProps(context: NextPageContext) {
     let { GameSlug, ProjectType, page = 1, sort = "", version = "", search = "" } = context.query;
+    page = Number(page);
     let params = new URLSearchParams();
     if (page) {
         params.set("page", `${page}`);
@@ -247,9 +258,7 @@ export async function getServerSideProps(context: NextPageContext) {
         params.set("search", `${search}`);
     }
     let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`); // got
-    if (page > Math.ceil(data.data.currentType.projectCount / 20)) {
-        page = Math.ceil(data.data.currentType.projectCount / 20);
-    }
+    page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
     return {
         props: {
             search: search ?? ``,

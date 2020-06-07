@@ -31,7 +31,7 @@
     "react-debounce-input": "^3.2.2",
     "react-dom": "16.13.1",
     "react-dropzone": "11.0.1",
-    "react-paginate": "^6.3.2",
+    "@jaredlll08/react-paginate": "^7.0.1",
     "react-popper": "^2.2.3",
     "react-select": "^3.1.0",
     "s-ago": "2.2.0",

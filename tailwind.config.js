@@ -23,7 +23,8 @@ module.exports = {
                 "12-auto": "repeat(12, auto)",
                 "project-4": "0.25fr 1fr 0.60fr 1fr",
                 "project-types": "1fr auto auto auto 1fr",
-                "auto": "repeat(auto-fill, minmax(8.3%,1fr));"
+                "auto": "repeat(auto-fill, minmax(8.3%,1fr));",
+                "pagination": "repeat(auto-fit, minmax(11%,1fr));"
             },
             opacity: {
                 "95": "95%",
