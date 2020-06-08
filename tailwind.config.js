@@ -24,6 +24,26 @@ module.exports = {
                 "project-4": "0.25fr 1fr 0.60fr 1fr",
                 "project-types": "1fr auto auto auto 1fr",
                 "auto": "repeat(auto-fill, minmax(8.3%,1fr));",
+                "auto-fit": "repeat(auto-fit, minmax(8.3%,1fr));",
+                "pagination": "repeat(auto-fit, minmax(11%,1fr));"
+            },
+            gridTemplateRows: {
+                "1-auto": "repeat(1, auto)",
+                "2-auto": "repeat(2, auto)",
+                "3-auto": "repeat(3, auto)",
+                "4-auto": "repeat(4, auto)",
+                "5-auto": "repeat(5, auto)",
+                "6-auto": "repeat(6, auto)",
+                "7-auto": "repeat(7, auto)",
+                "8-auto": "repeat(8, auto)",
+                "9-auto": "repeat(9, auto)",
+                "10-auto": "repeat(10, auto)",
+                "11-auto": "repeat(11, auto)",
+                "12-auto": "repeat(12, auto)",
+                "project-4": "0.25fr 1fr 0.60fr 1fr",
+                "project-types": "1fr auto auto auto 1fr",
+                "auto": "repeat(auto-fill, minmax(8.3%,1fr));",
+                "auto-fit": "repeat(auto-fit, minmax(8.3%,1fr));",
                 "pagination": "repeat(auto-fit, minmax(11%,1fr));"
             },
             opacity: {

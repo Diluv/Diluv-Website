@@ -52,3 +52,21 @@
   clip-path: circle(70.7% at 50% 50%);
 }
 
+
+.projectCardLarge {
+  grid-template-areas:
+  "image header header header header header header header header"
+  "image summary summary summary summary summary summary summary summary"
+  "image downloads created updated tag1 tag2 tag3 tag4 spacing";
+  grid-template-columns: 8rem auto auto auto auto auto auto auto 1fr;
+  grid-template-rows: auto auto auto;
+}
+
+/*.projectCardSmall {*/
+/*  grid-template-areas:*/
+/*  "image"*/
+/*  "image summary summary summary summary summary summary summary summary"*/
+/*  "downloads created updated tag1 tag2 tag3 tag4 spacing spacing";*/
+/*  grid-template-columns: 8rem;*/
+/*  grid-template-rows: auto auto auto;*/
+/*}*/

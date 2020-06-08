@@ -10,6 +10,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@jaredlll08/react-paginate": "^7.0.1",
     "@popperjs/core": "^2.4.0",
     "@tippyjs/react": "^4.0.2",
     "@zeit/next-css": "1.0.1",
@@ -31,7 +32,7 @@
     "react-debounce-input": "^3.2.2",
     "react-dom": "16.13.1",
     "react-dropzone": "11.0.1",
-    "@jaredlll08/react-paginate": "^7.0.1",
+    "react-markdown": "^4.3.1",
     "react-popper": "^2.2.3",
     "react-select": "^3.1.0",
     "s-ago": "2.2.0",
