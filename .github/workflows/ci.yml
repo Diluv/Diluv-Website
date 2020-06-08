@@ -13,12 +13,6 @@ jobs:
         with:
           node-version: '10.x'
 
-      - name: Generate build number
-        id: buildnumber
-        uses: einaregilsson/build-number@v1
-        with:
-          token: ${{secrets.github_token}}
-
       - name: Install dependencies
         run: npm install
       - name: Check typescript files
