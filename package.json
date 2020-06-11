@@ -54,8 +54,6 @@
     "postcss-preset-env": "6.7.0",
     "tailwindcss": "1.4.6",
     "tailwindcss-dark-mode": "^1.1.4",
-    "tailwindcss-spinner": "1.0.0",
-    "tailwindcss-triangle-after": "1.2.0",
     "typescript": "3.9.5"
   },
   "license": "LGPL-2.1-only"

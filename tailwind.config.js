@@ -8,6 +8,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            spacing: {
+                "0.125": "2px",
+            },
             gridTemplateColumns: {
                 "1-auto": "repeat(1, auto)",
                 "2-auto": "repeat(2, auto)",
@@ -25,7 +28,7 @@ module.exports = {
                 "project-types": "1fr auto auto auto 1fr",
                 "auto": "repeat(auto-fill, minmax(8.3%,1fr));",
                 "auto-fit": "repeat(auto-fit, minmax(8.3%,1fr));",
-                "pagination": "repeat(auto-fit, minmax(11%,1fr));"
+                "pagination": "repeat(auto-fit, minmax(11%,1fr));",
             },
             gridTemplateRows: {
                 "1-auto": "repeat(1, auto)",
@@ -44,7 +47,7 @@ module.exports = {
                 "project-types": "1fr auto auto auto 1fr",
                 "auto": "repeat(auto-fill, minmax(8.3%,1fr));",
                 "auto-fit": "repeat(auto-fit, minmax(8.3%,1fr));",
-                "pagination": "repeat(auto-fit, minmax(11%,1fr));"
+                "pagination": "repeat(auto-fit, minmax(11%,1fr));",
             },
             opacity: {
                 "95": "95%",
@@ -85,14 +88,6 @@ module.exports = {
             width: {
                 "28": "7rem"
             },
-            spinner: (theme) => ({
-                default: {
-                    color: "#dae1e7", // color you want to make the spinner
-                    size: "1em", // size of the spinner (used for both width and height)
-                    border: "2px", // border-width of the spinner (shouldn't be bigger than half the spinner's size)
-                    speed: "750ms" // the speed at which the spinner should rotate
-                }
-            }),
             boxShadow: {
                 "light": "0 1px 3px 0 rgba(255, 255, 255, .1), 0 1px 2px 0 rgba(255, 255, 255, .06)",
                 "light-md": " 0 4px 6px -1px rgba(255, 255, 255, .1), 0 2px 4px -1px rgba(255, 255, 255, .06)",
@@ -109,7 +104,7 @@ module.exports = {
             colors: {
                 "hsl": {
                     "100": "hsl(0,0%,90%)",
-                    "200": "hsl(%0,0,80%)",
+                    "200": "hsl(0,0%,80%)",
                     "300": "hsl(0,0%,70%)",
                     "400": "hsl(0,0%,60%)",
                     "500": "hsl(0,0%,50%)",
@@ -213,7 +208,6 @@ module.exports = {
     },
     variants: {
         fill: ["responsive", "hover"],
-        spinner: ["responsive"],
         opacity: ["responsive", "hover", "focus", "disabled"],
         cursor: ["responsive", "disabled"],
         backgroundColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-group-hover", "dark-even", "dark-odd"],
@@ -223,33 +217,15 @@ module.exports = {
         borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active"]
     },
     plugins: [
-        require("tailwindcss-spinner")(),
         require("tailwindcss-dark-mode")(),
-        require("tailwindcss-triangle-after")({
-                triangles: {
-                    select: {
-                        color: "#3DA6E4",
-                        direction: "down",
-                        size: [10, 6]
-                    },
-                    expand: {
-                        color: "#B1DBF4",
-                        direction: "down",
-                        right: "0px",
-                        top: "35%",
-                        size: [10, 6]
-                    }
-                }
-            }
-        ),
-        plugin(function ({ addBase, config }) {
+        plugin(function ({addBase, config}) {
             addBase({
-                "h1": { fontSize: config("theme.fontSize.4xl") },
-                "h2": { fontSize: config("theme.fontSize.2xl") },
-                "h3": { fontSize: config("theme.fontSize.lg") },
-                "h4": { fontSize: config("theme.fontSize.base") },
-                "h5": { fontSize: config("theme.fontSize.sm") },
-                "h6": { fontSize: config("theme.fontSize.xs") }
+                "h1": {fontSize: config("theme.fontSize.4xl")},
+                "h2": {fontSize: config("theme.fontSize.2xl")},
+                "h3": {fontSize: config("theme.fontSize.lg")},
+                "h4": {fontSize: config("theme.fontSize.base")},
+                "h5": {fontSize: config("theme.fontSize.sm")},
+                "h6": {fontSize: config("theme.fontSize.xs")}
             });
         })
     ]
