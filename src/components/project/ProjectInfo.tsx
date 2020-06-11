@@ -54,7 +54,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
         <div className={`grid border-b-2 border-gray-300`} style={{ gridTemplateColumns: "auto auto auto auto 1fr" }}>
             <div
                 className={`px-2 pb-1 -mb-0.125 border-b-2 ${isDescription() ? `border-diluv-500 hover:border-diluv-500` : `hover:border-b-2 hover:border-diluv-300`}`}>
-                {isDescription() ? <span className={`cursor-default select-none`}>Description</span> :
+                {isDescription() ? <span className={`cursor-default select-none text-diluv-600`}>Description</span> :
                     <Link href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`}
                           as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}>
 
@@ -66,7 +66,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
 
             </div>
             <div className={`px-2 pb-1 -mb-0.125 border-b-2 ${isFiles() ? `border-diluv-500 hover:border-diluv-500` : `hover:border-b-2 hover:border-diluv-300`}`}>
-                {isFiles() ? <span className={`cursor-default select-none`}>Files</span> :
+                {isFiles() ? <span className={`cursor-default select-none text-diluv-600`}>Files</span> :
                     <Link href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files`}
                           as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
 
@@ -77,7 +77,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
                     </Link>}
             </div>
             <div className={`px-2 pb-1 -mb-0.125 border-b-2 ${isMembers() ? `border-diluv-500 hover:border-diluv-500` : `hover:border-b-2 hover:border-diluv-300`}`}>
-                {isMembers() ? <span className={`cursor-default select-none`}>Members</span> :
+                {isMembers() ? <span className={`cursor-default select-none text-diluv-600`}>Members</span> :
                     <Link href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/members`}
                           as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}>
 
