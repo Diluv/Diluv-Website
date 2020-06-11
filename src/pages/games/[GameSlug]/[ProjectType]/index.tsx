@@ -74,21 +74,28 @@ export default function Projects({ search, gameSlug, projectData, types, project
     return <Layout title={projectData.name}>
         <div className={`container mx-auto`}>
             <div className={`w-11/12 mx-auto`}>
-                <div id={"header"} className={` my-4`}>
-                    <div className={`grid grid-cols-auto my-auto`}>
-                        {types.map(value => {
-                            if (value.slug === projectData.slug) {
-                                return <h1  key={value.slug} className={`text-2xl`}>{value.name}</h1>;
-                            } else {
-                                return <Link key={value.slug} href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${gameSlug}/${value.slug}`}>
+                <div id={"header"} className={`mb-4 mt-2`}>
+                    <div className={`grid my-auto justify-between`} style={{ gridTemplateColumns: "2.5fr 0.5fr" }}>
+                        <div className={`flex flex-wrap`}>
+                            {types.map(value => {
+                                if (value.slug === projectData.slug) {
+                                    return <h1 key={value.slug} className={`text-2xl mr-3 underline`}>{value.name}</h1>;
+                                } else {
+                                    return <Link key={value.slug} href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${gameSlug}/${value.slug}`}>
 
-                                    <a className={`text-2xl text-hsl-500`}>
-                                        {value.name}
-                                    </a>
+                                        <a className={`text-2xl text-hsl-500 mr-3`}>
+                                            {value.name}
+                                        </a>
 
-                                </Link>;
-                            }
-                        })}
+                                    </Link>;
+                                }
+                            })}
+                        </div>
+                        <div className={`p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
+                            <span className={`mx-auto text-center`}>
+                                Create Project
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -229,12 +236,10 @@ export default function Projects({ search, gameSlug, projectData, types, project
 
 
                 <div id={`projects`}>
-                    <div className={``}>
-                        {projects.map(value => {
-                            return <ProjectCard gameSlug={gameSlug} projectTypeSlug={projectData.slug} project={value} key={value.slug}
-                                                tagFilter={tagFilter} setTagFilter={setTagFilter}/>;
-                        })}
-                    </div>
+                    {projects.map(value => {
+                        return <ProjectCard gameSlug={gameSlug} projectTypeSlug={projectData.slug} project={value} key={value.slug}
+                                            tagFilter={tagFilter} setTagFilter={setTagFilter}/>;
+                    })}
                 </div>
             </div>
         </div>
