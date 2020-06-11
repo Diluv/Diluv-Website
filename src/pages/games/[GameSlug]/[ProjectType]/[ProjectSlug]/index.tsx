@@ -5,14 +5,10 @@ import { get } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { Project } from "../../../../../interfaces";
 import { listContributors } from "../../../../../utils/util";
-import { DisplayTag, FilterTag } from "../../../../../components/misc/FilterTag";
+import { DisplayTag } from "../../../../../components/misc/FilterTag";
 import ReactMarkdown from "react-markdown";
-import Tippy from "@tippyjs/react";
-import { followCursor } from "tippy.js";
-import ChartBar from "../../../../../components/icons/ChartBar";
-import moment from "moment";
-import HourGlass from "../../../../../components/icons/HourGlass";
-import Time from "../../../../../components/icons/Time";
+import Link from "next/link";
+import ProjectInfo from "../../../../../components/project/ProjectInfo";
 
 export default function ProjectIndex({ project }: { project: Project }) {
 
@@ -20,57 +16,9 @@ export default function ProjectIndex({ project }: { project: Project }) {
         <Layout title={project.name}>
             <>
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
-                    <div id={"topInfo"}>
-                        <div className={`grid my-4 gap-4`} style={{ gridTemplateColumns: "12rem 1fr" }}>
-                            <img src={project.logo} className={`h-48 w-48`}/>
-                            <div className={`grid grid-rows-3-auto`}>
-                                <div className={`leading-tight`}>
-                                    <h4 className={`font-semibold`}>{project.name}</h4>
-                                    <div className={`text-gray-700 mb-1`}>
-                                        <span>
-                                            {`by `}
-                                        </span>
-                                        {listContributors(project)}
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>
-                                        Project Id
-                                    </p>
-                                    <p>
-                                        Created on
-                                    </p>
-                                    <p>
-                                        updated on
-                                    </p>
-                                    <p>
-                                        Downloads
-                                    </p>
-                                </div>
-                                <div className={`grid my-auto gap-2`} style={{ gridTemplateColumns: "auto auto auto auto 1fr" }}>
-                                    {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug}/>)}
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div id={"pageContent"} className={`my-4`}>
-                        <div className={`grid border-b border-gray-500`} style={{ gridTemplateColumns: "auto auto auto auto 1fr" }}>
-                            <div className={`p-2 border-l border-t border-r border-b border-gray-500`} style={{
-                                marginBottom: "-1px",
-                                borderBottomColor: "white"
-                            }}>
-                                <p>Description</p>
-                            </div>
-                            <div className={`p-2 border-t border-r border-gray-500`}>
-                                <p>Files</p>
-                            </div>
-                            <div className={`p-2 border-t border-r border-gray-500`}>
-                                <p>Members</p>
-                            </div>
-
-                        </div>
-                        <div className={`border-l border-r border-b border-gray-500 p-4`}>
+                    <ProjectInfo project={project} pageType={"description"}/>
+                    <div id={"pageContent"}>
+                        <div className={`p-4`}>
                             <ReactMarkdown source={`Bookshelf is a library mod which adds a lot of reusable code. The goal of bookshelf is to make writing complex mods much easier, while also expanding the capabilities of various systems within Minecraft and Forge. Bookshelf is used by many large mods and makes them easier to update and maintain. 
 
 **Notice:** Alpha and Beta releases may contain breaking changes or world corrupting bugs. Please stick to Release versions unless you know what you're doing or working with someone else who does.
