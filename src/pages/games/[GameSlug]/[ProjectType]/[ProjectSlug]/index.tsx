@@ -4,10 +4,7 @@ import { NextPageContext } from "next";
 import { get } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { Project } from "../../../../../interfaces";
-import { listContributors } from "../../../../../utils/util";
-import { DisplayTag } from "../../../../../components/misc/FilterTag";
 import ReactMarkdown from "react-markdown";
-import Link from "next/link";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 
 export default function ProjectIndex({ project }: { project: Project }) {

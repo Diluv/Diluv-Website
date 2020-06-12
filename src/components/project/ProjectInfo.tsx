@@ -46,7 +46,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
                     </p>
                 </div>
                 <div className={`grid my-auto gap-2`} style={{ gridTemplateColumns: "auto auto auto auto 1fr" }}>
-                    {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug}/>)}
+                    {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>)}
                 </div>
 
             </div>
