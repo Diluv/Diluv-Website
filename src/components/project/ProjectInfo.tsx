@@ -3,6 +3,7 @@ import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
 import { listContributors } from "../../utils/util";
+import moment from "moment";
 
 
 export default function ProjectInfo({ project, pageType }: { project: Project, pageType: string }) {
@@ -19,37 +20,34 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
     }
 
     return <div id={"topInfo"}>
-        <div className={`grid mt-4 mb-2 gap-4`} style={{ gridTemplateColumns: "12rem 1fr" }}>
-            <img src={project.logo} className={`h-48 w-48`}/>
-            <div className={`grid grid-rows-3-auto`}>
-                <div className={`leading-tight`}>
-                    <h4 className={`font-semibold`}>{project.name}</h4>
-                    <div className={`text-gray-700 mb-1`}>
+        <div className={`grid mt-4 mb-2 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
+            <img src={project.logo} className={`sm:h-48 w-full sm:w-48`} style={{ gridArea: "image" }}/>
+            <h4 className={`font-semibold`} style={{ gridArea: "name" }}>{project.name}</h4>
+            <div className={`text-gray-700 mb-1`} style={{ gridArea: "authors" }}>
                                         <span>
                                             {`by `}
                                         </span>
-                        {listContributors(project)}
-                    </div>
-                </div>
-                <div>
-                    <p>
-                        Project Id
-                    </p>
-                    <p>
-                        Created on
-                    </p>
-                    <p>
-                        updated on
-                    </p>
-                    <p>
-                        Downloads
-                    </p>
-                </div>
-                <div className={`grid my-auto gap-2`} style={{ gridTemplateColumns: "auto auto auto auto 1fr" }}>
-                    {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>)}
-                </div>
-
+                {listContributors(project)}
             </div>
+            <p  style={{gridArea: "summary"}}>
+                {project.summary}
+            </p>
+            <p  style={{gridArea: "id"}}>
+                {`ProjectID: ${project.id}`}
+            </p>
+            <p style={{gridArea: "created"}}>
+                {`Created at: ${moment.utc(project.createdAt).format("MM/DD/YYYY")}`}
+            </p>
+            <p style={{gridArea: "updated"}}>
+                {`Updated at: ${moment.utc(project.updatedAt).format("MM/DD/YYYY")}`}
+            </p>
+            <p style={{gridArea: "downloads"}}>
+                {`${project.id} Downloads`}
+            </p>
+            <div className={`grid my-auto gap-2`} style={{ gridTemplateColumns: "auto auto auto auto 1fr", gridArea: "tags" }}>
+                {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>)}
+            </div>
+
         </div>
         <div className={`grid border-b-2 border-gray-300`} style={{ gridTemplateColumns: "auto auto auto auto 1fr" }}>
             <div

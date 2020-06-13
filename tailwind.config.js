@@ -210,7 +210,7 @@ module.exports = {
         fill: ["responsive", "hover"],
         opacity: ["responsive", "hover", "focus", "disabled"],
         cursor: ["responsive", "disabled"],
-        backgroundColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-group-hover", "dark-even", "dark-odd"],
+        backgroundColor: ["responsive", "hover", "focus", "disabled", "odd", "even", "dark", "dark-hover", "dark-group-hover", "dark-even", "dark-odd"],
         textColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-active", "dark-placeholder"],
         transitionProperty: ["responsive", "hover", "focus"],
         borderWidth: ["responsive", "hover", "focus"],

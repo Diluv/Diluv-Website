@@ -29,6 +29,22 @@ export interface ProjectType extends ProjectTypeBase {
     projectCount: number
 }
 
+export interface ProjectFile {
+    "id": number;
+    "name": string;
+    "size": number;
+    "sha512": string;
+    "releaseType": string;
+    "classifier": string;
+    "createdAt": number;
+    "gameVersions": Version[];
+    "gameSlug": string;
+    "projectTypeSlug": string;
+    "projectSlug": string;
+    "uploaderUserId": number;
+    "uploaderUsername": string
+}
+
 export interface Project {
     id: number
     name: string

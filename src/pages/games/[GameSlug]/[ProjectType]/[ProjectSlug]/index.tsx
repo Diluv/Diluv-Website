@@ -15,7 +15,7 @@ export default function ProjectIndex({ project }: { project: Project }) {
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
                     <ProjectInfo project={project} pageType={"description"}/>
                     <div id={"pageContent"}>
-                        <div className={`p-4`}>
+                        <div className={`py-4 px-2`}>
                             <ReactMarkdown source={`Bookshelf is a library mod which adds a lot of reusable code. The goal of bookshelf is to make writing complex mods much easier, while also expanding the capabilities of various systems within Minecraft and Forge. Bookshelf is used by many large mods and makes them easier to update and maintain. 
 
 **Notice:** Alpha and Beta releases may contain breaking changes or world corrupting bugs. Please stick to Release versions unless you know what you're doing or working with someone else who does.

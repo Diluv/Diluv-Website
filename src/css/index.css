@@ -86,4 +86,16 @@
     grid-template-columns: auto auto auto auto 1fr;
     grid-template-rows: 8rem auto auto auto auto auto auto;
   }
+
+  .projectInfoSmall{
+    grid-template-areas: "image" "name" "authors" "summary" "id" "created" "updated" "downloads" "tags";
+    grid-template-columns: auto;
+    grid-template-rows: auto 1rem auto auto 1rem 1rem 1rem 1rem 2rem;
+  }
+
+  .projectInfoMedium{
+    grid-template-areas: "image name" "image authors" "image summary" "image id" "image created" "image updated" "image downloads" "image tags";
+    grid-template-columns: 12rem auto;
+    grid-template-rows: 1rem auto 1.5rem 1.25rem 1.25rem 1.25rem auto auto;
+  }
 }
