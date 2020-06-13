@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { Project, ProjectType, SelectData, Sort } from "../../../../interfaces";
+import { Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
 import { get } from "../../../../utils/request";
 
 import { API_URL } from "../../../../utils/api";
@@ -18,22 +18,25 @@ import CheveronLeft from "../../../../components/icons/CheveronLeft";
 import CheveronRight from "../../../../components/icons/CheveronRight";
 import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
+import { tag } from "postcss-selector-parser";
 
-function buildURL(search: string, page: number, sort: string, version: string) {
+function buildURL(search: string, page: number, sort: string, version: string, tags: Tag[]) {
     let params = new URLSearchParams();
 
     if (search) {
         params.set("search", search);
     }
-
     if (page !== 1) {
         params.set("page", page + "");
     }
-    if (sort !== "POPULARITY") {
+    if (sort !== "popular") {
         params.set("sort", sort);
     }
     if (version) {
         params.set("version", version);
+    }
+    if (tags && tags.length) {
+        params.set("tags", tags.join(","));
     }
     params.sort();
     if (params.toString().length) {
@@ -51,11 +54,15 @@ interface Props {
     sorts: Sort[],
     currentSort: string,
     page: number,
-    version: string
+    version: string,
+    currentTags: Tag[]
 }
 
-export default function Projects({ search, gameSlug, projectData, types, projects, sorts, currentSort, page, version }: Props) {
+export default function Projects({ search, gameSlug, projectData, types, projects, sorts, currentSort, page, version, currentTags }: Props) {
     const [selectedField, setSelectedField] = useState("");
+    // Fix for < 3 search killing things
+    let [displaySearch] = useState(search);
+
     let router = useRouter();
     let maxPage = Math.ceil(projectData.projectCount / 20);
     page = Number(page);
@@ -114,10 +121,11 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                     minLength={3}
                                     debounceTimeout={500}
                                     placeholder={"Search projects"} id={"searchProjects"}
+                                    value={displaySearch}
                                     style={{ textIndent: "2rem" }} onFocus={(event: React.FocusEvent<any>) => onFocus(
                                     setSelectedField,
                                     event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                                    let newUrl = buildURL(event.target.value, page, currentSort, version);
+                                    let newUrl = buildURL(event.target.value, page, currentSort, version, []);
                                     router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
                                 }}/>
                             </div>
@@ -184,7 +192,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                             return { value: value.slug, label: value.displayName };
                                         })}
                                         styles={reactSelectStyle} onChange={(e: any) => {
-                                    let newUrl = buildURL(search, page, e.value, version);
+                                    let newUrl = buildURL(search, page, e.value, version, []);
                                     router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
                                 }}/>
 
@@ -219,14 +227,14 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                     if (pageIndex === 1 && maxPage === 0) {
                                         return "";
                                     }
-                                    let newUrl = buildURL(search, pageIndex, currentSort, version);
+                                    let newUrl = buildURL(search, pageIndex, currentSort, version, []);
                                     return `/games/${gameSlug}/${projectData.slug}${newUrl}`;
                                 }}
                                 hrefBuilder={(pageIndex: number) => {
                                     if (pageIndex === 1 && maxPage === 0) {
                                         return "";
                                     }
-                                    let newUrl = buildURL(search, pageIndex, currentSort, version);
+                                    let newUrl = buildURL(search, pageIndex, currentSort, version, []);
                                     return `/games/[GameSlug]/[ProjectType]${newUrl}`;
                                 }}
                             />
@@ -247,8 +255,9 @@ export default function Projects({ search, gameSlug, projectData, types, project
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-    let { GameSlug, ProjectType, page = 1, sort = "", version = "", search = "" } = context.query;
+    let { GameSlug, ProjectType, page = 1, sort = "", version = "", search = "", tags } = context.query;
     page = Number(page);
+
     let params = new URLSearchParams();
     if (page) {
         params.set("page", `${page}`);
@@ -262,6 +271,15 @@ export async function getServerSideProps(context: NextPageContext) {
     if (search && search.length) {
         params.set("search", `${search}`);
     }
+    if (tags && tags.length) {
+        if(typeof tags === "string"){
+            params.set("tags", tags);
+        }else{
+            params.set("tags", tags.join(","));
+        }
+
+    }
+    console.log(params.toString());
     let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`); // got
     page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
     return {
@@ -272,9 +290,10 @@ export async function getServerSideProps(context: NextPageContext) {
             types: data.data.types,
             projects: data.data.projects,
             sorts: data.data.sorts,
-            currentSort: sort.length ? sort : "POPULARITY",
+            currentSort: sort.length ? sort : "popular",
             page: page,
-            version: version.length ? version : ""
+            version: version.length ? version : "",
+            currentTags: tags
         }
     };
 }
