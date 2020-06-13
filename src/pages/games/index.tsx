@@ -1,27 +1,46 @@
-import React, { FocusEvent, useState } from "react";
+import React, { ChangeEvent, FocusEvent, useState } from "react";
 import Layout from "components/Layout";
 import Search from "components/icons/Search";
-import Filter from "components/icons/Filter";
 import { NextPageContext } from "next";
 import { get } from "../../utils/request";
 import { API_URL } from "../../utils/api";
 import { Game, Sort } from "../../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { reactSelectStyle } from "../../utils/theme";
+import Select from "react-select";
+import { onBlur, onFocus } from "../../utils/util";
+import { DebounceInput } from "react-debounce-input";
 
-export default function GameIndex({ games, sorts, currentSort }: { games: Game[], sorts: Sort[], currentSort?: string }) {
+function buildURL(search: string, sort: string) {
+    let params = new URLSearchParams();
+
+    if (search) {
+        params.set("search", search);
+    }
+    if (sort !== "name") {
+        params.set("sort", sort);
+    }
+    params.sort();
+    if (params.toString().length) {
+        return `?${params.toString()}`;
+    }
+    return ``;
+}
+
+export default function GameIndex({ games, sorts, currentSort, search }: { games: Game[], sorts: Sort[], currentSort: string, search: string }) {
     const [selectedField, setSelectedField] = useState("");
-    const [search, setSearch] = useState("");
-    const [sort, setSort] = useState("");
-
+    // Fix for < 3 search killing things
+    let [displaySearch,] = useState(search);
     const router = useRouter();
 
-    function onFocus(event: FocusEvent<any>) {
-        setSelectedField(event.target.id);
-    }
-
-    function onBlur() {
-        setSelectedField("");
+    function getSortFromCurrent(): Sort {
+        for (let sort of sorts) {
+            if (sort.slug === currentSort) {
+                return sort;
+            }
+        }
+        return sorts[0];
     }
 
     return (
@@ -32,33 +51,53 @@ export default function GameIndex({ games, sorts, currentSort }: { games: Game[]
                 </div>
 
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
-                    <div className={`flex justify-between w-5/6 md:w-full mx-auto`} id={`filter options`}>
-                        <div className={`w-1/3 flex`}>
+                    <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium`} id={`filter options`}>
+                        <div className={`flex flex-grow`} style={{ gridArea: "search" }}>
                             <label htmlFor={`searchGames`} className={`flex-none my-auto`}>
                                 Search
                             </label>
                             <div className={"relative my-auto flex-grow ml-1"}>
                                 <Search className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : ``} ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`} width={"1rem"} height={"1rem"}/>
-                                <input className={"p-1 bg-transparent"} type={"text"} placeholder={"Search games"} id={"searchGames"} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => setSearch(event.target.value)}/>
+                                <DebounceInput
+                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow"}
+                                    debounceTimeout={500}
+                                    value={displaySearch}
+                                    placeholder={"Search projects"} id={"searchProjects"}
+                                    style={{ textIndent: "2rem" }} onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                    if (event.target.value.length < 3) {
+                                        return;
+                                    }
+                                    let newUrl = buildURL(event.target.value, currentSort);
+                                    router.push(`/games`, `/games${newUrl}`, { shallow: false });
+                                }}/>
                             </div>
+
                         </div>
-                        <div className={`w-1/3 flex justify-end`}>
+                        <div className={`flex`} style={{ gridArea: "sort" }}>
                             <label htmlFor={`sortGames`} className={`flex-none ml-auto my-auto`}>
                                 Sort:
                             </label>
-                            <div className={"relative flex-grow ml-1"}>
-                                <Filter className={`pointer-events-none ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-colours duration-300 ease-in-out ${selectedField === "sortBox" ? "text-diluv-500" : ""}`} width={"1rem"} height={"1rem"}/>
-                                <select className={`p-1 mr-16 appearance-none bg-transparent w-full`} id={`sortBox`} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => {
-                                    router.push(`/games?sort=${event.target.value}`, undefined, { shallow: false });
-                                }} defaultValue={currentSort}>
-                                    {sorts.map(value => {
-                                        return <option key={value.slug} value={value.slug}>{value.displayName}</option>;
-                                    })}
-                                </select>
+                            <div className={"my-auto flex-grow ml-1"}>
+                                <Select isSearchable={true} inputId="sortGames"
+                                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
+                                        options={sorts.map(value => {
+                                            return { value: value.slug, label: value.displayName };
+                                        })}
+                                        styles={reactSelectStyle} onChange={(e: any) => {
+                                    let newUrl = buildURL(search, e.value);
+                                    router.push(`/games`, `/games${newUrl}`, { shallow: false });
+                                }}/>
+                                {/*<Select className={`p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none w-full`} id={`sortBox`} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => {*/}
+                                {/*    router.push(`/games?sort=${event.target.value}`, undefined, { shallow: false });*/}
+                                {/*}} defaultValue={currentSort}>*/}
+                                {/*    {sorts.map(value => {*/}
+                                {/*        return <option key={value.slug} value={value.slug}>{value.displayName}</option>;*/}
+                                {/*    })}*/}
+                                {/*</Select>*/}
                             </div>
                         </div>
                     </div>
-                    <div className={`grid ${makeGridClass(games.length)} gap-4 my-4`} id={`gameContainer`}>
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 my-4`} id={`gameContainer`}>
                         {games.map(game => {
                             return <div key={game.slug}>
                                 <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${game.slug}/${game.defaultProjectType}`}>
@@ -83,19 +122,19 @@ export default function GameIndex({ games, sorts, currentSort }: { games: Game[]
     );
 }
 
-function makeGridClass(totalCount: number): string {
-    if (totalCount <= 6) {
-        return `grid-cols-1 sm:grid-cols-${Math.min(2, totalCount)} md:grid-cols-${Math.min(4, totalCount)} lg:grid-cols-${Math.min(5, totalCount)} xl:grid-cols-${Math.min(6, totalCount)}`;
-    }
-    return `grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6`;
-}
-
-
 export async function getServerSideProps(context: NextPageContext) {
-    let { sort } = context.query;
+    let { sort = "", search = "" } = context.query;
 
-    let games = await get(`${API_URL}/v1/site/games${sort ? `?sort=${sort}` : ``}`);
+    let params = new URLSearchParams();
+    if (sort) {
+        params.set("sort", `${sort}`);
+    }
+    if (search && search.length) {
+        params.set("search", `${search}`);
+    }
+
+    let games = await get(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`);
     return {
-        props: { games: games.data.games, sorts: games.data.sort, currentSort: sort ?? `` } // will be passed to the page component as props
+        props: { games: games.data.games, sorts: games.data.sort, currentSort: sort.length ? sort : `name`, search: search ?? `` } // will be passed to the page component as props
     };
 }

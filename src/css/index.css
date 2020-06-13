@@ -98,4 +98,15 @@
     grid-template-columns: 12rem auto;
     grid-template-rows: 1rem auto 1.5rem 1.25rem 1.25rem 1.25rem auto auto;
   }
+
+  .gameFilterSmall {
+    grid-template-areas: "search" "sort";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .gameFilterMedium {
+    grid-template-areas: "search sort";
+    grid-template-columns: 1fr 0.5fr;
+    grid-template-rows: 1fr;
+  }
 }
