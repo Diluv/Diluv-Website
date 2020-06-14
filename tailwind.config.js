@@ -24,7 +24,7 @@ module.exports = {
                 "10-auto": "repeat(10, auto)",
                 "11-auto": "repeat(11, auto)",
                 "12-auto": "repeat(12, auto)",
-                "project-4": "0.25fr 1fr 0.60fr 1fr",
+                "project-4": "0.25fr 1.25fr 0.5fr 1fr",
                 "project-types": "1fr auto auto auto 1fr",
                 "auto": "repeat(auto-fill, minmax(8.3%,1fr));",
                 "auto-fit": "repeat(auto-fit, minmax(8.3%,1fr));",

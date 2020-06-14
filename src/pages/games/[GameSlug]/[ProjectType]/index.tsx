@@ -24,19 +24,21 @@ function buildURL(search: string, page: number, sort: string, version: string, t
     let params = new URLSearchParams();
 
     if (search) {
-        params.set("search", search);
+        params.append("search", search);
     }
     if (page !== 1) {
-        params.set("page", page + "");
+        params.append("page", page + "");
     }
     if (sort !== "popular") {
-        params.set("sort", sort);
+        params.append("sort", sort);
     }
     if (version) {
-        params.set("version", version);
+        params.append("version", version);
     }
     if (tags && tags.length) {
-        params.set("tags", tags.join(","));
+        for (let tag of tags) {
+            params.append("tags", tag.slug);
+        }
     }
     params.sort();
     if (params.toString().length) {
@@ -55,7 +57,7 @@ interface Props {
     currentSort: string,
     page: number,
     version: string,
-    currentTags: Tag[]
+    currentTags: string[]
 }
 
 export default function Projects({ search, gameSlug, projectData, types, projects, sorts, currentSort, page, version, currentTags }: Props) {
@@ -67,7 +69,27 @@ export default function Projects({ search, gameSlug, projectData, types, project
     let maxPage = Math.ceil(projectData.projectCount / 20);
     page = Number(page);
 
-    let [tagFilter, setTagFilter] = useState<SelectData[]>([]);
+    function getTagsFromCurrent(): Tag[] {
+        let tagArr = [];
+        for (let tag of projectData.tags) {
+            if (currentTags.indexOf(tag.slug) >= 0) {
+                tagArr.push(tag);
+            }
+        }
+        return tagArr;
+    }
+
+    let [tagFilter, setTagFilter] = useState<SelectData[]>(getTagsFromCurrent().map(value => {
+        return { value: value.slug, label: value.name };
+    }));
+
+    function updateTags(newData: SelectData[]) {
+        setTagFilter(newData);
+        let newUrl = buildURL(search, page, currentSort, version, newData.map(value => {
+            return { slug: value.value, name: value.label };
+        }));
+        router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
+    }
 
     function getSortFromCurrent(): Sort {
         for (let sort of sorts) {
@@ -77,6 +99,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
         }
         return sorts[0];
     }
+
 
     return <Layout title={projectData.name}>
         <div className={`container mx-auto`}>
@@ -125,7 +148,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                     style={{ textIndent: "2rem" }} onFocus={(event: React.FocusEvent<any>) => onFocus(
                                     setSelectedField,
                                     event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                                    let newUrl = buildURL(event.target.value, page, currentSort, version, []);
+                                    let newUrl = buildURL(event.target.value, page, currentSort, version, getTagsFromCurrent());
                                     router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
                                 }}/>
                             </div>
@@ -157,7 +180,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                                             value: meta.option?.value,
                                                             label: meta.option?.label
                                                         } as SelectData);
-                                                    setTagFilter(newData);
+                                                    updateTags(newData);
                                                     break;
                                                 case "remove-value":
                                                     newData = [];
@@ -166,14 +189,14 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                                             newData.push(tagFilter[key]);
                                                         }
                                                     }
-                                                    setTagFilter(newData);
+                                                    updateTags(newData);
                                                     break;
                                                 case "clear":
-                                                    setTagFilter([]);
+                                                    updateTags([]);
                                                     break;
                                                 case "pop-value":
                                                     newData = newData.slice(0, newData.length - 1);
-                                                    setTagFilter(newData);
+                                                    updateTags(newData);
                                                     break;
                                             }
                                         }}
@@ -192,7 +215,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                             return { value: value.slug, label: value.displayName };
                                         })}
                                         styles={reactSelectStyle} onChange={(e: any) => {
-                                    let newUrl = buildURL(search, page, e.value, version, []);
+                                    let newUrl = buildURL(search, page, e.value, version, getTagsFromCurrent());
                                     router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
                                 }}/>
 
@@ -246,7 +269,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
                 <div id={`projects`}>
                     {projects.map(value => {
                         return <ProjectCard gameSlug={gameSlug} projectTypeSlug={projectData.slug} project={value} key={value.slug}
-                                            tagFilter={tagFilter} setTagFilter={setTagFilter}/>;
+                                            tagFilter={tagFilter} setTagFilter={updateTags}/>;
                     })}
                 </div>
             </div>
@@ -271,11 +294,14 @@ export async function getServerSideProps(context: NextPageContext) {
     if (search && search.length) {
         params.append("search", `${search}`);
     }
+    let tagArr = [];
     if (tags && tags.length) {
-        if(typeof tags === "string"){
+        if (typeof tags === "string") {
             params.append("tags", tags);
-        }else{
+            tagArr.push(tags);
+        } else {
             for (let tag of tags) {
+                tagArr.push(tag);
                 params.append("tags", tag);
             }
         }
@@ -296,7 +322,7 @@ export async function getServerSideProps(context: NextPageContext) {
             currentSort: sort.length ? sort : "popular",
             page: page,
             version: version.length ? version : "",
-            currentTags: tags ?? []
+            currentTags: tagArr.length ? tagArr : []
         }
     };
 }
