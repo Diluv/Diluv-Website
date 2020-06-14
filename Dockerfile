@@ -2,6 +2,7 @@ FROM mhart/alpine-node:10
 WORKDIR /app
 COPY node_modules/ ./node_modules/
 COPY .next/ ./.next/
-COPY package.json ./package.json
+COPY next.config.js ./next.config.js
+COPY public ./public
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["node_modules/.bin/next", "start"]
