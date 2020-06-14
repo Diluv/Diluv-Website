@@ -260,25 +260,28 @@ export async function getServerSideProps(context: NextPageContext) {
 
     let params = new URLSearchParams();
     if (page) {
-        params.set("page", `${page}`);
+        params.append("page", `${page}`);
     }
     if (sort) {
-        params.set("sort", `${sort}`);
+        params.append("sort", `${sort}`);
     }
     if (version && version.length) {
-        params.set("version", `${version}`);
+        params.append("version", `${version}`);
     }
     if (search && search.length) {
-        params.set("search", `${search}`);
+        params.append("search", `${search}`);
     }
     if (tags && tags.length) {
         if(typeof tags === "string"){
-            params.set("tags", tags);
+            params.append("tags", tags);
         }else{
-            params.set("tags", tags.join(","));
+            for (let tag of tags) {
+                params.append("tags", tag);
+            }
         }
 
     }
+    params.sort();
     console.log(params.toString());
     let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`); // got
     page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
