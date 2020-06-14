@@ -2,8 +2,8 @@ import React from "react";
 import { Game } from "../../interfaces";
 import Link from "next/link";
 
-function FeaturedGameCard({ game, total }: { game: Game, total: number }) {
-    return <div className={`w-1/2 lg:w-${total === 1 ? `full` : `1/` + total} p-2 mx-auto`}>
+function FeaturedGameCard({ game }: { game: Game }) {
+    return <div className={``}>
         <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${game.slug}/${game.defaultProjectType}`}>
 
             <a>

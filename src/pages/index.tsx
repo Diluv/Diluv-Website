@@ -24,8 +24,8 @@ export default function IndexPage({ featured }: { featured: Featured }) {
             <div className={`w-5/6 xl:w-11/12 mx-auto text-center`}>
               <div className={`xl:w-11/12 mr-auto`}>
                 <h3 className={`border-b-2 pb-1 font-medium text-xl`}>Popular Games</h3>
-                <div className={`flex flex-row flex-wrap -mx-2`}>
-                  {featured.featuredGames.map(game => <FeaturedGameCard game={game} total={featured.featuredGames.length} key={game.slug}/>)}
+                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
+                  {featured.featuredGames.map(game => <FeaturedGameCard game={game} key={game.slug}/>)}
                 </div>
               </div>
             </div>
@@ -33,18 +33,18 @@ export default function IndexPage({ featured }: { featured: Featured }) {
             <div className={`w-5/6 xl:w-11/12 mt-4 xl:mt-0 mx-auto text-center`}>
               <div className={`xl:w-11/12 ml-auto`}>
                 <h3 className={`border-b-2 pb-1 font-medium text-xl`}>New Games</h3>
-                <div className={`flex flex-row flex-wrap -mx-2`}>
-                  {featured.featuredGames.map(game => <FeaturedGameCard game={game} total={featured.featuredGames.length} key={game.slug}/>)}
+                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
+                  {featured.featuredGames.map(game => <FeaturedGameCard game={game} key={game.slug}/>)}
                 </div>
               </div>
             </div>
           </div>
         </section>
-        {<section id={"promoMods"} className={`w-full lg:w-5/6 mx-auto pt-10`}>
+        {<section id={"promoMods"} className={`w-5/6 lg:w-5/6 mx-auto pt-10`}>
           <div className={`mx-auto`}>
             <div className={``}>
               <h3 className={`text-center border-b-2 pb-1 font-medium text-xl`}>Featured Projects</h3>
-              <div className={`lg:flex lg:flex-row lg:flex-wrap -mx-2`}>
+              <div className={`grid grid-rows-2 grid-cols-2 gap-2 my-4`}>
                 {
                   featured.featuredProjects.map((project: Project) =>
                     <FeaturedProjectCard project={project} key={project.id}/>
