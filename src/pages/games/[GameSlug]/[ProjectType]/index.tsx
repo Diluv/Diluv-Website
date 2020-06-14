@@ -293,7 +293,7 @@ export async function getServerSideProps(context: NextPageContext) {
             currentSort: sort.length ? sort : "popular",
             page: page,
             version: version.length ? version : "",
-            currentTags: tags
+            currentTags: tags ?? []
         }
     };
 }
