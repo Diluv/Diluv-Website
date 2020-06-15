@@ -23,7 +23,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
     let projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
     return <>
         <div className={`grid my-4 w-full mx-auto col-gap-2 row-gap-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
-            <div style={{ gridArea: "image" }}>
+            <div className={`area-image`}>
                 <Link href={projectUrlRef} as={projectUrl}>
                     <a>
                         <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`}/>
@@ -31,7 +31,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                 </Link>
             </div>
 
-            <div className={"sm:ml-2 leading-snug"} style={{ gridArea: "header" }}>
+            <div className={"sm:ml-2 leading-snug area-header"}>
                 <Link href={projectUrlRef} as={projectUrl}>
                     <a>
                         <div className={`inline-flex`}>
@@ -47,13 +47,13 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                 </div>
             </div>
 
-            <div className={"sm:ml-2 my-auto"} style={{ gridArea: "summary" }}>
+            <div className={"sm:ml-2 my-auto area-summary"}>
                 <div className={`inline-flex`}>
                     <p> {project.summary}</p>
                 </div>
             </div>
 
-            <div className={`sm:ml-2 my-auto text-center mr-2`} style={{ gridArea: "downloads" }}>
+            <div className={`sm:ml-2 my-auto text-center mr-2 area-downloads`}>
                 <div className={`flex cursor-default`}>
                     <Tippy content={<div className={`bg-gray-800 border border-gray-900 text-white opacity-90 p-1 text-center`}>
                         <p>
@@ -72,7 +72,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                 </div>
             </div>
 
-            <div className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2`} style={{ gridArea: "created" }}>
+            <div className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2 area-created`}>
 
                 <div className={`flex cursor-default`}>
                     <Tippy content={<div className={`bg-gray-800 border border-gray-900 text-white opacity-90 p-1 text-center`}>
@@ -91,7 +91,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                 </div>
 
             </div>
-            <div className={`sm:ml-2 my-auto text-center mr-2`} style={{ gridArea: "updated" }}>
+            <div className={`sm:ml-2 my-auto text-center mr-2 area-updated`}>
 
                 <div className={`flex cursor-default`}>
                     <Tippy content={<div className={`bg-gray-800 border border-gray-900 text-white opacity-90 p-1 text-center`}>
@@ -111,15 +111,28 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
 
             </div>
 
-            {project.tags.map((value, i) => <div className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center`} key={value.slug}
-                                                 style={{ gridArea: `tag${i + 1}` }}>
+            {project.tags.map((value, i) => <div className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center ${getTagArea(i)}`} key={value.slug}>
                 <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter}
                            setTagFilter={setTagFilter}/></div>)}
 
 
         </div>
     </>;
-    ;
+}
+
+function getTagArea(index: number) {
+    // Not bad / stupid code, tailwind requires the full classname to be able to purge
+    switch (index) {
+        case 0:
+            return `area-tag1`;
+        case 1:
+            return `area-tag2`;
+        case 2:
+            return `area-tag3`;
+        case 3:
+            return `area-tag4`;
+
+    }
 }
 
 export default ProjectCard;

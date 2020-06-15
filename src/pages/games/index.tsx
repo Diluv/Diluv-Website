@@ -52,7 +52,7 @@ export default function GameIndex({ games, sorts, currentSort, search }: { games
 
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
                     <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium`} id={`filter options`}>
-                        <div className={`flex flex-grow`} style={{ gridArea: "search" }}>
+                        <div className={`flex flex-grow area-search`}>
                             <label htmlFor={`searchGames`} className={`flex-none my-auto`}>
                                 Search
                             </label>
@@ -73,7 +73,7 @@ export default function GameIndex({ games, sorts, currentSort, search }: { games
                             </div>
 
                         </div>
-                        <div className={`flex`} style={{ gridArea: "sort" }}>
+                        <div className={`flex area-sort`}>
                             <label htmlFor={`sortGames`} className={`flex-none ml-auto my-auto`}>
                                 Sort:
                             </label>

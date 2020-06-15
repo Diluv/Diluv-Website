@@ -52,6 +52,79 @@
   clip-path: circle(70.7% at 50% 50%);
 }
 
+.minmax-height {
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+.area-image {
+  grid-area: image;
+}
+
+.area-header {
+  grid-area: header;
+}
+
+.area-summary {
+  grid-area: summary;
+}
+
+.area-downloads {
+  grid-area: downloads;
+}
+
+.area-created {
+  grid-area: created;
+}
+
+.area-updated {
+  grid-area: updated;
+}
+
+.area-tag1 {
+  grid-area: tag1;
+}
+
+.area-tag2 {
+  grid-area: tag2;
+}
+
+.area-tag3 {
+  grid-area: tag3;
+}
+
+.area-tag4 {
+  grid-area: tag4;
+}
+
+.area-name {
+  grid-area: name;
+}
+
+.area-id {
+  grid-area: id;
+}
+
+.area-tags {
+  grid-area: tags;
+}
+
+.area-search {
+  grid-area: search;
+}
+
+.area-sort {
+  grid-area: sort;
+}
+
+.area-role {
+  grid-area: role;
+}
+
+.area-avatar {
+  grid-area: avatar;
+}
+
 @responsive {
   .projectCardLarge {
     grid-template-areas:
@@ -87,13 +160,13 @@
     grid-template-rows: 8rem auto auto auto auto auto auto;
   }
 
-  .projectInfoSmall{
+  .projectInfoSmall {
     grid-template-areas: "image" "name" "authors" "summary" "id" "created" "updated" "downloads" "tags";
     grid-template-columns: auto;
     grid-template-rows: auto 1rem auto auto 1rem 1rem 1rem 1rem 2rem;
   }
 
-  .projectInfoMedium{
+  .projectInfoMedium {
     grid-template-areas: "image name" "image authors" "image summary" "image id" "image created" "image updated" "image downloads" "image tags";
     grid-template-columns: 12rem auto;
     grid-template-rows: 1rem auto 1.5rem 1.25rem 1.25rem 1.25rem auto auto;
@@ -104,9 +177,16 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
+
   .gameFilterMedium {
     grid-template-areas: "search sort";
     grid-template-columns: 1fr 0.5fr;
     grid-template-rows: 1fr;
+  }
+
+  .memberList {
+    grid-template-areas: "avatar name" "avatar role";
+    grid-template-rows: 1.5rem 2.5rem;
+    grid-template-columns: 4rem auto;
   }
 }

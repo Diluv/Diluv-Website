@@ -21,37 +21,36 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
 
     return <div id={"topInfo"}>
         <div className={`grid mt-4 mb-2 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
-            <img src={project.logo} className={`sm:h-48 w-full sm:w-48`} style={{ gridArea: "image" }}/>
-            <h4 className={`font-semibold`} style={{ gridArea: "name" }}>{project.name}</h4>
-            <div className={`text-gray-700 mb-1`} style={{ gridArea: "authors" }}>
+            <img src={project.logo} className={`sm:h-48 w-full sm:w-48 area-image`}/>
+            <h4 className={`font-semibold area-name`}>{project.name}</h4>
+            <div className={`text-gray-700 mb-1 area-authors`}>
                                         <span>
                                             {`by `}
                                         </span>
                 {listContributors(project)}
             </div>
-            <p style={{ gridArea: "summary" }}>
+            <p className={`area-summary`}>
                 {project.summary}
             </p>
-            <p style={{ gridArea: "id" }}>
+            <p className={`area-id`}>
                 {`ProjectID: ${project.id}`}
             </p>
-            <p style={{ gridArea: "created" }}>
+            <p className={`area-created`}>
                 {`Created at: ${moment.utc(project.createdAt).format("MM/DD/YYYY")}`}
             </p>
-            <p style={{ gridArea: "updated" }}>
+            <p className={`area-updated`}>
                 {`Updated at: ${moment.utc(project.updatedAt).format("MM/DD/YYYY")}`}
             </p>
-            <p style={{ gridArea: "downloads" }}>
+            <p className={`area-downloads`}>
                 {`${project.id} Downloads`}
             </p>
-            <div className={`grid my-auto gap-2`} style={{ gridTemplateColumns: "auto auto auto auto 1fr", gridArea: "tags" }}>
+            <div className={`grid my-auto gap-2 area-tags grid-cols-tags`}>
                 {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>)}
             </div>
 
         </div>
-        <div className={`grid border-b-2 border-gray-300`} style={{ gridTemplateColumns: "auto auto auto auto 1fr" }}>
-            <div
-                className={`px-2 pb-1 -mb-0.125 border-b-2 ${isDescription() ? `border-diluv-500 hover:border-diluv-500` : `hover:border-b-2 hover:border-diluv-300`}`}>
+        <div className={`grid border-b-2 border-gray-300 grid-cols-project-info`}>
+            <div className={`px-2 pb-1 -mb-0.125 border-b-2 ${isDescription() ? `border-diluv-500 hover:border-diluv-500` : `hover:border-b-2 hover:border-diluv-300`}`}>
                 {isDescription() ? <span className={`cursor-default select-none text-diluv-600`}>Description</span> :
                     <Link href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`}
                           as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}>

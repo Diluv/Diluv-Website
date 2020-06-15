@@ -15,7 +15,7 @@ function Layout({
 }: Props) {
 
     return (
-        <SimpleBar style={{ minHeight: "100vh", maxHeight: `100vh` }}>
+        <SimpleBar className={`minmax-height`}>
             <div className={`min-h-screen flex flex-col`}>
                 <Head>
                     <title>{title}</title>

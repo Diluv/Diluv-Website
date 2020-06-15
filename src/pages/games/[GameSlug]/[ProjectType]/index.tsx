@@ -104,7 +104,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
         <div className={`container mx-auto`}>
             <div className={`w-11/12 mx-auto`}>
                 <div id={"header"} className={`mb-4 mt-2`}>
-                    <div className={`grid my-auto justify-between`} style={{ gridTemplateColumns: "2.5fr 0.5fr" }}>
+                    <div className={`grid my-auto justify-between grid-cols-project-type-nav`}>
                         <div className={`flex flex-wrap`}>
                             {types.map(value => {
                                 if (value.slug === projectData.slug) {
