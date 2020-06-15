@@ -18,7 +18,6 @@ import CheveronLeft from "../../../../components/icons/CheveronLeft";
 import CheveronRight from "../../../../components/icons/CheveronRight";
 import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
-import { tag } from "postcss-selector-parser";
 
 function buildURL(search: string, page: number, sort: string, version: string, tags: Tag[]) {
     let params = new URLSearchParams();
@@ -140,12 +139,12 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                     className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchProjects" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
                                     width={"1rem"} height={"1rem"}/>
                                 <DebounceInput
-                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow"}
+                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow indent-sm"}
                                     minLength={3}
                                     debounceTimeout={500}
                                     placeholder={"Search projects"} id={"searchProjects"}
                                     value={displaySearch}
-                                    style={{ textIndent: "2rem" }} onFocus={(event: React.FocusEvent<any>) => onFocus(
+                                    onFocus={(event: React.FocusEvent<any>) => onFocus(
                                     setSelectedField,
                                     event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     let newUrl = buildURL(event.target.value, page, currentSort, version, getTagsFromCurrent());

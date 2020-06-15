@@ -8,6 +8,18 @@ module.exports = {
     ],
     theme: {
         extend: {
+            textIndent: (theme, { negative }) => ({
+                ...{
+                    sm: '2rem',
+                    md: '3rem',
+                    lg: '4rem',
+                },
+                ...negative({
+                    sm: '2rem',
+                    md: '3rem',
+                    lg: '4rem',
+                }),
+            }),
             spacing: {
                 "0.125": "2px",
             },
@@ -214,10 +226,12 @@ module.exports = {
         textColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-active", "dark-placeholder"],
         transitionProperty: ["responsive", "hover", "focus"],
         borderWidth: ["responsive", "hover", "focus"],
-        borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active"]
+        borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active"],
+        textIndent: ['responsive']
     },
     plugins: [
         require("tailwindcss-dark-mode")(),
+        require('tailwindcss-text-indent')(),
         plugin(function ({addBase, config}) {
             addBase({
                 "h1": {fontSize: config("theme.fontSize.4xl")},

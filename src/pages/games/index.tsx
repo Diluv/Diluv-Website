@@ -59,11 +59,11 @@ export default function GameIndex({ games, sorts, currentSort, search }: { games
                             <div className={"relative my-auto flex-grow ml-1"}>
                                 <Search className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : ``} ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`} width={"1rem"} height={"1rem"}/>
                                 <DebounceInput
-                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow"}
+                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow indent-sm"}
                                     debounceTimeout={500}
                                     value={displaySearch}
                                     placeholder={"Search projects"} id={"searchProjects"}
-                                    style={{ textIndent: "2rem" }} onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                    onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     if (event.target.value.length < 3) {
                                         return;
                                     }
@@ -100,7 +100,7 @@ export default function GameIndex({ games, sorts, currentSort, search }: { games
                                             {game.logoURL.sources.map(value =>
                                                 <source key={value.src + "-" + value.type} srcSet={value.src} type={value.type}/>)}
                                             <source srcSet={game.logoURL.fallback.src} type={game.logoURL.fallback.type}/>
-                                            <img src={game.logoURL.fallback.src} className={`w-full`} style={{ imageRendering: "pixelated" }}/>
+                                            <img src={game.logoURL.fallback.src} className={`w-full`}/>
                                         </picture>
                                     </a>
 
