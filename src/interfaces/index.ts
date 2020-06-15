@@ -121,10 +121,11 @@ export type ProjectFiles = {
 };
 
 export type Featured = {
-    featuredProjects: Project[]
     featuredGames: Game[]
     projectCount: number
     contributorCount: number
+    projectTypeCount: number
+    gameCount: number
 };
 
 
