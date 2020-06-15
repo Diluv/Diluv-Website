@@ -41,7 +41,7 @@ export const reactSelectStyle = ({
         borderColor: state.isFocused ? "#A0AEC0" : "#CBD5E0",
         boxShadow: "none",
         "&:hover": {
-            borderColor:  "#A0AEC0"
+            borderColor: "#A0AEC0"
         }
     }),
     option: (provided: CSSProperties, state: any) => ({

@@ -5,19 +5,19 @@ import { API_URL } from "utils/api";
 
 export default function GameSlug() {
 
-  return <> </>
+    return <> </>;
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-  let { GameSlug } = context.query;
-  let type = await get(`${API_URL}/v1/site/games/${GameSlug}`);
+    let { GameSlug } = context.query;
+    let type = await get(`${API_URL}/v1/site/games/${GameSlug}`);
 
-  context.res?.writeHead(302, {
-    Location: `/games/${GameSlug}/${type.data}`,
-    'Content-Type': 'text/html; charset=utf-8',
-  });
-  context.res?.end();
-  return {
-    props: { none: "" },
-  }
+    context.res?.writeHead(302, {
+        Location: `/games/${GameSlug}/${type.data}`,
+        "Content-Type": "text/html; charset=utf-8"
+    });
+    context.res?.end();
+    return {
+        props: { none: "" }
+    };
 }

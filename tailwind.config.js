@@ -115,15 +115,15 @@ module.exports = {
             },
             colors: {
                 "hsl": {
-                    "100": "hsl(0,0%,90%)",
-                    "200": "hsl(0,0%,80%)",
-                    "300": "hsl(0,0%,70%)",
-                    "400": "hsl(0,0%,60%)",
-                    "500": "hsl(0,0%,50%)",
-                    "600": "hsl(0,0%,40%)",
-                    "700": "hsl(0,0%,30%)",
-                    "800": "hsl(0,0%,20%)",
-                    "900": "hsl(0,0%,10%)"
+                    100: "hsl(0,0%,90%)",
+                    200: "hsl(0,0%,80%)",
+                    300: "hsl(0,0%,70%)",
+                    400: "hsl(0,0%,60%)",
+                    500: "hsl(0,0%,50%)",
+                    600: "hsl(0,0%,40%)",
+                    700: "hsl(0,0%,30%)",
+                    800: "hsl(0,0%,20%)",
+                    900: "hsl(0,0%,10%)"
                 },
                 "tag": {
                     default: "#DEEBFF"
@@ -183,7 +183,8 @@ module.exports = {
                     700: "#2E8641",
                     800: "#236431",
                     900: "#174321"
-                }, "info": {
+                },
+                "info": {
                     100: "#EBFBFF",
                     200: "#CDF4FE",
                     300: "#AFEDFD",
@@ -193,7 +194,8 @@ module.exports = {
                     700: "#217E96",
                     800: "#195F71",
                     900: "#113F4B"
-                }, "darken": {
+                },
+                "darken": {
                     100: "rgba(0,0,0,0.1)",
                     200: "rgba(0,0,0,0.2)",
                     300: "rgba(0,0,0,0.3)",
@@ -203,7 +205,8 @@ module.exports = {
                     700: "rgba(0,0,0,0.7)",
                     800: "rgba(0,0,0,0.8)",
                     900: "rgba(0,0,0,0.9)"
-                }, "lighten": {
+                },
+                "lighten": {
                     100: "rgba(255,255,255,0.1)",
                     200: "rgba(255,255,255,0.2)",
                     300: "rgba(255,255,255,0.3)",
@@ -217,8 +220,7 @@ module.exports = {
             }
 
         }
-    },
-    variants: {
+    }, variants: {
         fill: ["responsive", "hover"],
         opacity: ["responsive", "hover", "focus", "disabled"],
         cursor: ["responsive", "disabled"],
@@ -228,19 +230,9 @@ module.exports = {
         borderWidth: ["responsive", "hover", "focus"],
         borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active"],
         textIndent: ['responsive']
-    },
-    plugins: [
-        require("tailwindcss-dark-mode")(),
-        require('tailwindcss-text-indent')(),
-        plugin(function ({addBase, config}) {
-            addBase({
-                "h1": {fontSize: config("theme.fontSize.4xl")},
-                "h2": {fontSize: config("theme.fontSize.2xl")},
-                "h3": {fontSize: config("theme.fontSize.lg")},
-                "h4": {fontSize: config("theme.fontSize.base")},
-                "h5": {fontSize: config("theme.fontSize.sm")},
-                "h6": {fontSize: config("theme.fontSize.xs")}
-            });
-        })
-    ]
+    }, plugins: [require("tailwindcss-dark-mode")(), require('tailwindcss-text-indent')(), plugin(function({addBase, config}) {
+        addBase({
+            "h1": {fontSize: config("theme.fontSize.4xl")}, "h2": {fontSize: config("theme.fontSize.2xl")}, "h3": {fontSize: config("theme.fontSize.lg")}, "h4": {fontSize: config("theme.fontSize.base")}, "h5": {fontSize: config("theme.fontSize.sm")}, "h6": {fontSize: config("theme.fontSize.xs")}
+        });
+    })]
 };

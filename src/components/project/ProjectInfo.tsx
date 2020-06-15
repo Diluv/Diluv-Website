@@ -29,19 +29,19 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
                                         </span>
                 {listContributors(project)}
             </div>
-            <p  style={{gridArea: "summary"}}>
+            <p style={{ gridArea: "summary" }}>
                 {project.summary}
             </p>
-            <p  style={{gridArea: "id"}}>
+            <p style={{ gridArea: "id" }}>
                 {`ProjectID: ${project.id}`}
             </p>
-            <p style={{gridArea: "created"}}>
+            <p style={{ gridArea: "created" }}>
                 {`Created at: ${moment.utc(project.createdAt).format("MM/DD/YYYY")}`}
             </p>
-            <p style={{gridArea: "updated"}}>
+            <p style={{ gridArea: "updated" }}>
                 {`Updated at: ${moment.utc(project.updatedAt).format("MM/DD/YYYY")}`}
             </p>
-            <p style={{gridArea: "downloads"}}>
+            <p style={{ gridArea: "downloads" }}>
                 {`${project.id} Downloads`}
             </p>
             <div className={`grid my-auto gap-2`} style={{ gridTemplateColumns: "auto auto auto auto 1fr", gridArea: "tags" }}>

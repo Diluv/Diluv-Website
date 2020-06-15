@@ -17,12 +17,16 @@ export default function Files({ project }: { project: Project }) {
                         <div className={`py-4`}>
                             <div className={`w-1/2`}>
                                 {project.contributors.map(value => {
-                                    return <div key={value.userId} className={`grid col-gap-2 my-1`} style={{gridTemplateAreas: `"avatar name" "avatar role"`, gridTemplateRows: "1.5rem 2.5rem", gridTemplateColumns: "4rem auto"}}>
-                                        <img className={`w-16 h-16`} src={value.avatarURL} style={{gridArea: "avatar"}}/>
-                                        <p style={{gridArea: "name"}}>
+                                    return <div key={value.userId} className={`grid col-gap-2 my-1`} style={{
+                                        gridTemplateAreas: `"avatar name" "avatar role"`,
+                                        gridTemplateRows: "1.5rem 2.5rem",
+                                        gridTemplateColumns: "4rem auto"
+                                    }}>
+                                        <img className={`w-16 h-16`} src={value.avatarURL} style={{ gridArea: "avatar" }}/>
+                                        <p style={{ gridArea: "name" }}>
                                             {value.displayName}
                                         </p>
-                                        <p style={{gridArea: "role"}}>
+                                        <p style={{ gridArea: "role" }}>
                                             Role: {value.role}
                                         </p>
                                     </div>;

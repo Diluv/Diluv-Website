@@ -1,9 +1,8 @@
 import React from "react";
 import Layout from "../components/Layout";
-import FeaturedProjectCard from "../components/featured/FeaturedProjectCard";
 import { get } from "../utils/request";
 import { API_URL } from "../utils/api";
-import { Featured, Project } from "../interfaces";
+import { Featured } from "../interfaces";
 import { NextPageContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 

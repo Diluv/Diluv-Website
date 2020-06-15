@@ -145,8 +145,8 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                     placeholder={"Search projects"} id={"searchProjects"}
                                     value={displaySearch}
                                     onFocus={(event: React.FocusEvent<any>) => onFocus(
-                                    setSelectedField,
-                                    event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                        setSelectedField,
+                                        event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     let newUrl = buildURL(event.target.value, page, currentSort, version, getTagsFromCurrent());
                                     router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
                                 }}/>
@@ -307,7 +307,6 @@ export async function getServerSideProps(context: NextPageContext) {
 
     }
     params.sort();
-    console.log(params.toString());
     let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`); // got
     page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
     return {

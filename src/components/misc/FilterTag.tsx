@@ -2,7 +2,7 @@ import React from "react";
 import { SelectData } from "../../interfaces";
 
 export function FilterTag({ tagName, tagSlug, tagFilter, setTagFilter }: { tagName: string, tagSlug: string, tagFilter: SelectData[], setTagFilter: Function }) {
-    function hasTag(){
+    function hasTag() {
         let hasTag = false;
         for (let data of tagFilter) {
             if (data.value === tagSlug) {
@@ -11,6 +11,7 @@ export function FilterTag({ tagName, tagSlug, tagFilter, setTagFilter }: { tagNa
         }
         return hasTag;
     }
+
     function onClick() {
         let newData = tagFilter;
         if (!hasTag())

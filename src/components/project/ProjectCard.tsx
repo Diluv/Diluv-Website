@@ -18,11 +18,6 @@ interface Props {
     tagFilter: SelectData[]
 }
 
-function format(number: number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-
 function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props) {
     let projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
     let projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;

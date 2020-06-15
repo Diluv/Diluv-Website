@@ -31,7 +31,7 @@ function buildURL(search: string, sort: string) {
 export default function GameIndex({ games, sorts, currentSort, search }: { games: Game[], sorts: Sort[], currentSort: string, search: string }) {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
-    let [displaySearch,] = useState(search);
+    let [displaySearch] = useState(search);
     const router = useRouter();
 
     function getSortFromCurrent(): Sort {
