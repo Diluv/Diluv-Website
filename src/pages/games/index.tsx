@@ -87,13 +87,6 @@ export default function GameIndex({ games, sorts, currentSort, search }: { games
                                     let newUrl = buildURL(search, e.value);
                                     router.push(`/games`, `/games${newUrl}`, { shallow: false });
                                 }}/>
-                                {/*<Select className={`p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none w-full`} id={`sortBox`} style={{ textIndent: "2rem" }} onFocus={onFocus} onBlur={onBlur} onChange={event => {*/}
-                                {/*    router.push(`/games?sort=${event.target.value}`, undefined, { shallow: false });*/}
-                                {/*}} defaultValue={currentSort}>*/}
-                                {/*    {sorts.map(value => {*/}
-                                {/*        return <option key={value.slug} value={value.slug}>{value.displayName}</option>;*/}
-                                {/*    })}*/}
-                                {/*</Select>*/}
                             </div>
                         </div>
                     </div>
