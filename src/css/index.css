@@ -190,3 +190,8 @@
     grid-template-columns: 4rem auto;
   }
 }
+
+.simplebar-scrollbar::before {
+  background-color: #3DA6E4 !important;
+  border:           1px solid #256489 !important;
+}
