@@ -139,15 +139,20 @@ module.exports = {
                     900: "#123244"
                 },
                 "dark": {
-                    100: "#EAEAEA",
-                    200: "#CACACA",
-                    300: "#AAAAAA",
-                    400: "#6B6B6B",
-                    500: "#2B2B2B",
-                    600: "#272727",
-                    700: "#1A1A1A",
-                    800: "#131313",
-                    900: "#0D0D0D"
+                    "010": '#fcfcfc',
+                    "020": '#f9f9f9',
+                    "030": '#f6f6f6',
+                    "040": '#f3f3f3',
+                    "050": '#f0f0f0',
+                    100: '#e6e6e6',
+                    200: '#c9c9c9',
+                    300: '#adadad',
+                    400: '#919191',
+                    500: '#757575',
+                    600: '#5c5c5c',
+                    700: '#454545',
+                    800: '#2e2e2e',
+                    900: '#1b1b1b',
                 },
                 "danger": {
                     100: "#FDEEEF",
@@ -222,11 +227,11 @@ module.exports = {
         fill: ["responsive", "hover"],
         opacity: ["responsive", "hover", "focus", "disabled"],
         cursor: ["responsive", "disabled"],
-        backgroundColor: ["responsive", "hover", "focus", "disabled", "odd", "even", "dark", "dark-hover", "dark-group-hover", "dark-even", "dark-odd"],
-        textColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-active", "dark-placeholder"],
+        backgroundColor: ["responsive", "hover", "focus", "disabled", "odd", "even", "dark", "dark-focus", "dark-hover", "dark-group-hover", "dark-even", "dark-odd"],
+        textColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-active","dark-focus", "dark-placeholder"],
         transitionProperty: ["responsive", "hover", "focus"],
         borderWidth: ["responsive", "hover", "focus"],
-        borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active"],
+        borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active", "dark-focus"],
         textIndent: ['responsive']
     }, plugins: [require("tailwindcss-dark-mode")(), require('tailwindcss-text-indent')(), plugin(function({addBase, config}) {
         addBase({
