@@ -12,7 +12,7 @@ function Footer() {
                         <Drop className={`w-10 h-10`}/>
                         <span className="ml-3 text-xl">Diluv</span>
                     </a>
-                    <p className="mt-2 text-sm text-gray-600 font-sans">For modders, by modders</p>
+                    <p className="mt-2 text-sm text-gray-500 font-sans">For modders, by modders</p>
                 </div>
                 <div className="flex-grow flex flex-wrap md:pl-20 md:mt-0 mt-10 md:text-left text-center">
                     <div className="lg:w-1/3 md:w-1/2 w-full px-4 mb-10 lg:mb-0">
@@ -20,11 +20,11 @@ function Footer() {
                         <nav className="list-none font-sans">
                             <li>
                                 <Link href={"/news"}>
-                                    <a className="text-gray-600 hover:text-white">News</a>
+                                    <a className="text-gray-500 hover:text-white">News</a>
                                 </Link>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-white" href={"https://github.com/Diluv"}>Github</a>
+                                <a className="text-gray-500 hover:text-white" href={"https://github.com/Diluv"}>Github</a>
                             </li>
                         </nav>
                     </div>
@@ -33,17 +33,17 @@ function Footer() {
                         <nav className="list-none">
                             <li>
                                 <Link href={"/about"}>
-                                    <a className="text-gray-600 hover:text-white">About</a>
+                                    <a className="text-gray-500 hover:text-white">About</a>
                                 </Link>
                             </li>
                             <li>
                                 <Link href={"/privacy"}>
-                                    <a className="text-gray-600 hover:text-white">Privacy</a>
+                                    <a className="text-gray-500 hover:text-white">Privacy</a>
                                 </Link>
                             </li>
                             <li>
                                 <Link href={"/terms"}>
-                                    <a className="text-gray-600 hover:text-white">Terms Of Service</a>
+                                    <a className="text-gray-500 hover:text-white">Terms Of Service</a>
                                 </Link>
                             </li>
                         </nav>
@@ -52,10 +52,10 @@ function Footer() {
                         <h2 className="font-medium text-white tracking-widest text-sm mb-3">CONTACT</h2>
                         <nav className="list-none font-sans">
                             <li>
-                                <a className="text-gray-600 hover:text-white" href={"https://twitter.com/DiluvSupport"}>Twitter</a>
+                                <a className="text-gray-500 hover:text-white" href={"https://twitter.com/DiluvSupport"}>Twitter</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-white" href={"https://www.reddit.com/r/diluv/"}>Reddit</a>
+                                <a className="text-gray-500 hover:text-white" href={"https://www.reddit.com/r/diluv/"}>Reddit</a>
                             </li>
                         </nav>
                     </div>

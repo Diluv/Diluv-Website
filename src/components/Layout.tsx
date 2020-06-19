@@ -16,7 +16,7 @@ function Layout({
 
     return (
         <SimpleBar className={`minmax-height`}>
-            <div className={`min-h-screen flex flex-col`}>
+            <div className={`min-h-screen flex flex-col bg-gray-100 dark:bg-dark-900 dark:text-dark-100`}>
                 <Head>
                     <title>{title}</title>
                     <meta charSet="utf-8"/>
@@ -24,7 +24,7 @@ function Layout({
                 <header>
                     <NavBar/>
                 </header>
-                <main className={`flex-grow dark:bg-gray-800 dark:text-white`}>
+                <main className={`flex-grow`}>
                     {children}
                 </main>
                 <Footer/>

@@ -39,7 +39,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                         </div>
                     </a>
                 </Link>
-                <div className={`text-gray-600`}>
+                <div className={`text-gray-600 dark:text-dark-400`}>
                         <span>
                             {`by `}
                         </span>

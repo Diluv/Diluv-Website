@@ -139,7 +139,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                     className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchProjects" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
                                     width={"1rem"} height={"1rem"}/>
                                 <DebounceInput
-                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow indent-sm"}
+                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow indent-sm text-black"}
                                     minLength={3}
                                     debounceTimeout={500}
                                     placeholder={"Search projects"} id={"searchProjects"}
@@ -157,7 +157,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                 Filter by tags
                             </label>
                             <div className={"my-auto flex-grow ml-1"}>
-                                <Select isClearable={true} isMulti={true} inputId="filterTags" isSearchable={true}
+                                <Select isClearable={true} isMulti={true} inputId="filterTags" className={`text-black`} isSearchable={true}
                                         options={projectData.tags.map(value => {
                                             return { value: value.slug, label: value.name };
                                         })}
@@ -232,18 +232,18 @@ export default function Projects({ search, gameSlug, projectData, types, project
                                 disableInitialCallback={true}
                                 pageRangeDisplayed={3}
                                 containerClassName={`grid grid-cols-pagination`}
-                                activeClassName={`bg-gray-400 hover:bg-gray-400 dark:bg-gray-800 dark-hover:bg-gray-800`}
+                                activeClassName={`bg-gray-400 hover:bg-gray-400 dark:bg-dark-800 dark-hover:bg-dark-800`}
                                 activeLinkClassName={`block`}
-                                pageClassName={`block bg-gray-200 hover:bg-gray-300 dark-hover:bg-gray-600 dark:bg-gray-700 border dark:border-gray-600 text-center`}
+                                pageClassName={`block bg-gray-200 hover:bg-gray-300 dark-hover:bg-dark-600 dark:bg-dark-700 border dark:border-dark-600 text-center`}
                                 pageLinkClassName={`block py-1`}
 
-                                previousClassName={`border dark:border-gray-600 text-center px-auto ${page === 1 || (maxPage === 0) ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
+                                previousClassName={`border dark:border-dark-600 text-center px-auto ${page === 1 || (maxPage === 0) ? `bg-white dark:bg-dark-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-dark-700`}`}
                                 previousLinkClassName={`block fill-current py-2`}
 
-                                breakClassName={`block bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 border dark:border-gray-600 text-center`}
+                                breakClassName={`block bg-gray-200 hover:bg-gray-300 dark:bg-dark-700 border dark:border-dark-600 text-center`}
                                 breakLinkClassName={`block fill-current py-2`}
 
-                                nextClassName={`block border dark:border-gray-600 text-center ${page === maxPage ? `bg-white dark:bg-gray-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-gray-700`}`}
+                                nextClassName={`block border dark:border-dark-600 text-center ${page === maxPage ? `bg-white dark:bg-dark-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-dark-700`}`}
                                 nextLinkClassName={`block fill-current py-2`}
                                 asBuilder={(pageIndex: number) => {
                                     if (pageIndex === 1 && maxPage === 0) {

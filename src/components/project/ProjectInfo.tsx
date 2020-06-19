@@ -23,7 +23,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
         <div className={`grid mt-4 mb-2 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
             <img src={project.logo} className={`sm:h-48 w-full sm:w-48 area-image`}/>
             <h4 className={`font-semibold area-name`}>{project.name}</h4>
-            <div className={`text-gray-700 mb-1 area-authors`}>
+            <div className={`text-gray-600 dark:text-dark-400 mb-1 area-authors`}>
                                         <span>
                                             {`by `}
                                         </span>
@@ -49,8 +49,8 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
             </div>
 
         </div>
-        <div className={`grid border-b-2 border-gray-300 grid-cols-project-info`}>
-            <div className={`px-2 pb-1 -mb-0.125 border-b-2 ${isDescription() ? `border-diluv-500 hover:border-diluv-500` : `hover:border-b-2 hover:border-diluv-300`}`}>
+        <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info`}>
+            <div className={`px-2 pb-1 -mb-0.125 border-b-2  ${isDescription() ? `border-diluv-500 hover:border-diluv-500` : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}`}>
                 {isDescription() ? <span className={`cursor-default select-none text-diluv-600`}>Description</span> :
                     <Link href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`}
                           as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}>
@@ -62,7 +62,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
                     </Link>}
 
             </div>
-            <div className={`px-2 pb-1 -mb-0.125 border-b-2 ${isFiles() ? `border-diluv-500 hover:border-diluv-500` : `hover:border-b-2 hover:border-diluv-300`}`}>
+            <div className={`px-2 pb-1 -mb-0.125 border-b-2 ${isFiles() ? `border-diluv-500 hover:border-diluv-500` : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}`}>
                 {isFiles() ? <span className={`cursor-default select-none text-diluv-600`}>Files</span> :
                     <Link href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files`}
                           as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
@@ -73,7 +73,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
 
                     </Link>}
             </div>
-            <div className={`px-2 pb-1 -mb-0.125 border-b-2 ${isMembers() ? `border-diluv-500 hover:border-diluv-500` : `hover:border-b-2 hover:border-diluv-300`}`}>
+            <div className={`px-2 pb-1 -mb-0.125 border-b-2 ${isMembers() ? `border-diluv-500 hover:border-diluv-500` : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}`}>
                 {isMembers() ? <span className={`cursor-default select-none text-diluv-600`}>Members</span> :
                     <Link href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/members`}
                           as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}>

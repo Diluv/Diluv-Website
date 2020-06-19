@@ -22,7 +22,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
                     <div className={`xl:flex xl:flex-row justify-between`}>
                         <div className={`w-5/6 xl:w-11/12 mx-auto text-center`}>
                             <div className={`xl:w-11/12 mr-auto`}>
-                                <h3 className={`border-b-2 pb-1 font-medium text-xl`}>Popular Games</h3>
+                                <h3 className={`border-b-2 dark:border-dark-700 pb-1 font-medium text-xl`}>Popular Games</h3>
                                 <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
                                     {featured.featuredGames.map(game => <FeaturedGameCard game={game} key={game.slug}/>)}
                                 </div>
@@ -31,7 +31,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
 
                         <div className={`w-5/6 xl:w-11/12 mt-4 xl:mt-0 mx-auto text-center`}>
                             <div className={`xl:w-11/12 ml-auto`}>
-                                <h3 className={`border-b-2 pb-1 font-medium text-xl`}>New Games</h3>
+                                <h3 className={`border-b-2 dark:border-dark-700 pb-1 font-medium text-xl`}>New Games</h3>
                                 <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
                                     {featured.featuredGames.map(game => <FeaturedGameCard game={game} key={game.slug}/>)}
                                 </div>
@@ -40,7 +40,7 @@ export default function IndexPage({ featured }: { featured: Featured }) {
                     </div>
                 </section>
                 <section id={"about"} className={`w-5/6 mx-auto text-center mt-4 mb-10`}>
-                    <h1 className={`border-b-2 pb-1 text-3xl`}>Join the community</h1>
+                    <h1 className={`border-b-2 dark:border-dark-700 pb-1 text-3xl`}>Join the community</h1>
                     <h3 className={`text-xl my-2`}>
                         Are you a creator of gaming related content? Consider joining the Diluv community and share your project today! We
                         currently
