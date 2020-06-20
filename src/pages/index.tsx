@@ -2,13 +2,14 @@ import React from "react";
 import Layout from "../components/Layout";
 import { get } from "../utils/request";
 import { API_URL } from "../utils/api";
-import { Featured } from "../interfaces";
+import { Featured, HasTheme } from "../interfaces";
 import { NextPageContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
+import { getTheme } from "../utils/theme";
 
-export default function IndexPage({ featured }: { featured: Featured }) {
+export default function IndexPage({ theme, featured }: { featured: Featured } & HasTheme) {
     return (
-        <Layout title="Diluv">
+        <Layout title="Diluv" theme={theme}>
             <>
                 <section id={"intro"} className={`w-5/6 mx-auto text-center my-4`}>
                     <h1 className={`text-3xl`}>Welcome to Diluv</h1>
@@ -59,7 +60,8 @@ export default function IndexPage({ featured }: { featured: Featured }) {
 
 export async function getServerSideProps(context: NextPageContext) {
     let featured = await get(`${API_URL}/v1/site`);
+    let theme = getTheme(context);
     return {
-        props: { featured: featured.data } // will be passed to the page component as props
+        props: { theme, featured: featured.data } // will be passed to the page component as props
     };
 }

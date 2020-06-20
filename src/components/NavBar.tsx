@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLink, DropDownSpacer } from "./Dropdown";
-import useDarkMode from "use-dark-mode";
+import { Theme } from "../utils/context";
 
 function NavBar() {
 
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
-    const darkMode = useDarkMode(false, { classNameDark: `mode-dark`, classNameLight: `mode-light` });
+    const theme = useContext(Theme);
     return <>
         <header className="text-gray-400 bg-diluv-900 font-hero">
             <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row justify-between md:justify-start items-center">
@@ -56,7 +56,7 @@ function NavBar() {
                                 Register
                             </DropDownLink>
                             <DropDownSpacer/>
-                            <DropDownAction action={() => darkMode.toggle()}>
+                            <DropDownAction action={() => theme.toggleTheme()}>
                                 Toggle Theme
                             </DropDownAction>
                         </DropDown>
@@ -71,7 +71,7 @@ function NavBar() {
                                 <Link href={`/login`}>
                                     <a className={`hover:text-white`}>Register</a>
                                 </Link>
-                                <span className={`hover:text-white cursor-pointer select-none`} onClick={() => darkMode.toggle()}>
+                                <span className={`hover:text-white cursor-pointer select-none`} onClick={() => theme.toggleTheme()}>
                   Change Theme
                 </span>
                             </div>

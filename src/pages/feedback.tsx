@@ -1,9 +1,14 @@
 import Layout from "../components/Layout";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import { NextPageContext } from "next";
+import { get } from "../utils/request";
+import { API_URL } from "../utils/api";
+import { getTheme } from "../utils/theme";
+import { HasTheme } from "../interfaces";
 
-export default function Feedback() {
-    return <Layout title={"Feedback"}>
+export default function Feedback({ theme }: HasTheme) {
+    return <Layout title={"Feedback"} theme={theme}>
         <div className={`w-1/2 mx-auto my-4`}>
 
 
@@ -20,4 +25,11 @@ When using GitHub please use one of the provided issue templates. These template
 Discord is a messaging service for online communities. When posting to the Diluv discord community please be respectful of our community rules and guidelines. Do **NOT** use Discord to directly message team members or random community members about your feedback unless you have permission to do so. Discord is a public forum and the messages you send will be visible to everyone. Please do not post personal information or information about your Diluv account on Discord.`}/>
         </div>
     </Layout>;
+}
+
+export async function getServerSideProps(context: NextPageContext) {
+    let theme = getTheme(context);
+    return {
+        props: { theme } // will be passed to the page component as props
+    };
 }

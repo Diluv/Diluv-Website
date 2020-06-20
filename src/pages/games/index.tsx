@@ -4,10 +4,10 @@ import Search from "components/icons/Search";
 import { NextPageContext } from "next";
 import { get } from "../../utils/request";
 import { API_URL } from "../../utils/api";
-import { Game, Sort } from "../../interfaces";
+import { Game, HasTheme, Sort } from "../../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { reactSelectStyle } from "../../utils/theme";
+import { getTheme, reactSelectStyle } from "../../utils/theme";
 import Select from "react-select";
 import { onBlur, onFocus } from "../../utils/util";
 import { DebounceInput } from "react-debounce-input";
@@ -28,7 +28,7 @@ function buildURL(search: string, sort: string) {
     return ``;
 }
 
-export default function GameIndex({ games, sorts, currentSort, search }: { games: Game[], sorts: Sort[], currentSort: string, search: string }) {
+export default function GameIndex({ theme, games, sorts, currentSort, search }: { games: Game[], sorts: Sort[], currentSort: string, search: string } & HasTheme) {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     let [displaySearch] = useState(search);
@@ -44,7 +44,7 @@ export default function GameIndex({ games, sorts, currentSort, search }: { games
     }
 
     return (
-        <Layout title="Games">
+        <Layout title="Games" theme={theme}>
             <>
                 <div id={"header"} className={`text-center my-4 w-full lg:w-5/6 mx-auto`}>
                     <h1 className={`text-3xl`}>Games</h1>
@@ -114,6 +114,7 @@ export default function GameIndex({ games, sorts, currentSort, search }: { games
 }
 
 export async function getServerSideProps(context: NextPageContext) {
+    let theme = getTheme(context);
     let { sort = "", search = "" } = context.query;
 
     let params = new URLSearchParams();
@@ -126,6 +127,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     let games = await get(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`);
     return {
-        props: { games: games.data.games, sorts: games.data.sort, currentSort: sort.length ? sort : `name`, search: search ?? `` } // will be passed to the page component as props
+        props: { theme, games: games.data.games, sorts: games.data.sort, currentSort: sort.length ? sort : `name`, search: search ?? `` } // will be passed to the page component as props
     };
 }
+

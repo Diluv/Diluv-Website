@@ -3,18 +3,19 @@ import Layout from "components/Layout";
 import { NextPageContext } from "next";
 import { get } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
-import { Project, ProjectFile } from "../../../../../interfaces";
+import { HasTheme, Project, ProjectFile } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import moment from "moment";
 import filesize from "filesize";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 import SimpleBar from "simplebar-react";
+import { getTheme } from "../../../../../utils/theme";
 
-export default function Files({ project, files }: { project: Project, files: ProjectFile[] }) {
+export default function Files({ project, files, theme }: { project: Project, files: ProjectFile[] } & HasTheme) {
 
     return (
-        <Layout title={project.name}>
+        <Layout title={project.name} theme={theme}>
             <>
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
                     <ProjectInfo project={project} pageType={"files"}/>
@@ -61,7 +62,7 @@ export default function Files({ project, files }: { project: Project, files: Pro
                                                             {value.gameVersions.map(value1 => <p key={value1.version}>{value1.version}</p>)}
                                                         </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
                                                         <div className={`inline-flex`}>
-                                                            <span className={`ml-2 py-1 px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-700`}>{`+ ${value.gameVersions.length} more`}</span>
+                                                            <span className={`ml-2 py-1 px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-700 cursor-default`}>{`+ ${value.gameVersions.length} more`}</span>
                                                         </div>
                                                     </Tippy>
 
@@ -85,10 +86,11 @@ export default function Files({ project, files }: { project: Project, files: Pro
 
 
 export async function getServerSideProps(context: NextPageContext) {
+    let theme = getTheme(context);
     let { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files`);
     return {
-        props: { project: data.data.project, files: data.data.files } // will be passed to the page component as props
+        props: { theme, project: data.data.project, files: data.data.files } // will be passed to the page component as props
     };
 }

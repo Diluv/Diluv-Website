@@ -55,7 +55,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
 
             <div className={`sm:ml-2 my-auto text-center mr-2 area-downloads`}>
                 <div className={`flex cursor-default`}>
-                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 text-white opacity-90 p-1 text-center`}>
+                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
                         <p>
                             {project.downloads} Downloads
                         </p>
@@ -75,7 +75,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
             <div className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2 area-created`}>
 
                 <div className={`flex cursor-default`}>
-                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 text-white opacity-90 p-1 text-center`}>
+                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
                         <p>
                             Created On
                         </p>
@@ -94,7 +94,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
             <div className={`sm:ml-2 my-auto text-center mr-2 area-updated`}>
 
                 <div className={`flex cursor-default`}>
-                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 text-white opacity-90 p-1 text-center`}>
+                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
                         <p>
                             Updated On
                         </p>

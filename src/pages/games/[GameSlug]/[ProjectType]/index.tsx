@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
+import { HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
 import { get } from "../../../../utils/request";
 
 import { API_URL } from "../../../../utils/api";
@@ -9,7 +9,7 @@ import ProjectCard from "../../../../components/project/ProjectCard";
 import Search from "../../../../components/icons/Search";
 import { onBlur, onFocus } from "../../../../utils/util";
 import Select, { ActionMeta } from "react-select";
-import { reactSelectStyle } from "../../../../utils/theme";
+import { getTheme, reactSelectStyle } from "../../../../utils/theme";
 import { useRouter } from "next/router";
 // @ts-ignore
 import ReactPaginate from "@jaredlll08/react-paginate";
@@ -59,7 +59,7 @@ interface Props {
     currentTags: string[]
 }
 
-export default function Projects({ search, gameSlug, projectData, types, projects, sorts, currentSort, page, version, currentTags }: Props) {
+export default function Projects({ theme, search, gameSlug, projectData, types, projects, sorts, currentSort, page, version, currentTags }: Props & HasTheme) {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     let [displaySearch] = useState(search);
@@ -100,7 +100,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
     }
 
 
-    return <Layout title={projectData.name}>
+    return <Layout title={projectData.name} theme={theme}>
         <div className={`container mx-auto`}>
             <div className={`w-11/12 mx-auto`}>
                 <div id={"header"} className={`mb-4 mt-2`}>
@@ -277,6 +277,7 @@ export default function Projects({ search, gameSlug, projectData, types, project
 }
 
 export async function getServerSideProps(context: NextPageContext) {
+    let theme = getTheme(context);
     let { GameSlug, ProjectType, page = 1, sort = "", version = "", search = "", tags } = context.query;
     page = Number(page);
 
@@ -311,6 +312,7 @@ export async function getServerSideProps(context: NextPageContext) {
     page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
     return {
         props: {
+            theme,
             search: search ?? ``,
             gameSlug: GameSlug,
             projectData: data.data.currentType,

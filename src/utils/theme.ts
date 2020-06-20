@@ -1,38 +1,22 @@
 import { CSSProperties } from "react";
+import { NextPageContext } from "next";
+import { Theme } from "../interfaces";
+import { parse } from "cookie";
 
-export function getTheme(): "light" | "dark" {
-    if (typeof localStorage === "undefined") {
-        return "light";
+export function getTheme(context: NextPageContext): Theme {
+    let theme = "light";
+    if (context.req) {
+        if (context.req.headers.cookie) {
+            if (parse(context.req.headers.cookie)["theme"]) {
+                theme = parse(context.req.headers.cookie)["theme"];
+                if (theme !== "light" && theme !== "dark") {
+                    theme = "light";
+                }
+            }
+        }
     }
-    let item = localStorage.getItem("theme");
-    if (!item) {
-        item = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        localStorage.setItem("theme", item);
-    }
-
-    return item === "dark" ? "dark" : "light";
+    return { theme };
 }
-
-export function setTheme(theme: string) {
-    if (typeof localStorage === "undefined") {
-        return;
-    }
-    localStorage.setItem("theme", theme);
-}
-
-export const toggleTheme = (): "light" | "dark" => {
-    if (typeof localStorage === "undefined") {
-        return "light";
-    }
-    let item = localStorage.getItem("theme");
-    if (!item) {
-        item = "light";
-    }
-    const inverse = item === "light" ? "dark" : "light";
-    localStorage.setItem("theme", inverse);
-    return inverse;
-};
-
 
 export const reactSelectStyle = ({
     control: (provided: CSSProperties, state: any) => ({

@@ -2,6 +2,10 @@ export type Data<T> = {
     data: T
 };
 
+export interface HasTheme {
+    theme: Theme;
+}
+
 export interface Version {
     version: string
     type: string
@@ -120,17 +124,20 @@ export type ProjectFiles = {
     updatedAt: number,
 };
 
-export type Featured = {
+export interface Featured {
     featuredGames: Game[]
     projectCount: number
     contributorCount: number
     projectTypeCount: number
     gameCount: number
-};
+}
 
 
 export interface SelectData {
     value: string,
     label: string,
+}
 
+export interface Theme {
+    theme: string
 }
