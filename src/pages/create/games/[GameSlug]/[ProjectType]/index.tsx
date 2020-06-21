@@ -14,8 +14,7 @@ export default function Index({ theme, GameSlug, ProjectType }: { GameSlug: stri
     let [logo, setLogo] = useState("");
     let [logoErrors, setLogoErrors] = useState<string[]>([]);
 
-    let [editing, setEditing] = useState(true);
-
+    let [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
     return <Layout title={`Create ${ProjectType}`} theme={theme}>
         <div className={`w-5/6 mx-auto my-4`}>
             <div className={`my-4`}>
@@ -87,19 +86,37 @@ export default function Index({ theme, GameSlug, ProjectType }: { GameSlug: stri
                 </div>
                 <div className={`mt-4`} style={{ gridArea: "description" }}>
                     <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info`}>
-                        <div onClick={() => setEditing(true)} className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2  ${editing ? `border-diluv-500 hover:border-diluv-500` : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}`}>
-                            <span className={`select-none ${editing ? `text-diluv-600` : ``}`}>Edit Description</span>
+                        <div onClick={() => setViewMode({
+                            showEdit: true,
+                            showPreview: false
+                        })} className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${viewMode.showEdit && !viewMode.showPreview ? `border-diluv-500 hover:border-diluv-500` : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}`}>
+                            <span className={`select-none ${viewMode.showEdit && !viewMode.showPreview ? `text-diluv-600` : ``}`}>Edit Description</span>
                         </div>
-                        <div onClick={() => setEditing(false)} className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${!editing ? `border-diluv-500 hover:border-diluv-500` : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}`}>
-                            <span className={`select-none ${!editing ? `text-diluv-600` : ``}`}>Preview Description</span>
+                        <div onClick={() => setViewMode({
+                            showEdit: false,
+                            showPreview: true
+                        })} className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${!viewMode.showEdit && viewMode.showPreview ? `border-diluv-500 hover:border-diluv-500` : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}`}>
+                            <span className={`select-none ${!viewMode.showEdit && viewMode.showPreview ? `text-diluv-600` : ``}`}>Preview Description</span>
+                        </div>
+                        <div onClick={() => setViewMode({
+                            showEdit: true,
+                            showPreview: true
+                        })} className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${viewMode.showEdit && viewMode.showPreview ? `border-diluv-500 hover:border-diluv-500` : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}`}>
+                            <span className={`select-none ${viewMode.showEdit && viewMode.showPreview ? `text-diluv-600` : ``}`}>Split View</span>
                         </div>
 
                     </div>
-                    {editing ? <textarea className={`outline-none resize-none border w-full h-full p-1`} onChange={(e) => {
-                        setContent(e.target.value);
-                    }} defaultValue={content}/> : <div className={`p-2 outline-none resize-none border w-full h-full bg-white`}>
-                        <Markdown markdown={content}/>
-                    </div>}
+                    <div className={`${viewMode.showEdit && viewMode.showPreview ? `flex` : ``} h-full`}>
+                        {viewMode.showEdit &&
+                        <textarea className={`outline-none resize-none border ${viewMode.showEdit && viewMode.showPreview ? `w-1/2` : `w-full`} h-full p-1`} onChange={(e) => {
+                            setContent(e.target.value);
+                        }} defaultValue={content}/>}
+
+                        {viewMode.showPreview &&
+                        <div className={`p-2 outline-none resize-none border ${viewMode.showEdit && viewMode.showPreview ? `w-1/2` : `w-full`} h-full bg-white`}>
+                            <Markdown markdown={content}/>
+                        </div>}
+                    </div>
                 </div>
                 <div className={``} style={{ gridArea: "create" }}>
                     <button className={`btn-diluv w-auto`}>
