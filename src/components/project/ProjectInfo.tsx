@@ -42,7 +42,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
                 {`Updated at: ${moment.utc(project.updatedAt).format("MM/DD/YYYY")}`}
             </p>
             <p className={`area-downloads`}>
-                {`${project.id} Downloads`}
+                {`${project.downloads} Downloads`}
             </p>
             <div className={`grid my-auto gap-2 area-tags grid-cols-tags`}>
                 {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>)}
