@@ -6,6 +6,11 @@ export interface HasTheme {
     theme: Theme;
 }
 
+export interface HasMarkdown {
+    title: string;
+    pageContents: string;
+}
+
 export interface Version {
     version: string
     type: string
