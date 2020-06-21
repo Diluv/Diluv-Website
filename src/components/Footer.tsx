@@ -37,13 +37,23 @@ function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/privacy"}>
+                                <Link href={"/docs/privacy"}>
                                     <a className="text-gray-500 hover:text-white">Privacy</a>
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/terms"}>
+                                <Link href={"/docs/terms"}>
                                     <a className="text-gray-500 hover:text-white">Terms Of Service</a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={"/docs/conduct"}>
+                                    <a className="text-gray-500 hover:text-white">Code of Conduct</a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={"/docs/disclosure"}>
+                                    <a className="text-gray-500 hover:text-white">Responsible Disclosure</a>
                                 </Link>
                             </li>
                         </nav>
@@ -55,7 +65,12 @@ function Footer() {
                                 <a className="text-gray-500 hover:text-white" href={"https://twitter.com/DiluvSupport"}>Twitter</a>
                             </li>
                             <li>
-                                <a className="text-gray-500 hover:text-white" href={"https://www.reddit.com/r/diluv/"}>Reddit</a>
+                                <a className="text-gray-500 hover:text-white" href={"https://discord.gg/EwywBH8"}>Discord</a>
+                            </li>
+                            <li>
+                                <Link href={"/docs/feedback"}>
+                                    <a className="text-gray-500 hover:text-white">Feedback</a>
+                                </Link>
                             </li>
                         </nav>
                     </div>
