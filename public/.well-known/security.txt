@@ -1,0 +1,4 @@
+Contact: security@diluv.com
+Preferred-Languages: en
+Canonical: https://diluv.com/.well-known/security.txt
+Policy: https://diluv.com/docs/disclosure
