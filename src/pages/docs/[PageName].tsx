@@ -31,7 +31,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     if (title) {
         let theme = getTheme(context);
-        let pageContents = readAsString(`src/docs/${pageFile}.md`);
+        let pageContents = readAsString(`public/docs/${pageFile}.md`);
         return { props: { theme, title, pageContents} };
     }
 
