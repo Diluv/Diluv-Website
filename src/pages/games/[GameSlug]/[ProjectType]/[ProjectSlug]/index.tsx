@@ -4,9 +4,9 @@ import { NextPageContext } from "next";
 import { get } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { HasTheme, Project } from "../../../../../interfaces";
-import ReactMarkdown from "react-markdown";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import { getTheme } from "../../../../../utils/theme";
+import Markdown from "../../../../../components/Markdown";
 
 export default function ProjectIndex({ theme, project }: { project: Project } & HasTheme) {
 
@@ -17,7 +17,7 @@ export default function ProjectIndex({ theme, project }: { project: Project } & 
                     <ProjectInfo project={project} pageType={"description"}/>
                     <div id={"pageContent"}>
                         <div className={`py-4 px-2`}>
-                            <ReactMarkdown source={`Bookshelf is a library mod which adds a lot of reusable code. The goal of bookshelf is to make writing complex mods much easier, while also expanding the capabilities of various systems within Minecraft and Forge. Bookshelf is used by many large mods and makes them easier to update and maintain. 
+                            <Markdown markdown={`Bookshelf is a library mod which adds a lot of reusable code. The goal of bookshelf is to make writing complex mods much easier, while also expanding the capabilities of various systems within Minecraft and Forge. Bookshelf is used by many large mods and makes them easier to update and maintain. 
 
 **Notice:** Alpha and Beta releases may contain breaking changes or world corrupting bugs. Please stick to Release versions unless you know what you're doing or working with someone else who does.
 
