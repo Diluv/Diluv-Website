@@ -121,9 +121,11 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
                             })}
                         </div>
                         <div className={`p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
-                            <span className={`mx-auto text-center`}>
-                                Create Project
-                            </span>
+                            <Link href={`/create/games/[GameSlug]/[ProjectType]/`} as={`/create/games/${gameSlug}/${projectData.slug}/`}>
+                                <a className={`mx-auto text-center`}>
+                                    Create Project
+                                </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
