@@ -289,6 +289,10 @@
   background-color:white; 
 }
 
+.markdown a {
+  @apply underline;
+}
+
 .markdown p {
   @apply mb-4;
 }
