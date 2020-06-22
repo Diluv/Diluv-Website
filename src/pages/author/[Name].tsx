@@ -6,12 +6,12 @@ import { getTheme } from "../../utils/theme";
 import { get } from "../../utils/request";
 import { API_URL } from "../../utils/api";
 
-export default function ProjectIndex({ theme, author }: {author: Author} & HasTheme) {
+export default function ProjectIndex({ theme, author }: { author: Author } & HasTheme) {
     console.log(author);
     return (
         <Layout title={author.displayName} theme={theme}>
             <div>
-
+                <img src={author.avatarURL}/>
             </div>
         </Layout>
     );
