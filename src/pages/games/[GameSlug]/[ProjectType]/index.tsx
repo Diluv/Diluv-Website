@@ -108,7 +108,7 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
                         <div className={`flex flex-wrap`}>
                             {types.map(value => {
                                 if (value.slug === projectData.slug) {
-                                    return <h1 key={value.slug} className={`text-2xl mr-3 underline`}>{value.name}</h1>;
+                                    return <h1 key={value.slug} className={`text-2xl mr-3`}>{value.name}</h1>;
                                 } else {
                                     return <Link key={value.slug} href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${gameSlug}/${value.slug}`}>
 
