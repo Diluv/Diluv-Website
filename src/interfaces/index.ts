@@ -146,3 +146,11 @@ export interface SelectData {
 export interface Theme {
     theme: string
 }
+
+export interface Author {
+    userId: number
+    username: string
+    displayName: string
+    avatarURL: string
+    createdAt: number
+}
