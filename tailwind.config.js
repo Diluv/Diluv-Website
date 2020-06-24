@@ -93,7 +93,9 @@ module.exports = {
             },
             height: {
                 "screen": "100vh",
-                "28": "7rem"
+                "28": "7rem",
+                "80": "20rem",
+                "112": "28rem"
             },
             width: {
                 "28": "7rem"
@@ -228,14 +230,19 @@ module.exports = {
         opacity: ["responsive", "hover", "focus", "disabled"],
         cursor: ["responsive", "disabled"],
         backgroundColor: ["responsive", "hover", "focus", "disabled", "odd", "even", "dark", "dark-focus", "dark-hover", "dark-group-hover", "dark-even", "dark-odd"],
-        textColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-active","dark-focus", "dark-placeholder"],
+        textColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-active", "dark-focus", "dark-placeholder"],
         transitionProperty: ["responsive", "hover", "focus"],
         borderWidth: ["responsive", "hover", "focus"],
         borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active", "dark-focus"],
         textIndent: ['responsive']
-    }, plugins: [require("tailwindcss-dark-mode")(), require('tailwindcss-text-indent')(), plugin(function({addBase, config}) {
+    }, plugins: [require("tailwindcss-dark-mode")(), require('tailwindcss-text-indent')(), plugin(function ({addBase, config}) {
         addBase({
-            "h1": {fontSize: config("theme.fontSize.4xl")}, "h2": {fontSize: config("theme.fontSize.2xl")}, "h3": {fontSize: config("theme.fontSize.lg")}, "h4": {fontSize: config("theme.fontSize.base")}, "h5": {fontSize: config("theme.fontSize.sm")}, "h6": {fontSize: config("theme.fontSize.xs")}
+            "h1": {fontSize: config("theme.fontSize.4xl")},
+            "h2": {fontSize: config("theme.fontSize.2xl")},
+            "h3": {fontSize: config("theme.fontSize.lg")},
+            "h4": {fontSize: config("theme.fontSize.base")},
+            "h5": {fontSize: config("theme.fontSize.sm")},
+            "h6": {fontSize: config("theme.fontSize.xs")}
         });
     })]
 };

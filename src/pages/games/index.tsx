@@ -51,7 +51,7 @@ export default function GameIndex({ theme, games, sorts, currentSort, search }: 
                 </div>
 
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
-                    <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium`} id={`filter options`}>
+                    <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium row-gap-2 sm:row-gap-0`} id={`filter options`}>
                         <div className={`flex flex-grow area-search`}>
                             <label htmlFor={`searchGames`} className={`flex-none my-auto`}>
                                 Search
@@ -59,11 +59,11 @@ export default function GameIndex({ theme, games, sorts, currentSort, search }: 
                             <div className={"relative my-auto flex-grow ml-1"}>
                                 <Search className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`} width={"1rem"} height={"1rem"}/>
                                 <DebounceInput
-                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 flex-grow indent-sm text-black outline-none"}
+                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 flex-grow indent-sm text-black outline-none w-full sm:w-auto"}
                                     minLength={3}
                                     debounceTimeout={500}
                                     value={displaySearch}
-                                    placeholder={"Search projects"} id={"searchProjects"}
+                                    placeholder={"Search games"} id={"searchProjects"}
                                     onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     let newUrl = buildURL(event.target.value, currentSort);
                                     router.push(`/games`, `/games${newUrl}`, { shallow: false });

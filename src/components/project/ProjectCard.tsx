@@ -18,6 +18,33 @@ interface Props {
     tagFilter: SelectData[]
 }
 
+
+function getDownloadsTip(downloads: number) {
+    return <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
+        <p>
+            {downloads} Downloads
+        </p>
+    </div>;
+}
+
+function getCreatedTip(createdAt: number) {
+    return <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
+        <p>
+            Created On
+        </p>
+        <p>{moment(createdAt).format("MMMM Do YYYY")}</p>
+    </div>;
+}
+
+function getUpdatedTip(updatedAt: number) {
+    return <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
+        <p>
+            Updated On
+        </p>
+        <p>{moment(updatedAt).format("MMMM Do YYYY")}</p>
+    </div>;
+}
+
 function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props) {
     let projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
     let projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
@@ -55,11 +82,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
 
             <div className={`sm:ml-2 my-auto text-center mr-2 area-downloads`}>
                 <div className={`flex cursor-default`}>
-                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                        <p>
-                            {project.downloads} Downloads
-                        </p>
-                    </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
+                    <Tippy content={getDownloadsTip(project.downloads)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
 
                         <div className={`inline-flex`}>
                             <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
@@ -75,12 +98,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
             <div className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2 area-created`}>
 
                 <div className={`flex cursor-default`}>
-                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                        <p>
-                            Created On
-                        </p>
-                        <p>{moment(project.createdAt).format("MMMM Do YYYY")}</p>
-                    </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
+                    <Tippy content={getCreatedTip(project.createdAt)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
                         <div className={`inline-flex`}>
                             <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                             <span className={``}>
@@ -94,12 +112,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
             <div className={`sm:ml-2 my-auto text-center mr-2 area-updated`}>
 
                 <div className={`flex cursor-default`}>
-                    <Tippy content={<div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                        <p>
-                            Updated On
-                        </p>
-                        <p>{moment(project.updatedAt).format("MMMM Do YYYY")}</p>
-                    </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
+                    <Tippy content={getUpdatedTip(project.updatedAt)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
                         <div className={`inline-flex`}>
                             <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                             <span className={``}>

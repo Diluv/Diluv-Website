@@ -10,11 +10,11 @@
 /* purgecss end ignore */
 
 .btn-diluv {
-  @apply block w-full bg-diluv-500 text-white p-2 transition-colors duration-200 ease-in;
+  @apply block w-full bg-diluv-500 text-white p-2;
 }
 
 .btn-diluv:hover {
-  @apply bg-diluv-700;
+  @apply bg-diluv-600;
 }
 
 .btn-diluv:disabled {
@@ -189,11 +189,29 @@
     grid-template-rows: 1.5rem 2.5rem;
     grid-template-columns: 4rem auto;
   }
+
+  .createFormLarge {
+    grid-template-areas: "image name" "image space" "image summary" "image ." "description description" ". ." "create .";
+    grid-template-columns: 16rem auto;
+    grid-template-rows: 2rem 0.5rem 2rem 11.5rem minmax(28rem, auto) 0.5rem 2rem;
+  }
+
+  .createFormMedium {
+    grid-template-areas: "image name" "image space" "image summary" "image ." "description description" ". ." "create .";
+    grid-template-columns: 16rem auto;
+    grid-template-rows: 3.5rem 0.5rem 3.5rem 8.5rem minmax(20rem, auto) 0.5rem 2rem;
+  }
+
+  .createFormSmall {
+    grid-template-areas: "image" "name" "summary" "description" "create";
+    grid-template-columns: 1fr;
+    grid-template-rows: 16rem 1fr 1fr minmax(28rem, auto) 2rem;
+  }
 }
 
 .simplebar-scrollbar::before {
   background-color: #3DA6E4 !important;
-  border:           1px solid #256489 !important;
+  border: 1px solid #256489 !important;
 }
 
 /* Admonitions CSS */
@@ -280,13 +298,13 @@
 }
 
 /* Remark Spoiler */
-.spoiler { 
-  color: black; 
-  background-color:black;
+.spoiler {
+  color: black;
+  background-color: black;
 }
 
-.spoiler:hover{
-  background-color:white; 
+.spoiler:hover {
+  background-color: white;
 }
 
 .markdown a {
