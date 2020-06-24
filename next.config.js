@@ -17,21 +17,21 @@ const nextConfig = {
 };
 
 module.exports = withPlugins([
-            withOffline({
-                workboxOpts: {
-                    swDest: 'static/service-worker.js',
-                },
-                experimental: {
-                    async rewrites() {
-                        return [
-                            {
-                                source: '/service-worker.js',
-                                destination: '/_next/static/service-worker.js',
-                            },
-                        ]
-                    },
-                },
-            }),
+            // withOffline({
+            //     workboxOpts: {
+            //         swDest: 'static/service-worker.js',
+            //     },
+            //     experimental: {
+            //         async rewrites() {
+            //             return [
+            //                 {
+            //                     source: '/service-worker.js',
+            //                     destination: '/_next/static/service-worker.js',
+            //                 },
+            //             ]
+            //         },
+            //     },
+            // }),
             withNextEnv,
             withImages,
         ],
