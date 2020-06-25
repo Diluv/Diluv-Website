@@ -1,6 +1,5 @@
 const withPlugins = require('next-compose-plugins');
 const withImages = require('next-images');
-const withOffline = require('next-offline');
 
 const nextEnv = require('next-env');
 
@@ -17,21 +16,6 @@ const nextConfig = {
 };
 
 module.exports = withPlugins([
-            // withOffline({
-            //     workboxOpts: {
-            //         swDest: 'static/service-worker.js',
-            //     },
-            //     experimental: {
-            //         async rewrites() {
-            //             return [
-            //                 {
-            //                     source: '/service-worker.js',
-            //                     destination: '/_next/static/service-worker.js',
-            //                 },
-            //             ]
-            //         },
-            //     },
-            // }),
             withNextEnv,
             withImages,
         ],

@@ -26,7 +26,6 @@
     "next-compose-plugins": "2.2.0",
     "next-env": "1.1.1",
     "next-images": "1.4.0",
-    "next-offline": "5.0.2",
     "next-seo": "^4.5.0",
     "nookies": "2.3.1",
     "oidc-react": "1.0.0-alpha.5",
