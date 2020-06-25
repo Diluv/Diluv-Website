@@ -49,6 +49,8 @@
     "swr": "0.2.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
     "@fullhuman/postcss-purgecss": "2.2.0",
     "@types/cookie": "^0.4.0",
     "@types/jwt-decode": "2.2.1",
