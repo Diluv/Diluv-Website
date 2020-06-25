@@ -8,11 +8,6 @@ import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 import { getTheme } from "../utils/theme";
 
 export default function IndexPage({ theme, featured }: { featured: Featured } & HasTheme) {
-    console.log(featured);
-    useEffect(() => {
-        console.log("effect");
-        console.log(featured);
-    }, [])
     return (
         <Layout title="Diluv" theme={theme}>
             <>
