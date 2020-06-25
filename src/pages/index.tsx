@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout";
 import { get } from "../utils/request";
 import { API_URL } from "../utils/api";
@@ -9,6 +9,10 @@ import { getTheme } from "../utils/theme";
 
 export default function IndexPage({ theme, featured }: { featured: Featured } & HasTheme) {
     console.log(featured);
+    useEffect(() => {
+        console.log("effect");
+        console.log(featured);
+    }, [])
     return (
         <Layout title="Diluv" theme={theme}>
             <>
