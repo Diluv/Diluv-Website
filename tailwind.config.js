@@ -126,7 +126,8 @@ module.exports = {
                     900: "hsl(0,0%,10%)"
                 },
                 "tag": {
-                    default: "#DEEBFF"
+                    default: "#DEEBFF",
+                    dark: "#414a5a"
                 },
                 "diluv": {
                     100: "#ECF6FC",

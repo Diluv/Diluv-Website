@@ -141,7 +141,7 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
                                     className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchProjects" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
                                     width={"1rem"} height={"1rem"}/>
                                 <DebounceInput
-                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow indent-sm text-black"}
+                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow indent-sm dark:border-dark-700 dark-hover:border-dark-600 dark-focus:border-dark-600 dark:bg-dark-800"}
                                     minLength={3}
                                     debounceTimeout={500}
                                     placeholder={"Search projects"} id={"searchProjects"}
