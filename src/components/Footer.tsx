@@ -37,22 +37,22 @@ function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/docs/privacy"}>
+                                <Link href={"/docs/[PageName]"} as={"/docs/privacy"}>
                                     <a className="text-gray-500 hover:text-white">Privacy</a>
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/docs/terms"}>
+                                <Link href={"/docs/[PageName]"} as={"/docs/terms"}>
                                     <a className="text-gray-500 hover:text-white">Terms Of Service</a>
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/docs/conduct"}>
+                                <Link href={"/docs/[PageName]"} as={"/docs/conduct"}>
                                     <a className="text-gray-500 hover:text-white">Code of Conduct</a>
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/docs/disclosure"}>
+                                <Link href={"/docs/[PageName]"} as={"/docs/disclosure"}>
                                     <a className="text-gray-500 hover:text-white">Responsible Disclosure</a>
                                 </Link>
                             </li>
@@ -68,7 +68,7 @@ function Footer() {
                                 <a className="text-gray-500 hover:text-white" href={"https://discord.gg/EwywBH8"}>Discord</a>
                             </li>
                             <li>
-                                <Link href={"/docs/feedback"}>
+                                <Link href={"/docs/[PageName]"} as={"/docs/feedback"}>
                                     <a className="text-gray-500 hover:text-white">Feedback</a>
                                 </Link>
                             </li>

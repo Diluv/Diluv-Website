@@ -34,15 +34,17 @@ function NavBar() {
 
                     </button>
                 </div>
-                <div className={`w-full md:w-auto md:flex-grow flex flex-col md:flex-row justify-between md:inline-flex ${showingMenu ? `block` : `hidden`}`}>
-                    <nav className="md:mr-auto md:ml-4 md:py-auto md:pl-4 md:border-l md:border-gray-700 flex flex-col md:flex-row flex-wrap items-center text-base text-center justify-center">
+                <div
+                    className={`w-full md:w-auto md:flex-grow flex flex-col md:flex-row justify-between md:inline-flex ${showingMenu ? `block` : `hidden`}`}>
+                    <nav
+                        className="md:mr-auto md:ml-4 md:py-auto md:pl-4 md:border-l md:border-gray-700 flex flex-col md:flex-row flex-wrap items-center text-base text-center justify-center">
                         <Link href={"/"}>
                             <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Home</a>
                         </Link>
                         <Link href={"/games"}>
                             <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Games</a>
                         </Link>
-                        <Link href={"/docs/feedback"}>
+                        <Link href={"/docs/[PageName]"} as={"/docs/feedback"}>
                             <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Feedback</a>
                         </Link>
 
