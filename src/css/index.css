@@ -125,6 +125,58 @@
   grid-area: avatar;
 }
 
+.mode-dark .select__control {
+  @apply bg-dark-800 !important text-dark-100 !important border-dark-700 !important;
+}
+
+.mode-dark .select__control:hover {
+  @apply border-dark-600 !important;
+}
+
+.mode-dark .select__control:focus {
+  @apply border-dark-600 !important;
+}
+
+.mode-dark .select__single-value {
+  @apply text-dark-100 !important;
+}
+
+.mode-dark .select__multi-value {
+  @apply bg-blue-900 !important text-dark-100 !important;
+}
+
+.mode-dark .select__multi-value__label {
+  @apply text-dark-100 !important;
+}
+
+.mode-dark .select__multi-value__remove:hover {
+  @apply bg-red-400 !important text-red-600 !important;
+}
+
+.mode-dark .select__indicator {
+  @apply text-dark-100 !important;
+}
+
+.mode-dark .select__indicator:hover {
+  @apply text-dark-050 !important;
+}
+
+.mode-dark .select__option {
+  @apply bg-dark-800 !important text-dark-100 !important
+}
+
+.mode-dark .select__menu {
+  @apply bg-dark-800 !important
+}
+
+.mode-dark .select__option--is-selected {
+  @apply bg-blue-900 !important
+}
+
+.mode-dark .select__option--is-focused {
+  @apply bg-blue-700 !important
+}
+
 @responsive {
   .projectCardLarge {
     grid-template-areas:

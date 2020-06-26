@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Layout from "../components/Layout";
 import { get } from "../utils/request";
 import { API_URL } from "../utils/api";
