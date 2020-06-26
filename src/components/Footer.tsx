@@ -19,11 +19,6 @@ function Footer() {
                         <h2 className="font-medium text-white tracking-widest text-sm mb-3">PRODUCT</h2>
                         <nav className="list-none font-sans">
                             <li>
-                                <Link href={"/news"}>
-                                    <a className="text-gray-500 hover:text-white">News</a>
-                                </Link>
-                            </li>
-                            <li>
                                 <a className="text-gray-500 hover:text-white" href={"https://github.com/Diluv"}>Github</a>
                             </li>
                         </nav>
