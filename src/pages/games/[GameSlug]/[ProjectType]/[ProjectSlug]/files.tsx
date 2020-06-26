@@ -80,7 +80,7 @@ export default function Files({ project, files, theme }: { project: Project, fil
 
                                             </td>
                                             <td className={`border dark:border-dark-700 px-2 py-2`}>
-                                                {moment(value.createdAt).toNow()}
+                                                {moment(value.createdAt).fromNow()}
                                             </td>
                                             <td className={`border dark:border-dark-700 px-2 py-2`}>
                                                 <a href={value.downloadURL} className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer`} download={true}>
