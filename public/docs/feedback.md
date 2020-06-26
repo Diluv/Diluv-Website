@@ -6,7 +6,5 @@ The best way to proivde feedback is through our GitHub page. Posting an issue on
 
 When using GitHub please use one of the issue templates. These templates help us understand your feedback and streamline a lot of the feedback process. If you're unsure about something in the template please try your best to provide that information.
 
-[Image of the templates page]
-
 ## Discord
 Discord is a messaging service for online communities. When posting on our Discord community please be respectful of our community rules and guidelines. Do **NOT** use Discord to directly message team members or community members about your feedback unless you have been explicitly invited to do so. Discord is a public forum and the messages you send will be visible to everyone. Do not post personal information or information about your Diluv account on Discord.
