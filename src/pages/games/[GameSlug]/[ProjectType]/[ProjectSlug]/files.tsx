@@ -11,9 +11,9 @@ import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 import SimpleBar from "simplebar-react";
 import { getTheme } from "../../../../../utils/theme";
+import Download from "../../../../../components/icons/Download";
 
 export default function Files({ project, files, theme }: { project: Project, files: ProjectFile[] } & HasTheme) {
-
     return (
         <Layout title={project.name} theme={theme}>
             <>
@@ -22,7 +22,8 @@ export default function Files({ project, files, theme }: { project: Project, fil
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>
-                                <table className={`table-fixed w-full border dark:border-dark-700`}>
+                                <table className={`table-fixed w-full border dark:border-dark-700  cursor-default`}>
+                                    <thead>
                                     <tr className={`border bg-gray-100 dark:bg-dark-800 dark:border-dark-700`}>
                                         <th className={`border dark:border-dark-700 px-2 py-2 w-28`}>
                                             Status
@@ -39,9 +40,16 @@ export default function Files({ project, files, theme }: { project: Project, fil
                                         <th className={`border dark:border-dark-700 px-2 py-2 w-28`}>
                                             Date
                                         </th>
+                                        <th className={`border dark:border-dark-700 px-2 py-2 w-12`}>
+                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"}/>
+                                        </th>
+
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     {files.map(value => {
-                                        return <tr className={`even:bg-white odd:bg-diluv-100 dark-even:bg-black dark-odd:bg-diluv-850`} key={value.id}>
+                                        return <tr className={`odd:bg-white even:bg-diluv-100 dark-odd:bg-black dark-even:bg-dark-850`}
+                                                   key={value.id}>
                                             <td className={`border dark:border-dark-700 px-2 py-2`}>
                                                 {value.releaseType}
                                             </td>
@@ -53,16 +61,18 @@ export default function Files({ project, files, theme }: { project: Project, fil
                                             </td>
                                             <td className={`border dark:border-dark-700 px-2 py-2`}>
                                             <span>
-                                            {value.gameVersions[0].version}
+                                            {value.gameVersions.length ? value.gameVersions[0].version : "NA"}
                                             </span>
                                                 {value.gameVersions.length > 1 ?
                                                     <Tippy content={
-                                                        <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
+                                                        <div
+                                                            className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
                                                             <span>Supported versions:</span>
                                                             {value.gameVersions.map(value1 => <p key={value1.version}>{value1.version}</p>)}
                                                         </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
                                                         <div className={`inline-flex`}>
-                                                            <span className={`ml-2 py-1 px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-700 cursor-default`}>{`+ ${value.gameVersions.length} more`}</span>
+                                                            <span
+                                                                className={`ml-2 py-1 px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-700 cursor-default`}>{`+ ${value.gameVersions.length} more`}</span>
                                                         </div>
                                                     </Tippy>
 
@@ -72,8 +82,14 @@ export default function Files({ project, files, theme }: { project: Project, fil
                                             <td className={`border dark:border-dark-700 px-2 py-2`}>
                                                 {moment(value.createdAt).toNow()}
                                             </td>
+                                            <td className={`border dark:border-dark-700 px-2 py-2`}>
+                                                <a href={value.downloadURL} className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer`} download={true}>
+                                                    <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"}/>
+                                                </a>
+                                            </td>
                                         </tr>;
                                     })}
+                                    </tbody>
                                 </table>
                             </SimpleBar>
                         </div>
