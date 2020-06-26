@@ -41,7 +41,7 @@ export default function Files({ project, files, theme }: { project: Project, fil
                                         </th>
                                     </tr>
                                     {files.map(value => {
-                                        return <tr className={`even:bg-white odd:bg-diluv-100 dark-even:bg-black dark-odd:bg-diluv-900`} key={value.id}>
+                                        return <tr className={`even:bg-white odd:bg-diluv-100 dark-even:bg-black dark-odd:bg-diluv-850`} key={value.id}>
                                             <td className={`border dark:border-dark-700 px-2 py-2`}>
                                                 {value.releaseType}
                                             </td>
