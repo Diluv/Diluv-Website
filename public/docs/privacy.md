@@ -45,8 +45,8 @@ Diluv accounts are an optional service offered by Diluv. Creating an account all
 #### Service Emails
 Diluv may send users service emails. These are emails related to services we are providing such as account confirmation or support replies. Service emails are an inherent part of the Diluv Accounts service and can only be opted out of by deleting your Diluv account.
 
-#### Cookies
-Diluv web services use cookies to store user preferences and access data. This includes the theme used by the website and a JWT access token. JWT access tokens are used to verify the identity of a user without requiring a password input for every user input. The JWT contains several pieces of user information such as the username and avatar URL. //TODO please someone give me a link to all the info JWT has in it like wtf!!!!
+#### Cookies & JWT
+Diluv uses cookies to hold user preferences such as dispaly theme along with authorization data such as a JSON Web Token (JWT). The JWT allows a user to authenticate their actions for a limited period of time without prompting for their password every time. These tokens contain encoded information, including the time of generation and your account ID. These tokens are meant to be confidential between you and Diluv services and should never be shared with third parties.
 
 #### Analytics and Usage Data
 Diluv stores aggregated usage data about how the website is being used. This includes the number of visits to a specific page on the site and the number of downloads a file has received. Both of these metrics are not associated with the identity or personal information of any user. These stats are stored as aggregated data points and can not be used to obtain any data which could identify the original source.
