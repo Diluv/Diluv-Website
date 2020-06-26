@@ -53,7 +53,7 @@ export default function GameIndex({ theme, games, sorts, currentSort, search }: 
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
                     <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium row-gap-2 sm:row-gap-0`} id={`filter options`}>
                         <div className={`flex flex-grow area-search`}>
-                            <label htmlFor={`searchGames`} className={`flex-none my-auto`}>
+                            <label htmlFor={`searchGames`} className={`flex-none my-auto mr-2`}>
                                 Search
                             </label>
                             <div className={"relative my-auto flex-grow ml-1"}>
@@ -72,8 +72,8 @@ export default function GameIndex({ theme, games, sorts, currentSort, search }: 
 
                         </div>
                         <div className={`flex area-sort`}>
-                            <label htmlFor={`sortGames`} className={`flex-none ml-auto my-auto`}>
-                                Sort:
+                            <label htmlFor={`sortGames`} className={`flex-none ml-auto my-auto mr-2`}>
+                                Sort
                             </label>
                             <div className={"my-auto flex-grow ml-1"}>
                                 <Select isSearchable={true} inputId="sortGames"
@@ -84,7 +84,7 @@ export default function GameIndex({ theme, games, sorts, currentSort, search }: 
                                         styles={reactSelectStyle} onChange={(e: any) => {
                                     let newUrl = buildURL(search, e.value);
                                     router.push(`/games`, `/games${newUrl}`, { shallow: false });
-                                }}/>
+                                }} classNamePrefix={"select"}/>
                             </div>
                         </div>
                     </div>
