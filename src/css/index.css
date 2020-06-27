@@ -142,7 +142,7 @@
 }
 
 .mode-dark .select__multi-value {
-  @apply bg-blue-900 !important text-dark-100 !important;
+  @apply bg-blue-900 !important text-dark-100 !important rounded-none !important;
 }
 
 .mode-dark .select__multi-value__label {
@@ -150,7 +150,7 @@
 }
 
 .mode-dark .select__multi-value__remove:hover {
-  @apply bg-red-400 !important text-red-600 !important;
+  @apply bg-red-900 !important text-red-700 !important rounded-none !important;
 }
 
 .mode-dark .select__indicator {
@@ -166,7 +166,7 @@
 }
 
 .mode-dark .select__menu {
-  @apply bg-dark-800 !important
+  @apply bg-dark-800 !important rounded-none !important
 }
 
 .mode-dark .select__option--is-selected {
