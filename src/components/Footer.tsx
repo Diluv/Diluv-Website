@@ -57,10 +57,10 @@ function Footer() {
                         <h2 className="font-medium text-white tracking-widest text-sm mb-3">CONTACT</h2>
                         <nav className="list-none font-sans">
                             <li>
-                                <a className="text-gray-500 hover:text-white" href={"https://twitter.com/DiluvSupport"}>Twitter</a>
+                                <a className="text-gray-500 hover:text-white" href={"https://twitter.com/DiluvMods"}>Twitter</a>
                             </li>
                             <li>
-                                <a className="text-gray-500 hover:text-white" href={"https://discord.gg/EwywBH8"}>Discord</a>
+                                <a className="text-gray-500 hover:text-white" href={"https://discord.diluv.com"}>Discord</a>
                             </li>
                             <li>
                                 <Link href={"/docs/[PageName]"} as={"/docs/feedback"}>
