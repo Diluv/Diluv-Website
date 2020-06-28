@@ -259,6 +259,15 @@
     grid-template-columns: 1fr;
     grid-template-rows: 16rem 1fr 1fr minmax(28rem, auto) 2rem;
   }
+
+  .profilePageLarge {
+    grid-template-areas: "image summary";
+    grid-template-columns: 16rem 1fr;
+  }
+
+  .profilePageSmall {
+    grid-template-areas: "image" "summary";
+  }
 }
 
 .simplebar-scrollbar::before {
