@@ -3,12 +3,15 @@ import Drop from "./icons/Drop";
 import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLink, DropDownSpacer } from "./Dropdown";
 import { Theme } from "../utils/context";
+// @ts-ignore
+import { useSession } from 'next-auth/client'
 
 function NavBar() {
 
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
     const theme = useContext(Theme);
+    const [ session, loading ] = useSession()
     return <>
         <header className="text-gray-400 bg-diluv-900 font-hero">
             <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row justify-between md:justify-start items-center">
@@ -49,37 +52,45 @@ function NavBar() {
                         </Link>
 
                     </nav>
-                    <div className="hidden md:block">
-                        <DropDown name={"Account"} className={`hover:text-white`}>
-                            <DropDownLink href={`/login`}>
-                                Login
-                            </DropDownLink>
-                            <DropDownLink href={`/register`}>
-                                Register
-                            </DropDownLink>
-                            <DropDownSpacer/>
-                            <DropDownAction action={() => theme.toggleTheme()}>
-                                Toggle Theme
-                            </DropDownAction>
-                        </DropDown>
-                    </div>
-                    <div className={`block md:hidden text-center`}>
-                        <p className={`hover:text-white cursor-pointer`} onClick={() => setShowingUserMenu(!showUserMenu)}>Account</p>
-                        <div className={`${showUserMenu ? `block` : `hidden`}`}>
-                            <div className={`flex flex-col`}>
-                                <Link href={`/login`}>
-                                    <a className={`hover:text-white`}>Login</a>
-                                </Link>
-                                <Link href={`/login`}>
-                                    <a className={`hover:text-white`}>Register</a>
-                                </Link>
-                                <span className={`hover:text-white cursor-pointer select-none`} onClick={() => theme.toggleTheme()}>
-                  Change Theme
-                </span>
-                            </div>
+                    {!session && <>
+                        Not signed in <br/>
+                        <a href="/api/auth/signin">Sign in</a>
+                    </>}
+                    {session && <>
+                        Signed in as {session.user.email} <br/>
+                        <a href="/api/auth/signout">Sign out</a>
+                    </>}
+                    {/*<div className="hidden md:block">*/}
+                    {/*    <DropDown name={"Account"} className={`hover:text-white`}>*/}
+                    {/*        <DropDownLink href={`/login`}>*/}
+                    {/*            Login*/}
+                    {/*        </DropDownLink>*/}
+                    {/*        <DropDownLink href={`/register`}>*/}
+                    {/*            Register*/}
+                    {/*        </DropDownLink>*/}
+                    {/*        <DropDownSpacer/>*/}
+                    {/*        <DropDownAction action={() => theme.toggleTheme()}>*/}
+                    {/*            Toggle Theme*/}
+                    {/*        </DropDownAction>*/}
+                    {/*    </DropDown>*/}
+                    {/*</div>*/}
+                {/*    <div className={`block md:hidden text-center`}>*/}
+                {/*        <p className={`hover:text-white cursor-pointer`} onClick={() => setShowingUserMenu(!showUserMenu)}>Account</p>*/}
+                {/*        <div className={`${showUserMenu ? `block` : `hidden`}`}>*/}
+                {/*            <div className={`flex flex-col`}>*/}
+                {/*                <Link href={`/login`}>*/}
+                {/*                    <a className={`hover:text-white`}>Login</a>*/}
+                {/*                </Link>*/}
+                {/*                <Link href={`/login`}>*/}
+                {/*                    <a className={`hover:text-white`}>Register</a>*/}
+                {/*                </Link>*/}
+                {/*                <span className={`hover:text-white cursor-pointer select-none`} onClick={() => theme.toggleTheme()}>*/}
+                {/*  Change Theme*/}
+                {/*</span>*/}
+                {/*            </div>*/}
 
-                        </div>
-                    </div>
+                {/*        </div>*/}
+                {/*    </div>*/}
                 </div>
 
             </div>
