@@ -1,6 +1,5 @@
 # Responsible Disclosure Policy
 
-The Diluv team has a great respect and appreciation for security researchers. We aim to create and maintain good relations with the security We encourage them to contact us directly to share security vulnerabilities in our products and services. 
 The Diluv team has a great appreciation for security researchers and encourages them to contact us directly to share security vulnerabilities identified in our products and services. We ask that you act in good faith and follow our responsible disclosure policy to protect our user base and everyone else involved.
 
 ## Acting in good faith
