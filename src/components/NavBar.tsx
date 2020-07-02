@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLink, DropDownSpacer } from "./Dropdown";
 import { Theme } from "../utils/context";
 // @ts-ignore
-import { useSession } from 'next-auth/client'
+import { useSession, getSession } from 'next-auth/client'
 
 function NavBar() {
 
@@ -12,6 +12,7 @@ function NavBar() {
     const [showUserMenu, setShowingUserMenu] = useState(false);
     const theme = useContext(Theme);
     const [ session, loading ] = useSession()
+    console.log(session);
     return <>
         <header className="text-gray-400 bg-diluv-900 font-hero">
             <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row justify-between md:justify-start items-center">

@@ -6,6 +6,8 @@ import { Featured, HasTheme } from "../interfaces";
 import { NextPageContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 import { getTheme } from "../utils/theme";
+// @ts-ignore
+import { useSession, getSession } from 'next-auth/client'
 
 export default function IndexPage({ theme, featured }: { featured: Featured } & HasTheme) {
     return (
