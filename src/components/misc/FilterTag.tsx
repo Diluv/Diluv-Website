@@ -20,7 +20,7 @@ export function FilterTag({ tagName, tagSlug, tagFilter, setTagFilter }: { tagNa
     }
 
     return <div
-        className={`inline flex cursor-pointer px-2 align-middle text-hsl-800 dark:text-dark-100 ${!hasTag() ? `bg-hsl-100 dark:bg-hsl-800 ` : `bg-tag dark:bg-tag-dark `} hover:bg-tag dark-hover:bg-tag-dark`}
+        className={`inline flex cursor-pointer px-2 align-middle text-hsl-800 dark:text-dark-100 ${!hasTag() ? `bg-hsl-100 dark:bg-hsl-800` : `bg-tag dark:bg-tag-dark`} hover:bg-tag dark-hover:bg-tag-dark`}
         onClick={onClick}>
         <span>{tagName}</span>
 
