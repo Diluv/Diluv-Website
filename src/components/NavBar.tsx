@@ -72,7 +72,7 @@ function NavBar() {
                             <div className={`flex flex-col`}>
 
                                 {!session && <button className={`hover:text-white`} onClick={() => signin("DILUV")}>Sign in</button>}
-                                {session && <Link href={`/author/[Name]/`} as={`/author/${session.user.id}`}>Profile</Link>}
+                                {session && <Link href={`/author/[Name]/`} as={`/author/${session.user.id}`}><a>Profile</a></Link>}
                                 {session && <button className={`hover:text-white`} onClick={() => signout()}>Sign out</button>}
                                 <span className={`hover:text-white cursor-pointer select-none`} onClick={() => theme.toggleTheme()}>
                                     Change Theme

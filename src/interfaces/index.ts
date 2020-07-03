@@ -108,7 +108,7 @@ export interface PictureSource {
     type: string
 }
 
-export interface Users {
+export interface User {
     userId: number
     username: string
     displayName: string
@@ -116,7 +116,7 @@ export interface Users {
     createdAt: number
 }
 
-export interface Contributors extends Users {
+export interface Contributors extends User {
     role: string
 }
 
@@ -149,9 +149,6 @@ export interface Theme {
 }
 
 export interface Author {
-    userId: number
-    username: string
-    displayName: string
-    avatarURL: string
-    createdAt: number
+    projects: Project[]
+    user: User
 }
