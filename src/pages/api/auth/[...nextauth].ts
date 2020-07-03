@@ -10,8 +10,8 @@ const options = {
     // Configure one or more authentication providers
     providers: [
         Providers.IdentityServer4({
-            id: "DILUV_WEBSITE",
-            name: "Diluv Website",
+            id: "DILUV",
+            name: "Diluv",
             scope: "openid profile", // Allowed Scopes
             params: {
                 grant_type: "authorization_code"
@@ -19,25 +19,25 @@ const options = {
             domain: "is4.imja.red",
             clientId: "DILUV_WEBSITE",
             profile: (profile: any) => {
-                // console.log(profile);
-                return { ...profile, id: profile.sub };
+                return { ...profile, id:  profile.username, name: profile.preferred_username};
             }
         })
     ],
-    events: {
-        session: async (message: any) => {
-            // console.log(message);
-        }
+    pages: {
+        signin: "/auth/signin"
     },
     callbacks: {
-        session: async (session:any, token:any) => {
-            session["id"] = token.account.id;
+        session: async (session: any, token: any) => {
+            session["user"]["id"] = token.account.id;
+            session["accessToken"] = token.account.accessToken;
             return Promise.resolve(session);
-        },
+        }
     },
+    events: {
+        signout: async (message: any) => {
+        }
+    }
 
-    // A database is optional, but required to persist accounts in a database
-    database: process.env.DATABASE_URL
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options)
