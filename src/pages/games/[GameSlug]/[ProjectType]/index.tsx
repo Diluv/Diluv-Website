@@ -104,7 +104,7 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
         <div className={`container mx-auto`}>
             <div className={`w-11/12 mx-auto`}>
                 <div id={"header"} className={`mb-4 mt-2`}>
-                    <div className={`grid my-auto justify-between grid-cols-project-type-nav`}>
+                    <div className={`grid my-auto justify-between grid-cols-1 sm:grid-cols-project-type-nav`}>
                         <div className={`flex flex-wrap`}>
                             {types.map(value => {
                                 if (value.slug === projectData.slug) {
@@ -120,7 +120,7 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
                                 }
                             })}
                         </div>
-                        <div className={`p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
+                        <div className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
                             <Link href={`/create/games/[GameSlug]/[ProjectType]/`} as={`/create/games/${gameSlug}/${projectData.slug}/`}>
                                 <a className={`mx-auto text-center`}>
                                     Create Project
