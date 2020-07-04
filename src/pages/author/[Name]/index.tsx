@@ -75,8 +75,8 @@ export default function ProjectIndex({ theme, data, currentSort, page }: { data:
                                 <span className={`cursor-default select-none text-diluv-600`}>Projects</span>
                             </div>
                         </div>
-                        <div className={`grid grid-cols-author-projects mt-4 mb-2`}>
-                            <div className={`col-start-1 col-span-1 mr-2`}>
+                        <div className={`grid grid-rows-2 sm:grid-rows-none row-gap-2 sm:grid-cols-2 md:grid-cols-3 sm:col-gap-2 md:col-gap-0 sm:row-gap-0 mt-4 mb-2`}>
+                            <div className={`md:col-start-1`}>
                                 <Select isSearchable={true} inputId="sortProjects"
                                         defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
                                         options={data.sort.map(value => {
@@ -84,7 +84,7 @@ export default function ProjectIndex({ theme, data, currentSort, page }: { data:
                                         })}
                                         styles={reactSelectStyle} classNamePrefix={"select"}/>
                             </div>
-                            <div className={`col-start-3 col-span-1 my-auto`}>
+                            <div className={`md:col-start-3 my-auto`}>
                                 <ReactPaginate
                                     previousLabel={<CheveronLeft className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
                                     nextLabel={<CheveronRight className={`mx-auto`} width={`1rem`} height={`1rem`}/>}

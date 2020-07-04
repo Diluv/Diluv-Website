@@ -38,8 +38,7 @@ module.exports = {
                 "pagination": "repeat(auto-fit, minmax(11%,1fr));",
                 "tags": "auto auto auto auto 1fr",
                 "project-info": "auto auto auto 1fr",
-                'project-type-nav': "2.5fr 0.5fr",
-                "author-projects": "20% 1fr 20%"
+                'project-type-nav': "2.5fr 0.5fr"
             },
             gridTemplateRows: {
                 "1-auto": "repeat(1, auto)",
