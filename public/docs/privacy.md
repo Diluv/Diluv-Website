@@ -45,8 +45,10 @@ Diluv accounts are an optional service offered by Diluv. Creating an account all
 #### Service Emails
 Diluv may send users service emails. These are emails related to services we are providing such as account confirmation or support replies. Service emails are an inherent part of the Diluv Accounts service and can only be opted out of by deleting your Diluv account.
 
-#### Cookies & JWT
-Diluv uses cookies to hold user preferences such as dispaly theme along with authorization data such as a JSON Web Token (JWT). The JWT allows a user to authenticate their actions for a limited period of time without prompting for their password every time. These tokens contain encoded information, including the time of generation and your account ID. These tokens are meant to be confidential between you and Diluv services and should never be shared with third parties.
+#### Cookies
+Diluv uses browser cookies to handle authorization, permissions, and to cache some site data. Our cookies include JSON Web Tokens and session IDs which may include additional embedded data. The personal data contained within cookies include Diluv account ID, username, display name, avatar URL, email, and account creation date. Additional site related information such as project permission scopes may also be included.
+
+Diluv does not sell cookie data or use it to track users on other websites. Our cookies are exclusively used to provide our own services. 3rd parties such as Google may also use cookies. 3rd party services are not controlled by Diluv and are subject to their own privacy and cookie policies.
 
 #### Analytics and Usage Data
 Diluv stores aggregated usage data about how the website is being used. This includes the number of visits to a specific page on the site and the number of downloads a file has received. Both of these metrics are not associated with the identity or personal information of any user. These stats are stored as aggregated data points and can not be used to obtain any data which could identify the original source.
