@@ -36,6 +36,9 @@ All sensitive Personal Data such as passwords and billing address will be encryp
 ### Children's Privacy
 Diluv does not knowingly collect information from children under the age of 13. Children under the age of 13 are prohibited from using our services. If you learn that a child has provided us with personal information in violation of this policy you can alert us at abuse@diluv.com.
 
+### Sell & Transfer
+Personal data collected by Diluv is not sold or transfered to 3rd parties. In some cases we may share anonymized aggregate data which can not be tied to an individual user such as total unique download for a specific file. 3rd party services may collect their own data. 3rd party services are not controlled by Diluv and are subject to their own privacy policies. See our "Detailed Information on Personal Data" section for more info.
+
 ### Detailed Information on Personal Data
 This section describes in detail what personal data is collected and how we use this data.
 
