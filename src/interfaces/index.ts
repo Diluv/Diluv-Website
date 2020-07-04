@@ -148,7 +148,8 @@ export interface Theme {
     theme: string
 }
 
-export interface Author {
+export interface AuthorPage {
     projects: Project[]
     user: User
+    sort: Sort[]
 }

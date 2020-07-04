@@ -1,0 +1,146 @@
+import React from "react";
+import { Project } from "../../interfaces";
+import Link from "next/link";
+import { DisplayTag } from "../misc/FilterTag";
+import moment from "moment";
+import HourGlass from "../icons/HourGlass";
+import Tippy from "@tippyjs/react";
+import { followCursor } from "tippy.js";
+import Time from "../icons/Time";
+import ChartBar from "../icons/ChartBar";
+import { listContributors } from "../../utils/util";
+
+interface Props {
+    project: Project
+}
+
+
+function getDownloadsTip(downloads: number) {
+    return <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
+        <p>
+            {downloads} Downloads
+        </p>
+    </div>;
+}
+
+function getCreatedTip(createdAt: number) {
+    return <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
+        <p>
+            Created On
+        </p>
+        <p>{moment(createdAt).format("MMMM Do YYYY")}</p>
+    </div>;
+}
+
+function getUpdatedTip(updatedAt: number) {
+    return <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
+        <p>
+            Updated On
+        </p>
+        <p>{moment(updatedAt).format("MMMM Do YYYY")}</p>
+    </div>;
+}
+
+function AuthorProjectCard({ project }: Props) {
+    let projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
+    let projectUrl = `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`;
+    return <>
+        <div className={`grid my-3 w-full mx-auto col-gap-2 row-gap-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
+            <div className={`area-image`}>
+                <Link href={projectUrlRef} as={projectUrl}>
+                    <a>
+                        <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`}/>
+                    </a>
+                </Link>
+            </div>
+
+            <div className={"sm:ml-2 leading-snug area-header"}>
+                <Link href={projectUrlRef} as={projectUrl}>
+                    <a>
+                        <div className={`inline-flex`}>
+                            <h4 className={`font-semibold`}>{project.name}</h4>
+                        </div>
+                    </a>
+                </Link>
+                <div className={`text-gray-600 dark:text-dark-400`}>
+                        <span>
+                            {`by `}
+                        </span>
+                    {listContributors(project)}
+                </div>
+            </div>
+
+            <div className={"sm:ml-2 my-auto area-summary"}>
+                <div className={`inline-flex`}>
+                    <p> {project.summary}</p>
+                </div>
+            </div>
+
+            <div className={`sm:ml-2 my-auto text-center mr-2 area-downloads`}>
+                <div className={`flex cursor-default`}>
+                    <Tippy content={getDownloadsTip(project.downloads)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
+
+                        <div className={`inline-flex`}>
+                            <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                            <span className={`mr-1`}>
+                                {project.downloads}
+                            </span>
+                        </div>
+
+                    </Tippy>
+                </div>
+            </div>
+
+            <div className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2 area-created`}>
+
+                <div className={`flex cursor-default`}>
+                    <Tippy content={getCreatedTip(project.createdAt)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
+                        <div className={`inline-flex`}>
+                            <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                            <span className={``}>
+                                {moment(project.createdAt).fromNow()}
+                            </span>
+                        </div>
+                    </Tippy>
+                </div>
+
+            </div>
+            <div className={`sm:ml-2 my-auto text-center mr-2 area-updated`}>
+
+                <div className={`flex cursor-default`}>
+                    <Tippy content={getUpdatedTip(project.updatedAt)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
+                        <div className={`inline-flex`}>
+                            <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                            <span className={``}>
+                                {moment(project.updatedAt).fromNow()}
+                            </span>
+                        </div>
+                    </Tippy>
+                </div>
+
+            </div>
+
+            {project.tags.map((value, i) => <div className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center ${getTagArea(i)}`} key={value.slug}>
+                <DisplayTag tagSlug={value.slug} tagName={value.name}/></div>)}
+
+
+        </div>
+    </>;
+}
+
+function getTagArea(index: number) {
+    // Not bad / stupid code, tailwind requires the full classname to be able to purge
+    switch (index) {
+        case 0:
+            return `area-tag1`;
+        case 1:
+            return `area-tag2`;
+        case 2:
+            return `area-tag3`;
+        case 3:
+            return `area-tag4`;
+
+    }
+}
+
+export default AuthorProjectCard;
