@@ -6,6 +6,7 @@ import { API_URL } from "../../../../../utils/api";
 import { HasTheme, Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import { getTheme } from "../../../../../utils/theme";
+import Link from "next/link";
 
 export default function Files({ theme, project }: { project: Project } & HasTheme) {
     return (
@@ -19,9 +20,11 @@ export default function Files({ theme, project }: { project: Project } & HasThem
                                 {project.contributors.map(value => {
                                     return <div key={value.userId} className={`grid col-gap-2 my-1 memberList`}>
                                         <img className={`w-16 h-16 area-avatar`} src={value.avatarURL}/>
-                                        <p className={`area-name`}>
-                                            {value.displayName}
-                                        </p>
+                                        <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
+                                            <a className={`area-name`}>
+                                                {value.displayName}
+                                            </a>
+                                        </Link>
                                         <p className={`area-role`}>
                                             Role: {value.role}
                                         </p>
