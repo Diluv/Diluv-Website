@@ -12,41 +12,18 @@ import Tippy from "@tippyjs/react";
 import { getSession } from "next-auth/client";
 import AuthorProjectCard from "../../../components/project/AuthorProjectCard";
 import Select from "react-select";
-import CheveronLeft from "../../../components/icons/CheveronLeft";
-import CheveronRight from "../../../components/icons/CheveronRight";
-import NavigationMore from "../../../components/icons/NavigationMore";
-// @ts-ignore
-import ReactPaginate from "@jaredlll08/react-paginate";
+import Pagination, { buildURL } from "../../../components/misc/Pagination";
+import { useRouter } from "next/router";
+import { func } from "prop-types";
 
-function buildURL(page: number, sort: string) {
-    let params = new URLSearchParams();
 
-    if (page !== 1) {
-        params.append("page", page + "");
-    }
-    if (sort !== "popular") {
-        params.append("sort", sort);
-    }
-    params.sort();
-    if (params.toString().length) {
-        return `?${params.toString()}`;
-    }
-    return ``;
-}
+export default function AuthorProjects({ theme, data, currentSort, page }: { data: AuthorPage, currentSort: string, page: number } & HasTheme) {
 
-export default function ProjectIndex({ theme, data, currentSort, page }: { data: AuthorPage, currentSort: string, page: number } & HasTheme) {
-
-    let maxPage = Math.ceil(data.projects.length / 5);
+    let maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
 
-    function getSortFromCurrent(): Sort {
-        for (let sort of data.sort) {
-            if (sort.slug === currentSort) {
-                return sort;
-            }
-        }
-        return data.sort[0];
-    }
+
+    const router = useRouter();
 
     return (<Layout title={data.user.displayName} theme={theme}>
             <div className={`container mx-auto my-8`}>
@@ -75,61 +52,12 @@ export default function ProjectIndex({ theme, data, currentSort, page }: { data:
                                 <span className={`cursor-default select-none text-diluv-600`}>Projects</span>
                             </div>
                         </div>
-                        <div className={`grid grid-rows-2 sm:grid-rows-none row-gap-2 sm:grid-cols-2 md:grid-cols-3 sm:col-gap-2 md:col-gap-0 sm:row-gap-0 mt-4 mb-2`}>
-                            <div className={`md:col-start-1`}>
-                                <Select isSearchable={true} inputId="sortProjects"
-                                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
-                                        options={data.sort.map(value => {
-                                            return { value: value.slug, label: value.displayName };
-                                        })}
-                                        styles={reactSelectStyle} classNamePrefix={"select"}/>
-                            </div>
-                            <div className={`md:col-start-3 my-auto`}>
-                                <ReactPaginate
-                                    previousLabel={<CheveronLeft className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
-                                    nextLabel={<CheveronRight className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
-                                    breakLabel={<NavigationMore className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
-                                    pageCount={maxPage === 0 ? 1 : maxPage}
-                                    marginPagesDisplayed={1}
-                                    initialPage={page - 1}
-                                    forcePage={page - 1}
-                                    disableInitialCallback={true}
-                                    pageRangeDisplayed={3}
-                                    containerClassName={`grid grid-cols-pagination`}
-                                    activeClassName={`bg-gray-400 hover:bg-gray-400 dark:bg-dark-800 dark-hover:bg-dark-800`}
-                                    activeLinkClassName={`block`}
-                                    pageClassName={`block bg-gray-200 hover:bg-gray-300 dark-hover:bg-dark-600 dark:bg-dark-700 border dark:border-dark-600 text-center`}
-                                    pageLinkClassName={`block py-1`}
-
-                                    previousClassName={`border dark:border-dark-600 text-center px-auto ${page === 1 || (maxPage === 0) ? `bg-white dark:bg-dark-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-dark-700`}`}
-                                    previousLinkClassName={`block fill-current py-2`}
-
-                                    breakClassName={`block bg-gray-200 hover:bg-gray-300 dark:bg-dark-700 border dark:border-dark-600 text-center`}
-                                    breakLinkClassName={`block fill-current py-2`}
-
-                                    nextClassName={`block border dark:border-dark-600 text-center ${page === maxPage ? `bg-white dark:bg-dark-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-dark-700`}`}
-                                    nextLinkClassName={`block fill-current py-2`}
-                                    asBuilder={(pageIndex: number) => {
-                                        if (pageIndex === 1 && maxPage === 0) {
-                                            return "";
-                                        }
-                                        let newUrl = buildURL(pageIndex, currentSort);
-                                        return `/author/${data.user.username}${newUrl}`;
-                                    }}
-                                    hrefBuilder={(pageIndex: number) => {
-                                        if (pageIndex === 1 && maxPage === 0) {
-                                            return "";
-                                        }
-                                        let newUrl = buildURL(pageIndex, currentSort);
-                                        return `/author/[Name]${newUrl}`;
-                                    }}
-                                />
-                            </div>
-                        </div>
+                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort}/>
                         <div>
                             {data.projects.map(value =>
                                 <AuthorProjectCard project={value} key={value.slug}/>)}
                         </div>
+                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort}/>
                     </section>
                 </div>
             </div>
@@ -137,6 +65,46 @@ export default function ProjectIndex({ theme, data, currentSort, page }: { data:
     );
 }
 
+function ProjectOptions({ data, page, maxPage, currentSort }: { data: AuthorPage, page: number, maxPage: number, currentSort: string }) {
+    function getSortFromCurrent(): Sort {
+        for (let sort of data.sort) {
+            if (sort.slug === currentSort) {
+                return sort;
+            }
+        }
+        return data.sort[0];
+    }
+
+    const router = useRouter();
+    return <div className={`grid grid-rows-2 sm:grid-rows-none row-gap-2 sm:grid-cols-2 md:grid-cols-3 sm:col-gap-2 md:col-gap-0 sm:row-gap-0 mt-4 mb-2`}>
+        <div className={`md:col-start-1`}>
+            <Select isSearchable={true} inputId="sortProjects"
+                    defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
+                    options={data.sort.map(value => {
+                        return { value: value.slug, label: value.displayName };
+                    })}
+                    styles={reactSelectStyle}
+                    onChange={(e: any) => {
+                        let newUrl = buildURL({
+                            page: page,
+                            sort: e.value
+                        });
+                        router.push(`/author/[Name]${newUrl}`, `/author/${data.user.username}${newUrl}`);
+                    }}
+                    classNamePrefix={"select"}
+            />
+        </div>
+        <div className={`md:col-start-3 my-auto`}>
+            <Pagination maxPage={maxPage} page={page} asBuilder={(pageIndex: number) => {
+                let newUrl = buildURL({ page: pageIndex, sort: currentSort });
+                return `/author/${data.user.username}${newUrl}`;
+            }} hrefBuilder={(pageIndex: number) => {
+                let newUrl = buildURL({ page: pageIndex, sort: currentSort });
+                return `/author/[Name]${newUrl}`;
+            }}/>
+        </div>
+    </div>;
+}
 
 export async function getServerSideProps(context: NextPageContext) {
     let theme = getTheme(context);

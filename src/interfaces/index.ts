@@ -152,4 +152,5 @@ export interface AuthorPage {
     projects: Project[]
     user: User
     sort: Sort[]
+    projectCount: number
 }
