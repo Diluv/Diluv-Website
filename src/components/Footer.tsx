@@ -21,7 +21,7 @@ function Footer() {
                             <li>
                                 <a className="text-gray-500 hover:text-white" href={"https://github.com/Diluv"}>Github</a>
                             </li>
-							<li>
+                            <li>
                                 <Link href={"/docs/[PageName]"} as={"/docs/formatting"}>
                                     <a className="text-gray-500 hover:text-white">Formatting Guide</a>
                                 </Link>
