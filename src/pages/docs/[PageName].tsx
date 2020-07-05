@@ -22,7 +22,8 @@ const validPages: Record<string, string> = {
     terms: "Terms of Service",
     privacy: "Privacy Policy",
     conduct: "Code of Conduct",
-    disclosure: "Responsible Disclosure"
+    disclosure: "Responsible Disclosure",
+    formatting: "Formatting Guide"
 };
 
 export async function getServerSideProps(context: NextPageContext) {
