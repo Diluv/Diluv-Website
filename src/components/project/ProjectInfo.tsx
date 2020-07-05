@@ -3,8 +3,7 @@ import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
 import { listContributors } from "../../utils/util";
-import moment from "moment";
-
+import format from "date-fns/format";
 
 export default function ProjectInfo({ project, pageType }: { project: Project, pageType: string }) {
     function isDescription(): boolean {
@@ -36,10 +35,10 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
                 {`ProjectID: ${project.id}`}
             </p>
             <p className={`area-created`}>
-                {`Created at: ${moment.utc(project.createdAt).format("MM/DD/YYYY")}`}
+                {`Created at: ${format(project.createdAt, "yyyy-MM-dd HH:mm:ss")}`}
             </p>
             <p className={`area-updated`}>
-                {`Updated at: ${moment.utc(project.updatedAt).format("MM/DD/YYYY")}`}
+                {`Updated at: ${format(project.updatedAt, "yyyy-MM-dd HH:mm:ss")}`}
             </p>
             <p className={`area-downloads`}>
                 {`${project.downloads} Downloads`}

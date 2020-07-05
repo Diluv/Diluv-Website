@@ -2,13 +2,14 @@ import React from "react";
 import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
-import moment from "moment";
 import HourGlass from "../icons/HourGlass";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 import Time from "../icons/Time";
 import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
+import format from "date-fns/format";
+import formatDistance from "date-fns/formatDistance";
 
 interface Props {
     project: Project
@@ -28,7 +29,7 @@ function getCreatedTip(createdAt: number) {
         <p>
             Created On
         </p>
-        <p>{moment(createdAt).format("MMMM Do YYYY")}</p>
+        <p>{format(createdAt, "yyyy-MM-dd HH:mm:ss")}</p>
     </div>;
 }
 
@@ -37,7 +38,7 @@ function getUpdatedTip(updatedAt: number) {
         <p>
             Updated On
         </p>
-        <p>{moment(updatedAt).format("MMMM Do YYYY")}</p>
+        <p>{format(updatedAt, "yyyy-MM-dd HH:mm:ss")}</p>
     </div>;
 }
 
@@ -98,7 +99,7 @@ function AuthorProjectCard({ project }: Props) {
                         <div className={`inline-flex`}>
                             <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                             <span className={``}>
-                                {moment(project.createdAt).fromNow()}
+                                 {formatDistance(project.createdAt, new Date(), { addSuffix: true })}
                             </span>
                         </div>
                     </Tippy>
@@ -112,7 +113,7 @@ function AuthorProjectCard({ project }: Props) {
                         <div className={`inline-flex`}>
                             <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                             <span className={``}>
-                                {moment(project.updatedAt).fromNow()}
+                               {formatDistance(project.updatedAt, new Date(), { addSuffix: true })}
                             </span>
                         </div>
                     </Tippy>

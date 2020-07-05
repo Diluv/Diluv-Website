@@ -5,7 +5,6 @@ import { AuthorPage, HasTheme, Sort } from "../../../interfaces";
 import { getTheme, reactSelectStyle } from "../../../utils/theme";
 import { get } from "../../../utils/request";
 import { API_URL } from "../../../utils/api";
-import moment from "moment";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 // @ts-ignore
@@ -15,7 +14,8 @@ import Select from "react-select";
 import Pagination, { buildURL } from "../../../components/misc/Pagination";
 import { useRouter } from "next/router";
 import { func } from "prop-types";
-
+import formatDistance from "date-fns/formatDistance";
+import format from 'date-fns/format';
 
 export default function AuthorProjects({ theme, data, currentSort, page }: { data: AuthorPage, currentSort: string, page: number } & HasTheme) {
 
@@ -37,9 +37,9 @@ export default function AuthorProjects({ theme, data, currentSort, page }: { dat
                             <Tippy content={
                                 <div
                                     className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                                    {moment.utc(data.user.createdAt).calendar()}
+                                    {format(data.user.createdAt, "yyyy-MM-dd HH:mm:ss")}
                                 </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
-                                <span>Joined {moment(data.user.createdAt).fromNow()}</span>
+                                <span>Joined {formatDistance(data.user.createdAt, new Date(), { addSuffix: true })}</span>
                             </Tippy>
 
 
