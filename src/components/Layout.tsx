@@ -22,7 +22,7 @@ function Layout({
     const [themeState, setTheme] = useState({
         theme: theme.theme
     });
-    const simpleBarRef = useRef<SimpleBar>();
+    const simpleBarRef = useRef(null);
 
     useEffect(() => {
         // Handles reseting simple bar's position
