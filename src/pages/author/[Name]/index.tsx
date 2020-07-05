@@ -26,7 +26,7 @@ export default function AuthorProjects({ theme, data, currentSort, page }: { dat
     const router = useRouter();
 
     return (<Layout title={data.user.displayName} theme={theme}>
-            <div className={`container mx-auto my-8`}>
+            <div className={`container mx-auto mt-4`}>
                 <div className={`w-11/12 mx-auto`}>
                     <div className={`grid col-gap-2 row-gap-2 sm:row-gap-0 profilePageSmall sm:profilePageLarge`}>
                         <div className={`area-image`}>
@@ -47,17 +47,17 @@ export default function AuthorProjects({ theme, data, currentSort, page }: { dat
                     </div>
 
                     <section className={`my-4`}>
-                        <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info`}>
+                        <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info mb-4`}>
                             <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
                                 <span className={`cursor-default select-none text-diluv-600`}>Projects</span>
                             </div>
                         </div>
                         <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort}/>
-                        <div>
+                        <div className={`my-4`}>
                             {data.projects.map(value =>
                                 <AuthorProjectCard project={value} key={value.slug}/>)}
                         </div>
-                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort}/>
+                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} showSorts={false}/>
                     </section>
                 </div>
             </div>
@@ -65,7 +65,7 @@ export default function AuthorProjects({ theme, data, currentSort, page }: { dat
     );
 }
 
-function ProjectOptions({ data, page, maxPage, currentSort }: { data: AuthorPage, page: number, maxPage: number, currentSort: string }) {
+function ProjectOptions({ data, page, maxPage, currentSort, showSorts = true }: { data: AuthorPage, page: number, maxPage: number, currentSort: string, showSorts?: boolean }) {
     function getSortFromCurrent(): Sort {
         for (let sort of data.sort) {
             if (sort.slug === currentSort) {
@@ -76,8 +76,8 @@ function ProjectOptions({ data, page, maxPage, currentSort }: { data: AuthorPage
     }
 
     const router = useRouter();
-    return <div className={`grid grid-rows-2 sm:grid-rows-none row-gap-2 sm:grid-cols-2 md:grid-cols-3 sm:col-gap-2 md:col-gap-0 sm:row-gap-0 mt-4 mb-2`}>
-        <div className={`md:col-start-1`}>
+    return <div className={`grid grid-rows-2 sm:grid-rows-none row-gap-2 sm:grid-cols-2 md:grid-cols-3 sm:col-gap-2 md:col-gap-0 sm:row-gap-0`}>
+        {showSorts && <div className={`md:col-start-1`}>
             <Select isSearchable={true} inputId="sortProjects"
                     defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
                     options={data.sort.map(value => {
@@ -93,8 +93,8 @@ function ProjectOptions({ data, page, maxPage, currentSort }: { data: AuthorPage
                     }}
                     classNamePrefix={"select"}
             />
-        </div>
-        <div className={`md:col-start-3 my-auto`}>
+        </div>}
+        <div className={`${showSorts ? `md:col-start-3` : ``} my-auto`}>
             <Pagination maxPage={maxPage} page={page} asBuilder={(pageIndex: number) => {
                 let newUrl = buildURL({ page: pageIndex, sort: currentSort });
                 return `/author/${data.user.username}${newUrl}`;
