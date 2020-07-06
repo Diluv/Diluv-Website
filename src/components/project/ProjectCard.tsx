@@ -33,7 +33,7 @@ function getCreatedTip(createdAt: number) {
         <p>
             Created On
         </p>
-        <p>${format(createdAt, "yyyy-MM-dd HH:mm:ss")}</p>
+        <p>{format(createdAt, "yyyy-MM-dd HH:mm:ss")}</p>
     </div>;
 }
 
@@ -42,7 +42,7 @@ function getUpdatedTip(updatedAt: number) {
         <p>
             Updated On
         </p>
-        <p>${format(updatedAt, "yyyy-MM-dd HH:mm:ss")}</p>
+        <p>{format(updatedAt, "yyyy-MM-dd HH:mm:ss")}</p>
     </div>;
 }
 
