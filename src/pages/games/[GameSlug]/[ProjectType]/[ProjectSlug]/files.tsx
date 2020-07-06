@@ -5,13 +5,13 @@ import { get } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { HasTheme, Project, ProjectFile } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
-import moment from "moment";
 import filesize from "filesize";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 import SimpleBar from "simplebar-react";
 import { getTheme } from "../../../../../utils/theme";
 import Download from "../../../../../components/icons/Download";
+import formatDistance from 'date-fns/formatDistance';
 
 export default function Files({ project, files, theme }: { project: Project, files: ProjectFile[] } & HasTheme) {
     return (
@@ -81,7 +81,7 @@ export default function Files({ project, files, theme }: { project: Project, fil
                                                 <pre>{filesize(value.size)}</pre>
                                             </td>
                                             <td className={`border dark:border-dark-700 px-2 py-2`}>
-                                                {moment(value.createdAt).fromNow()}
+                                                {formatDistance(new Date(value.createdAt), new Date(), { addSuffix: true })}
                                             </td>
                                             <td className={`border dark:border-dark-700 px-2 py-2`}>
                                                 <a href={value.downloadURL} className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer`} download={true}>

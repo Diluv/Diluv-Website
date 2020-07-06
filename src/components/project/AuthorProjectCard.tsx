@@ -1,22 +1,18 @@
 import React from "react";
-import { Project, SelectData } from "../../interfaces";
+import { Project } from "../../interfaces";
 import Link from "next/link";
-import { FilterTag } from "../misc/FilterTag";
+import { DisplayTag } from "../misc/FilterTag";
 import HourGlass from "../icons/HourGlass";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 import Time from "../icons/Time";
 import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
-import formatDistance from "date-fns/formatDistance";
 import format from "date-fns/format";
+import formatDistance from "date-fns/formatDistance";
 
 interface Props {
-    gameSlug: string
-    projectTypeSlug: string
     project: Project
-    setTagFilter: Function
-    tagFilter: SelectData[]
 }
 
 
@@ -46,11 +42,11 @@ function getUpdatedTip(updatedAt: number) {
     </div>;
 }
 
-function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props) {
+function AuthorProjectCard({ project }: Props) {
     let projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
-    let projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
+    let projectUrl = `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`;
     return <>
-        <div className={`grid my-4 w-full mx-auto col-gap-2 row-gap-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
+        <div className={`grid my-3 w-full mx-auto col-gap-2 row-gap-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
             <div className={`area-image`}>
                 <Link href={projectUrlRef} as={projectUrl}>
                     <a>
@@ -103,7 +99,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                         <div className={`inline-flex`}>
                             <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                             <span className={``}>
-                                {formatDistance(project.createdAt, new Date(), { addSuffix: true })}
+                                 {formatDistance(project.createdAt, new Date(), { addSuffix: true })}
                             </span>
                         </div>
                     </Tippy>
@@ -117,7 +113,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                         <div className={`inline-flex`}>
                             <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                             <span className={``}>
-                                {formatDistance(project.updatedAt, new Date(), { addSuffix: true })}
+                               {formatDistance(project.updatedAt, new Date(), { addSuffix: true })}
                             </span>
                         </div>
                     </Tippy>
@@ -126,8 +122,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
             </div>
 
             {project.tags.map((value, i) => <div className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center ${getTagArea(i)}`} key={value.slug}>
-                <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter}
-                           setTagFilter={setTagFilter}/></div>)}
+                <DisplayTag tagSlug={value.slug} tagName={value.name}/></div>)}
 
 
         </div>
@@ -149,4 +144,4 @@ function getTagArea(index: number) {
     }
 }
 
-export default ProjectCard;
+export default AuthorProjectCard;

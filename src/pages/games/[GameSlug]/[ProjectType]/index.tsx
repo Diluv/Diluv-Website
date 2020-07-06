@@ -11,40 +11,9 @@ import { onBlur, onFocus } from "../../../../utils/util";
 import Select, { ActionMeta } from "react-select";
 import { getTheme, reactSelectStyle } from "../../../../utils/theme";
 import { useRouter } from "next/router";
-// @ts-ignore
-import ReactPaginate from "@jaredlll08/react-paginate";
-import NavigationMore from "../../../../components/icons/NavigationMore";
-import CheveronLeft from "../../../../components/icons/CheveronLeft";
-import CheveronRight from "../../../../components/icons/CheveronRight";
 import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
-
-function buildURL(search: string, page: number, sort: string, version: string, tags: Tag[]) {
-    let params = new URLSearchParams();
-
-    if (search) {
-        params.append("search", search);
-    }
-    if (page !== 1) {
-        params.append("page", page + "");
-    }
-    if (sort !== "popular") {
-        params.append("sort", sort);
-    }
-    if (version) {
-        params.append("version", version);
-    }
-    if (tags && tags.length) {
-        for (let tag of tags) {
-            params.append("tags", tag.slug);
-        }
-    }
-    params.sort();
-    if (params.toString().length) {
-        return `?${params.toString()}`;
-    }
-    return ``;
-}
+import Pagination, { buildURL } from "../../../../components/misc/Pagination";
 
 interface Props {
     search: string
@@ -84,9 +53,11 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
 
     function updateTags(newData: SelectData[]) {
         setTagFilter(newData);
-        let newUrl = buildURL(search, page, currentSort, version, newData.map(value => {
-            return { slug: value.value, name: value.label };
-        }));
+        let newUrl = buildURL({
+            search: search, page: page, sort: currentSort, version: version, tags: newData.map(value => {
+                return { slug: value.value, name: value.label };
+            })
+        });
         router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
     }
 
@@ -104,7 +75,7 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
         <div className={`container mx-auto`}>
             <div className={`w-11/12 mx-auto`}>
                 <div id={"header"} className={`mb-4 mt-2`}>
-                    <div className={`grid my-auto justify-between grid-cols-project-type-nav`}>
+                    <div className={`grid my-auto justify-between grid-cols-1 sm:grid-cols-project-type-nav`}>
                         <div className={`flex flex-wrap`}>
                             {types.map(value => {
                                 if (value.slug === projectData.slug) {
@@ -120,7 +91,7 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
                                 }
                             })}
                         </div>
-                        <div className={`p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
+                        <div className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
                             <Link href={`/create/games/[GameSlug]/[ProjectType]/`} as={`/create/games/${gameSlug}/${projectData.slug}/`}>
                                 <a className={`mx-auto text-center`}>
                                     Create Project
@@ -149,7 +120,14 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
                                     onFocus={(event: React.FocusEvent<any>) => onFocus(
                                         setSelectedField,
                                         event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                                    let newUrl = buildURL(event.target.value, page, currentSort, version, getTagsFromCurrent());
+                                    let newUrl = buildURL({
+                                        search: event.target.value,
+                                        page: page,
+                                        sort: currentSort,
+                                        version: version,
+                                        tags: getTagsFromCurrent()
+                                    });
+
                                     router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
                                 }}/>
                             </div>
@@ -217,52 +195,38 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
                                             return { value: value.slug, label: value.displayName };
                                         })}
                                         styles={reactSelectStyle} onChange={(e: any) => {
-                                    let newUrl = buildURL(search, page, e.value, version, getTagsFromCurrent());
+                                    let newUrl = buildURL({
+                                        search: search,
+                                        page: page,
+                                        sort: e.value,
+                                        version: version,
+                                        tags: getTagsFromCurrent()
+                                    });
                                     router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
-                                }}  classNamePrefix={"select"}/>
+                                }} classNamePrefix={"select"}/>
 
                             </div>
                         </div>
                         <div className={`my-auto`}>
-                            <ReactPaginate
-                                previousLabel={<CheveronLeft className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
-                                nextLabel={<CheveronRight className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
-                                breakLabel={<NavigationMore className={`mx-auto`} width={`1rem`} height={`1rem`}/>}
-                                pageCount={maxPage === 0 ? 1 : maxPage}
-                                marginPagesDisplayed={1}
-                                initialPage={page - 1}
-                                forcePage={page - 1}
-                                disableInitialCallback={true}
-                                pageRangeDisplayed={3}
-                                containerClassName={`grid grid-cols-pagination`}
-                                activeClassName={`bg-gray-400 hover:bg-gray-400 dark:bg-dark-800 dark-hover:bg-dark-800`}
-                                activeLinkClassName={`block`}
-                                pageClassName={`block bg-gray-200 hover:bg-gray-300 dark-hover:bg-dark-600 dark:bg-dark-700 border dark:border-dark-600 text-center`}
-                                pageLinkClassName={`block py-1`}
-
-                                previousClassName={`border dark:border-dark-600 text-center px-auto ${page === 1 || (maxPage === 0) ? `bg-white dark:bg-dark-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-dark-700`}`}
-                                previousLinkClassName={`block fill-current py-2`}
-
-                                breakClassName={`block bg-gray-200 hover:bg-gray-300 dark:bg-dark-700 border dark:border-dark-600 text-center`}
-                                breakLinkClassName={`block fill-current py-2`}
-
-                                nextClassName={`block border dark:border-dark-600 text-center ${page === maxPage ? `bg-white dark:bg-dark-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-dark-700`}`}
-                                nextLinkClassName={`block fill-current py-2`}
-                                asBuilder={(pageIndex: number) => {
-                                    if (pageIndex === 1 && maxPage === 0) {
-                                        return "";
-                                    }
-                                    let newUrl = buildURL(search, pageIndex, currentSort, version, []);
-                                    return `/games/${gameSlug}/${projectData.slug}${newUrl}`;
-                                }}
-                                hrefBuilder={(pageIndex: number) => {
-                                    if (pageIndex === 1 && maxPage === 0) {
-                                        return "";
-                                    }
-                                    let newUrl = buildURL(search, pageIndex, currentSort, version, []);
-                                    return `/games/[GameSlug]/[ProjectType]${newUrl}`;
-                                }}
-                            />
+                            <Pagination maxPage={maxPage} page={page} asBuilder={(pageIndex: number) => {
+                                let newUrl = buildURL({
+                                    search: search,
+                                    page: pageIndex,
+                                    sort: currentSort,
+                                    version: version,
+                                    tags: []
+                                });
+                                return `/games/${gameSlug}/${projectData.slug}${newUrl}`;
+                            }} hrefBuilder={(pageIndex: number) => {
+                                let newUrl = buildURL({
+                                    search: search,
+                                    page: pageIndex,
+                                    sort: currentSort,
+                                    version: version,
+                                    tags: []
+                                });
+                                return `/games/[GameSlug]/[ProjectType]${newUrl}`;
+                            }}/>
                         </div>
                     </div>
                 </div>
