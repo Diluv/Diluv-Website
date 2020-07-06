@@ -5,7 +5,7 @@ import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const options = {
-    site: process.env.NEXT_STATIC_SITE_URL || "http://localhost:3000",
+    site: process.env.NEXT_STATIC_SITE_URL,
     // Configure one or more authentication providers
     providers: [
         Providers.IdentityServer4({
@@ -15,7 +15,7 @@ const options = {
             params: {
                 grant_type: "authorization_code"
             },
-            domain: process.env.NEXT_STATIC_SITE_URL,
+            domain: process.env.NEXT_STATIC_IS4_URL,
             clientId: "DILUV_WEBSITE",
             profile: (profile: any) => {
                 return { ...profile, id:  profile.username, name: profile.preferred_username};
