@@ -27,3 +27,6 @@ Diluv has a zero-tolerance policy on malware. Any project verified to contain ma
 1. The project must behave in a malicious manner or have behaviors that are undesirable to the end-user. Projects which interfere with the device, game operations, or collect sensitive/personal user data is considered especially malicious.
 2. There must be a clear intent behind the malicious behavior. Bugs, glitches, and unexpected interactions are not malicious.
 3. The project must be acting beyond its reasonable scope. For example, a jump scare effect or an anti-cheat plugin may act in ways that are considered malicious but are not malware.
+
+## Off Platform Conduct
+Off platform conduct refers to any conduct that does not take place on or through Diluv services. Off platform conduct is outside the scope of our moderation team and will not be factored into moderation decisions. Users should remain mindful of how their conduct may reflect upon Diluv and the Diluv community. Off platform conduct may be considered when evaluating partnerships and special agreements.
