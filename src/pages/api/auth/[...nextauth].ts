@@ -6,7 +6,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const options = {
     site: process.env.NEXT_STATIC_SITE_URL || "http://localhost:3000",
-
     // Configure one or more authentication providers
     providers: [
         Providers.IdentityServer4({
@@ -16,7 +15,7 @@ const options = {
             params: {
                 grant_type: "authorization_code"
             },
-            domain: "is4.imja.red",
+            domain: process.env.NEXT_STATIC_SITE_URL,
             clientId: "DILUV_WEBSITE",
             profile: (profile: any) => {
                 return { ...profile, id:  profile.username, name: profile.preferred_username};
