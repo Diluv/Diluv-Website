@@ -22,25 +22,25 @@ export default function Files({ project, files, theme }: { project: Project, fil
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>
-                                <table className={`table-fixed w-full border dark:border-dark-700  cursor-default`}>
+                                <table className={`table-auto w-full border dark:border-dark-700  cursor-default`}>
                                     <thead>
                                     <tr className={`border bg-gray-100 dark:bg-dark-800 dark:border-dark-700`}>
-                                        <th className={`border dark:border-dark-700 px-2 py-2 w-64`}>
+                                        <th className={`border dark:border-dark-700 px-2 py-2`}>
                                             Name
                                         </th>
-                                        <th className={`border dark:border-dark-700 px-2 py-2 w-40`}>
+                                        <th className={`border dark:border-dark-700 px-2 py-2`}>
                                             Game Versions
                                         </th>
-                                        <th className={`border dark:border-dark-700 px-2 py-2 w-28`}>
+                                        <th className={`border dark:border-dark-700 px-2 py-2`}>
                                             Size
                                         </th>
-                                        <th className={`border dark:border-dark-700 px-2 py-2 w-28`}>
+                                        <th className={`border dark:border-dark-700 px-2 py-2`}>
                                             Status
                                         </th>
-                                        <th className={`border dark:border-dark-700 px-2 py-2 w-28`}>
+                                        <th className={`border dark:border-dark-700 px-2 py-2`}>
                                             Date
                                         </th>
-                                        <th className={`border dark:border-dark-700 px-2 py-2 w-12`}>
+                                        <th className={`border dark:border-dark-700 px-2 py-2`}>
                                             <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"}/>
                                         </th>
 
