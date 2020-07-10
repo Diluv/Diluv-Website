@@ -2,21 +2,23 @@ import { NextPageContext } from "next";
 import { get } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { getTheme } from "../../../../../utils/theme";
-import { HasTheme } from "../../../../../interfaces";
+import { HasSession, HasTheme } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
 import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 import Alert from "../../../../../components/Alert";
 import Markdown from "../../../../../components/Markdown";
 import SimpleBar from "simplebar-react";
+// @ts-ignore
+import { getSession } from "next-auth/client";
 
-export default function Index({ theme, GameSlug, ProjectType }: { GameSlug: string, ProjectType: string } & HasTheme) {
+export default function Index({ theme, GameSlug, ProjectType, session }: { GameSlug: string, ProjectType: string } & HasTheme & HasSession) {
     let [content, setContent] = useState("");
     let [logo, setLogo] = useState("");
     let [logoErrors, setLogoErrors] = useState<string[]>([]);
 
     let [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
-    return <Layout title={`Create ${ProjectType}`} theme={theme}>
+    return <Layout title={`Create ${ProjectType}`} theme={theme} session={session}>
         <div className={`w-5/6 mx-auto mt-4 mb-8`}>
 
             {logoErrors.length > 0 ? <div className={`my-4`}>  {logoErrors.map(value => {
@@ -138,7 +140,8 @@ export async function getServerSideProps(context: NextPageContext) {
 
     let featured = await get(`${API_URL}/v1/site`);
     let theme = getTheme(context);
+    let session = (await getSession(context));
     return {
-        props: { theme, GameSlug, ProjectType } // will be passed to the page component as props
+        props: { theme, GameSlug, ProjectType, session: session ?? null } // will be passed to the page component as props
     };
 }

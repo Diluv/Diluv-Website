@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
+import { HasSession, HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
 import { get } from "../../../../utils/request";
 
 import { API_URL } from "../../../../utils/api";
@@ -14,6 +14,8 @@ import { useRouter } from "next/router";
 import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
 import Pagination, { buildURL } from "../../../../components/misc/Pagination";
+// @ts-ignore
+import { getSession, useSession } from "next-auth/client";
 
 interface Props {
     search: string
@@ -28,7 +30,7 @@ interface Props {
     currentTags: string[]
 }
 
-export default function Projects({ theme, search, gameSlug, projectData, types, projects, sorts, currentSort, page, version, currentTags }: Props & HasTheme) {
+export default function Projects({ theme, search, gameSlug, projectData, types, projects, sorts, currentSort, page, version, currentTags, session }: Props & HasTheme & HasSession) {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     let [displaySearch] = useState(search);
@@ -71,7 +73,7 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
     }
 
 
-    return <Layout title={projectData.name} theme={theme}>
+    return <Layout title={projectData.name} theme={theme} session={session}>
         <div className={`container mx-auto`}>
             <div className={`w-11/12 mx-auto`}>
                 <div id={"header"} className={`mb-4 mt-2`}>
@@ -277,6 +279,8 @@ export async function getServerSideProps(context: NextPageContext) {
     params.sort();
     let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`); // got
     page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
+    let session = (await getSession(context));
+
     return {
         props: {
             theme,
@@ -289,7 +293,8 @@ export async function getServerSideProps(context: NextPageContext) {
             currentSort: sort.length ? sort : "popular",
             page: page,
             version: version.length ? version : "",
-            currentTags: tagArr.length ? tagArr : []
+            currentTags: tagArr.length ? tagArr : [],
+            session: session ?? null
         }
     };
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "components/Layout";
 import { NextPageContext } from "next";
-import { AuthorPage, HasTheme, Sort } from "../../../interfaces";
+import { AuthorPage, HasSession, HasTheme, Sort } from "../../../interfaces";
 import { getTheme, reactSelectStyle } from "../../../utils/theme";
 import { get } from "../../../utils/request";
 import { API_URL } from "../../../utils/api";
@@ -17,7 +17,7 @@ import { func } from "prop-types";
 import formatDistance from "date-fns/formatDistance";
 import format from 'date-fns/format';
 
-export default function AuthorProjects({ theme, data, currentSort, page }: { data: AuthorPage, currentSort: string, page: number } & HasTheme) {
+export default function AuthorProjects({ theme, data, currentSort, page, session }: { data: AuthorPage, currentSort: string, page: number } & HasTheme & HasSession) {
 
     let maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
@@ -25,7 +25,7 @@ export default function AuthorProjects({ theme, data, currentSort, page }: { dat
 
     const router = useRouter();
 
-    return (<Layout title={data.user.displayName} theme={theme}>
+    return (<Layout title={data.user.displayName} theme={theme} session={session}>
             <div className={`container mx-auto mt-4`}>
                 <div className={`w-11/12 mx-auto`}>
                     <div className={`grid col-gap-2 row-gap-2 sm:row-gap-0 profilePageSmall sm:profilePageLarge`}>
@@ -118,7 +118,7 @@ export async function getServerSideProps(context: NextPageContext) {
     if (sort) {
         params.set("sort", `${sort}`);
     }
-    let session = (await getSession());
+    let session = (await getSession(context));
     let headers: { Accept: string, Authorization?: string | undefined } = {
         Accept: "application/json"
     };
@@ -127,7 +127,8 @@ export async function getServerSideProps(context: NextPageContext) {
     }
     params.sort();
     let data = await get(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, headers);
+
     return {
-        props: { theme, data: data.data, currentSort: sort.length ? sort : `old`, page: page } // will be passed to the page component as props
+        props: { theme, data: data.data, currentSort: sort.length ? sort : `old`, page: page, session: session ?? null } // will be passed to the page component as props
     };
 }

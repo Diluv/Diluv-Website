@@ -2,16 +2,16 @@ import React from "react";
 import Layout from "../components/Layout";
 import { get } from "../utils/request";
 import { API_URL } from "../utils/api";
-import { Featured, HasTheme } from "../interfaces";
+import { Featured, HasSession, HasTheme } from "../interfaces";
 import { NextPageContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 import { getTheme } from "../utils/theme";
 // @ts-ignore
-import { useSession, getSession } from 'next-auth/client'
+import { getSession } from "next-auth/client";
 
-export default function IndexPage({ theme, featured }: { featured: Featured } & HasTheme) {
+export default function IndexPage({ theme, featured, session }: { featured: Featured } & HasTheme & HasSession) {
     return (
-        <Layout title="Diluv" theme={theme}>
+        <Layout title="Diluv" theme={theme} session={session}>
             <>
                 <section id={"intro"} className={`w-5/6 mx-auto text-center my-4`}>
                     <h1 className={`text-3xl`}>Welcome to Diluv</h1>
@@ -63,7 +63,8 @@ export default function IndexPage({ theme, featured }: { featured: Featured } & 
 export async function getServerSideProps(context: NextPageContext) {
     let featured = await get(`${API_URL}/v1/site`);
     let theme = getTheme(context);
+    let session = await getSession(context);
     return {
-        props: { theme, featured: featured.data } // will be passed to the page component as props
+        props: { theme, featured: featured.data, session: session ?? null } // will be passed to the page component as props
     };
 }

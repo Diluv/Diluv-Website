@@ -4,13 +4,15 @@ import Search from "components/icons/Search";
 import { NextPageContext } from "next";
 import { get } from "../../utils/request";
 import { API_URL } from "../../utils/api";
-import { Game, HasTheme, Sort } from "../../interfaces";
+import { Game, HasSession, HasTheme, Sort } from "../../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getTheme, reactSelectStyle } from "../../utils/theme";
 import Select from "react-select";
 import { onBlur, onFocus } from "../../utils/util";
 import { DebounceInput } from "react-debounce-input";
+// @ts-ignore
+import { getSession } from "next-auth/client";
 
 function buildURL(search: string, sort: string) {
     let params = new URLSearchParams();
@@ -28,7 +30,7 @@ function buildURL(search: string, sort: string) {
     return ``;
 }
 
-export default function GameIndex({ theme, games, sorts, currentSort, search }: { games: Game[], sorts: Sort[], currentSort: string, search: string } & HasTheme) {
+export default function GameIndex({ theme, games, sorts, currentSort, search, session }: { games: Game[], sorts: Sort[], currentSort: string, search: string } & HasTheme & HasSession) {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     let [displaySearch] = useState(search);
@@ -44,7 +46,7 @@ export default function GameIndex({ theme, games, sorts, currentSort, search }: 
     }
 
     return (
-        <Layout title="Games" theme={theme}>
+        <Layout title="Games" theme={theme} session={session}>
             <>
                 <div id={"header"} className={`text-center my-4 w-full lg:w-5/6 mx-auto`}>
                     <h1 className={`text-3xl`}>Games</h1>
@@ -126,8 +128,11 @@ export async function getServerSideProps(context: NextPageContext) {
     }
 
     let games = await get(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`);
+
+    let session = (await getSession(context));
+
     return {
-        props: { theme, games: games.data.games, sorts: games.data.sort, currentSort: sort.length ? sort : `name`, search: search ?? `` } // will be passed to the page component as props
+        props: { theme, games: games.data.games, sorts: games.data.sort, currentSort: sort.length ? sort : `name`, search: search ?? ``, session: session ?? null } // will be passed to the page component as props
     };
 }
 

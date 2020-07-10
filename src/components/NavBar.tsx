@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
-import DropDown, { DropDownAction, DropDownLink, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
-import { Theme } from "../utils/context";
+import DropDown, { DropDownAction, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
+import { Auth, Theme } from "../utils/context";
 // @ts-ignore
-import { useSession, getSession, signin, signout } from "next-auth/client";
-import { get } from "../utils/request";
-import { API_URL } from "../utils/api";
+import { signin, signout } from "next-auth/client";
 
 function NavBar() {
 
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
     const theme = useContext(Theme);
-    const [session, loading] = useSession();
+    const auth = useContext(Auth);
     return <>
         <header className="text-gray-400 bg-diluv-900 font-hero">
             <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row justify-between md:justify-start items-center">
@@ -55,11 +53,11 @@ function NavBar() {
 
                     </nav>
                     <div className="hidden md:block">
-                        <DropDown name={session ? session.user.name : "Account"} className={`hover:text-white`}>
-                            {!session && <DropDownAction action={() => signin("DILUV")}>Sign in</DropDownAction>}
-                            {session &&
-                            <DropDownLinkInternal href={`/author/[Name]/`} as={`/author/${session.user.id}`}>Profile</DropDownLinkInternal>}
-                            {session && <DropDownAction action={() => signout()}>Sign out</DropDownAction>}
+                        <DropDown name={auth.session ? auth.session.user.name : "Account"} className={`hover:text-white`}>
+                            {!auth.session && <DropDownAction action={() => signin("DILUV")}>Sign in</DropDownAction>}
+                            {auth.session &&
+                            <DropDownLinkInternal href={`/author/[Name]/`} as={`/author/${auth.session.user.id}`}>Profile</DropDownLinkInternal>}
+                            {auth.session && <DropDownAction action={() => signout()}>Sign out</DropDownAction>}
                             <DropDownSpacer/>
                             <DropDownAction action={() => theme.toggleTheme()}>
                                 Toggle Theme
@@ -67,13 +65,14 @@ function NavBar() {
                         </DropDown>
                     </div>
                     <div className={`block md:hidden text-center`}>
-                        <p className={`hover:text-white cursor-pointer`} onClick={() => setShowingUserMenu(!showUserMenu)}>{session ? session.user.name : "Account"}</p>
+                        <p className={`hover:text-white cursor-pointer`}
+                           onClick={() => setShowingUserMenu(!showUserMenu)}>{auth.session ? auth.session.user.name : "Account"}</p>
                         <div className={`${showUserMenu ? `block` : `hidden`}`}>
                             <div className={`flex flex-col`}>
 
-                                {!session && <button className={`hover:text-white`} onClick={() => signin("DILUV")}>Sign in</button>}
-                                {session && <Link href={`/author/[Name]/`} as={`/author/${session.user.id}`}><a>Profile</a></Link>}
-                                {session && <button className={`hover:text-white`} onClick={() => signout()}>Sign out</button>}
+                                {!auth.session && <button className={`hover:text-white`} onClick={() => signin("DILUV")}>Sign in</button>}
+                                {auth.session && <Link href={`/author/[Name]/`} as={`/author/${auth.session.user.id}`}><a>Profile</a></Link>}
+                                {auth.session && <button className={`hover:text-white`} onClick={() => signout()}>Sign out</button>}
                                 <span className={`hover:text-white cursor-pointer select-none`} onClick={() => theme.toggleTheme()}>
                                     Change Theme
                                 </span>

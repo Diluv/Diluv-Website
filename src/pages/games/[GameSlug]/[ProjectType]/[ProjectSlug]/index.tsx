@@ -3,15 +3,17 @@ import Layout from "components/Layout";
 import { NextPageContext } from "next";
 import { get } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
-import { HasTheme, Project } from "../../../../../interfaces";
+import { HasSession, HasTheme, Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import { getTheme } from "../../../../../utils/theme";
 import Markdown from "../../../../../components/Markdown";
+// @ts-ignore
+import { getSession } from "next-auth/client";
 
-export default function ProjectIndex({ theme, project }: { project: Project } & HasTheme) {
+export default function ProjectIndex({ theme, project, session }: { project: Project } & HasTheme & HasSession) {
 
     return (
-        <Layout title={project.name} theme={theme}>
+        <Layout title={project.name} theme={theme} session={session}>
             <>
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
                     <ProjectInfo project={project} pageType={"description"}/>
@@ -32,7 +34,8 @@ export async function getServerSideProps(context: NextPageContext) {
     let { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     let data = await get(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`);
+    let session = (await getSession(context));
     return {
-        props: { theme, project: data.data } // will be passed to the page component as props
+        props: { theme, project: data.data, session: session ?? null } // will be passed to the page component as props
     };
 }
