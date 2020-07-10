@@ -21,12 +21,18 @@ export default function Files({ theme, project, session }: { project: Project } 
                             <div className={`w-1/2`}>
                                 {project.contributors.map(value => {
                                     return <div key={value.userId} className={`grid col-gap-2 my-1 memberList`}>
-                                        <img className={`w-16 h-16 area-avatar`} src={value.avatarURL}/>
                                         <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
-                                            <a className={`area-name`}>
-                                                {value.displayName}
+                                            <a>
+                                                <img className={`w-16 h-16 area-avatar`} src={value.avatarURL}/>
                                             </a>
                                         </Link>
+                                        <div className={`area-name`}>
+                                            <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
+                                                <a className={` hover:text-diluv-600 dark-hover:text-diluv-500`}>
+                                                    {value.displayName}
+                                                </a>
+                                            </Link>
+                                        </div>
                                         <p className={`area-role`}>
                                             Role: {value.role}
                                         </p>
