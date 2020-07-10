@@ -16,7 +16,7 @@ export function listContributors(project: Project) {
     for (let contributor of project.contributors) {
         count++;
         arr.push(<span key={contributor.username}>
-        <Link href={`/author/${contributor.username}/`}>
+        <Link href={`/author/[Name]/`} as={`/author/${contributor.username}/`}>
         <a
             className={"hover:text-diluv-500"}>{contributor.displayName}</a>
             </Link>
