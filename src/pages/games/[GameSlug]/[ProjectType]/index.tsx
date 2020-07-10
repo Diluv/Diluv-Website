@@ -16,6 +16,7 @@ import Link from "next/link";
 import Pagination, { buildURL } from "../../../../components/misc/Pagination";
 // @ts-ignore
 import { getSession, useSession } from "next-auth/client";
+import AuthorizedLink from "../../../../components/auth/AuthorizedLink";
 
 interface Props {
     search: string
@@ -94,11 +95,11 @@ export default function Projects({ theme, search, gameSlug, projectData, types, 
                             })}
                         </div>
                         <div className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
-                            <Link href={`/create/games/[GameSlug]/[ProjectType]/`} as={`/create/games/${gameSlug}/${projectData.slug}/`}>
-                                <a className={`mx-auto text-center`}>
-                                    Create Project
-                                </a>
-                            </Link>
+                            <AuthorizedLink href={`/create/games/[GameSlug]/[ProjectType]/`}
+                                            as={`/create/games/${gameSlug}/${projectData.slug}/`}
+                                            className={`mx-auto text-center`}>
+                                Create Project
+                            </AuthorizedLink>
                         </div>
                     </div>
                 </div>

@@ -11,8 +11,12 @@ import Markdown from "../../../../../components/Markdown";
 import SimpleBar from "simplebar-react";
 // @ts-ignore
 import { getSession } from "next-auth/client";
+import { ensureAuthed } from "../../../../../utils/auth";
 
 export default function Index({ theme, GameSlug, ProjectType, session }: { GameSlug: string, ProjectType: string } & HasTheme & HasSession) {
+
+    ensureAuthed(session);
+
     let [content, setContent] = useState("");
     let [logo, setLogo] = useState("");
     let [logoErrors, setLogoErrors] = useState<string[]>([]);
