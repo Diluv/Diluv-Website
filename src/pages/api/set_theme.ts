@@ -9,7 +9,7 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
     }
     let expiresAt: Date = new Date(9999, 12, 31, 23, 59, 59);
     const domain = process.env.NODE_ENV == 'production' ? 'diluv.com' : undefined;
-    let options: CookieSerializeOptions = { path: '/', expires: expiresAt, secure: true, sameSite: 'lax', domain: domain };
+    let options: CookieSerializeOptions = { path: '/', expires: expiresAt, secure: process.env.NODE_ENV == 'production', sameSite: 'lax', domain: domain };
     res.setHeader('Set-Cookie', [serialize('theme', req.body["theme"], options)]);
     res.end();
 };
