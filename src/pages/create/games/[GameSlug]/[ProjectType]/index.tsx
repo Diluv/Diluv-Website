@@ -1,10 +1,10 @@
 import { NextPageContext } from "next";
-import { get } from "../../../../../utils/request";
+import { get, post, postAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { getTheme } from "../../../../../utils/theme";
 import { HasSession, HasTheme } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Dropzone from "react-dropzone";
 import Alert from "../../../../../components/Alert";
 import Markdown from "../../../../../components/Markdown";
@@ -12,6 +12,9 @@ import SimpleBar from "simplebar-react";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import { ensureAuthed } from "../../../../../utils/auth";
+import { Auth } from "../../../../../utils/context";
+import { useRouter } from "next/router";
+import { AxiosError } from "axios";
 
 export default function Index({ theme, GameSlug, ProjectType, session }: { GameSlug: string, ProjectType: string } & HasTheme & HasSession) {
 
@@ -19,9 +22,22 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
 
     let [content, setContent] = useState("");
     let [logo, setLogo] = useState("");
+    let [logoFile, setLogoFile] = useState<File>();
     let [logoErrors, setLogoErrors] = useState<string[]>([]);
 
+    let refName = useRef<HTMLInputElement>(null);
+    let [validName, setValidName] = useState(false);
+    let refSummary = useRef<HTMLInputElement>(null);
+    let [validSummary, setValidSummary] = useState(false);
+    let refDescription = useRef<HTMLTextAreaElement>(null);
+    let [validDescription, setValidDescription] = useState(false);
     let [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
+    let router = useRouter();
+
+    function canSubmit(): boolean {
+        return validName && validSummary && validDescription && logoFile;
+    }
+
     return <Layout title={`Create ${ProjectType}`} theme={theme} session={session}>
         <div className={`w-5/6 mx-auto mt-4 mb-8`}>
 
@@ -38,7 +54,7 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
                         let file = acceptedFiles[0];
                         let u = URL.createObjectURL(file);
                         let img = new Image;
-
+                        setLogoFile(file);
                         img.onload = function () {
                             let newLogoErrors = [];
                             if (img.width !== img.height) {
@@ -73,15 +89,29 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
                     <label htmlFor={`nameField`} className={`mb-1 md:my-auto`}>
                         Project Name:
                     </label>
-                    <input type={`text`} placeholder={`Enter Project Name`} id={`nameField`}
-                           className={`md:ml-2 p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 dark:bg-dark-800 flex-grow outline-none`}/>
+                    <input type={`text`} placeholder={`Enter Project Name`} id={`nameField`} ref={refName}
+                           className={`md:ml-2 p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 dark:bg-dark-800 flex-grow outline-none`}
+                           onChange={event => {
+                               if (event.target.value.length >= 5 && event.target.value.length <= 50) {
+                                   setValidName(true);
+                               } else {
+                                   setValidName(false);
+                               }
+                           }} maxLength={50}/>
                 </div>
                 <div className={`flex flex-col md:flex-row sm:ml-4`} style={{ gridArea: "summary" }}>
                     <label htmlFor={`summaryField`} className={`mb-1 md:my-auto`}>
                         Project summary:
                     </label>
-                    <input type={`text`} placeholder={`Enter Project Summary`} id={`summaryField`}
-                           className={`md:ml-2 p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 flex-grow dark:bg-dark-800 outline-none`}/>
+                    <input type={`text`} placeholder={`Enter Project Summary`} id={`summaryField`} ref={refSummary}
+                           className={`md:ml-2 p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 flex-grow dark:bg-dark-800 outline-none`}
+                           onChange={event => {
+                               if (event.target.value.length >= 10 && event.target.value.length <= 250) {
+                                   setValidSummary(true);
+                               } else {
+                                   setValidSummary(false);
+                               }
+                           }} maxLength={250}/>
 
                 </div>
                 <div className={`mt-4`} style={{ gridArea: "description" }}>
@@ -117,7 +147,15 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
                             className={`outline-none resize-none border dark:border-dark-700 ${viewMode.showEdit && viewMode.showPreview ? `w-full sm:w-1/2 h-64 sm:h-80 md:h-full` : `w-full h-full`} p-1 dark:bg-dark-800`}
                             onChange={(e) => {
                                 setContent(e.target.value);
-                            }} defaultValue={content}/>}
+                                if (e.target.value.length >= 50 && e.target.value.length <= 1000) {
+                                    setValidDescription(true);
+                                } else {
+                                    setValidDescription(false);
+                                }
+                            }} defaultValue={content}
+                            ref={refDescription}
+                            maxLength={1000}
+                        />}
 
                         {viewMode.showPreview &&
                         <div
@@ -129,7 +167,23 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
                     </div>
                 </div>
                 <div className={``} style={{ gridArea: "create" }}>
-                    <button className={`btn-diluv sm:w-auto`}>
+                    <button className={`btn-diluv sm:w-auto`} disabled={!canSubmit()} onClick={event => {
+                        let headers: { Accept: string, Authorization?: string | undefined, "content-type": string } = {
+                            Accept: "application/json",
+                            "content-type": "multipart/form-data"
+                        };
+                        let formData = new FormData();
+                        formData.set("name", refName.current?.value ?? "");
+                        formData.set("summary", refSummary.current?.value ?? "");
+                        formData.set("description", refDescription.current?.value ?? "");
+                        formData.set("logo", logoFile ?? "");
+                        postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session: session }).then(value => {
+                            console.log(value);
+                            router.push(`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`, `/games/${GameSlug}/${ProjectType}/${value.data.slug}`);
+                        }).catch((reason: AxiosError) => {
+                            console.log(reason.response?.data);
+                        });
+                    }}>
                         Create project
                     </button>
                 </div>
@@ -142,7 +196,6 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
 export async function getServerSideProps(context: NextPageContext) {
     let { GameSlug, ProjectType } = context.query;
 
-    let featured = await get(`${API_URL}/v1/site`);
     let theme = getTheme(context);
     let session = (await getSession(context));
     return {
