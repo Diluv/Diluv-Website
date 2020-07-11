@@ -3,7 +3,7 @@ import Layout from "components/Layout";
 import { NextPageContext } from "next";
 import { AuthorPage, HasSession, HasTheme, Sort } from "../../../interfaces";
 import { getTheme, reactSelectStyle } from "../../../utils/theme";
-import { get } from "../../../utils/request";
+import { getAuthed } from "../../../utils/request";
 import { API_URL } from "../../../utils/api";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
@@ -13,9 +13,8 @@ import AuthorProjectCard from "../../../components/project/AuthorProjectCard";
 import Select from "react-select";
 import Pagination, { buildURL } from "../../../components/misc/Pagination";
 import { useRouter } from "next/router";
-import { func } from "prop-types";
 import formatDistance from "date-fns/formatDistance";
-import format from 'date-fns/format';
+import format from "date-fns/format";
 
 export default function AuthorProjects({ theme, data, currentSort, page, session }: { data: AuthorPage, currentSort: string, page: number } & HasTheme & HasSession) {
 
@@ -119,14 +118,8 @@ export async function getServerSideProps(context: NextPageContext) {
         params.set("sort", `${sort}`);
     }
     let session = (await getSession(context));
-    let headers: { Accept: string, Authorization?: string | undefined } = {
-        Accept: "application/json"
-    };
-    if (session) {
-        headers.Authorization = `Bearer ${session.accesstoken}`;
-    }
     params.sort();
-    let data = await get(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, headers);
+    let data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
 
     return {
         props: { theme, data: data.data, currentSort: sort.length ? sort : `old`, page: page, session: session ?? null } // will be passed to the page component as props

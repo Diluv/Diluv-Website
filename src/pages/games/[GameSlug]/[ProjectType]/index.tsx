@@ -2,7 +2,7 @@ import { NextPageContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
 import { HasSession, HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
-import { get } from "../../../../utils/request";
+import { getAuthed } from "../../../../utils/request";
 
 import { API_URL } from "../../../../utils/api";
 import ProjectCard from "../../../../components/project/ProjectCard";
@@ -15,7 +15,7 @@ import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
 import Pagination, { buildURL } from "../../../../components/misc/Pagination";
 // @ts-ignore
-import { getSession, useSession } from "next-auth/client";
+import { getSession } from "next-auth/client";
 import AuthorizedLink from "../../../../components/auth/AuthorizedLink";
 
 interface Props {
@@ -278,9 +278,9 @@ export async function getServerSideProps(context: NextPageContext) {
 
     }
     params.sort();
-    let data = await get(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`); // got
-    page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
     let session = (await getSession(context));
+    let data = await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`, { session: session }); // got
+    page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
 
     return {
         props: {

@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/Layout";
-import { get } from "../utils/request";
+import { get, getAuthed } from "../utils/request";
 import { API_URL } from "../utils/api";
 import { Featured, HasSession, HasTheme } from "../interfaces";
 import { NextPageContext } from "next";
@@ -61,9 +61,10 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-    let featured = await get(`${API_URL}/v1/site`);
+
     let theme = getTheme(context);
     let session = await getSession(context);
+    let featured = await getAuthed(`${API_URL}/v1/site`, { session: session });
     return {
         props: { theme, featured: featured.data, session: session ?? null } // will be passed to the page component as props
     };

@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FocusEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Layout from "components/Layout";
 import Search from "components/icons/Search";
 import { NextPageContext } from "next";
-import { get } from "../../utils/request";
+import { getAuthed } from "../../utils/request";
 import { API_URL } from "../../utils/api";
 import { Game, HasSession, HasTheme, Sort } from "../../interfaces";
 import Link from "next/link";
@@ -127,12 +127,19 @@ export async function getServerSideProps(context: NextPageContext) {
         params.set("search", `${search}`);
     }
 
-    let games = await get(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`);
-
     let session = (await getSession(context));
 
+    let games = await getAuthed(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
+
     return {
-        props: { theme, games: games.data.games, sorts: games.data.sort, currentSort: sort.length ? sort : `name`, search: search ?? ``, session: session ?? null } // will be passed to the page component as props
+        props: {
+            theme,
+            games: games.data.games,
+            sorts: games.data.sort,
+            currentSort: sort.length ? sort : `name`,
+            search: search ?? ``,
+            session: session ?? null
+        } // will be passed to the page component as props
     };
 }
 
