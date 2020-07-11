@@ -28,7 +28,7 @@ const schema = merge(github, {
 
 function Markdown({ markdown }: Props) {
 
-    return <div className={`markdown`}>
+    return <div className={`markdown break-words`}>
         {remark()
             .use(slug) // GitHub like anchor slugs for headings.
             .use(headings) // Applies references for slug anchors. May be an issue here with how it's being applied as it throws a console error.
