@@ -74,6 +74,9 @@ export interface Project {
     projectType: ProjectType
     contributors: Contributors[]
     links: Link[]
+    permissions: string[]
+    released?:boolean
+    review?:boolean
 }
 
 export interface Link {
