@@ -243,21 +243,21 @@
   }
 
   .createFormLarge {
-    grid-template-areas: "image name" "image space" "image summary" "image ." "description description" ". ." "create .";
+    grid-template-areas: "image name" "image space" "image summary" "image space2" "image tags" "image ." "description description" ". ." "create .";
     grid-template-columns: 16rem auto;
-    grid-template-rows: 2rem 0.5rem 2rem 11.5rem minmax(28rem, auto) 0.5rem 2rem;
+    grid-template-rows: 2rem 0.5rem 2rem 0.5rem 2rem 9rem minmax(28rem, auto) 0.5rem 2rem;
   }
 
   .createFormMedium {
-    grid-template-areas: "image name" "image space" "image summary" "image ." "description description" ". ." "create .";
+    grid-template-areas: "image name" "image space" "image summary" "image tags" "image ." "description description" ". ." "create .";
     grid-template-columns: 16rem auto;
-    grid-template-rows: 3.5rem 0.5rem 3.5rem 8.5rem minmax(20rem, auto) 0.5rem 2rem;
+    grid-template-rows: 3.5rem 0.5rem 3.5rem 3.5rem 5.5rem minmax(20rem, auto) 0.5rem 2rem;
   }
 
   .createFormSmall {
-    grid-template-areas: "image" "name" "summary" "description" "create";
+    grid-template-areas: "image" "name" "summary" "tags" "description" "create";
     grid-template-columns: 1fr;
-    grid-template-rows: 16rem 1fr 1fr minmax(28rem, auto) 2rem;
+    grid-template-rows: 16rem 1fr 1fr 1fr minmax(28rem, auto) 2rem;
   }
 
   .profilePageLarge {

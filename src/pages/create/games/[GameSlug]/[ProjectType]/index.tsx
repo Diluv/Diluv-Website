@@ -1,10 +1,10 @@
 import { NextPageContext } from "next";
-import { get, post, postAuthed } from "../../../../../utils/request";
+import { getAuthed, postAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
-import { getTheme } from "../../../../../utils/theme";
-import { HasSession, HasTheme } from "../../../../../interfaces";
+import { getTheme, reactSelectStyle } from "../../../../../utils/theme";
+import { HasSession, HasTheme, SelectData, Tag } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Dropzone from "react-dropzone";
 import Alert from "../../../../../components/Alert";
 import Markdown from "../../../../../components/Markdown";
@@ -12,14 +12,19 @@ import SimpleBar from "simplebar-react";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import { ensureAuthed } from "../../../../../utils/auth";
-import { Auth } from "../../../../../utils/context";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
+import Select from "react-select";
+import { buildURL } from "../../../../../components/misc/Pagination";
+import { StateManager } from "react-select/src/stateManager";
 
-export default function Index({ theme, GameSlug, ProjectType, session }: { GameSlug: string, ProjectType: string } & HasTheme & HasSession) {
-
+export default function Index({ theme, GameSlug, ProjectType, session, tags }: { GameSlug: string, ProjectType: string, tags: Tag[] } & HasTheme & HasSession) {
     ensureAuthed(session);
 
+    if (!session) {
+        return <> </>;
+    }
+    console.log(tags);
     let [content, setContent] = useState("");
     let [logo, setLogo] = useState("");
     let [logoFile, setLogoFile] = useState<File>();
@@ -31,11 +36,13 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
     let [validSummary, setValidSummary] = useState(false);
     let refDescription = useRef<HTMLTextAreaElement>(null);
     let [validDescription, setValidDescription] = useState(false);
+    let refTags = useRef<StateManager>(null);
+    let [validTags, setValidTags] = useState(false);
     let [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
     let router = useRouter();
 
     function canSubmit(): boolean {
-        return validName && validSummary && validDescription && logoFile;
+        return validName && validSummary && validDescription && !!logoFile && validTags;
     }
 
     return <Layout title={`Create ${ProjectType}`} theme={theme} session={session}>
@@ -114,6 +121,22 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
                            }} maxLength={250}/>
 
                 </div>
+                <div className={`flex flex-col md:flex-row sm:ml-4`} style={{ gridArea: "tags" }}>
+                    <label htmlFor={"tags"} className={`mb-1 md:my-auto`}>
+                        Tags:
+                    </label>
+                    <Select isSearchable={true} inputId="tags"
+                            options={tags.map(value => {
+                                return { value: value.slug, label: value.name };
+                            })}
+                            isMulti={true}
+                            ref={refTags}
+                            onChange={(e: any) => {
+                                setValidTags(e && e.length > 0);
+                            }}
+                            styles={reactSelectStyle} classNamePrefix={"select"} className={`md:ml-2 flex-grow`}/>
+
+                </div>
                 <div className={`mt-4`} style={{ gridArea: "description" }}>
                     <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info`}>
                         <div onClick={() => setViewMode({
@@ -177,6 +200,13 @@ export default function Index({ theme, GameSlug, ProjectType, session }: { GameS
                         formData.set("summary", refSummary.current?.value ?? "");
                         formData.set("description", refDescription.current?.value ?? "");
                         formData.set("logo", logoFile ?? "");
+                        if (refTags.current?.state.value) {
+                            (refTags.current.state.value as []).map((value: SelectData, index) => {
+                                    formData.set(`tag${index + 1}`, value.value);
+                                }
+                            );
+
+                        }
                         postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session: session }).then(value => {
                             console.log(value);
                             router.push(`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`, `/games/${GameSlug}/${ProjectType}/${value.data.slug}`);
@@ -198,7 +228,12 @@ export async function getServerSideProps(context: NextPageContext) {
 
     let theme = getTheme(context);
     let session = (await getSession(context));
+    let tags = [];
+    if (session) {
+        let data = await getAuthed(`${API_URL}/v1/site/create/games/${GameSlug}/${ProjectType}`, { session: session });
+        tags = data.data.tags;
+    }
     return {
-        props: { theme, GameSlug, ProjectType, session: session ?? null } // will be passed to the page component as props
+        props: { theme, GameSlug, ProjectType, session: session ?? null, tags } // will be passed to the page component as props
     };
 }
