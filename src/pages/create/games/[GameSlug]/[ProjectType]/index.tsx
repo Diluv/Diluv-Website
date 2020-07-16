@@ -24,7 +24,6 @@ export default function Index({ theme, GameSlug, ProjectType, session, tags }: {
     if (!session) {
         return <> </>;
     }
-    console.log(tags);
     let [content, setContent] = useState("");
     let [logo, setLogo] = useState("");
     let [logoFile, setLogoFile] = useState<File>();
@@ -208,7 +207,6 @@ export default function Index({ theme, GameSlug, ProjectType, session, tags }: {
 
                         }
                         postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session: session }).then(value => {
-                            console.log(value);
                             router.push(`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`, `/games/${GameSlug}/${ProjectType}/${value.data.slug}`);
                         }).catch((reason: AxiosError) => {
                             console.log(reason.response?.data);

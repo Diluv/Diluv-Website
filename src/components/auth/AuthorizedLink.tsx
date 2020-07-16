@@ -16,7 +16,6 @@ export default function AuthorizedLink({ href, as, children, className }: { href
             </a>
         </Link>;
     }
-    console.log(`${process.env.NEXT_STATIC_SITE_URL}/${as}`);
     return <p className={className} onClick={() => signin("DILUV", { callbackUrl: `${process.env.NEXT_STATIC_SITE_URL}${as}` })}>
         {children}
     </p>;

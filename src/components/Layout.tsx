@@ -14,7 +14,6 @@ type Props = {
 };
 
 function Layout({ theme, children, title = "Diluv", session }: Props & HasTheme & HasSession) {
-
     const [themeState, setTheme] = useState({
         theme: theme.theme
     });
