@@ -6,7 +6,7 @@ import React from "react";
 import ReactPaginate from "@jaredlll08/react-paginate";
 import { Tag } from "../../interfaces";
 
-export function buildURL({ search, page, sort, version, tags }: { search?: string, page?: number, sort?: string, version?: string, tags?: Tag[] }) {
+export function buildURL({ search, page, sort, version, tags, defaultSort = "popular" }: { search?: string, page?: number, sort?: string, version?: string, tags?: Tag[], defaultSort?:string }) {
     let params = new URLSearchParams();
 
     if (search) {
@@ -15,7 +15,7 @@ export function buildURL({ search, page, sort, version, tags }: { search?: strin
     if (page !== 1) {
         params.append("page", page + "");
     }
-    if (sort && sort !== "popular") {
+    if (sort && sort !== defaultSort) {
         params.append("sort", sort);
     }
     if (version) {

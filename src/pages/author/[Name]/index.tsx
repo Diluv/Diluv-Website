@@ -21,7 +21,6 @@ export default function AuthorProjects({ theme, data, currentSort, page, session
     let maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
 
-
     const router = useRouter();
 
     return (<Layout title={data.user.displayName} theme={theme} session={session}>
@@ -86,7 +85,8 @@ function ProjectOptions({ data, page, maxPage, currentSort, showSorts = true }: 
                     onChange={(e: any) => {
                         let newUrl = buildURL({
                             page: page,
-                            sort: e.value
+                            sort: e.value,
+                            defaultSort: "new"
                         });
                         router.push(`/author/[Name]${newUrl}`, `/author/${data.user.username}${newUrl}`);
                     }}
@@ -95,10 +95,12 @@ function ProjectOptions({ data, page, maxPage, currentSort, showSorts = true }: 
         </div>}
         <div className={`${showSorts ? `md:col-start-3` : ``} my-auto`}>
             <Pagination maxPage={maxPage} page={page} asBuilder={(pageIndex: number) => {
-                let newUrl = buildURL({ page: pageIndex, sort: currentSort });
+                let newUrl = buildURL({ page: pageIndex, sort: currentSort,
+                    defaultSort: "new" });
                 return `/author/${data.user.username}${newUrl}`;
             }} hrefBuilder={(pageIndex: number) => {
-                let newUrl = buildURL({ page: pageIndex, sort: currentSort });
+                let newUrl = buildURL({ page: pageIndex, sort: currentSort,
+                    defaultSort: "new" });
                 return `/author/[Name]${newUrl}`;
             }}/>
         </div>
@@ -122,6 +124,6 @@ export async function getServerSideProps(context: NextPageContext) {
     let data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
 
     return {
-        props: { theme, data: data.data, currentSort: sort.length ? sort : `old`, page: page, session: session ?? null } // will be passed to the page component as props
+        props: { theme, data: data.data, currentSort: sort.length ? sort : `new`, page: page, session: session ?? null } // will be passed to the page component as props
     };
 }
