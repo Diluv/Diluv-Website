@@ -25,3 +25,11 @@ export function listContributors(project: Project) {
     }
     return arr;
 }
+
+export function projectHasReleaseStatus(project: Project) {
+    return "released" in project;
+}
+
+export function projectHasReviewStatus(project: Project) {
+    return "review" in project;
+}
