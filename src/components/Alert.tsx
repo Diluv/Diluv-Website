@@ -5,22 +5,18 @@ function Alert(props: { className?: string, children?: ReactNode, type: "danger"
     const {
         canDismiss, type, children, className
     } = props;
-    const bg = `bg-${type}-200`;
-    const color = `text-${type}-800`;
-    const hoverColor = `hover:text-${type}-500`;
-    const border = `border-${type}-400`;
 
     const alertRef = useRef(null);
     if (closed) {
         return <></>;
     }
     return (
-        <div className={`${className || ""} ${bg} ${color} border ${border} px-4 py-3 rounded relative`} ref={alertRef}>
+        <div className={`${className || ""} alert-${type} px-4 py-3 relative`} ref={alertRef}>
             {children}
             {canDismiss && (
                 <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
           <svg
-              className={`fill-current h-6 w-6 ${hoverColor} ${color}`}
+              className={`fill-current h-6 w-6`}
               onClick={() => {
                   const { current }: MutableRefObject<any> = alertRef;
                   if (current) {
