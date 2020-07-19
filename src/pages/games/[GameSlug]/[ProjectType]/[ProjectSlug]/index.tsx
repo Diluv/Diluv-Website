@@ -9,17 +9,13 @@ import { getTheme } from "../../../../../utils/theme";
 import Markdown from "../../../../../components/Markdown";
 // @ts-ignore
 import { getSession } from "next-auth/client";
-import Alert from "../../../../../components/Alert";
-import { projectHasReleaseStatus, projectHasReviewStatus } from "../../../../../utils/util";
 
 export default function ProjectIndex({ theme, project, session }: { project: Project } & HasTheme & HasSession) {
     return (
         <Layout title={project.name} theme={theme} session={session}>
             <>
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
-                    {projectHasReleaseStatus(project) && !project.review ? <Alert type={"warning"} className={`my-4`}>This project is under review and only people with permission can see it!</Alert> : <></>}
-                    {projectHasReviewStatus(project) && !project.released ? <Alert type={"warning"} className={`my-4`}>This project is not released yet!</Alert> : <></>}
-                    <ProjectInfo project={project} pageType={"description"}/>
+                   <ProjectInfo project={project} pageType={"description"}/>
                     <div id={"pageContent"}>
                         <div className={`py-4 px-2`}>
                             <Markdown markdown={project.description}/>
