@@ -37,7 +37,7 @@ module.exports = {
                 "auto-fit": "repeat(auto-fit, minmax(8.3%,1fr));",
                 "pagination": "repeat(auto-fit, minmax(11%,1fr));",
                 "tags": "auto auto auto auto 1fr",
-                "project-info": "auto auto auto 1fr",
+                "project-info": "auto auto auto 1fr auto",
                 'project-type-nav': "2.5fr 0.5fr"
             },
             gridTemplateRows: {

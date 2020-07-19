@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
@@ -8,6 +8,7 @@ import Alert from "../Alert";
 import NavigationMore from "../icons/NavigationMore";
 import Download from "../icons/Download";
 import Wrench from "../icons/Wrench";
+import { Auth } from "../../utils/context";
 
 export default function ProjectInfo({ project, pageType }: { project: Project, pageType: string }) {
     function isDescription(): boolean {
@@ -22,13 +23,19 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
         return pageType === "members";
     }
 
+    function isSettings(): boolean {
+        return pageType === "settings";
+    }
+
+    const auth = useContext(Auth);
+
     return <div id={"topInfo"}>
         {projectHasReleaseStatus(project) && !project.review ?
             <Alert type={"warning"} className={`my-4`}>This project is under review and only people with permission can see it!</Alert> : <></>}
         {projectHasReviewStatus(project) && !project.released ?
             <Alert type={"warning"} className={`my-4`}>This project is not released yet!</Alert> : <></>}
 
-        <div className={`grid mt-4 mb-2 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
+        <div className={`grid mt-4 mb-4 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
             <img src={project.logo} className={`sm:h-48 w-full sm:w-48 area-image`}/>
             <h4 className={`font-semibold area-name`}>{project.name}</h4>
             <div className={`text-gray-600 dark:text-dark-400 mb-1 area-authors`}>
@@ -106,6 +113,19 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
                     </a>
 
                 </Link>}
+
+            {auth.session ? isSettings() ?
+                <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-orange-500 hover:border-orange-500 col-start-5`}>
+                    <span className={`cursor-default select-none text-orange-600`}>Settings</span></div> :
+                <Link href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/settings`}
+                      as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
+                    <a className={`col-start-5`}>
+                        <div className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-orange-300 dark-hover:border-orange-700`}>
+                            Settings
+                        </div>
+                    </a>
+
+                </Link> : <> </>}
 
         </div>
     </div>;
