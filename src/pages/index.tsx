@@ -15,11 +15,11 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
             <>
                 <section id={"intro"} className={`w-5/6 mx-auto text-center my-4`}>
                     <h1 className={`text-3xl`}>Welcome to Diluv</h1>
-                    <h3 className={`text-xl`}>Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to
+                    <h2 className={`text-xl`}>Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to
                         support
                         the players and content creators of all gaming communities. We are currently home to {featured.projectCount} projects
                         and {featured.contributorCount} authors!
-                    </h3>
+                    </h2>
                 </section>
                 <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
                     <div className={`xl:flex xl:flex-row justify-between`}>
@@ -43,7 +43,7 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
                     </div>
                 </section>
                 <section id={"about"} className={`w-5/6 mx-auto text-center mt-4 mb-10`}>
-                    <h1 className={`border-b-2 dark:border-dark-700 pb-1 text-3xl`}>Join the community</h1>
+                    <h2 className={`border-b-2 dark:border-dark-700 pb-1 text-3xl`}>Join the community</h2>
                     <h3 className={`text-xl my-2`}>
                         Are you a creator of gaming related content? Consider joining the Diluv community and share your project today! We
                         currently

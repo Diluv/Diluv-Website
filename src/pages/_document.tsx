@@ -6,8 +6,8 @@ class MyDocument extends Document {
     render() {
 
         return (
-            <Html>
-                <Head lang={"en"}>
+            <Html lang={"en"}>
+                <Head>
                     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1"/>
                     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1"/>
                     <link rel="icon" type="image/png" sizes="194x194" href="/favicon-194x194.png?v=1"/>
@@ -21,6 +21,7 @@ class MyDocument extends Document {
                     <meta name="msapplication-TileColor" content="#2b5797"/>
                     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=1"/>
                     <meta name="theme-color" content="#1b4b67"/>
+                    <meta name="description" content="Diluv is a platform for fan made gaming content such as mods and texture packs made for modders, by modders."/>
                 </Head>
                 <body className={`min-h-100vh`}>
                 <Main/>

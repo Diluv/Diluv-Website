@@ -18,60 +18,60 @@ function Footer() {
                     <div className="lg:w-1/3 md:w-1/2 w-full px-4 mb-10 lg:mb-0">
                         <h2 className="font-medium text-white tracking-widest text-sm mb-3">PRODUCT</h2>
                         <nav className="list-none font-sans">
-                            <li>
+                            <p>
                                 <a className="text-gray-500 hover:text-white" href={"https://github.com/Diluv"}>Github</a>
-                            </li>
-                            <li>
+                            </p>
+                            <p>
                                 <Link href={"/docs/[PageName]"} as={"/docs/formatting"}>
                                     <a className="text-gray-500 hover:text-white">Formatting Guide</a>
                                 </Link>
-                            </li>
+                            </p>
                         </nav>
                     </div>
                     <div className="lg:w-1/3 md:w-1/2 w-full px-4 mb-10 lg:mb-0">
                         <h2 className="font-medium text-white tracking-widest text-sm mb-3">ABOUT</h2>
                         <nav className="list-none">
-                            <li>
+                            <p>
                                 <Link href={"/about"}>
                                     <a className="text-gray-500 hover:text-white">About</a>
                                 </Link>
-                            </li>
-                            <li>
+                            </p>
+                            <p>
                                 <Link href={"/docs/[PageName]"} as={"/docs/privacy"}>
                                     <a className="text-gray-500 hover:text-white">Privacy</a>
                                 </Link>
-                            </li>
-                            <li>
+                            </p>
+                            <p>
                                 <Link href={"/docs/[PageName]"} as={"/docs/terms"}>
                                     <a className="text-gray-500 hover:text-white">Terms Of Service</a>
                                 </Link>
-                            </li>
-                            <li>
+                            </p>
+                            <p>
                                 <Link href={"/docs/[PageName]"} as={"/docs/conduct"}>
                                     <a className="text-gray-500 hover:text-white">Code of Conduct</a>
                                 </Link>
-                            </li>
-                            <li>
+                            </p>
+                            <p>
                                 <Link href={"/docs/[PageName]"} as={"/docs/disclosure"}>
                                     <a className="text-gray-500 hover:text-white">Responsible Disclosure</a>
                                 </Link>
-                            </li>
+                            </p>
                         </nav>
                     </div>
                     <div className="lg:w-1/3 md:w-1/2 w-full px-4 mb-10 md:mb-0">
                         <h2 className="font-medium text-white tracking-widest text-sm mb-3">CONTACT</h2>
                         <nav className="list-none font-sans">
-                            <li>
+                            <p>
                                 <a className="text-gray-500 hover:text-white" href={"https://twitter.com/DiluvMods"}>Twitter</a>
-                            </li>
-                            <li>
+                            </p>
+                            <p>
                                 <a className="text-gray-500 hover:text-white" href={"https://discord.diluv.com"}>Discord</a>
-                            </li>
-                            <li>
+                            </p>
+                            <p>
                                 <Link href={"/docs/[PageName]"} as={"/docs/feedback"}>
                                     <a className="text-gray-500 hover:text-white">Feedback</a>
                                 </Link>
-                            </li>
+                            </p>
                         </nav>
                     </div>
                 </div>
