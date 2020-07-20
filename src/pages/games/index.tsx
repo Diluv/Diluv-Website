@@ -13,6 +13,7 @@ import { onBlur, onFocus } from "../../utils/util";
 import { DebounceInput } from "react-debounce-input";
 // @ts-ignore
 import { getSession } from "next-auth/client";
+import GridArea from "../../components/misc/GridArea";
 
 function buildURL(search: string, sort: string) {
     let params = new URLSearchParams();
@@ -54,7 +55,7 @@ export default function GameIndex({ theme, games, sorts, currentSort, search, se
 
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
                     <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium row-gap-2 sm:row-gap-0`} id={`filter options`}>
-                        <div className={`flex flex-grow area-search`}>
+                        <GridArea name={`search`} className={`flex flex-grow`}>
                             <label htmlFor={`searchGames`} className={`flex-none my-auto mr-2`}>
                                 Search
                             </label>
@@ -72,8 +73,8 @@ export default function GameIndex({ theme, games, sorts, currentSort, search, se
                                 }}/>
                             </div>
 
-                        </div>
-                        <div className={`flex area-sort`}>
+                        </GridArea>
+                        <GridArea name={`sort`} className={`flex`}>
                             <label htmlFor={`sortGames`} className={`flex-none ml-auto my-auto mr-2`}>
                                 Sort
                             </label>
@@ -88,7 +89,7 @@ export default function GameIndex({ theme, games, sorts, currentSort, search, se
                                     router.push(`/games`, `/games${newUrl}`, { shallow: false });
                                 }} classNamePrefix={"select"}/>
                             </div>
-                        </div>
+                        </GridArea>
                     </div>
                     <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 my-4`} id={`gameContainer`}>
                         {games.map(game => {

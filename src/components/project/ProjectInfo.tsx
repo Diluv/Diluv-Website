@@ -9,6 +9,7 @@ import NavigationMore from "../icons/NavigationMore";
 import Download from "../icons/Download";
 import Wrench from "../icons/Wrench";
 import { Auth } from "../../utils/context";
+import GridArea from "../misc/GridArea";
 
 export default function ProjectInfo({ project, pageType }: { project: Project, pageType: string }) {
     function isDescription(): boolean {
@@ -35,42 +36,52 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
         {projectHasReviewStatus(project) && !project.released ?
             <Alert type={"warning"} className={`my-4`}>This project is not released yet!</Alert> : <></>}
 
-        <div className={`grid mt-4 mb-4 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
-            <img src={project.logo} className={`sm:h-48 w-full sm:w-48 area-image`}/>
-            <h4 className={`font-semibold area-name`}>{project.name}</h4>
-            <div className={`text-gray-600 dark:text-dark-400 mb-1 area-authors`}>
+        <GridArea className={`grid mt-4 mb-4 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
+            <GridArea name={`image`}><img src={project.logo} className={`sm:h-48 w-full sm:w-48`}/></GridArea>
+            <GridArea name={"name"}><h4 className={`font-semibold`}>{project.name}</h4></GridArea>
+            <GridArea name={`authors`} className={`text-gray-600 dark:text-dark-400 mb-1`}>
                                         <span>
                                             {`by `}
                                         </span>
                 {listContributors(project)}
-            </div>
-            <p className={`area-summary`}>
-                {project.summary}
-            </p>
-            <p className={`area-id`}>
-                {`ProjectID: ${project.id}`}
-            </p>
-            <p className={`area-created`}>
-                {`Created at: ${format(project.createdAt, "yyyy-MM-dd HH:mm:ss")}`}
-            </p>
-            <p className={`area-updated`}>
-                {`Updated at: ${format(project.updatedAt, "yyyy-MM-dd HH:mm:ss")}`}
-            </p>
-            <p className={`area-downloads`}>
-                {`${project.downloads} Downloads`}
-            </p>
-            <div className={`grid my-auto gap-2 area-tags grid-cols-tags`}>
+            </GridArea>
+            <GridArea name={`summary`}>
+                <p>
+                    {project.summary}
+                </p>
+            </GridArea>
+            <GridArea name={`id`}>
+                <p>
+                    {`ProjectID: ${project.id}`}
+                </p>
+            </GridArea>
+            <GridArea name={`created`}>
+                <p>
+                    {`Created at: ${format(project.createdAt, "yyyy-MM-dd HH:mm:ss")}`}
+                </p>
+            </GridArea>
+            <GridArea name={`updated`}>
+                <p>
+                    {`Updated at: ${format(project.updatedAt, "yyyy-MM-dd HH:mm:ss")}`}
+                </p>
+            </GridArea>
+            <GridArea name={`downloads`}>
+                <p>
+                    {`${project.downloads} Downloads`}
+                </p>
+            </GridArea>
+            <GridArea name={`tags`} className={`grid my-auto gap-2 grid-cols-tags`}>
                 {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>)}
-            </div>
+            </GridArea>
 
-            <div className={`area-download`}>
+            <GridArea name={`downloads`}>
                 <div className={`block py-2`}>
                     <div className={`btn-diluv my-auto mx-auto inline cursor-pointer`}>
                         <Download className={`inline mr-2 text-white fill-current`}/>
                         <span>Download latest file</span>
                     </div>
                 </div>
-            </div>
+            </GridArea>
 
         </div>
         <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info mt-4`}>

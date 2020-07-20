@@ -10,6 +10,7 @@ import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
 import formatDistance from "date-fns/formatDistance";
 import format from "date-fns/format";
+import GridArea from "../misc/GridArea";
 
 interface Props {
     gameSlug: string
@@ -51,15 +52,15 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
     let projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
     return <>
         <div className={`grid my-4 w-full mx-auto col-gap-2 row-gap-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
-            <div className={`area-image`}>
+            <GridArea name={`image`}>
                 <Link href={projectUrlRef} as={projectUrl}>
                     <a>
                         <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`}/>
                     </a>
                 </Link>
-            </div>
+            </GridArea>
 
-            <div className={"sm:ml-2 leading-snug area-header"}>
+            <GridArea name={`header`} className={"sm:ml-2 leading-snug"}>
                 <Link href={projectUrlRef} as={projectUrl}>
                     <a>
                         <div className={`inline-flex`}>
@@ -73,15 +74,15 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                         </span>
                     {listContributors(project)}
                 </div>
-            </div>
+            </GridArea>
 
-            <div className={"sm:ml-2 my-auto area-summary"}>
+            <GridArea name={`summary`} className={"sm:ml-2 my-auto"}>
                 <div className={`inline-flex`}>
                     <p> {project.summary}</p>
                 </div>
-            </div>
+            </GridArea>
 
-            <div className={`sm:ml-2 my-auto text-center mr-2 area-downloads`}>
+            <GridArea name={`downloads`} className={`sm:ml-2 my-auto text-center mr-2`}>
                 <div className={`flex cursor-default`}>
                     <Tippy content={getDownloadsTip(project.downloads)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
 
@@ -94,9 +95,9 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
 
                     </Tippy>
                 </div>
-            </div>
+            </GridArea>
 
-            <div className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2 area-created`}>
+            <GridArea name={`created`} className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2`}>
 
                 <div className={`flex cursor-default`}>
                     <Tippy content={getCreatedTip(project.createdAt)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
@@ -109,8 +110,8 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                     </Tippy>
                 </div>
 
-            </div>
-            <div className={`sm:ml-2 my-auto text-center mr-2 area-updated`}>
+            </GridArea>
+            <GridArea name={`updated`} className={`sm:ml-2 my-auto text-center mr-2`}>
 
                 <div className={`flex cursor-default`}>
                     <Tippy content={getUpdatedTip(project.updatedAt)} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
@@ -123,30 +124,16 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                     </Tippy>
                 </div>
 
-            </div>
+            </GridArea>
 
-            {project.tags.map((value, i) => <div className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center ${getTagArea(i)}`} key={value.slug}>
-                <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter}
-                           setTagFilter={setTagFilter}/></div>)}
+            {project.tags.map((value, i) =>
+                <GridArea name={`tag${i}`} className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center`} key={value.slug}>
+                    <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter}
+                               setTagFilter={setTagFilter}/></GridArea>)}
 
 
         </div>
     </>;
-}
-
-function getTagArea(index: number) {
-    // Not bad / stupid code, tailwind requires the full classname to be able to purge
-    switch (index) {
-        case 0:
-            return `area-tag1`;
-        case 1:
-            return `area-tag2`;
-        case 2:
-            return `area-tag3`;
-        case 3:
-            return `area-tag4`;
-
-    }
 }
 
 export default ProjectCard;

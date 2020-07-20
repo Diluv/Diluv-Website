@@ -9,6 +9,7 @@ import { getTheme } from "../../../../../utils/theme";
 import Link from "next/link";
 // @ts-ignore
 import { getSession } from "next-auth/client";
+import GridArea from "../../../../../components/misc/GridArea";
 
 export default function Files({ theme, project, session }: { project: Project } & HasTheme & HasSession) {
     return (
@@ -23,19 +24,23 @@ export default function Files({ theme, project, session }: { project: Project } 
                                     return <div key={value.userId} className={`grid col-gap-2 my-1 memberList`}>
                                         <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
                                             <a>
-                                                <img className={`w-16 h-16 area-avatar`} src={value.avatarURL}/>
+                                                <GridArea name={`avatar`}>
+                                                    <img className={`w-16 h-16`} src={value.avatarURL}/>
+                                                </GridArea>
                                             </a>
                                         </Link>
-                                        <div className={`area-name`}>
+                                        <GridArea name={`name`}>
                                             <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
                                                 <a className={` hover:text-diluv-600 dark-hover:text-diluv-500`}>
                                                     {value.displayName}
                                                 </a>
                                             </Link>
-                                        </div>
-                                        <p className={`area-role`}>
-                                            Role: {value.role}
-                                        </p>
+                                        </GridArea>
+                                        <GridArea name={`role`}>
+                                            <p>
+                                                Role: {value.role}
+                                            </p>
+                                        </GridArea>
                                     </div>;
                                 })}
                             </div>

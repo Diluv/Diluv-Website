@@ -15,6 +15,7 @@ import Pagination, { buildURL } from "../../../components/misc/Pagination";
 import { useRouter } from "next/router";
 import formatDistance from "date-fns/formatDistance";
 import format from "date-fns/format";
+import GridArea from "../../../components/misc/GridArea";
 
 export default function AuthorProjects({ theme, data, currentSort, page, session }: { data: AuthorPage, currentSort: string, page: number } & HasTheme & HasSession) {
 
@@ -27,10 +28,10 @@ export default function AuthorProjects({ theme, data, currentSort, page, session
             <div className={`container mx-auto mt-4`}>
                 <div className={`w-11/12 mx-auto`}>
                     <div className={`grid col-gap-2 row-gap-2 sm:row-gap-0 profilePageSmall sm:profilePageLarge`}>
-                        <div className={`area-image`}>
+                        <GridArea name={`image`}>
                             <img src={data.user.avatarURL}/>
-                        </div>
-                        <div className={`area-summary`}>
+                        </GridArea>
+                        <GridArea name={`summary`}>
                             <h3>{data.user.displayName}</h3>
                             <Tippy content={
                                 <div
@@ -41,7 +42,7 @@ export default function AuthorProjects({ theme, data, currentSort, page, session
                             </Tippy>
 
 
-                        </div>
+                        </GridArea>
                     </div>
 
                     <section className={`my-4`}>
@@ -95,12 +96,16 @@ function ProjectOptions({ data, page, maxPage, currentSort, showSorts = true }: 
         </div>}
         <div className={`${showSorts ? `md:col-start-3` : ``} my-auto`}>
             <Pagination maxPage={maxPage} page={page} asBuilder={(pageIndex: number) => {
-                let newUrl = buildURL({ page: pageIndex, sort: currentSort,
-                    defaultSort: "new" });
+                let newUrl = buildURL({
+                    page: pageIndex, sort: currentSort,
+                    defaultSort: "new"
+                });
                 return `/author/${data.user.username}${newUrl}`;
             }} hrefBuilder={(pageIndex: number) => {
-                let newUrl = buildURL({ page: pageIndex, sort: currentSort,
-                    defaultSort: "new" });
+                let newUrl = buildURL({
+                    page: pageIndex, sort: currentSort,
+                    defaultSort: "new"
+                });
                 return `/author/[Name]${newUrl}`;
             }}/>
         </div>
