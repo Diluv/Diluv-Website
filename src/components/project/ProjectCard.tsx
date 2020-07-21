@@ -127,7 +127,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
             </GridArea>
 
             {project.tags.map((value, i) =>
-                <GridArea name={`tag${i}`} className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center`} key={value.slug}>
+                <GridArea name={`tag${i+1}`} className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center`} key={value.slug}>
                     <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter}
                                setTagFilter={setTagFilter}/></GridArea>)}
 

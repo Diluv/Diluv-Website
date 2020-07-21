@@ -36,7 +36,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
         {projectHasReviewStatus(project) && !project.released ?
             <Alert type={"warning"} className={`my-4`}>This project is not released yet!</Alert> : <></>}
 
-        <GridArea className={`grid mt-4 mb-4 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
+        <div className={`grid mt-4 mb-4 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
             <GridArea name={`image`}><img src={project.logo} className={`sm:h-48 w-full sm:w-48`}/></GridArea>
             <GridArea name={"name"}><h4 className={`font-semibold`}>{project.name}</h4></GridArea>
             <GridArea name={`authors`} className={`text-gray-600 dark:text-dark-400 mb-1`}>
@@ -74,7 +74,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project, p
                 {project.tags.map(value => <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>)}
             </GridArea>
 
-            <GridArea name={`downloads`}>
+            <GridArea name={`download`}>
                 <div className={`block py-2`}>
                     <div className={`btn-diluv my-auto mx-auto inline cursor-pointer`}>
                         <Download className={`inline mr-2 text-white fill-current`}/>

@@ -1,14 +1,14 @@
-import React, { ReactChildren, ReactNode } from "react";
+import React, { ReactChildren, ReactNode, ReactNodeArray } from "react";
 
 
 interface Props {
     name: string
-    children:  React.ReactNode
+    children: React.ReactNode
     className?: string
 }
 
 export default function GridArea({ name, children, className = "" }: Props) {
-    return <div className={className} style={{gridArea: name}}>
+    return <div className={className} style={{ gridArea: name }}>
         {children}
     </div>;
 }
