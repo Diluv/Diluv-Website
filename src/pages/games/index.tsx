@@ -31,7 +31,14 @@ function buildURL(search: string, sort: string) {
     return ``;
 }
 
-export default function GameIndex({ theme, games, sorts, currentSort, search, session }: { games: Game[], sorts: Sort[], currentSort: string, search: string } & HasTheme & HasSession) {
+export default function GameIndex({
+    theme,
+    games,
+    sorts,
+    currentSort,
+    search,
+    session
+}: { games: Game[]; sorts: Sort[]; currentSort: string; search: string } & HasTheme & HasSession) {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     let [displaySearch] = useState(search);
@@ -60,54 +67,70 @@ export default function GameIndex({ theme, games, sorts, currentSort, search, se
                                 Search
                             </label>
                             <div className={"relative my-auto flex-grow ml-1"}>
-                                <Search className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${search.trim().length ? `text-diluv-500` : `text-black`} ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`} width={"1rem"} height={"1rem"}/>
+                                <Search
+                                    className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${
+                                        search.trim().length ? `text-diluv-500` : `text-black`
+                                    } ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
+                                    width={"1rem"}
+                                    height={"1rem"}
+                                />
                                 <DebounceInput
-                                    className={"p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 flex-grow indent-sm dark:border-dark-700 dark-hover:border-dark-600 dark-focus:border-dark-600 dark:bg-dark-800 outline-none w-full sm:w-auto"}
+                                    className={
+                                        "p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 flex-grow indent-sm dark:border-dark-700 dark-hover:border-dark-600 dark-focus:border-dark-600 dark:bg-dark-800 outline-none w-full sm:w-auto"
+                                    }
                                     minLength={3}
                                     debounceTimeout={500}
                                     value={displaySearch}
-                                    placeholder={"Search games"} id={"searchProjects"}
-                                    onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)} onBlur={() => onBlur(setSelectedField)} onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                                    let newUrl = buildURL(event.target.value, currentSort);
-                                    router.push(`/games`, `/games${newUrl}`, { shallow: false });
-                                }}/>
+                                    placeholder={"Search games"}
+                                    id={"searchProjects"}
+                                    onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)}
+                                    onBlur={() => onBlur(setSelectedField)}
+                                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                        let newUrl = buildURL(event.target.value, currentSort);
+                                        router.push(`/games`, `/games${newUrl}`, { shallow: false });
+                                    }}
+                                />
                             </div>
-
                         </GridArea>
                         <GridArea name={`sort`} className={`flex`}>
                             <label htmlFor={`sortGames`} className={`flex-none ml-auto my-auto mr-2`}>
                                 Sort
                             </label>
                             <div className={"my-auto flex-grow ml-1"}>
-                                <Select isSearchable={true} inputId="sortGames"
-                                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
-                                        options={sorts.map(value => {
-                                            return { value: value.slug, label: value.displayName };
-                                        })}
-                                        styles={reactSelectStyle} onChange={(e: any) => {
-                                    let newUrl = buildURL(search, e.value);
-                                    router.push(`/games`, `/games${newUrl}`, { shallow: false });
-                                }} classNamePrefix={"select"}/>
+                                <Select
+                                    isSearchable={true}
+                                    inputId="sortGames"
+                                    defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
+                                    options={sorts.map((value) => {
+                                        return { value: value.slug, label: value.displayName };
+                                    })}
+                                    styles={reactSelectStyle}
+                                    onChange={(e: any) => {
+                                        let newUrl = buildURL(search, e.value);
+                                        router.push(`/games`, `/games${newUrl}`, { shallow: false });
+                                    }}
+                                    classNamePrefix={"select"}
+                                />
                             </div>
                         </GridArea>
                     </div>
                     <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 my-4`} id={`gameContainer`}>
-                        {games.map(game => {
-                            return <div key={game.slug}>
-                                <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${game.slug}/${game.defaultProjectType}`}>
-
-                                    <a>
-                                        <picture>
-                                            {game.logoURL.sources.map(value =>
-                                                <source key={value.src + "-" + value.type} srcSet={value.src} type={value.type}/>)}
-                                            <source srcSet={game.logoURL.fallback.src} type={game.logoURL.fallback.type}/>
-                                            <img src={game.logoURL.fallback.src} className={`w-full`}/>
-                                        </picture>
-                                    </a>
-
-                                </Link>
-
-                            </div>;
+                        {games.map((game) => {
+                            return (
+                                <div key={game.slug}>
+                                    <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${game.slug}/${game.defaultProjectType}`}>
+                                        <a>
+                                            <picture>
+                                                {game.logoURL.sources.map((value) => (
+                                                    <source key={value.src + "-" + value.type} srcSet={value.src} type={value.type} />
+                                                ))}
+                                                <source srcSet={game.logoURL.fallback.src} type={game.logoURL.fallback.type} />
+                                                <img src={game.logoURL.fallback.src} className={`w-full`} />
+                                            </picture>
+                                        </a>
+                                    </Link>
+                                </div>
+                            );
                         })}
                     </div>
                 </div>
@@ -128,7 +151,7 @@ export async function getServerSideProps(context: NextPageContext) {
         params.set("search", `${search}`);
     }
 
-    let session = (await getSession(context));
+    let session = await getSession(context);
 
     let games = await getAuthed(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
 
@@ -143,4 +166,3 @@ export async function getServerSideProps(context: NextPageContext) {
         } // will be passed to the page component as props
     };
 }
-

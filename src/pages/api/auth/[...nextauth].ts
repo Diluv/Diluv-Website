@@ -18,7 +18,7 @@ const options = {
             domain: process.env.NEXT_STATIC_IS4_URL,
             clientId: "DILUV_WEBSITE",
             profile: (profile: any) => {
-                return { ...profile, id:  profile.username, name: profile.preferred_username};
+                return { ...profile, id: profile.username, name: profile.preferred_username };
             }
         })
     ],
@@ -33,10 +33,8 @@ const options = {
         }
     },
     events: {
-        signout: async (message: any) => {
-        }
+        signout: async (message: any) => {}
     }
-
 };
 
-export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options)
+export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options);

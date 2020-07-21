@@ -16,32 +16,30 @@ export default function Files({ theme, project, session }: { project: Project } 
         <Layout title={project.name} theme={theme} session={session}>
             <>
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
-                    <ProjectInfo project={project} pageType={"members"}/>
+                    <ProjectInfo project={project} pageType={"members"} />
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <div className={`w-1/2`}>
-                                {project.contributors.map(value => {
-                                    return <div key={value.userId} className={`grid col-gap-2 my-1 memberList`}>
-                                        <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
-                                            <a>
-                                                <GridArea name={`avatar`}>
-                                                    <img className={`w-16 h-16`} src={value.avatarURL}/>
-                                                </GridArea>
-                                            </a>
-                                        </Link>
-                                        <GridArea name={`name`}>
+                                {project.contributors.map((value) => {
+                                    return (
+                                        <div key={value.userId} className={`grid col-gap-2 my-1 memberList`}>
                                             <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
-                                                <a className={` hover:text-diluv-600 dark-hover:text-diluv-500`}>
-                                                    {value.displayName}
+                                                <a>
+                                                    <GridArea name={`avatar`}>
+                                                        <img className={`w-16 h-16`} src={value.avatarURL} />
+                                                    </GridArea>
                                                 </a>
                                             </Link>
-                                        </GridArea>
-                                        <GridArea name={`role`}>
-                                            <p>
-                                                Role: {value.role}
-                                            </p>
-                                        </GridArea>
-                                    </div>;
+                                            <GridArea name={`name`}>
+                                                <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
+                                                    <a className={` hover:text-diluv-600 dark-hover:text-diluv-500`}>{value.displayName}</a>
+                                                </Link>
+                                            </GridArea>
+                                            <GridArea name={`role`}>
+                                                <p>Role: {value.role}</p>
+                                            </GridArea>
+                                        </div>
+                                    );
                                 })}
                             </div>
                         </div>
@@ -56,7 +54,7 @@ export async function getServerSideProps(context: NextPageContext) {
     let theme = getTheme(context);
     let { GameSlug, ProjectType, ProjectSlug } = context.query;
 
-    let session = (await getSession(context));
+    let session = await getSession(context);
     let data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
     return {
         props: { theme, project: data.data, session: session ?? null } // will be passed to the page component as props

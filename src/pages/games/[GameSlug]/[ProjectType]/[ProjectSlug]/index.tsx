@@ -15,10 +15,10 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
         <Layout title={project.name} theme={theme} session={session}>
             <>
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
-                   <ProjectInfo project={project} pageType={"description"}/>
+                    <ProjectInfo project={project} pageType={"description"} />
                     <div id={"pageContent"}>
                         <div className={`py-4 px-2`}>
-                            <Markdown markdown={project.description}/>
+                            <Markdown markdown={project.description} />
                         </div>
                     </div>
                 </div>
@@ -27,12 +27,11 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
     );
 }
 
-
 export async function getServerSideProps(context: NextPageContext) {
     let theme = getTheme(context);
     let { GameSlug, ProjectType, ProjectSlug } = context.query;
 
-    let session = (await getSession(context));
+    let session = await getSession(context);
     let data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
     return {
         props: { theme, project: data.data, session: session ?? null } // will be passed to the page component as props

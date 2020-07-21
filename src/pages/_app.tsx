@@ -12,4 +12,4 @@ export default ({ Component, pageProps }: AppProps) => {
             <Component {...pageProps} />
         </Provider>
     );
-}
+};

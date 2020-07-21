@@ -1,7 +1,6 @@
 @font-face {
-  font-family: 'hero';
-  src: url('Hero.woff') format('woff2'),
-  url('Hero.woff') format('woff');
+    font-family: "hero";
+    src: url("Hero.woff") format("woff2"), url("Hero.woff") format("woff");
 }
 
 /* purgecss start ignore */
@@ -10,404 +9,404 @@
 /* purgecss end ignore */
 
 .btn {
-  @apply block w-full p-2;
+    @apply block w-full p-2;
 }
 
 .btn-diluv {
-  @apply block w-full bg-diluv-500 text-white p-2;
+    @apply block w-full bg-diluv-500 text-white p-2;
 }
 
 .btn-diluv:hover {
-  @apply bg-diluv-600;
+    @apply bg-diluv-600;
 }
 
 .btn-diluv:disabled {
-  @apply bg-diluv-500 opacity-50 cursor-default;
+    @apply bg-diluv-500 opacity-50 cursor-default;
 }
 
 .alert-danger {
-  background-color: rgba(212, 80, 89, 0.1);
-  border-left: 8px solid #EC5963;
+    background-color: rgba(212, 80, 89, 0.1);
+    border-left: 8px solid #ec5963;
 }
 
 .alert-danger h5 {
-  color: #EC5963;
+    color: #ec5963;
 }
 
 .alert-danger svg {
-  color: #6A282D;
+    color: #6a282d;
 }
 
 .alert-danger svg:hover {
-  color: #D45059;
+    color: #d45059;
 }
 
 .alert-warning {
-  background-color: rgba(210, 188, 77, 0.1);
-  border-left: 8px solid #E9D155;
+    background-color: rgba(210, 188, 77, 0.1);
+    border-left: 8px solid #e9d155;
 }
 
 .alert-warning h5 {
-  color: #E9D155;
+    color: #e9d155;
 }
 
 .alert-warning svg {
-  color: #695E26;
+    color: #695e26;
 }
 
 .alert-warning svg:hover {
-  color: #D2BC4D;
+    color: #d2bc4d;
 }
 
 .alert-info {
-  background-color: rgba(50, 189, 225, 0.1);
-  border-left: 8px solid #37D2FA;
+    background-color: rgba(50, 189, 225, 0.1);
+    border-left: 8px solid #37d2fa;
 }
 
 .alert-info h5 {
-  color: #37D2FA;
+    color: #37d2fa;
 }
 
 .alert-info svg {
-  color: #195F71;
+    color: #195f71;
 }
 
 .alert-info svg:hover {
-  color: #32BDE1;
+    color: #32bde1;
 }
 
 .alert-success {
-  background-color: rgba(69, 201, 98, 0.1);
-  border-left: 8px solid #4DDF6D;
+    background-color: rgba(69, 201, 98, 0.1);
+    border-left: 8px solid #4ddf6d;
 }
 
 .alert-success h5 {
-  color: #4DDF6D;
+    color: #4ddf6d;
 }
 
 .alert-success svg {
-  color: #236431;
+    color: #236431;
 }
 
 .alert-success svg:hover {
-  color: #45C962;
+    color: #45c962;
 }
 
 .theme-dark {
-  background-color: #2D3748;
-  color: #F7FAFC;
+    background-color: #2d3748;
+    color: #f7fafc;
 }
 
 .theme-light {
-  background-color: #FFF;
-  color: rgb(0, 0, 0);
+    background-color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 .font-hero {
-  font-family: "hero", sans-serif;
+    font-family: "hero", sans-serif;
 }
 
 .fadeout {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 0.15s, opacity 0.15s ease-out;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.15s, opacity 0.15s ease-out;
 }
 
 .expand-image {
-  transition: 0.8s cubic-bezier(1, -1, 0, 1);
-  clip-path: circle(50.0% at 50% 50%);
+    transition: 0.8s cubic-bezier(1, -1, 0, 1);
+    clip-path: circle(50% at 50% 50%);
 }
 
 .expand-image:hover {
-  clip-path: circle(70.7% at 50% 50%);
+    clip-path: circle(70.7% at 50% 50%);
 }
 
 .minmax-height {
-  min-height: 100vh;
-  max-height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
 }
 
 @responsive {
-  .projectCardLarge {
-    grid-template-areas:
-  "image header header header header header header header header"
-  "image summary summary summary summary summary summary summary summary"
-  "image downloads created updated tag1 tag2 tag3 tag4 spacing";
-    grid-template-columns: 8rem auto auto auto auto auto auto auto 1fr;
-    grid-template-rows: auto auto auto;
-  }
+    .projectCardLarge {
+        grid-template-areas:
+            "image header header header header header header header header"
+            "image summary summary summary summary summary summary summary summary"
+            "image downloads created updated tag1 tag2 tag3 tag4 spacing";
+        grid-template-columns: 8rem auto auto auto auto auto auto auto 1fr;
+        grid-template-rows: auto auto auto;
+    }
 
-  .projectCardMedium {
-    grid-template-areas:
-  "image header header header header header"
-  "image summary summary summary summary summary"
-  "image downloads downloads downloads downloads spacing"
-  "image created created created created spacing"
-  "image updated updated updated updated spacing"
-  "image tag1 tag2 tag3 tag4 spacing";
-    grid-template-columns: 12rem auto auto auto auto 1fr;
-    grid-template-rows: 2.75rem 2.75rem 1.5rem 1.5rem 1.5rem 2rem;
-  }
+    .projectCardMedium {
+        grid-template-areas:
+            "image header header header header header"
+            "image summary summary summary summary summary"
+            "image downloads downloads downloads downloads spacing"
+            "image created created created created spacing"
+            "image updated updated updated updated spacing"
+            "image tag1 tag2 tag3 tag4 spacing";
+        grid-template-columns: 12rem auto auto auto auto 1fr;
+        grid-template-rows: 2.75rem 2.75rem 1.5rem 1.5rem 1.5rem 2rem;
+    }
 
-  .projectCardSmall {
-    grid-template-areas:
-  "image image image image image"
-  "header header header header header"
-  "summary summary summary summary summary"
-  "downloads downloads downloads downloads downloads"
-  "created created created created spacing"
-  "updated updated updated updated spacing"
-  "tag1 tag2 tag3 tag4 spacing";
-    grid-template-columns: auto auto auto auto 1fr;
-    grid-template-rows: 8rem auto auto auto auto auto auto;
-  }
+    .projectCardSmall {
+        grid-template-areas:
+            "image image image image image"
+            "header header header header header"
+            "summary summary summary summary summary"
+            "downloads downloads downloads downloads downloads"
+            "created created created created spacing"
+            "updated updated updated updated spacing"
+            "tag1 tag2 tag3 tag4 spacing";
+        grid-template-columns: auto auto auto auto 1fr;
+        grid-template-rows: 8rem auto auto auto auto auto auto;
+    }
 
-  .projectInfoSmall {
-    grid-template-areas: "image" "name" "authors" "summary" "id" "created" "updated" "downloads" "tags" "download";
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto auto auto auto auto auto auto 2rem 2.5rem;
-  }
+    .projectInfoSmall {
+        grid-template-areas: "image" "name" "authors" "summary" "id" "created" "updated" "downloads" "tags" "download";
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto auto auto auto auto auto auto 2rem 2.5rem;
+    }
 
-  .projectInfoMedium {
-    grid-template-areas: "image name" "image authors" "image summary" "image id" "image created" "image updated" "image downloads" "image tags" "space space" "download download";
-    grid-template-columns: 14rem auto;
-    grid-template-rows: 1rem auto auto 1.25rem 1.25rem 1.25rem 1.25rem auto 0.5rem auto;
-  }
+    .projectInfoMedium {
+        grid-template-areas: "image name" "image authors" "image summary" "image id" "image created" "image updated" "image downloads" "image tags" "space space" "download download";
+        grid-template-columns: 14rem auto;
+        grid-template-rows: 1rem auto auto 1.25rem 1.25rem 1.25rem 1.25rem auto 0.5rem auto;
+    }
 
-  .gameFilterSmall {
-    grid-template-areas: "search" "sort";
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
+    .gameFilterSmall {
+        grid-template-areas: "search" "sort";
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
 
-  .gameFilterMedium {
-    grid-template-areas: "search sort";
-    grid-template-columns: 1fr 0.5fr;
-    grid-template-rows: 1fr;
-  }
+    .gameFilterMedium {
+        grid-template-areas: "search sort";
+        grid-template-columns: 1fr 0.5fr;
+        grid-template-rows: 1fr;
+    }
 
-  .memberList {
-    grid-template-areas: "avatar name" "avatar role";
-    grid-template-rows: 1.5rem 2.5rem;
-    grid-template-columns: 4rem auto;
-  }
+    .memberList {
+        grid-template-areas: "avatar name" "avatar role";
+        grid-template-rows: 1.5rem 2.5rem;
+        grid-template-columns: 4rem auto;
+    }
 
-  .createFormLarge {
-    grid-template-areas: "image name" "image space" "image summary" "image space2" "image tags" "image ." "description description" ". ." "create .";
-    grid-template-columns: 16rem auto;
-    grid-template-rows: 2rem 0.5rem 2rem 0.5rem 2rem 9rem minmax(28rem, auto) 0.5rem 2rem;
-  }
+    .createFormLarge {
+        grid-template-areas: "image name" "image space" "image summary" "image space2" "image tags" "image ." "description description" ". ." "create .";
+        grid-template-columns: 16rem auto;
+        grid-template-rows: 2rem 0.5rem 2rem 0.5rem 2rem 9rem minmax(28rem, auto) 0.5rem 2rem;
+    }
 
-  .createFormMedium {
-    grid-template-areas: "image name" "image space" "image summary" "image tags" "image ." "description description" ". ." "create .";
-    grid-template-columns: 16rem auto;
-    grid-template-rows: 3.5rem 0.5rem 3.5rem 3.5rem 5.5rem minmax(20rem, auto) 0.5rem 2rem;
-  }
+    .createFormMedium {
+        grid-template-areas: "image name" "image space" "image summary" "image tags" "image ." "description description" ". ." "create .";
+        grid-template-columns: 16rem auto;
+        grid-template-rows: 3.5rem 0.5rem 3.5rem 3.5rem 5.5rem minmax(20rem, auto) 0.5rem 2rem;
+    }
 
-  .createFormSmall {
-    grid-template-areas: "image" "name" "summary" "tags" "description" "create";
-    grid-template-columns: 1fr;
-    grid-template-rows: 16rem 1fr 1fr 1fr minmax(28rem, auto) 2rem;
-  }
+    .createFormSmall {
+        grid-template-areas: "image" "name" "summary" "tags" "description" "create";
+        grid-template-columns: 1fr;
+        grid-template-rows: 16rem 1fr 1fr 1fr minmax(28rem, auto) 2rem;
+    }
 
-  .profilePageLarge {
-    grid-template-areas: "image summary";
-    grid-template-columns: 16rem 1fr;
-  }
+    .profilePageLarge {
+        grid-template-areas: "image summary";
+        grid-template-columns: 16rem 1fr;
+    }
 
-  .profilePageSmall {
-    grid-template-areas: "image" "summary";
-  }
+    .profilePageSmall {
+        grid-template-areas: "image" "summary";
+    }
 }
 
 /* purgecss start ignore */
 .mode-dark .select__control {
-  @apply bg-dark-800 !important text-dark-100 !important border-dark-700 !important;
+    @apply bg-dark-800 !important text-dark-100 !important border-dark-700 !important;
 }
 
 .mode-dark .select__control:hover {
-  @apply border-dark-600 !important;
+    @apply border-dark-600 !important;
 }
 
 .mode-dark .select__control:focus {
-  @apply border-dark-600 !important;
+    @apply border-dark-600 !important;
 }
 
 .mode-dark .select__single-value {
-  @apply text-dark-100 !important;
+    @apply text-dark-100 !important;
 }
 
 .mode-dark .select__multi-value {
-  @apply bg-blue-900 !important text-dark-100 !important rounded-none !important;
+    @apply bg-blue-900 !important text-dark-100 !important rounded-none !important;
 }
 
 .mode-dark .select__multi-value__label {
-  @apply text-dark-100 !important;
+    @apply text-dark-100 !important;
 }
 
 .mode-dark .select__multi-value__remove:hover {
-  @apply bg-red-900 !important text-red-700 !important rounded-none !important;
+    @apply bg-red-900 !important text-red-700 !important rounded-none !important;
 }
 
 .mode-dark .select__indicator {
-  @apply text-dark-100 !important;
+    @apply text-dark-100 !important;
 }
 
 .mode-dark .select__indicator:hover {
-  @apply text-dark-050 !important;
+    @apply text-dark-050 !important;
 }
 
 .mode-dark .select__option {
-  @apply bg-dark-800 !important text-dark-100 !important
+    @apply bg-dark-800 !important text-dark-100 !important;
 }
 
 .mode-dark .select__menu {
-  @apply bg-dark-800 !important rounded-none !important
+    @apply bg-dark-800 !important rounded-none !important;
 }
 
 .mode-dark .select__option--is-selected {
-  @apply bg-blue-900 !important
+    @apply bg-blue-900 !important;
 }
 
 .mode-dark .select__option--is-focused {
-  @apply bg-blue-700 !important
+    @apply bg-blue-700 !important;
 }
 
 .simplebar-scrollbar::before {
-  background-color: #3DA6E4 !important;
-  border: 1px solid #256489 !important;
+    background-color: #3da6e4 !important;
+    border: 1px solid #256489 !important;
 }
 
 /* Admonitions CSS */
 .admonition {
-  margin-bottom: 1em;
-  padding: 15px 30px 15px 15px;
+    margin-bottom: 1em;
+    padding: 15px 30px 15px 15px;
 }
 
 .admonition h5 {
-  margin-top: 0;
-  margin-bottom: 8px;
-  text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
 .admonition-icon {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 0.2em;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.2em;
 }
 
 .admonition-icon svg {
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  stroke-width: 0;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    stroke-width: 0;
 }
 
 .admonition-content > :last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .admonition {
-  background-color: rgba(118, 51, 219, 0.1);
-  border-left: 8px solid #7633db;
+    background-color: rgba(118, 51, 219, 0.1);
+    border-left: 8px solid #7633db;
 }
 
 .admonition h5 {
-  color: #7633db;
+    color: #7633db;
 }
 
 .admonition-caution {
-  background-color: rgba(230, 126, 34, 0.1);
-  border-left: 8px solid #e67e22;
+    background-color: rgba(230, 126, 34, 0.1);
+    border-left: 8px solid #e67e22;
 }
 
 .admonition-caution h5 {
-  color: #e67e22;
+    color: #e67e22;
 }
 
 .admonition-tip {
-  background-color: rgba(46, 204, 113, 0.1);
-  border-left: 8px solid #2ecc71;
+    background-color: rgba(46, 204, 113, 0.1);
+    border-left: 8px solid #2ecc71;
 }
 
 .admonition-tip h5 {
-  color: #2ecc71;
+    color: #2ecc71;
 }
 
 .admonition-warning {
-  background-color: rgba(231, 76, 60, 0.1);
-  border-left: 8px solid #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 8px solid #e74c3c;
 }
 
 .admonition-warning h5 {
-  color: #e74c3c;
+    color: #e74c3c;
 }
 
 .admonition-important {
-  background-color: rgba(52, 152, 219, 0.1);
-  border-left: 8px solid #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 8px solid #3498db;
 }
 
 .admonition-important h5 {
-  color: #3498db;
+    color: #3498db;
 }
 
 .admonition-note {
-  background-color: rgba(241, 196, 15, 0.1);
-  border-left: 8px solid #f1c40f;
+    background-color: rgba(241, 196, 15, 0.1);
+    border-left: 8px solid #f1c40f;
 }
 
 .admonition-note h5 {
-  color: #f1c40f;
+    color: #f1c40f;
 }
 
 /* Remark Spoiler */
 .spoiler {
-  color: black;
-  background-color: black;
+    color: black;
+    background-color: black;
 }
 
 .spoiler:hover {
-  background-color: white;
+    background-color: white;
 }
 
 .markdown a {
-  @apply underline;
+    @apply underline;
 }
 
 .markdown p {
-  @apply mb-4;
+    @apply mb-4;
 }
 
 .markdown pre {
-  @apply mb-2 text-sm;
+    @apply mb-2 text-sm;
 }
 
 .markdown ul,
 .markdown ol {
-  @apply mb-4 ml-8;
+    @apply mb-4 ml-8;
 }
 
 .markdown li > p,
 .markdown li > ul,
 .markdown li > ol {
-  @apply mb-0;
+    @apply mb-0;
 }
 
 .markdown ol {
-  @apply list-decimal;
+    @apply list-decimal;
 }
 
 .markdown ul {
-  @apply list-disc;
+    @apply list-disc;
 }
 
 .markdown blockquote {
-  @apply p-0 p-2 mx-6 bg-gray-100 mb-4 border-l-4 border-gray-400 italic;
+    @apply p-0 p-2 mx-6 bg-gray-100 mb-4 border-l-4 border-gray-400 italic;
 }
 
 .markdown blockquote > p {
-  @apply mb-0;
+    @apply mb-0;
 }
 /* purgecss end ignore */
 

@@ -18,12 +18,12 @@ export function getTheme(context: NextPageContext): Theme {
     return { theme };
 }
 
-export const reactSelectStyle = ({
+export const reactSelectStyle = {
     control: (provided: CSSProperties, state: any) => ({
         ...provided,
-        borderRadius: 0,
-        borderColor: state.isFocused ? "#A0AEC0" : "#CBD5E0",
-        boxShadow: "none",
+        "borderRadius": 0,
+        "borderColor": state.isFocused ? "#A0AEC0" : "#CBD5E0",
+        "boxShadow": "none",
         "&:hover": {
             borderColor: "#A0AEC0"
         }
@@ -32,4 +32,4 @@ export const reactSelectStyle = ({
         ...provided,
         color: "black"
     })
-});
+};

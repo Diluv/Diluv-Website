@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: Report a bug you have encountered.
-title: ''
+title: ""
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 **Description**
@@ -12,6 +11,7 @@ Describe the issue you encountered here.
 
 **Reproduction Steps**
 Describe how this happened
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -24,9 +24,10 @@ Describe what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Platform:**
-- OS: [win10, ios, etc]
-- Browser: [firefox, chrome, etc]
-- Device: [desktop, iphone, etc]
+
+-   OS: [win10, ios, etc]
+-   Browser: [firefox, chrome, etc]
+-   Device: [desktop, iphone, etc]
 
 **Additional Info**
 Add more info about the problem here if you need.

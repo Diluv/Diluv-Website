@@ -15,10 +15,10 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
             <>
                 <section id={"intro"} className={`w-5/6 mx-auto text-center my-4`}>
                     <h1 className={`text-3xl`}>Welcome to Diluv</h1>
-                    <h2 className={`text-xl`}>Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to
-                        support
-                        the players and content creators of all gaming communities. We are currently home to {featured.projectCount} projects
-                        and {featured.contributorCount} authors!
+                    <h2 className={`text-xl`}>
+                        Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content
+                        creators of all gaming communities. We are currently home to {featured.projectCount} projects and {featured.contributorCount}{" "}
+                        authors!
                     </h2>
                 </section>
                 <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
@@ -27,7 +27,9 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
                             <div className={`xl:w-11/12 mr-auto`}>
                                 <h3 className={`border-b-2 dark:border-dark-700 pb-1 font-medium text-xl`}>Popular Games</h3>
                                 <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
-                                    {featured.featuredGames.map(game => <FeaturedGameCard game={game} key={game.slug}/>)}
+                                    {featured.featuredGames.map((game) => (
+                                        <FeaturedGameCard game={game} key={game.slug} />
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -36,7 +38,9 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
                             <div className={`xl:w-11/12 ml-auto`}>
                                 <h3 className={`border-b-2 dark:border-dark-700 pb-1 font-medium text-xl`}>New Games</h3>
                                 <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
-                                    {featured.featuredGames.map(game => <FeaturedGameCard game={game} key={game.slug}/>)}
+                                    {featured.featuredGames.map((game) => (
+                                        <FeaturedGameCard game={game} key={game.slug} />
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -45,13 +49,11 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
                 <section id={"about"} className={`w-5/6 mx-auto text-center mt-4 mb-10`}>
                     <h2 className={`border-b-2 dark:border-dark-700 pb-1 text-3xl`}>Join the community</h2>
                     <h3 className={`text-xl my-2`}>
-                        Are you a creator of gaming related content? Consider joining the Diluv community and share your project today! We
-                        currently
+                        Are you a creator of gaming related content? Consider joining the Diluv community and share your project today! We currently
                         support {featured.gameCount} games and {featured.projectTypeCount} project types.
                     </h3>
                     <h4 className={`text-lg`}>
-                        Diluv was built by experienced content creators who wanted better for their content and communities. Our mission is to
-                        provide
+                        Diluv was built by experienced content creators who wanted better for their content and communities. Our mission is to provide
                         a reliable platform that empowers content creators of all sizes.
                     </h4>
                 </section>
@@ -61,7 +63,6 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-
     let theme = getTheme(context);
     let session = await getSession(context);
     let featured = await getAuthed(`${API_URL}/v1/site`, { session: session });

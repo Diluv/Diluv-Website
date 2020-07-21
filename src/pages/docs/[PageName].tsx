@@ -9,14 +9,15 @@ import { readAsString } from "../../utils/files";
 import { getSession } from "next-auth/client";
 
 export default function Feedback({ theme, title, pageContents, session }: HasTheme & HasMarkdown & HasSession) {
-
-    return <Layout title={title} theme={theme} session={session}>
-        <div className={`container mx-auto my-4`}>
-            <div className={`w-11/12 mx-auto`}>
-                <Markdown markdown={pageContents}/>
+    return (
+        <Layout title={title} theme={theme} session={session}>
+            <div className={`container mx-auto my-4`}>
+                <div className={`w-11/12 mx-auto`}>
+                    <Markdown markdown={pageContents} />
+                </div>
             </div>
-        </div>
-    </Layout>;
+        </Layout>
+    );
 }
 
 const validPages: Record<string, string> = {
@@ -29,12 +30,11 @@ const validPages: Record<string, string> = {
 };
 
 export async function getServerSideProps(context: NextPageContext) {
-
     let { PageName = "" } = context.query;
     let pageFile = PageName.toString();
     let title = validPages[pageFile];
 
-    let session = (await getSession(context));
+    let session = await getSession(context);
 
     if (title) {
         let theme = getTheme(context);

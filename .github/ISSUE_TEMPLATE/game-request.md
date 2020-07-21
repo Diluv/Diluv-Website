@@ -1,10 +1,9 @@
 ---
 name: Game Request
 about: Suggest a new game that you would like to see us support!
-title: ''
+title: ""
 labels: Game Request
-assignees: ''
-
+assignees: ""
 ---
 
 **Game Title**

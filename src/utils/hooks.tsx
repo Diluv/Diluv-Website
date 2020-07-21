@@ -1,9 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 
 export default function useComponentVisible(initialIsVisible = false) {
-    const [isComponentVisible, setIsComponentVisible] = useState(
-        initialIsVisible
-    );
+    const [isComponentVisible, setIsComponentVisible] = useState(initialIsVisible);
     const ref = useRef(null);
 
     const handleHideDropdown = (event: KeyboardEvent) => {
@@ -12,7 +10,7 @@ export default function useComponentVisible(initialIsVisible = false) {
         }
     };
 
-    const handleClickOutside = (event: { target: any; }) => {
+    const handleClickOutside = (event: { target: any }) => {
         const { current }: MutableRefObject<any> = ref;
         if (current && !current.contains(event.target)) {
             setIsComponentVisible(false);

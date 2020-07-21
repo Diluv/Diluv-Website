@@ -15,13 +15,14 @@ export function listContributors(project: Project) {
     let count = 0;
     for (let contributor of project.contributors) {
         count++;
-        arr.push(<span key={contributor.username}>
-        <Link href={`/author/[Name]/`} as={`/author/${contributor.username}/`}>
-        <a
-            className={"hover:text-diluv-500"}>{contributor.displayName}</a>
-            </Link>
-            {(count) !== project.contributors.length && <span className={"mr-1"}>,</span>}
-        </span>);
+        arr.push(
+            <span key={contributor.username}>
+                <Link href={`/author/[Name]/`} as={`/author/${contributor.username}/`}>
+                    <a className={"hover:text-diluv-500"}>{contributor.displayName}</a>
+                </Link>
+                {count !== project.contributors.length && <span className={"mr-1"}>,</span>}
+            </span>
+        );
     }
     return arr;
 }

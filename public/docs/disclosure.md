@@ -5,10 +5,10 @@ The Diluv team has a great appreciation for security researchers and encourages 
 ## Acting in good faith
 
 1. Be respectful to our current operations. Avoid violating user privacy, interrupting or degrading services, and the destruction of data.
-2. Do not access or modify data you should not have access to. 
+2. Do not access or modify data you should not have access to.
 3. Do not manipulate financial services or generate fraudulent transactions.
 4. If personal or private information is encountered please stop all activity and contact us immediately.
-5. Do not use vulnerabilities in a way which violates applicable law. 
+5. Do not use vulnerabilities in a way which violates applicable law.
 
 ## Disclosure Process
 
@@ -28,7 +28,8 @@ We promise not to pursue legal action or file a complaint to law enforcement aga
 
 ## Scope
 
-The following types of vulnerabilities are out of scope for this policy. 
-- Social Engineering including Phishing and fake login pages.
-- Resource Exhaustion / Denial of Service
-- Physical Testing (Please don't break into my house!)
+The following types of vulnerabilities are out of scope for this policy.
+
+-   Social Engineering including Phishing and fake login pages.
+-   Resource Exhaustion / Denial of Service
+-   Physical Testing (Please don't break into my house!)

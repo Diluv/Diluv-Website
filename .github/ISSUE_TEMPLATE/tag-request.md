@@ -1,10 +1,9 @@
 ---
 name: Tag Request
 about: Describe this issue template's purpose here.
-title: ''
+title: ""
 labels: Tag Request
-assignees: ''
-
+assignees: ""
 ---
 
 **Game**

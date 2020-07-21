@@ -1,23 +1,23 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-    purge: ['./src/**/*.html', './src/**/*.tsx', './src/**/*.ts',],
+    purge: ["./src/**/*.html", "./src/**/*.tsx", "./src/**/*.ts"],
     theme: {
         extend: {
-            textIndent: (theme, {negative}) => ({
+            textIndent: (theme, { negative }) => ({
                 ...{
-                    sm: '2rem',
-                    md: '3rem',
-                    lg: '4rem',
+                    sm: "2rem",
+                    md: "3rem",
+                    lg: "4rem"
                 },
                 ...negative({
-                    sm: '2rem',
-                    md: '3rem',
-                    lg: '4rem',
-                }),
+                    sm: "2rem",
+                    md: "3rem",
+                    lg: "4rem"
+                })
             }),
             spacing: {
-                "0.125": "2px",
+                "0.125": "2px"
             },
             gridTemplateColumns: {
                 "project-4": "0.25fr 1.25fr 0.5fr 1fr",
@@ -27,14 +27,14 @@ module.exports = {
                 "pagination": "repeat(auto-fit, minmax(11%,1fr));",
                 "tags": "auto auto auto auto 1fr",
                 "project-info": "auto auto auto 1fr auto",
-                'project-type-nav': "2.5fr 0.5fr"
+                "project-type-nav": "2.5fr 0.5fr"
             },
             gridTemplateRows: {
                 "project-4": "0.25fr 1fr 0.60fr 1fr",
                 "project-types": "1fr auto auto auto 1fr",
                 "auto": "repeat(auto-fill, minmax(8.3%,1fr));",
                 "auto-fit": "repeat(auto-fit, minmax(8.3%,1fr));",
-                "pagination": "repeat(auto-fit, minmax(11%,1fr));",
+                "pagination": "repeat(auto-fit, minmax(11%,1fr));"
             },
             opacity: {
                 "95": "0.95",
@@ -84,7 +84,7 @@ module.exports = {
                 "invalid-dark": "0 0 0 3px rgba(245,101,101,0.8)"
             },
             colors: {
-                "hsl": {
+                hsl: {
                     100: "hsl(0,0%,90%)",
                     200: "hsl(0,0%,80%)",
                     300: "hsl(0,0%,70%)",
@@ -95,11 +95,11 @@ module.exports = {
                     800: "hsl(0,0%,20%)",
                     900: "hsl(0,0%,10%)"
                 },
-                "tag": {
+                tag: {
                     default: "#DEEBFF",
                     dark: "#414a5a"
                 },
-                "diluv": {
+                diluv: {
                     100: "#ECF6FC",
                     200: "#CFE9F8",
                     300: "#B1DBF4",
@@ -111,49 +111,62 @@ module.exports = {
                     800: "#1B4B67",
                     900: "#123244"
                 },
-                "dark": {
-                    "010": '#fcfcfc',
-                    "020": '#f9f9f9',
-                    "030": '#f6f6f6',
-                    "040": '#f3f3f3',
-                    "050": '#f0f0f0',
-                    100: '#e6e6e6',
-                    200: '#c9c9c9',
-                    300: '#adadad',
-                    400: '#919191',
-                    500: '#757575',
-                    600: '#5c5c5c',
-                    700: '#454545',
-                    800: '#2e2e2e',
-                    850: '#242424',
-                    900: '#1b1b1b',
+                dark: {
+                    "010": "#fcfcfc",
+                    "020": "#f9f9f9",
+                    "030": "#f6f6f6",
+                    "040": "#f3f3f3",
+                    "050": "#f0f0f0",
+                    100: "#e6e6e6",
+                    200: "#c9c9c9",
+                    300: "#adadad",
+                    400: "#919191",
+                    500: "#757575",
+                    600: "#5c5c5c",
+                    700: "#454545",
+                    800: "#2e2e2e",
+                    850: "#242424",
+                    900: "#1b1b1b"
                 }
             }
-
         }
     },
     variants: {
         fill: ["responsive", "hover"],
         opacity: ["responsive", "hover", "focus", "disabled"],
         cursor: ["responsive", "disabled"],
-        backgroundColor: ["responsive", "hover", "focus", "disabled", "odd", "even", "dark", "dark-focus", "dark-hover", "dark-group-hover", "dark-even", "dark-odd"],
+        backgroundColor: [
+            "responsive",
+            "hover",
+            "focus",
+            "disabled",
+            "odd",
+            "even",
+            "dark",
+            "dark-focus",
+            "dark-hover",
+            "dark-group-hover",
+            "dark-even",
+            "dark-odd"
+        ],
         textColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-active", "dark-focus", "dark-placeholder"],
         transitionProperty: ["responsive", "hover", "focus"],
         borderWidth: ["responsive", "hover", "focus"],
         borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active", "dark-focus"],
-        textIndent: ['responsive']
+        textIndent: ["responsive"]
     },
     plugins: [
         require("tailwindcss-dark-mode")(),
-        require('tailwindcss-text-indent')(),
-        plugin(function ({addBase, config}) {
+        require("tailwindcss-text-indent")(),
+        plugin(function ({ addBase, config }) {
             addBase({
-                "h1": {fontSize: config("theme.fontSize.4xl")},
-                "h2": {fontSize: config("theme.fontSize.2xl")},
-                "h3": {fontSize: config("theme.fontSize.lg")},
-                "h4": {fontSize: config("theme.fontSize.base")},
-                "h5": {fontSize: config("theme.fontSize.sm")},
-                "h6": {fontSize: config("theme.fontSize.xs")}
+                h1: { fontSize: config("theme.fontSize.4xl") },
+                h2: { fontSize: config("theme.fontSize.2xl") },
+                h3: { fontSize: config("theme.fontSize.lg") },
+                h4: { fontSize: config("theme.fontSize.base") },
+                h5: { fontSize: config("theme.fontSize.sm") },
+                h6: { fontSize: config("theme.fontSize.xs") }
             });
-        })]
+        })
+    ]
 };

@@ -17,31 +17,41 @@ import formatDistance from "date-fns/formatDistance";
 import format from "date-fns/format";
 import GridArea from "../../../components/misc/GridArea";
 
-export default function AuthorProjects({ theme, data, currentSort, page, session }: { data: AuthorPage, currentSort: string, page: number } & HasTheme & HasSession) {
-
+export default function AuthorProjects({
+    theme,
+    data,
+    currentSort,
+    page,
+    session
+}: { data: AuthorPage; currentSort: string; page: number } & HasTheme & HasSession) {
     let maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
 
     const router = useRouter();
 
-    return (<Layout title={data.user.displayName} theme={theme} session={session}>
+    return (
+        <Layout title={data.user.displayName} theme={theme} session={session}>
             <div className={`container mx-auto mt-4`}>
                 <div className={`w-11/12 mx-auto`}>
                     <div className={`grid col-gap-2 row-gap-2 sm:row-gap-0 profilePageSmall sm:profilePageLarge`}>
                         <GridArea name={`image`}>
-                            <img src={data.user.avatarURL}/>
+                            <img src={data.user.avatarURL} />
                         </GridArea>
                         <GridArea name={`summary`}>
                             <h3>{data.user.displayName}</h3>
-                            <Tippy content={
-                                <div
-                                    className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                                    {format(data.user.createdAt, "yyyy-MM-dd HH:mm:ss")}
-                                </div>} followCursor={true} plugins={[followCursor]} duration={0} hideOnClick={false}>
+                            <Tippy
+                                content={
+                                    <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
+                                        {format(data.user.createdAt, "yyyy-MM-dd HH:mm:ss")}
+                                    </div>
+                                }
+                                followCursor={true}
+                                plugins={[followCursor]}
+                                duration={0}
+                                hideOnClick={false}
+                            >
                                 <span>Joined {formatDistance(data.user.createdAt, new Date(), { addSuffix: true })}</span>
                             </Tippy>
-
-
                         </GridArea>
                     </div>
 
@@ -51,12 +61,13 @@ export default function AuthorProjects({ theme, data, currentSort, page, session
                                 <span className={`cursor-default select-none text-diluv-600`}>Projects</span>
                             </div>
                         </div>
-                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort}/>
+                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} />
                         <div className={`my-4`}>
-                            {data.projects.map(value =>
-                                <AuthorProjectCard project={value} key={value.slug}/>)}
+                            {data.projects.map((value) => (
+                                <AuthorProjectCard project={value} key={value.slug} />
+                            ))}
                         </div>
-                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} showSorts={false}/>
+                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} showSorts={false} />
                     </section>
                 </div>
             </div>
@@ -64,7 +75,19 @@ export default function AuthorProjects({ theme, data, currentSort, page, session
     );
 }
 
-function ProjectOptions({ data, page, maxPage, currentSort, showSorts = true }: { data: AuthorPage, page: number, maxPage: number, currentSort: string, showSorts?: boolean }) {
+function ProjectOptions({
+    data,
+    page,
+    maxPage,
+    currentSort,
+    showSorts = true
+}: {
+    data: AuthorPage;
+    page: number;
+    maxPage: number;
+    currentSort: string;
+    showSorts?: boolean;
+}) {
     function getSortFromCurrent(): Sort {
         for (let sort of data.sort) {
             if (sort.slug === currentSort) {
@@ -75,41 +98,54 @@ function ProjectOptions({ data, page, maxPage, currentSort, showSorts = true }: 
     }
 
     const router = useRouter();
-    return <div className={`grid grid-rows-2 sm:grid-rows-none row-gap-2 sm:grid-cols-2 md:grid-cols-3 sm:col-gap-2 md:col-gap-0 sm:row-gap-0`}>
-        {showSorts && <div className={`md:col-start-1`}>
-            <Select isSearchable={true} inputId="sortProjects"
-                    defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
-                    options={data.sort.map(value => {
-                        return { value: value.slug, label: value.displayName };
-                    })}
-                    styles={reactSelectStyle}
-                    onChange={(e: any) => {
+    return (
+        <div className={`grid grid-rows-2 sm:grid-rows-none row-gap-2 sm:grid-cols-2 md:grid-cols-3 sm:col-gap-2 md:col-gap-0 sm:row-gap-0`}>
+            {showSorts && (
+                <div className={`md:col-start-1`}>
+                    <Select
+                        isSearchable={true}
+                        inputId="sortProjects"
+                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
+                        options={data.sort.map((value) => {
+                            return { value: value.slug, label: value.displayName };
+                        })}
+                        styles={reactSelectStyle}
+                        onChange={(e: any) => {
+                            let newUrl = buildURL({
+                                page: page,
+                                sort: e.value,
+                                defaultSort: "new"
+                            });
+                            router.push(`/author/[Name]${newUrl}`, `/author/${data.user.username}${newUrl}`);
+                        }}
+                        classNamePrefix={"select"}
+                    />
+                </div>
+            )}
+            <div className={`${showSorts ? `md:col-start-3` : ``} my-auto`}>
+                <Pagination
+                    maxPage={maxPage}
+                    page={page}
+                    asBuilder={(pageIndex: number) => {
                         let newUrl = buildURL({
-                            page: page,
-                            sort: e.value,
+                            page: pageIndex,
+                            sort: currentSort,
                             defaultSort: "new"
                         });
-                        router.push(`/author/[Name]${newUrl}`, `/author/${data.user.username}${newUrl}`);
+                        return `/author/${data.user.username}${newUrl}`;
                     }}
-                    classNamePrefix={"select"}
-            />
-        </div>}
-        <div className={`${showSorts ? `md:col-start-3` : ``} my-auto`}>
-            <Pagination maxPage={maxPage} page={page} asBuilder={(pageIndex: number) => {
-                let newUrl = buildURL({
-                    page: pageIndex, sort: currentSort,
-                    defaultSort: "new"
-                });
-                return `/author/${data.user.username}${newUrl}`;
-            }} hrefBuilder={(pageIndex: number) => {
-                let newUrl = buildURL({
-                    page: pageIndex, sort: currentSort,
-                    defaultSort: "new"
-                });
-                return `/author/[Name]${newUrl}`;
-            }}/>
+                    hrefBuilder={(pageIndex: number) => {
+                        let newUrl = buildURL({
+                            page: pageIndex,
+                            sort: currentSort,
+                            defaultSort: "new"
+                        });
+                        return `/author/[Name]${newUrl}`;
+                    }}
+                />
+            </div>
         </div>
-    </div>;
+    );
 }
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -124,7 +160,7 @@ export async function getServerSideProps(context: NextPageContext) {
     if (sort) {
         params.set("sort", `${sort}`);
     }
-    let session = (await getSession(context));
+    let session = await getSession(context);
     params.sort();
     let data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
 

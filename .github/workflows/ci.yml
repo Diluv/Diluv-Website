@@ -1,32 +1,32 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - master
+    push:
+        branches:
+            - master
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: "10.x"
 
-      - name: Install dependencies
-        run: npm ci
-      - name: Check typescript files
-        run: npm run type-check
+            - name: Install dependencies
+              run: npm ci
+            - name: Check typescript files
+              run: npm run type-check
 
-      - name: Build
-        run: npm run build
+            - name: Build
+              run: npm run build
 
-      - name: Production npm
-        run: npm run build
+            - name: Production npm
+              run: npm run build
 
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: diluv/diluv-website
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+            - name: Publish to Registry
+              uses: elgohr/Publish-Docker-Github-Action@master
+              with:
+                  name: diluv/diluv-website
+                  username: ${{ secrets.DOCKER_USERNAME }}
+                  password: ${{ secrets.DOCKER_PASSWORD }}
