@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { Project, SelectData } from "../../interfaces";
 import Link from "next/link";
 import { FilterTag } from "../misc/FilterTag";
@@ -16,11 +16,11 @@ interface Props {
     gameSlug: string;
     projectTypeSlug: string;
     project: Project;
-    setTagFilter: Function;
+    setTagFilter: Dispatch<any>;
     tagFilter: SelectData[];
 }
 
-function getDownloadsTip(downloads: number) {
+function getDownloadsTip(downloads: number): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>{downloads} Downloads</p>
@@ -28,7 +28,7 @@ function getDownloadsTip(downloads: number) {
     );
 }
 
-function getCreatedTip(createdAt: number) {
+function getCreatedTip(createdAt: number): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Created On</p>
@@ -37,7 +37,7 @@ function getCreatedTip(createdAt: number) {
     );
 }
 
-function getUpdatedTip(updatedAt: number) {
+function getUpdatedTip(updatedAt: number): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Updated On</p>
@@ -46,16 +46,16 @@ function getUpdatedTip(updatedAt: number) {
     );
 }
 
-function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props) {
-    let projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
-    let projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
+function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props): JSX.Element {
+    const projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
+    const projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
     return (
         <>
             <div className={`grid my-4 w-full mx-auto col-gap-2 row-gap-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
                 <GridArea name={`image`}>
                     <Link href={projectUrlRef} as={projectUrl}>
                         <a>
-                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} />
+                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name} />
                         </a>
                     </Link>
                 </GridArea>

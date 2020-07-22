@@ -26,11 +26,10 @@ const schema = merge(github, {
     attributes: { "*": ["className"] } // Allows className through the filter
 });
 
-function Markdown({ markdown }: Props) {
+function Markdown({ markdown }: Props): JSX.Element {
     return (
         <div className={`markdown break-words`}>
             {
-                // @ts-ignore
                 remark()
                     .use(slug) // GitHub like anchor slugs for headings.
                     .use(headings) // Applies references for slug anchors. May be an issue here with how it's being applied as it throws a console error.
@@ -42,6 +41,7 @@ function Markdown({ markdown }: Props) {
                         // Renders to react fragments.
                         sanitize: schema
                     })
+                    // @ts-ignore
                     .processSync(markdown).result
             }
         </div>

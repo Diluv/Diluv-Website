@@ -7,9 +7,9 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
         res.end(`Bad request! theme: ${req.body["theme"]}`);
         return;
     }
-    let expiresAt: Date = new Date(9999, 12, 31, 23, 59, 59);
+    const expiresAt: Date = new Date(9999, 12, 31, 23, 59, 59);
     const domain = process.env.NODE_ENV == "production" ? "diluv.com" : undefined;
-    let options: CookieSerializeOptions = {
+    const options: CookieSerializeOptions = {
         path: "/",
         expires: expiresAt,
         secure: process.env.NODE_ENV == "production",

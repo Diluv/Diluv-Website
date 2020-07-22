@@ -1,6 +1,11 @@
 import React, { MutableRefObject, ReactNode, useRef, useState } from "react";
 
-function Alert(props: { className?: string; children?: ReactNode; type: "danger" | "warning" | "success" | "info"; canDismiss?: boolean }) {
+function Alert(props: {
+    className?: string;
+    children?: ReactNode;
+    type: "danger" | "warning" | "success" | "info";
+    canDismiss?: boolean;
+}): JSX.Element {
     const [closed, setClosed] = useState(false);
     const { canDismiss, type, children, className } = props;
 

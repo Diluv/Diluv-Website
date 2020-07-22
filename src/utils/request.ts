@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Session } from "../interfaces";
 
 export function post(
     url: string,
-    data: any,
+    data: Record<string, unknown> | FormData,
     headers: any = {
         Accept: "application/json"
     }
-) {
+): Promise<AxiosResponse> {
     return axios.post(url, data, {
         headers
     });
@@ -15,14 +15,14 @@ export function post(
 
 export function postAuthed(
     url: string,
-    data: any,
+    data: Record<string, unknown> | FormData,
     {
         headers = {
             Accept: "application/json"
         },
         session
     }: { headers?: any; session?: Session }
-) {
+): Promise<AxiosResponse> {
     if (session) {
         headers.Authorization = `Bearer ${session.accessToken}`;
     }
@@ -36,7 +36,7 @@ export function get(
     headers: any = {
         Accept: "application/json"
     }
-) {
+): Promise<AxiosResponse> {
     return axios.get(url, {
         headers
     });
@@ -50,7 +50,7 @@ export function getAuthed(
         },
         session
     }: { headers?: any; session?: Session }
-) {
+): Promise<AxiosResponse> {
     if (session) {
         headers.Authorization = `Bearer ${session.accessToken}`;
     }

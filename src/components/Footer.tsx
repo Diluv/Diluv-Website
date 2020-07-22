@@ -2,7 +2,7 @@ import React from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
 
-function Footer() {
+function Footer(): JSX.Element {
     return (
         <>
             <footer className="text-gray-500 bg-gray-900 font-hero">

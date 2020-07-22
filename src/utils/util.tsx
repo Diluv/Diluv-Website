@@ -1,19 +1,19 @@
-import React, { FocusEvent } from "react";
+import React, { Dispatch, FocusEvent, ReactNode } from "react";
 import { Project } from "../interfaces";
 import Link from "next/link";
 
-export function onFocus(setSelectedField: Function, event: FocusEvent<any>) {
+export function onFocus(setSelectedField: Dispatch<string>, event: FocusEvent<any>): void {
     setSelectedField(event.target.id);
 }
 
-export function onBlur(setSelectedField: Function) {
+export function onBlur(setSelectedField: Dispatch<string>): void {
     setSelectedField("");
 }
 
-export function listContributors(project: Project) {
-    let arr = [];
+export function listContributors(project: Project): ReactNode[] {
+    const arr: ReactNode[] = [];
     let count = 0;
-    for (let contributor of project.contributors) {
+    for (const contributor of project.contributors) {
         count++;
         arr.push(
             <span key={contributor.username}>
@@ -27,10 +27,10 @@ export function listContributors(project: Project) {
     return arr;
 }
 
-export function projectHasReleaseStatus(project: Project) {
+export function projectHasReleaseStatus(project: Project): boolean {
     return "released" in project;
 }
 
-export function projectHasReviewStatus(project: Project) {
+export function projectHasReviewStatus(project: Project): boolean {
     return "review" in project;
 }

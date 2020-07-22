@@ -1,14 +1,14 @@
 import Layout from "../../components/Layout";
 import Markdown from "../../components/Markdown";
 import React from "react";
-import { NextPageContext } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getTheme } from "../../utils/theme";
-import { HasTheme, HasMarkdown, HasSession } from "../../interfaces";
+import { HasMarkdown, HasSession, HasTheme } from "../../interfaces";
 import { readAsString } from "../../utils/files";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 
-export default function Feedback({ theme, title, pageContents, session }: HasTheme & HasMarkdown & HasSession) {
+export default function Feedback({ theme, title, pageContents, session }: HasTheme & HasMarkdown & HasSession): JSX.Element {
     return (
         <Layout title={title} theme={theme} session={session}>
             <div className={`container mx-auto my-4`}>
@@ -29,16 +29,16 @@ const validPages: Record<string, string> = {
     formatting: "Formatting Guide"
 };
 
-export async function getServerSideProps(context: NextPageContext) {
-    let { PageName = "" } = context.query;
-    let pageFile = PageName.toString();
-    let title = validPages[pageFile];
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const { PageName = "" } = context.query;
+    const pageFile = PageName.toString();
+    const title = validPages[pageFile];
 
-    let session = await getSession(context);
+    const session = await getSession(context);
 
     if (title) {
-        let theme = getTheme(context);
-        let pageContents = readAsString(`public/docs/${pageFile}.md`);
+        const theme = getTheme(context);
+        const pageContents = readAsString(`public/docs/${pageFile}.md`);
         return {
             props: { theme, title, pageContents, session: session ?? null }
         };
@@ -47,4 +47,4 @@ export async function getServerSideProps(context: NextPageContext) {
     context.res?.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
     context.res?.end();
     return { props: { error: `The page ${pageFile} could not be found.` } };
-}
+};

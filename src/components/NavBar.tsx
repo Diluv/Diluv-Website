@@ -6,7 +6,7 @@ import { Auth, Theme } from "../utils/context";
 // @ts-ignore
 import { signin, signout } from "next-auth/client";
 
-function NavBar() {
+function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
     const theme = useContext(Theme);

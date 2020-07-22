@@ -1,15 +1,15 @@
-import React from "react";
+import React, { Component, FunctionComponent, ReactNode } from "react";
 import Layout from "../components/Layout";
 import { get, getAuthed } from "../utils/request";
 import { API_URL } from "../utils/api";
 import { Featured, HasSession, HasTheme } from "../interfaces";
-import { NextPageContext } from "next";
+import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult, NextPageContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 import { getTheme } from "../utils/theme";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 
-export default function IndexPage({ theme, featured, session }: { featured: Featured } & HasTheme & HasSession) {
+export default function IndexPage({ theme, featured, session }: { featured: Featured } & HasTheme & HasSession): JSX.Element {
     return (
         <Layout title="Diluv" theme={theme} session={session}>
             <>
@@ -62,11 +62,11 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
     );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-    let theme = getTheme(context);
-    let session = await getSession(context);
-    let featured = await getAuthed(`${API_URL}/v1/site`, { session: session });
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const theme = getTheme(context);
+    const session = await getSession(context);
+    const featured = await getAuthed(`${API_URL}/v1/site`, { session: session });
     return {
         props: { theme, featured: featured.data, session: session ?? null } // will be passed to the page component as props
     };
-}
+};

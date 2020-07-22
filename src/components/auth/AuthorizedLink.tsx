@@ -5,7 +5,17 @@ import Link from "next/link";
 // @ts-ignore
 import { signin } from "next-auth/client";
 
-export default function AuthorizedLink({ href, as, children, className }: { href: string; as?: string; children: ReactNode; className?: string }) {
+export default function AuthorizedLink({
+    href,
+    as,
+    children,
+    className
+}: {
+    href: string;
+    as?: string;
+    children: ReactNode;
+    className?: string;
+}): JSX.Element {
     const auth = useContext(Auth);
 
     if (auth.session) {

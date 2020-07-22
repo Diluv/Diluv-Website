@@ -5,11 +5,11 @@ import { AppProps } from "next/app";
 // @ts-ignore
 import { Provider } from "next-auth/client";
 
-export default ({ Component, pageProps }: AppProps) => {
+export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const { session } = pageProps;
     return (
         <Provider options={{ site: process.env.NEXT_STATIC_SITE_URL, clientMaxAge: 5 * 60 }} session={session}>
             <Component {...pageProps} />
         </Provider>
     );
-};
+}

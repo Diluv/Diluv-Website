@@ -20,8 +20,8 @@ export function buildURL({
     version?: string;
     tags?: Tag[];
     defaultSort?: string;
-}) {
-    let params = new URLSearchParams();
+}): string {
+    const params = new URLSearchParams();
 
     if (search) {
         params.append("search", search);
@@ -36,7 +36,7 @@ export function buildURL({
         params.append("version", version);
     }
     if (tags && tags.length) {
-        for (let tag of tags) {
+        for (const tag of tags) {
             params.append("tags", tag.slug);
         }
     }
@@ -55,9 +55,9 @@ export default function Pagination({
 }: {
     maxPage: number;
     page: number;
-    asBuilder: (pageIndex: number) => {};
-    hrefBuilder: (pageIndex: number) => {};
-}) {
+    asBuilder: (pageIndex: number) => string;
+    hrefBuilder: (pageIndex: number) => string;
+}): JSX.Element {
     return (
         <>
             <ReactPaginate

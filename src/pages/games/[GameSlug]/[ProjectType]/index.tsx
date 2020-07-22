@@ -1,4 +1,4 @@
-import { NextPageContext } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
 import { HasSession, HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
@@ -44,18 +44,18 @@ export default function Projects({
     version,
     currentTags,
     session
-}: Props & HasTheme & HasSession) {
+}: Props & HasTheme & HasSession): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
-    let [displaySearch] = useState(search);
+    const [displaySearch] = useState(search);
 
-    let router = useRouter();
-    let maxPage = Math.ceil(projectData.projectCount / 20);
+    const router = useRouter();
+    const maxPage = Math.ceil(projectData.projectCount / 20);
     page = Number(page);
 
     function getTagsFromCurrent(): Tag[] {
-        let tagArr = [];
-        for (let tag of projectData.tags) {
+        const tagArr = [];
+        for (const tag of projectData.tags) {
             if (currentTags.indexOf(tag.slug) >= 0) {
                 tagArr.push(tag);
             }
@@ -63,7 +63,7 @@ export default function Projects({
         return tagArr;
     }
 
-    let [tagFilter, setTagFilter] = useState<SelectData[]>(
+    const [tagFilter, setTagFilter] = useState<SelectData[]>(
         getTagsFromCurrent().map((value) => {
             return { value: value.slug, label: value.name };
         })
@@ -71,7 +71,7 @@ export default function Projects({
 
     function updateTags(newData: SelectData[]) {
         setTagFilter(newData);
-        let newUrl = buildURL({
+        const newUrl = buildURL({
             search: search,
             page: page,
             sort: currentSort,
@@ -84,7 +84,7 @@ export default function Projects({
     }
 
     function getSortFromCurrent(): Sort {
-        for (let sort of sorts) {
+        for (const sort of sorts) {
             if (sort.slug === currentSort) {
                 return sort;
             }
@@ -153,7 +153,7 @@ export default function Projects({
                                         onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)}
                                         onBlur={() => onBlur(setSelectedField)}
                                         onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                                            let newUrl = buildURL({
+                                            const newUrl = buildURL({
                                                 search: event.target.value,
                                                 page: page,
                                                 sort: currentSort,
@@ -192,7 +192,7 @@ export default function Projects({
                                             let valid = true;
                                             switch (meta.action) {
                                                 case "select-option":
-                                                    for (let data of tagFilter) {
+                                                    for (const data of tagFilter) {
                                                         if (data.value === meta.option?.value) {
                                                             valid = false;
                                                         }
@@ -206,7 +206,7 @@ export default function Projects({
                                                     break;
                                                 case "remove-value":
                                                     newData = [];
-                                                    for (let key in tagFilter) {
+                                                    for (const key in tagFilter) {
                                                         if (tagFilter[key].value !== meta.removedValue?.value) {
                                                             newData.push(tagFilter[key]);
                                                         }
@@ -241,7 +241,7 @@ export default function Projects({
                                         })}
                                         styles={reactSelectStyle}
                                         onChange={(e: any) => {
-                                            let newUrl = buildURL({
+                                            const newUrl = buildURL({
                                                 search: search,
                                                 page: page,
                                                 sort: e.value,
@@ -263,7 +263,7 @@ export default function Projects({
                                     maxPage={maxPage}
                                     page={page}
                                     asBuilder={(pageIndex: number) => {
-                                        let newUrl = buildURL({
+                                        const newUrl = buildURL({
                                             search: search,
                                             page: pageIndex,
                                             sort: currentSort,
@@ -273,7 +273,7 @@ export default function Projects({
                                         return `/games/${gameSlug}/${projectData.slug}${newUrl}`;
                                     }}
                                     hrefBuilder={(pageIndex: number) => {
-                                        let newUrl = buildURL({
+                                        const newUrl = buildURL({
                                             search: search,
                                             page: pageIndex,
                                             sort: currentSort,
@@ -307,12 +307,12 @@ export default function Projects({
     );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-    let theme = getTheme(context);
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const theme = getTheme(context);
     let { GameSlug, ProjectType, page = 1, sort = "", version = "", search = "", tags } = context.query;
     page = Number(page);
 
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     if (page) {
         params.append("page", `${page}`);
     }
@@ -325,21 +325,21 @@ export async function getServerSideProps(context: NextPageContext) {
     if (search && search.length) {
         params.append("search", `${search}`);
     }
-    let tagArr = [];
+    const tagArr = [];
     if (tags && tags.length) {
         if (typeof tags === "string") {
             params.append("tags", tags);
             tagArr.push(tags);
         } else {
-            for (let tag of tags) {
+            for (const tag of tags) {
                 tagArr.push(tag);
                 params.append("tags", tag);
             }
         }
     }
     params.sort();
-    let session = await getSession(context);
-    let data = await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`, {
+    const session = await getSession(context);
+    const data = await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`, {
         session: session
     }); // got
     page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
@@ -360,4 +360,4 @@ export async function getServerSideProps(context: NextPageContext) {
             session: session ?? null
         }
     };
-}
+};

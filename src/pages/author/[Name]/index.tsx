@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "components/Layout";
-import { NextPageContext } from "next";
+import { GetServerSideProps, GetServerSidePropsContext, NextPageContext } from "next";
 import { AuthorPage, HasSession, HasTheme, Sort } from "../../../interfaces";
 import { getTheme, reactSelectStyle } from "../../../utils/theme";
 import { getAuthed } from "../../../utils/request";
@@ -23,11 +23,9 @@ export default function AuthorProjects({
     currentSort,
     page,
     session
-}: { data: AuthorPage; currentSort: string; page: number } & HasTheme & HasSession) {
-    let maxPage = Math.ceil(data.projectCount / 20);
+}: { data: AuthorPage; currentSort: string; page: number } & HasTheme & HasSession): JSX.Element {
+    const maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
-
-    const router = useRouter();
 
     return (
         <Layout title={data.user.displayName} theme={theme} session={session}>
@@ -35,7 +33,7 @@ export default function AuthorProjects({
                 <div className={`w-11/12 mx-auto`}>
                     <div className={`grid col-gap-2 row-gap-2 sm:row-gap-0 profilePageSmall sm:profilePageLarge`}>
                         <GridArea name={`image`}>
-                            <img src={data.user.avatarURL} />
+                            <img src={data.user.avatarURL} alt={data.user.displayName} />
                         </GridArea>
                         <GridArea name={`summary`}>
                             <h3>{data.user.displayName}</h3>
@@ -89,7 +87,7 @@ function ProjectOptions({
     showSorts?: boolean;
 }) {
     function getSortFromCurrent(): Sort {
-        for (let sort of data.sort) {
+        for (const sort of data.sort) {
             if (sort.slug === currentSort) {
                 return sort;
             }
@@ -111,7 +109,7 @@ function ProjectOptions({
                         })}
                         styles={reactSelectStyle}
                         onChange={(e: any) => {
-                            let newUrl = buildURL({
+                            const newUrl = buildURL({
                                 page: page,
                                 sort: e.value,
                                 defaultSort: "new"
@@ -127,7 +125,7 @@ function ProjectOptions({
                     maxPage={maxPage}
                     page={page}
                     asBuilder={(pageIndex: number) => {
-                        let newUrl = buildURL({
+                        const newUrl = buildURL({
                             page: pageIndex,
                             sort: currentSort,
                             defaultSort: "new"
@@ -135,7 +133,7 @@ function ProjectOptions({
                         return `/author/${data.user.username}${newUrl}`;
                     }}
                     hrefBuilder={(pageIndex: number) => {
-                        let newUrl = buildURL({
+                        const newUrl = buildURL({
                             page: pageIndex,
                             sort: currentSort,
                             defaultSort: "new"
@@ -148,23 +146,23 @@ function ProjectOptions({
     );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-    let theme = getTheme(context);
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const theme = getTheme(context);
     let { Name, sort = "", page = 1 } = context.query;
     page = Number(page);
 
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     if (page) {
         params.append("page", `${page}`);
     }
     if (sort) {
         params.set("sort", `${sort}`);
     }
-    let session = await getSession(context);
+    const session = await getSession(context);
     params.sort();
-    let data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
+    const data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
 
     return {
         props: { theme, data: data.data, currentSort: sort.length ? sort : `new`, page: page, session: session ?? null } // will be passed to the page component as props
     };
-}
+};

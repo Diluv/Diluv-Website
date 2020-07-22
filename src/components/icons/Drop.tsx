@@ -24,11 +24,11 @@ function Drop({
     lightRange = [30, 60],
     hue = 202,
     sat = 76
-}: Props) {
+}: Props): JSX.Element {
     let countedLines = 0;
-    let lines = 30;
-    let minL = lightRange[0];
-    let maxL = lightRange[1];
+    const lines = 30;
+    const minL = lightRange[0];
+    const maxL = lightRange[1];
     let curL = minL;
     let light = [];
     while (curL <= maxL) {
@@ -220,11 +220,11 @@ export function ShadeDrop({
     lightRange = [40, 75],
     hue = 202,
     sat = 76
-}: Props) {
+}: Props): JSX.Element {
     let countedLines = 0;
-    let lines = 6;
-    let minL = lightRange[0];
-    let maxL = lightRange[1];
+    const lines = 6;
+    const minL = lightRange[0];
+    const maxL = lightRange[1];
     let curL = minL;
     let light = [];
     while (curL <= maxL) {
@@ -404,7 +404,7 @@ export const ColouredDrop = ({
     className = "",
     viewBox = "0 0 101.76 195.6",
     shapeRendering = "crispEdges"
-}: Props) => (
+}: Props): JSX.Element => (
     <svg
         version="1.1"
         // width="101.76px" height="195.6px" viewBox="0 0 101.76 195.6"

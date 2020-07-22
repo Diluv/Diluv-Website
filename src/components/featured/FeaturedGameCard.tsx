@@ -2,7 +2,7 @@ import React from "react";
 import { Game } from "../../interfaces";
 import Link from "next/link";
 
-function FeaturedGameCard({ game }: { game: Game }) {
+function FeaturedGameCard({ game }: { game: Game }): JSX.Element {
     return (
         <div className={``}>
             <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${game.slug}/${game.defaultProjectType}`}>

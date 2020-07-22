@@ -5,13 +5,11 @@ import { DisplayTag } from "../misc/FilterTag";
 import { listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
 import format from "date-fns/format";
 import Alert from "../Alert";
-import NavigationMore from "../icons/NavigationMore";
 import Download from "../icons/Download";
-import Wrench from "../icons/Wrench";
 import { Auth } from "../../utils/context";
 import GridArea from "../misc/GridArea";
 
-export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }) {
+export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }): JSX.Element {
     function isDescription(): boolean {
         return pageType === "description";
     }
@@ -49,7 +47,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
             <div className={`grid mt-4 mb-4 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
                 <GridArea name={`image`}>
-                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} />
+                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name} />
                 </GridArea>
                 <GridArea name={"name"}>
                     <h4 className={`font-semibold`}>{project.name}</h4>

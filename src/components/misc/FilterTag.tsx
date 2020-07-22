@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { SelectData } from "../../interfaces";
 
 export function FilterTag({
@@ -10,11 +10,11 @@ export function FilterTag({
     tagName: string;
     tagSlug: string;
     tagFilter: SelectData[];
-    setTagFilter: Function;
-}) {
+    setTagFilter: Dispatch<any>;
+}): JSX.Element {
     function hasTag() {
         let hasTag = false;
-        for (let data of tagFilter) {
+        for (const data of tagFilter) {
             if (data.value === tagSlug) {
                 hasTag = true;
             }
@@ -40,7 +40,7 @@ export function FilterTag({
     );
 }
 
-export function DisplayTag({ tagName, tagSlug }: { tagName: string; tagSlug: string }) {
+export function DisplayTag({ tagName, tagSlug }: { tagName: string; tagSlug: string }): JSX.Element {
     return (
         <div
             className={`inline flex cursor-default px-2 align-middle bg-hsl-100 dark:bg-hsl-800 hover:bg-tag dark-hover:bg-tag-dark text-hsl-800 dark:text-dark-100 `}

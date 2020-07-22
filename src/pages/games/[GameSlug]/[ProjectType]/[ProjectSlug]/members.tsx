@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "components/Layout";
-import { NextPageContext } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { HasSession, HasTheme, Project } from "../../../../../interfaces";
@@ -11,7 +11,7 @@ import Link from "next/link";
 import { getSession } from "next-auth/client";
 import GridArea from "../../../../../components/misc/GridArea";
 
-export default function Files({ theme, project, session }: { project: Project } & HasTheme & HasSession) {
+export default function Files({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
     return (
         <Layout title={project.name} theme={theme} session={session}>
             <>
@@ -50,13 +50,13 @@ export default function Files({ theme, project, session }: { project: Project } 
     );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-    let theme = getTheme(context);
-    let { GameSlug, ProjectType, ProjectSlug } = context.query;
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const theme = getTheme(context);
+    const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
-    let session = await getSession(context);
-    let data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
+    const session = await getSession(context);
+    const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
     return {
         props: { theme, project: data.data, session: session ?? null } // will be passed to the page component as props
     };
-}
+};

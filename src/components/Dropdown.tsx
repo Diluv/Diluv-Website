@@ -1,9 +1,9 @@
-import React, { ReactNode, useRef } from "react";
+import React, { Dispatch, MouseEventHandler, ReactNode, useRef } from "react";
 import Link from "next/link";
 import useComponentVisible from "../utils/hooks";
 import { usePopper } from "react-popper";
 
-function DropDown(props: { name: string; children: ReactNode; className?: string }) {
+function DropDown(props: { name: string; children: ReactNode; className?: string }): JSX.Element {
     const {
         ref,
         isComponentVisible,
@@ -11,7 +11,7 @@ function DropDown(props: { name: string; children: ReactNode; className?: string
     }: {
         ref: React.Ref<any>;
         isComponentVisible: boolean;
-        setIsComponentVisible: Function;
+        setIsComponentVisible: Dispatch<any>;
     } = useComponentVisible(false);
 
     const popperRef = useRef(null);
@@ -49,12 +49,12 @@ function DropDown(props: { name: string; children: ReactNode; className?: string
     );
 }
 
-export function DropDownItem(props: { children: ReactNode; className?: string }) {
+export function DropDownItem(props: { children: ReactNode; className?: string }): JSX.Element {
     const { children, className } = props;
     return <div className={`${className || ""} text-gray-800 px-6 py-2`}>{children}</div>;
 }
 
-export function DropDownLinkInternal(props: { children: ReactNode; className?: string; href: string; as: string }) {
+export function DropDownLinkInternal(props: { children: ReactNode; className?: string; href: string; as: string }): JSX.Element {
     const { href, children, className, as } = props;
     return (
         <Link href={href} as={as}>
@@ -65,7 +65,7 @@ export function DropDownLinkInternal(props: { children: ReactNode; className?: s
     );
 }
 
-export function DropDownLink(props: { children: ReactNode; className?: string; href: string }) {
+export function DropDownLink(props: { children: ReactNode; className?: string; href: string }): JSX.Element {
     const { href, children, className } = props;
     return (
         <Link href={href}>
@@ -76,7 +76,7 @@ export function DropDownLink(props: { children: ReactNode; className?: string; h
     );
 }
 
-export function DropDownAction(props: { children: ReactNode; className?: string; action: Function }) {
+export function DropDownAction(props: { children: ReactNode; className?: string; action: MouseEventHandler }): JSX.Element {
     const { children, action, className } = props;
     return (
         <div

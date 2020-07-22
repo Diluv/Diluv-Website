@@ -1,6 +1,12 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { Dispatch, MutableRefObject, useEffect, useRef, useState } from "react";
 
-export default function useComponentVisible(initialIsVisible = false) {
+interface VisibleProps {
+    ref: MutableRefObject<any>;
+    isComponentVisible: boolean;
+    setIsComponentVisible: Dispatch<any>;
+}
+
+export default function useComponentVisible(initialIsVisible = false): VisibleProps {
     const [isComponentVisible, setIsComponentVisible] = useState(initialIsVisible);
     const ref = useRef(null);
 

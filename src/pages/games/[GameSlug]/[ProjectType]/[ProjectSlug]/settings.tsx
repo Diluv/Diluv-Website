@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Layout from "components/Layout";
-import { NextPageContext } from "next";
-import { getAuthed, postAuthed } from "../../../../../utils/request";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { getAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { HasSession, HasTheme, Project, SelectData } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
@@ -11,34 +11,31 @@ import Markdown from "../../../../../components/Markdown";
 import { getSession } from "next-auth/client";
 import { ensureAuthed } from "../../../../../utils/auth";
 import { StateManager } from "react-select/src/stateManager";
-import { useRouter } from "next/router";
 import Alert from "../../../../../components/Alert";
 import Dropzone from "react-dropzone";
 import Select from "react-select";
 import SimpleBar from "simplebar-react";
-import { AxiosError } from "axios";
 
-export default function ProjectIndex({ theme, project, session }: { project: Project } & HasTheme & HasSession) {
+export default function ProjectIndex({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
     ensureAuthed(session);
 
     if (!session) {
         return <> </>;
     }
-    let [content, setContent] = useState("");
-    let [logo, setLogo] = useState("");
-    let [logoFile, setLogoFile] = useState<File>();
-    let [logoErrors, setLogoErrors] = useState<string[]>([]);
+    const [content, setContent] = useState("");
+    const [logo, setLogo] = useState("");
+    const [logoFile, setLogoFile] = useState<File>();
+    const [logoErrors, setLogoErrors] = useState<string[]>([]);
 
-    let refName = useRef<HTMLInputElement>(null);
-    let [validName, setValidName] = useState(false);
-    let refSummary = useRef<HTMLInputElement>(null);
-    let [validSummary, setValidSummary] = useState(false);
-    let refDescription = useRef<HTMLTextAreaElement>(null);
-    let [validDescription, setValidDescription] = useState(false);
-    let refTags = useRef<StateManager>(null);
-    let [validTags, setValidTags] = useState(false);
-    let [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
-    let router = useRouter();
+    const refName = useRef<HTMLInputElement>(null);
+    const [validName, setValidName] = useState(false);
+    const refSummary = useRef<HTMLInputElement>(null);
+    const [validSummary, setValidSummary] = useState(false);
+    const refDescription = useRef<HTMLTextAreaElement>(null);
+    const [validDescription, setValidDescription] = useState(false);
+    const refTags = useRef<StateManager>(null);
+    const [validTags, setValidTags] = useState(false);
+    const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
 
     function canSubmit(): boolean {
         return validName && validSummary && validDescription && !!logoFile && validTags;
@@ -68,12 +65,12 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
                     <div className={`w-64 h-64 mx-auto sm:mx-0`} style={{ gridArea: "image" }}>
                         <Dropzone
                             onDrop={(acceptedFiles) => {
-                                let file = acceptedFiles[0];
-                                let u = URL.createObjectURL(file);
-                                let img = new Image();
+                                const file = acceptedFiles[0];
+                                const u = URL.createObjectURL(file);
+                                const img = new Image();
                                 setLogoFile(file);
                                 img.onload = function () {
-                                    let newLogoErrors = [];
+                                    const newLogoErrors = [];
                                     if (img.width !== img.height) {
                                         newLogoErrors.push(`Project Logo does not have a dimension ratio of 1:1!`);
                                     }
@@ -99,7 +96,7 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
                                 >
                                     <input {...getInputProps()} />
                                     {logo.length ? (
-                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} />
+                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"} />
                                     ) : (
                                         <p className={`text-center select-none`}>Upload logo</p>
                                     )}
@@ -255,12 +252,8 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
                         <button
                             className={`btn-diluv sm:w-auto`}
                             disabled={!canSubmit()}
-                            onClick={(event) => {
-                                let headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
-                                    "Accept": "application/json",
-                                    "content-type": "multipart/form-data"
-                                };
-                                let formData = new FormData();
+                            onClick={() => {
+                                const formData = new FormData();
                                 formData.set("name", refName.current?.value ?? "");
                                 formData.set("summary", refSummary.current?.value ?? "");
                                 formData.set("description", refDescription.current?.value ?? "");
@@ -286,13 +279,13 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
     );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-    let theme = getTheme(context);
-    let { GameSlug, ProjectType, ProjectSlug } = context.query;
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const theme = getTheme(context);
+    const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
-    let session = await getSession(context);
-    let data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
+    const session = await getSession(context);
+    const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
     return {
         props: { theme, project: data.data, session: session ?? null } // will be passed to the page component as props
     };
-}
+};

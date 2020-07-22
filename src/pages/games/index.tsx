@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import Layout from "components/Layout";
 import Search from "components/icons/Search";
-import { NextPageContext } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../utils/request";
 import { API_URL } from "../../utils/api";
 import { Game, HasSession, HasTheme, Sort } from "../../interfaces";
@@ -16,7 +16,7 @@ import { getSession } from "next-auth/client";
 import GridArea from "../../components/misc/GridArea";
 
 function buildURL(search: string, sort: string) {
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
 
     if (search) {
         params.set("search", search);
@@ -38,14 +38,14 @@ export default function GameIndex({
     currentSort,
     search,
     session
-}: { games: Game[]; sorts: Sort[]; currentSort: string; search: string } & HasTheme & HasSession) {
+}: { games: Game[]; sorts: Sort[]; currentSort: string; search: string } & HasTheme & HasSession): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
-    let [displaySearch] = useState(search);
+    const [displaySearch] = useState(search);
     const router = useRouter();
 
     function getSortFromCurrent(): Sort {
-        for (let sort of sorts) {
+        for (const sort of sorts) {
             if (sort.slug === currentSort) {
                 return sort;
             }
@@ -86,7 +86,7 @@ export default function GameIndex({
                                     onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)}
                                     onBlur={() => onBlur(setSelectedField)}
                                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                                        let newUrl = buildURL(event.target.value, currentSort);
+                                        const newUrl = buildURL(event.target.value, currentSort);
                                         router.push(`/games`, `/games${newUrl}`, { shallow: false });
                                     }}
                                 />
@@ -106,7 +106,7 @@ export default function GameIndex({
                                     })}
                                     styles={reactSelectStyle}
                                     onChange={(e: any) => {
-                                        let newUrl = buildURL(search, e.value);
+                                        const newUrl = buildURL(search, e.value);
                                         router.push(`/games`, `/games${newUrl}`, { shallow: false });
                                     }}
                                     classNamePrefix={"select"}
@@ -125,7 +125,7 @@ export default function GameIndex({
                                                     <source key={value.src + "-" + value.type} srcSet={value.src} type={value.type} />
                                                 ))}
                                                 <source srcSet={game.logoURL.fallback.src} type={game.logoURL.fallback.type} />
-                                                <img src={game.logoURL.fallback.src} className={`w-full`} />
+                                                <img src={game.logoURL.fallback.src} className={`w-full`} alt={game.name} />
                                             </picture>
                                         </a>
                                     </Link>
@@ -139,11 +139,11 @@ export default function GameIndex({
     );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-    let theme = getTheme(context);
-    let { sort = "", search = "" } = context.query;
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const theme = getTheme(context);
+    const { sort = "", search = "" } = context.query;
 
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     if (sort) {
         params.set("sort", `${sort}`);
     }
@@ -151,9 +151,9 @@ export async function getServerSideProps(context: NextPageContext) {
         params.set("search", `${search}`);
     }
 
-    let session = await getSession(context);
+    const session = await getSession(context);
 
-    let games = await getAuthed(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
+    const games = await getAuthed(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
 
     return {
         props: {
@@ -165,4 +165,4 @@ export async function getServerSideProps(context: NextPageContext) {
             session: session ?? null
         } // will be passed to the page component as props
     };
-}
+};

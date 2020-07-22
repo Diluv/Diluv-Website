@@ -13,7 +13,7 @@ type Props = {
     title: string;
 };
 
-function Layout({ theme, children, title = "Diluv", session }: Props & HasTheme & HasSession) {
+function Layout({ theme, children, title = "Diluv", session }: Props & HasTheme & HasSession): JSX.Element {
     const [themeState, setTheme] = useState({
         theme: theme.theme
     });
@@ -45,7 +45,7 @@ function Layout({ theme, children, title = "Diluv", session }: Props & HasTheme 
                         });
                 },
                 toggleTheme: () => {
-                    let newTheme = themeState.theme === "dark" ? "light" : "dark";
+                    const newTheme = themeState.theme === "dark" ? "light" : "dark";
                     setTheme({ theme: newTheme });
                     axios
                         .post("/api/set_theme", { theme: newTheme })
