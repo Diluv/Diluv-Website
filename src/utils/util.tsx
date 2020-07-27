@@ -34,3 +34,10 @@ export function projectHasReleaseStatus(project: Project): boolean {
 export function projectHasReviewStatus(project: Project): boolean {
     return "review" in project;
 }
+
+export function canEditProject(project: Project): boolean {
+    if (project.permissions) {
+        return project.permissions.indexOf("project.edit") >= 0;
+    }
+    return false;
+}

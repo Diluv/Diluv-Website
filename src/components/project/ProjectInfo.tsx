@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
-import { listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
+import { canEditProject, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
 import format from "date-fns/format";
 import Alert from "../Alert";
 import Download from "../icons/Download";
@@ -27,7 +27,6 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
     }
 
     const auth = useContext(Auth);
-
     return (
         <div id={"topInfo"}>
             {projectHasReleaseStatus(project) && !project.review ? (
@@ -138,7 +137,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     </Link>
                 )}
 
-                {auth.session ? (
+                {canEditProject(project) ? (
                     isSettings() ? (
                         <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-orange-500 hover:border-orange-500 col-start-5`}>
                             <span className={`cursor-default select-none text-orange-600`}>Settings</span>
