@@ -22,18 +22,20 @@ const options = {
             }
         })
     ],
-    pages: {
-        signin: "/auth/signin"
-    },
     callbacks: {
-        session: async (session: any, token: any) => {
-            session["user"]["id"] = token.account.id;
-            session["accessToken"] = token.account.accessToken;
+        session: async (session: any, user: any, sessionToken: any) => {
+            session["user"]["id"] = user.id;
+            session["accessToken"] = user.accessToken;
             return Promise.resolve(session);
+        },
+        jwt: async (token: any, user: any, account: any, profile: any, isNewUser: boolean) => {
+            const hasAccount = !!account;
+            if (hasAccount) {
+                token.id = profile.username;
+                token.accessToken = account.accessToken;
+            }
+            return Promise.resolve(token);
         }
-    },
-    events: {
-        signout: async (message: any) => {}
     }
 };
 
