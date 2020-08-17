@@ -5,7 +5,6 @@ import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const options = {
-    site: process.env.NEXT_STATIC_SITE_URL,
     // Configure one or more authentication providers
     providers: [
         Providers.IdentityServer4({
@@ -36,6 +35,11 @@ const options = {
             }
             return Promise.resolve(token);
         }
+    },
+    session: {
+        jwt: true,
+        // Seconds - How long until an idle session expires and is no longer valid.
+        maxAge: 60 * 60
     }
 };
 

@@ -8,7 +8,7 @@ import { Provider } from "next-auth/client";
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const { session } = pageProps;
     return (
-        <Provider options={{ site: process.env.NEXT_STATIC_SITE_URL, clientMaxAge: 5 * 60 }} session={session}>
+        <Provider options={{ site: process.env.NEXT_STATIC_SITE_URL, clientMaxAge: 10 * 60, keepAlive: 10 * 60 }} session={session}>
             <Component {...pageProps} />
         </Provider>
     );
