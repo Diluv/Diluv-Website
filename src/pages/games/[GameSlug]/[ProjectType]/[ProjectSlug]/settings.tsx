@@ -42,7 +42,15 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
     }
 
     return (
-        <Layout title={`${project.name} Settings`} theme={theme} session={session}>
+        <Layout
+            title={`${project.name} Settings`}
+            theme={theme}
+            session={session}
+            canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
+            description={`${project.summary}`}
+            image={`${project.logo}`}
+            url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
+        >
             <div className={`w-5/6 mx-auto mt-4 mb-8`}>
                 <ProjectInfo project={project} pageType={"settings"} />
                 {logoErrors.length > 0 ? (

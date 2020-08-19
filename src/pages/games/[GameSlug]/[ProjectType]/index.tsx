@@ -4,7 +4,7 @@ import React, { ChangeEvent, useState } from "react";
 import { HasSession, HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
 import { getAuthed } from "../../../../utils/request";
 
-import { API_URL } from "../../../../utils/api";
+import { API_URL, SITE_URL } from "../../../../utils/api";
 import ProjectCard from "../../../../components/project/ProjectCard";
 import Search from "../../../../components/icons/Search";
 import { onBlur, onFocus } from "../../../../utils/util";
@@ -93,7 +93,15 @@ export default function Projects({
     }
 
     return (
-        <Layout title={projectData.name} theme={theme} session={session}>
+        <Layout
+            title={projectData.name}
+            theme={theme}
+            session={session}
+            canonical={`/games/${gameSlug}/${projectData.slug}`}
+            description={`${gameSlug} ${projectData.name} | Diluv`}
+            image={`${SITE_URL}/static/diluv.png`}
+            url={`/games/${gameSlug}/${projectData.slug}${page > 1 ? `?page=${page}` : ``}`}
+        >
             <div className={`container mx-auto`}>
                 <div className={`w-11/12 mx-auto`}>
                     <div id={"header"} className={`mb-4 mt-2`}>

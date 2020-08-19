@@ -1,7 +1,7 @@
 import React, { Component, FunctionComponent, ReactNode } from "react";
 import Layout from "../components/Layout";
 import { get, getAuthed } from "../utils/request";
-import { API_URL } from "../utils/api";
+import { API_URL, SITE_URL } from "../utils/api";
 import { Featured, HasSession, HasTheme } from "../interfaces";
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult, NextPageContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
@@ -11,7 +11,16 @@ import { getSession } from "next-auth/client";
 
 export default function IndexPage({ theme, featured, session }: { featured: Featured } & HasTheme & HasSession): JSX.Element {
     return (
-        <Layout title="Diluv" theme={theme} session={session}>
+        <Layout
+            title="Diluv"
+            theme={theme}
+            session={session}
+            canonical={SITE_URL}
+            description={`Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content
+                        creators of all gaming communities.`}
+            image={`${SITE_URL}/static/diluv.png`}
+            url={SITE_URL}
+        >
             <>
                 <section id={"intro"} className={`w-5/6 mx-auto text-center my-4`}>
                     <h1 className={`text-3xl`}>Welcome to Diluv</h1>

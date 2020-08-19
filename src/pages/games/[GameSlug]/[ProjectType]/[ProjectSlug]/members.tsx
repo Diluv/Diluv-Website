@@ -13,7 +13,15 @@ import GridArea from "../../../../../components/misc/GridArea";
 
 export default function Files({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
     return (
-        <Layout title={project.name} theme={theme} session={session}>
+        <Layout
+            title={project.name}
+            theme={theme}
+            session={session}
+            canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}
+            description={`${project.summary}`}
+            image={`${project.logo}`}
+            url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}
+        >
             <>
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
                     <ProjectInfo project={project} pageType={"members"} />

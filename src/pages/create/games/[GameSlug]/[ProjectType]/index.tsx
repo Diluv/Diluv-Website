@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed, postAuthed } from "../../../../../utils/request";
-import { API_URL } from "../../../../../utils/api";
+import { API_URL, SITE_URL } from "../../../../../utils/api";
 import { getTheme, reactSelectStyle } from "../../../../../utils/theme";
 import { HasSession, HasTheme, SelectData, Tag } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
@@ -50,7 +50,15 @@ export default function Index({
     }
 
     return (
-        <Layout title={`Create ${ProjectType}`} theme={theme} session={session}>
+        <Layout
+            title={`Create ${ProjectType}`}
+            theme={theme}
+            session={session}
+            canonical={`/create/games/${GameSlug}${ProjectType}`}
+            description={`Create project | Diluv`}
+            image={`${SITE_URL}/static/diluv.png`}
+            url={`/create/games/${GameSlug}${ProjectType}`}
+        >
             <div className={`w-5/6 mx-auto mt-4 mb-8`}>
                 {logoErrors.length > 0 ? (
                     <div className={`my-4`}>

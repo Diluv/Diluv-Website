@@ -7,13 +7,19 @@ import { HasSession, HasTheme } from "../interfaces";
 import { Theme, Auth } from "../utils/context";
 import axios, { AxiosError } from "axios";
 import Router from "next/router";
+import { NextSeo } from "next-seo";
+import { SITE_URL } from "../utils/api";
 
 type Props = {
     children: JSX.Element | JSX.Element[];
     title: string;
+    description: string;
+    canonical: string;
+    url: string;
+    image: string;
 };
 
-function Layout({ theme, children, title = "Diluv", session }: Props & HasTheme & HasSession): JSX.Element {
+function Layout({ theme, children, title = "Diluv", session, description, canonical, url, image }: Props & HasTheme & HasSession): JSX.Element {
     const [themeState, setTheme] = useState({
         theme: theme.theme
     });
@@ -61,6 +67,25 @@ function Layout({ theme, children, title = "Diluv", session }: Props & HasTheme 
                     session: session
                 }}
             >
+                <NextSeo
+                    title={title}
+                    description={description}
+                    canonical={`${SITE_URL}${canonical}`}
+                    openGraph={{
+                        type: "website",
+                        title: title,
+                        url: `${SITE_URL}${url}`,
+                        description: description,
+                        images: [{ url: image, width: 211, height: 406, alt: "diluv open graph image" }],
+                        site_name: "Diluv"
+                    }}
+                    twitter={{
+                        cardType: "summary",
+                        site: "@DiluvMods",
+                        handle: "@DiluvMods"
+                    }}
+                />
+
                 <div className={`${themeState.theme === "dark" ? `mode-dark` : `mode-light`}`}>
                     <SimpleBar className={`minmax-height`} ref={simpleBarRef}>
                         <div className={`min-h-screen flex flex-col bg-gray-100 dark:bg-dark-900 dark:text-dark-100`}>

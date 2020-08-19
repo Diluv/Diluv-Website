@@ -3,7 +3,7 @@ import Layout from "components/Layout";
 import Search from "components/icons/Search";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../utils/request";
-import { API_URL } from "../../utils/api";
+import { API_URL, SITE_URL } from "../../utils/api";
 import { Game, HasSession, HasTheme, Sort } from "../../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -54,7 +54,15 @@ export default function GameIndex({
     }
 
     return (
-        <Layout title="Games" theme={theme} session={session}>
+        <Layout
+            title="Games"
+            theme={theme}
+            session={session}
+            canonical={`${SITE_URL}/games`}
+            description={`Games on Diluv`}
+            image={`${SITE_URL}/static/diluv.png`}
+            url={`${SITE_URL}/games`}
+        >
             <>
                 <div id={"header"} className={`text-center my-4 w-full lg:w-5/6 mx-auto`}>
                     <h1 className={`text-3xl`}>Games</h1>

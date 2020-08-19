@@ -17,7 +17,15 @@ import { getSession } from "next-auth/client";
 
 export default function Files({ project, files, theme, session }: { project: Project; files: ProjectFile[] } & HasTheme & HasSession): JSX.Element {
     return (
-        <Layout title={project.name} theme={theme} session={session}>
+        <Layout
+            title={project.name}
+            theme={theme}
+            session={session}
+            canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}
+            description={`${project.summary}`}
+            image={`${project.logo}`}
+            url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}
+        >
             <>
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
                     <ProjectInfo project={project} pageType={"files"} />

@@ -28,7 +28,15 @@ export default function AuthorProjects({
     page = Number(page);
 
     return (
-        <Layout title={data.user.displayName} theme={theme} session={session}>
+        <Layout
+            title={data.user.displayName}
+            theme={theme}
+            session={session}
+            canonical={`/author/${data.user.username}`}
+            description={`${data.user.displayName} | Diluv`}
+            image={`${data.user.avatarURL}`}
+            url={`/author/${data.user.username}`}
+        >
             <div className={`container mx-auto mt-4`}>
                 <div className={`w-11/12 mx-auto`}>
                     <div className={`grid col-gap-2 row-gap-2 sm:row-gap-0 profilePageSmall sm:profilePageLarge`}>
