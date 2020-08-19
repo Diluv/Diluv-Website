@@ -29,21 +29,22 @@ const schema = merge(github, {
 function Markdown({ markdown }: Props): JSX.Element {
     return (
         <div className={`markdown break-words`}>
-            {
-                remark()
-                    .use(slug) // GitHub like anchor slugs for headings.
-                    .use(headings) // Applies references for slug anchors. May be an issue here with how it's being applied as it throws a console error.
-                    .use(admonitions) // Adds support for notices/admonitions
-                    .use(underline) // Adds underlined text support
-                    .use(spoiler) // Adds spoiler text support
-                    .use(html) // Renders previous stuff into HTML where approperiat
-                    .use(reactRenderer, {
-                        // Renders to react fragments.
-                        sanitize: schema
-                    })
-                    // @ts-ignore
-                    .processSync(markdown).result
-            }
+            <>
+                {
+                    remark()
+                        .use(slug) // GitHub like anchor slugs for headings.
+                        .use(headings) // Applies references for slug anchors. May be an issue here with how it's being applied as it throws a console error.
+                        .use(admonitions) // Adds support for notices/admonitions
+                        .use(underline) // Adds underlined text support
+                        .use(spoiler) // Adds spoiler text support
+                        .use(html) // Renders previous stuff into HTML where approperiat
+                        .use(reactRenderer, {
+                            // Renders to react fragments.
+                            sanitize: schema
+                        })
+                        .processSync(markdown).result
+                }
+            </>
         </div>
     );
 }
