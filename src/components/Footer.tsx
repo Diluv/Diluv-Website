@@ -12,12 +12,12 @@ function Footer(): JSX.Element {
                             <Drop className={`w-10 h-10`} />
                             <span className="ml-3 text-xl">Diluv</span>
                         </a>
-                        <p className="mt-2 text-sm text-gray-500 font-sans">For modders, by modders</p>
+                        <p className="mt-2 text-sm text-gray-500">For modders, by modders</p>
                     </div>
                     <div className="flex-grow flex flex-wrap md:pl-20 md:mt-0 mt-10 md:text-left text-center">
                         <div className="lg:w-1/3 md:w-1/2 w-full px-4 mb-10 lg:mb-0">
                             <h2 className="font-medium text-white tracking-widest text-sm mb-3">PRODUCT</h2>
-                            <nav className="list-none font-sans">
+                            <nav className="list-none">
                                 <p>
                                     <a className="text-gray-500 hover:text-white" href={"https://github.com/Diluv"}>
                                         Github
@@ -62,7 +62,7 @@ function Footer(): JSX.Element {
                         </div>
                         <div className="lg:w-1/3 md:w-1/2 w-full px-4 mb-10 md:mb-0">
                             <h2 className="font-medium text-white tracking-widest text-sm mb-3">CONTACT</h2>
-                            <nav className="list-none font-sans">
+                            <nav className="list-none">
                                 <p>
                                     <a className="text-gray-500 hover:text-white" href={"https://twitter.com/DiluvMods"}>
                                         Twitter
