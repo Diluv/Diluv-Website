@@ -56,7 +56,6 @@ export default function Files({ project, files, theme, session }: { project: Pro
                                                         <pre>{value.name}</pre>
                                                     </td>
 
-                                                    <td className={`border dark:border-dark-700 px-2 py-2`}>{value.releaseType}</td>
                                                     <td className={`border dark:border-dark-700 px-2 py-2`}>
                                                         <span>{value.gameVersions.length ? value.gameVersions[0].version : "NA"}</span>
                                                         {value.gameVersions.length > 1 ? (
@@ -89,6 +88,7 @@ export default function Files({ project, files, theme, session }: { project: Pro
                                                     <td className={`border dark:border-dark-700 px-2 py-2`}>
                                                         <pre>{filesize(value.size)}</pre>
                                                     </td>
+                                                    <td className={`border dark:border-dark-700 px-2 py-2`}>{value.releaseType}</td>
                                                     <td className={`border dark:border-dark-700 px-2 py-2`}>
                                                         {formatDistance(new Date(value.createdAt), new Date(), { addSuffix: true })}
                                                     </td>
