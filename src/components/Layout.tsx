@@ -76,7 +76,7 @@ function Layout({ theme, children, title = "Diluv", session, description, canoni
                         title: title,
                         url: `${SITE_URL}${url}`,
                         description: description,
-                        images: [{ url: image, width: 211, height: 406, alt: "diluv open graph image" }],
+                        images: [{ url: image, alt: (title + " logo") }],
                         site_name: "Diluv"
                     }}
                     twitter={{
