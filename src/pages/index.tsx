@@ -16,8 +16,7 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
             theme={theme}
             session={session}
             canonical={SITE_URL}
-            description={`Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content
-                        creators of all gaming communities.`}
+            description={`Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content creators of all gaming communities.`}
             image={`${SITE_URL}/static/diluv.png`}
             url={SITE_URL}
         >
