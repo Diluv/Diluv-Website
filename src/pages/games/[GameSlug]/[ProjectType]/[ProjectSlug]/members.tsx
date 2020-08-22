@@ -23,7 +23,7 @@ export default function Files({ theme, project, session }: { project: Project } 
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}
         >
             <>
-                <div className={`mx-auto w-5/6 md:w-4/6`}>
+                <div className={`mx-auto w-5/6`}>
                     <ProjectInfo project={project} pageType={"members"} />
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
