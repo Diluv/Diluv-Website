@@ -69,7 +69,7 @@ export default function GameIndex({
                 </div>
 
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
-                    <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium row-gap-2 sm:row-gap-0`} id={`filter options`}>
+                    <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium gap-y-2 sm:gap-y-0`} id={`filter options`}>
                         <GridArea name={`search`} className={`flex flex-grow`}>
                             <label htmlFor={`searchGames`} className={`flex-none my-auto mr-2`}>
                                 Search

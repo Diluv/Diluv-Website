@@ -30,7 +30,7 @@ export default function Files({ theme, project, session }: { project: Project } 
                             <div className={`w-1/2`}>
                                 {project.contributors.map((value) => {
                                     return (
-                                        <div key={value.userId} className={`grid col-gap-2 my-1 memberList`}>
+                                        <div key={value.userId} className={`grid gap-x-2 my-1 memberList`}>
                                             <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
                                                 <a>
                                                     <GridArea name={`avatar`}>
