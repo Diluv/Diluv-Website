@@ -13,9 +13,8 @@ import AuthorProjectCard from "../../../components/project/AuthorProjectCard";
 import Select from "react-select";
 import Pagination, { buildURL } from "../../../components/misc/Pagination";
 import { useRouter } from "next/router";
-import formatDistance from "date-fns/formatDistance";
-import format from "date-fns/format";
 import GridArea from "../../../components/misc/GridArea";
+import FormattedTime, { FormattedDistanceTime } from "../../../components/misc/FormattedTime";
 
 export default function AuthorProjects({
     theme,
@@ -48,7 +47,7 @@ export default function AuthorProjects({
                             <Tippy
                                 content={
                                     <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                                        {format(data.user.createdAt, "yyyy-MM-dd HH:mm:ss")}
+                                        <FormattedTime time={data.user.createdAt}/>
                                     </div>
                                 }
                                 followCursor={true}
@@ -56,7 +55,7 @@ export default function AuthorProjects({
                                 duration={0}
                                 hideOnClick={false}
                             >
-                                <span>Joined {formatDistance(data.user.createdAt, new Date(), { addSuffix: true })}</span>
+                                <FormattedDistanceTime start={data.user.createdAt} prefix={`Joined `}/>
                             </Tippy>
                         </GridArea>
                     </div>

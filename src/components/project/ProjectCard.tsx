@@ -8,9 +8,8 @@ import { followCursor } from "tippy.js";
 import Time from "../icons/Time";
 import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
-import formatDistance from "date-fns/formatDistance";
-import format from "date-fns/format";
 import GridArea from "../misc/GridArea";
+import FormattedTime, { FormattedDistanceTime } from "../misc/FormattedTime";
 
 interface Props {
     gameSlug: string;
@@ -32,7 +31,7 @@ function getCreatedTip(createdAt: number): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Created On</p>
-            <p>{format(createdAt, "yyyy-MM-dd HH:mm:ss")}</p>
+            <FormattedTime time={createdAt}/>
         </div>
     );
 }
@@ -41,7 +40,7 @@ function getUpdatedTip(updatedAt: number): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Updated On</p>
-            <p>{format(updatedAt, "yyyy-MM-dd HH:mm:ss")}</p>
+            <FormattedTime time={updatedAt}/>
         </div>
     );
 }
@@ -108,7 +107,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                         >
                             <div className={`inline-flex`}>
                                 <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
-                                <span className={``}>{formatDistance(project.createdAt, new Date(), { addSuffix: true })}</span>
+                                <FormattedDistanceTime start={project.createdAt}/>
                             </div>
                         </Tippy>
                     </div>
@@ -124,7 +123,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                         >
                             <div className={`inline-flex`}>
                                 <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
-                                <span className={``}>{formatDistance(project.updatedAt, new Date(), { addSuffix: true })}</span>
+                                <FormattedDistanceTime start={project.updatedAt}/>
                             </div>
                         </Tippy>
                     </div>
