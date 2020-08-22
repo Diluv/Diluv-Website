@@ -13,7 +13,7 @@ function NavBar(): JSX.Element {
     const auth = useContext(Auth);
     return (
         <>
-            <header className="text-gray-400 bg-diluv-900 font-hero">
+            <header className="text-gray-400 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
                 <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row justify-between md:justify-start items-center">
                     <div className={`w-full md:w-auto flex flex-row justify-between items-center`}>
                         <Link href={"/"}>

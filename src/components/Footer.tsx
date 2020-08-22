@@ -5,7 +5,7 @@ import Link from "next/link";
 function Footer(): JSX.Element {
     return (
         <>
-            <footer className="text-gray-500 bg-gray-900 font-hero">
+            <footer className="text-gray-500  font-hero bg-gradient-to-b from-gray-800 to-gray-900">
                 <div className="container px-5 py-8 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-no-wrap flex-wrap flex-col">
                     <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
                         <a className="flex font-medium items-center md:justify-start justify-center text-white">
