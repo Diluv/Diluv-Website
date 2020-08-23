@@ -11,9 +11,9 @@ import Tippy from "@tippyjs/react";
 import SimpleBar from "simplebar-react";
 import { getTheme } from "../../../../../utils/theme";
 import Download from "../../../../../components/icons/Download";
-import formatDistance from "date-fns/formatDistance";
 // @ts-ignore
 import { getSession } from "next-auth/client";
+import { FormattedDistanceTime } from "../../../../../components/misc/FormattedTime";
 
 export default function Files({ project, files, theme, session }: { project: Project; files: ProjectFile[] } & HasTheme & HasSession): JSX.Element {
     return (
@@ -27,7 +27,7 @@ export default function Files({ project, files, theme, session }: { project: Pro
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}
         >
             <>
-                <div className={`mx-auto w-5/6 md:w-4/6`}>
+                <div className={`mx-auto w-5/6`}>
                     <ProjectInfo project={project} pageType={"files"} />
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
@@ -90,12 +90,12 @@ export default function Files({ project, files, theme, session }: { project: Pro
                                                     </td>
                                                     <td className={`border dark:border-dark-700 px-2 py-2`}>{value.releaseType}</td>
                                                     <td className={`border dark:border-dark-700 px-2 py-2`}>
-                                                        {formatDistance(new Date(value.createdAt), new Date(), { addSuffix: true })}
+                                                        <FormattedDistanceTime start={value.createdAt}/>
                                                     </td>
-                                                    <td className={`border dark:border-dark-700 px-2 py-2`}>
+                                                    <td className={`border dark:border-dark-700`}>
                                                         <a
                                                             href={value.downloadURL}
-                                                            className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer`}
+                                                            className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
                                                             download={true}
                                                         >
                                                             <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />

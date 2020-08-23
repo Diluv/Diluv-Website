@@ -3,11 +3,11 @@ import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
 import { canEditProject, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
-import format from "date-fns/format";
 import Alert from "../Alert";
 import Download from "../icons/Download";
 import { Auth } from "../../utils/context";
 import GridArea from "../misc/GridArea";
+import FormattedTime from "../misc/FormattedTime";
 
 export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }): JSX.Element {
     function isDescription(): boolean {
@@ -44,9 +44,9 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                 <></>
             )}
 
-            <div className={`grid mt-4 mb-4 sm:col-gap-4 row-gap-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
+            <div className={`grid mt-4 mb-4 sm:gap-x-4 gap-y-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
                 <GridArea name={`image`}>
-                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name} />
+                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name}/>
                 </GridArea>
                 <GridArea name={"name"}>
                     <h4 className={`font-semibold`}>{project.name}</h4>
@@ -62,24 +62,24 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     <p>{`ProjectID: ${project.id}`}</p>
                 </GridArea>
                 <GridArea name={`created`}>
-                    <p>{`Created at: ${format(project.createdAt, "yyyy-MM-dd HH:mm:ss")}`}</p>
+                    <FormattedTime time={project.createdAt} prefix={`Created at:`}/>
                 </GridArea>
                 <GridArea name={`updated`}>
-                    <p>{`Updated at: ${format(project.updatedAt, "yyyy-MM-dd HH:mm:ss")}`}</p>
+                    <FormattedTime time={project.updatedAt} prefix={`Updated at:`}/>
                 </GridArea>
                 <GridArea name={`downloads`}>
                     <p>{`${project.downloads} Downloads`}</p>
                 </GridArea>
                 <GridArea name={`tags`} className={`grid my-auto gap-2 grid-cols-tags`}>
                     {project.tags.map((value) => (
-                        <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug} />
+                        <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>
                     ))}
                 </GridArea>
 
                 <GridArea name={`download`}>
                     <div className={`block py-2`}>
                         <div className={`btn-diluv my-auto mx-auto inline cursor-pointer select-none`}>
-                            <Download className={`inline mr-2 text-white fill-current`} />
+                            <Download className={`inline mr-2 text-white fill-current`}/>
                             <span>Download latest file</span>
                         </div>
                     </div>

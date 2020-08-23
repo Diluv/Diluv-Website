@@ -69,7 +69,7 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
                 ) : (
                     <> </>
                 )}
-                <div className={`grid row-gap-2 sm:row-gap-0 createFormSmall sm:createFormMedium md:createFormLarge`}>
+                <div className={`grid gap-y-2 sm:gap-y-0 createFormSmall sm:createFormMedium md:createFormLarge`}>
                     <div className={`w-64 h-64 mx-auto sm:mx-0`} style={{ gridArea: "image" }}>
                         <Dropzone
                             onDrop={(acceptedFiles) => {

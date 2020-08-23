@@ -67,7 +67,7 @@
         "postcss-loader": "3.0.0",
         "postcss-preset-env": "6.7.0",
         "prettier": "2.0.5",
-        "tailwindcss": "1.6.2",
+        "tailwindcss": "1.7.0",
         "tailwindcss-dark-mode": "^1.1.6",
         "tailwindcss-text-indent": "^1.0.2",
         "typescript": "3.9.7"

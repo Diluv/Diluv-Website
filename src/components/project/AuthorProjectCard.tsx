@@ -8,9 +8,8 @@ import { followCursor } from "tippy.js";
 import Time from "../icons/Time";
 import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
-import format from "date-fns/format";
-import formatDistance from "date-fns/formatDistance";
 import GridArea from "../misc/GridArea";
+import FormattedTime, { FormattedDistanceTime } from "../misc/FormattedTime";
 
 interface Props {
     project: Project;
@@ -28,7 +27,7 @@ function getCreatedTip(createdAt: number) {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Created On</p>
-            <p>{format(createdAt, "yyyy-MM-dd HH:mm:ss")}</p>
+            <FormattedTime time={createdAt}/>
         </div>
     );
 }
@@ -37,7 +36,7 @@ function getUpdatedTip(updatedAt: number) {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Updated On</p>
-            <p>{format(updatedAt, "yyyy-MM-dd HH:mm:ss")}</p>
+            <FormattedTime time={updatedAt}/>
         </div>
     );
 }
@@ -47,11 +46,11 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
     const projectUrl = `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`;
     return (
         <>
-            <div className={`grid my-3 w-full mx-auto col-gap-2 row-gap-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
+            <div className={`grid my-3 w-full mx-auto gap-x-2 gap-y-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
                 <GridArea name={`image`}>
                     <Link href={projectUrlRef} as={projectUrl}>
                         <a>
-                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name} />
+                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name}/>
                         </a>
                     </Link>
                 </GridArea>
@@ -86,7 +85,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                                 <span className={`mr-1`}>{project.downloads}</span>
                             </div>
                         </Tippy>
@@ -103,8 +102,8 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
-                                <span className={``}>{formatDistance(project.createdAt, new Date(), { addSuffix: true })}</span>
+                                <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                                <FormattedDistanceTime start={project.createdAt} />
                             </div>
                         </Tippy>
                     </div>
@@ -119,8 +118,8 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
-                                <span className={``}>{formatDistance(project.updatedAt, new Date(), { addSuffix: true })}</span>
+                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                                <FormattedDistanceTime start={project.updatedAt} />
                             </div>
                         </Tippy>
                     </div>
@@ -128,7 +127,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
 
                 {project.tags.map((value, i) => (
                     <GridArea name={`tag${i + 1}`} className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center}`} key={value.slug}>
-                        <DisplayTag tagSlug={value.slug} tagName={value.name} />
+                        <DisplayTag tagSlug={value.slug} tagName={value.name}/>
                     </GridArea>
                 ))}
             </div>

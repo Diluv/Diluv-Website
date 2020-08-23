@@ -13,9 +13,8 @@ import AuthorProjectCard from "../../../components/project/AuthorProjectCard";
 import Select from "react-select";
 import Pagination, { buildURL } from "../../../components/misc/Pagination";
 import { useRouter } from "next/router";
-import formatDistance from "date-fns/formatDistance";
-import format from "date-fns/format";
 import GridArea from "../../../components/misc/GridArea";
+import FormattedTime, { FormattedDistanceTime } from "../../../components/misc/FormattedTime";
 
 export default function AuthorProjects({
     theme,
@@ -39,7 +38,7 @@ export default function AuthorProjects({
         >
             <div className={`container mx-auto mt-4`}>
                 <div className={`w-11/12 mx-auto`}>
-                    <div className={`grid col-gap-2 row-gap-2 sm:row-gap-0 profilePageSmall sm:profilePageLarge`}>
+                    <div className={`grid gap-x-2 gap-y-2 sm:gap-y-0 profilePageSmall sm:profilePageLarge`}>
                         <GridArea name={`image`}>
                             <img src={data.user.avatarURL} alt={data.user.displayName} />
                         </GridArea>
@@ -48,7 +47,7 @@ export default function AuthorProjects({
                             <Tippy
                                 content={
                                     <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                                        {format(data.user.createdAt, "yyyy-MM-dd HH:mm:ss")}
+                                        <FormattedTime time={data.user.createdAt}/>
                                     </div>
                                 }
                                 followCursor={true}
@@ -56,7 +55,7 @@ export default function AuthorProjects({
                                 duration={0}
                                 hideOnClick={false}
                             >
-                                <span>Joined {formatDistance(data.user.createdAt, new Date(), { addSuffix: true })}</span>
+                                <FormattedDistanceTime start={data.user.createdAt} prefix={`Joined `}/>
                             </Tippy>
                         </GridArea>
                     </div>
@@ -105,7 +104,7 @@ function ProjectOptions({
 
     const router = useRouter();
     return (
-        <div className={`grid grid-rows-2 sm:grid-rows-none row-gap-2 sm:grid-cols-2 md:grid-cols-3 sm:col-gap-2 md:col-gap-0 sm:row-gap-0`}>
+        <div className={`grid grid-rows-2 sm:grid-rows-none gap-y-2 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-2 md:gap-x-0 sm:gap-y-0`}>
             {showSorts && (
                 <div className={`md:col-start-1`}>
                     <Select
