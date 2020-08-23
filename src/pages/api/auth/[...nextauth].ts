@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 // @ts-ignore
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next";
-import { SITE_URL } from "utils/api";
+import { IS4_URL } from "utils/api";
 
 const options = {
     // Configure one or more authentication providers
@@ -15,7 +15,7 @@ const options = {
             params: {
                 grant_type: "authorization_code"
             },
-            domain: SITE_URL,
+            domain: IS4_URL,
             clientId: "DILUV_WEBSITE",
             profile: (profile: any) => {
                 return { ...profile, id: profile.username, name: profile.preferred_username };
