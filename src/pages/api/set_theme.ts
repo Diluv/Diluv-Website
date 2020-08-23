@@ -1,5 +1,6 @@
 import { CookieSerializeOptions, serialize } from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
+import { isProduction, SITE_URL } from "utils/api";
 
 module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!req.body["theme"]) {
@@ -8,13 +9,13 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
         return;
     }
 
-    const siteURL = process.env.NEXT_STATIC_SITE_URL || 'https://diluv.com';
+    const siteURL = SITE_URL;
     const expiresAt: Date = new Date(9999, 12, 31, 23, 59, 59);
-    const domain = process.env.NODE_ENV == "production" ? new URL(siteURL).hostname : undefined;
+    const domain = isProduction() ? new URL(siteURL).hostname : undefined;
     const options: CookieSerializeOptions = {
         path: "/",
         expires: expiresAt,
-        secure: process.env.NODE_ENV == "production",
+        secure: isProduction(),
         sameSite: "lax",
         domain: domain
     };

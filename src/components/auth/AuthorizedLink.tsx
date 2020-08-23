@@ -4,6 +4,7 @@ import Link from "next/link";
 
 // @ts-ignore
 import { signin } from "next-auth/client";
+import { SITE_URL } from "utils/api";
 
 export default function AuthorizedLink({
     href,
@@ -26,7 +27,7 @@ export default function AuthorizedLink({
         );
     }
     return (
-        <p className={className} onClick={() => signin("DILUV", { callbackUrl: `${process.env.NEXT_STATIC_SITE_URL}${as}` })}>
+        <p className={className} onClick={() => signin("DILUV", { callbackUrl: `${SITE_URL}${as}` })}>
             {children}
         </p>
     );

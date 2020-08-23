@@ -34,3 +34,21 @@ export default function useComponentVisible(initialIsVisible = false): VisiblePr
 
     return { ref, isComponentVisible, setIsComponentVisible };
 }
+
+export function matchesMedia(query: string) {
+    const mediaQuery = window.matchMedia(query);
+    const getValue = () => {
+        return mediaQuery.matches;
+    };
+    const [value, setValue] = useState(getValue);
+    useEffect(
+        () => {
+            const handler = () => setValue(getValue);
+            mediaQuery.addListener(handler);
+            return () => mediaQuery.removeListener(handler);
+        },
+        []
+    );
+
+    return value;
+}

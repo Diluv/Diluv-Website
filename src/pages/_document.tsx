@@ -1,5 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
+import { initGA } from "../components/analytics/Analytics";
 
 class MyDocument extends Document {
     render(): JSX.Element {
@@ -23,6 +24,7 @@ class MyDocument extends Document {
                         name="description"
                         content="Diluv is a platform for fan made gaming content such as mods and texture packs made for modders, by modders."
                     />
+                    {initGA()}
                 </Head>
                 <body className={`min-h-100vh`}>
                     <Main />

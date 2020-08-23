@@ -9,6 +9,7 @@ import axios, { AxiosError } from "axios";
 import Router from "next/router";
 import { NextSeo } from "next-seo";
 import { SITE_URL } from "../utils/api";
+import { pageView } from "./analytics/Analytics";
 
 type Props = {
     children: JSX.Element | JSX.Element[];
@@ -26,9 +27,10 @@ function Layout({ theme, children, title = "Diluv", session, description, canoni
     const simpleBarRef = useRef(null);
     useEffect(() => {
         // Handles resetting simple bar's position
-        const handleRouteChange = () => {
+        const handleRouteChange = (url: string) => {
             // @ts-ignore
             simpleBarRef.current?.getScrollElement().scrollTo(0, 0);
+            pageView(url)
         };
         Router.events.on("routeChangeComplete", handleRouteChange);
         return () => {
