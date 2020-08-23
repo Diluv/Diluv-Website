@@ -8,7 +8,7 @@ Formatting behaviors that have not been defined within this guide should be avoi
 
 ## Text
 
-There are many ways to format simple text. This can be done by surrounding the text you wish to format with the special format character. The format character will automatically be removed when the text is displayed. You can also mix and match multiple text formatts together.
+There are many ways to format simple text. This can be done by surrounding the text you wish to format with the special format character. The format character will automatically be removed when the text is displayed. You can also mix and match multiple text formats together.
 
 \*Italics Text\* -> _Italics Text_  
 \*\*Bold Text\*\* -> **Bold Text**  
@@ -82,7 +82,7 @@ You can define quotes by using the > character at the start of a line. Starting 
 > This is two
 > lines of quote.
 
-> You can even nest quoutes.
+> You can even nest quotes.
 >> Hello world!
 ```
 
@@ -91,7 +91,7 @@ You can define quotes by using the > character at the start of a line. Starting 
 > This is two  
 > lines of quote.
 
-> You can even nest quoutes.
+> You can even nest quotes.
 >
 > > Hello world!
 
