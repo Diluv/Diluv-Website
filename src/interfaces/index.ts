@@ -173,3 +173,20 @@ export interface SessionUser {
     image: string;
     id: string;
 }
+
+declare global {
+    interface Window {
+        ga: {}
+        adsbygoogle: {}[];
+    }
+}
+
+export interface GoogleAdProps {
+    client?: string
+    slot: string
+    format?: string
+    responsive?: boolean
+    className?: string,
+    mediaQuery?: string
+    current: { key: string, value: string }
+}

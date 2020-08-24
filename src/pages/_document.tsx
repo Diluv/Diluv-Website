@@ -24,7 +24,6 @@ class MyDocument extends Document {
                         name="description"
                         content="Diluv is a platform for fan made gaming content such as mods and texture packs made for modders, by modders."
                     />
-                    {initGA()}
                 </Head>
                 <body className={`min-h-100vh`}>
                     <Main />
