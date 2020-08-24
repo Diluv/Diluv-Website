@@ -22,7 +22,7 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`}
         >
             <>
-                <div className={`mx-auto w-5/6`}>
+                <div className={`mx-auto w-5/6 lg:w-4/6`}>
                     <ProjectInfo project={project} pageType={"description"} />
                     <div id={"pageContent"}>
                         <div className={`py-4 px-2`}>
