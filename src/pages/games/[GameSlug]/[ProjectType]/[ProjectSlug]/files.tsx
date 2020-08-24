@@ -27,7 +27,7 @@ export default function Files({ project, files, theme, session }: { project: Pro
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}
         >
             <>
-                <div className={`mx-auto w-5/6`}>
+                <div className={`mx-auto w-5/6 lg:w-4/6`}>
                     <ProjectInfo project={project} pageType={"files"} />
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
