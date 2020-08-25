@@ -2,8 +2,8 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*.*.*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,8 +18,8 @@ jobs:
       - name: Check typescript files
         run: npm run type-check
 
-      - name: Staging npm
-        run: npm run build:staging
+      - name: Production npm
+        run: npm run build
 
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
@@ -27,5 +27,5 @@ jobs:
           name: diluv/diluv-website
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: "latest-snapshot"
-          snapshot: true
+          tags: "latest"
+          tag_semver: true
