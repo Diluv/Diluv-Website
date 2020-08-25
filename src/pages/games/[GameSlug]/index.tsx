@@ -9,13 +9,22 @@ export default function GameSlug(): JSX.Element {
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
     const { GameSlug } = context.query;
-    const type = await get(`${API_URL}/v1/site/games/${GameSlug}`);
+    await get(`${API_URL}/v1/site/games/${GameSlug}`)
+        .then(value => {
+            context.res?.writeHead(302, {
+                "Location": `/games/${GameSlug}/${value.data}`,
+                "Content-Type": "text/html; charset=utf-8"
+            });
+            context.res?.end();
+        })
+        .catch(() => {
+            context.res?.writeHead(302, {
+                "Location": `/games/`,
+                "Content-Type": "text/html; charset=utf-8"
+            });
+            context.res?.end();
+        });
 
-    context.res?.writeHead(302, {
-        "Location": `/games/${GameSlug}/${type.data}`,
-        "Content-Type": "text/html; charset=utf-8"
-    });
-    context.res?.end();
     return {
         props: { none: "" }
     };

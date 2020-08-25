@@ -333,7 +333,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     if (search && search.length) {
         params.append("search", `${search}`);
     }
-    const tagArr = [];
+    const tagArr: string[] = [];
     if (tags && tags.length) {
         if (typeof tags === "string") {
             params.append("tags", tags);
@@ -347,25 +347,37 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     }
     params.sort();
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`, {
+    return await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`, {
         session: session
-    }); // got
-    page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
+    }).then(data => {
+        // @ts-ignore
+        page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
 
-    return {
-        props: {
-            theme,
-            search: search ?? ``,
-            gameSlug: GameSlug,
-            projectData: data.data.currentType,
-            types: data.data.types,
-            projects: data.data.projects,
-            sorts: data.data.sorts,
-            currentSort: sort.length ? sort : "popular",
-            page: page,
-            version: version.length ? version : "",
-            currentTags: tagArr.length ? tagArr : [],
-            session: session ?? null
-        }
-    };
+        return {
+            props: {
+                theme,
+                search: search ?? ``,
+                gameSlug: GameSlug,
+                projectData: data.data.currentType,
+                types: data.data.types,
+                projects: data.data.projects,
+                sorts: data.data.sorts,
+                currentSort: sort.length ? sort : "popular",
+                page: page,
+                version: version.length ? version : "",
+                currentTags: tagArr.length ? tagArr : [],
+                session: session ?? null
+            }
+        };
+    }).catch(() => {
+        context.res?.writeHead(302, {
+            "Location": `/games/${GameSlug}/`,
+            "Content-Type": "text/html; charset=utf-8"
+        });
+        context.res?.end();
+        return {
+            props: {
+            }
+        };
+    });
 };

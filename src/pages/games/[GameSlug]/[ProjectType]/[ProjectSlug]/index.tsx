@@ -9,6 +9,7 @@ import { getTheme } from "../../../../../utils/theme";
 import Markdown from "../../../../../components/Markdown";
 // @ts-ignore
 import { getSession } from "next-auth/client";
+import Ads from "../../../../../components/ads/Ads";
 
 export default function ProjectIndex({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
     return (
@@ -21,8 +22,8 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
             image={`${project.logo}`}
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`}
         >
-            <>
-                <div className={`mx-auto w-5/6 lg:w-4/6`}>
+            <div className={`lg:flex flex-row flex-row-reverse`}>
+                <div className={`lg:ml-0 mx-auto w-5/6 lg:w-4/6`}>
                     <ProjectInfo project={project} pageType={"description"} />
                     <div id={"pageContent"}>
                         <div className={`py-4 px-2`}>
@@ -30,7 +31,10 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
                         </div>
                     </div>
                 </div>
-            </>
+                <div className={`w-1/12 lg:w-1/6`}>
+                    <Ads/>
+                </div>
+            </div>
         </Layout>
     );
 }

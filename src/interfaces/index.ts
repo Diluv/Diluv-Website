@@ -187,6 +187,4 @@ export interface GoogleAdProps {
     format?: string
     responsive?: boolean
     className?: string,
-    mediaQuery?: string
-    current: { key: string, value: string }
 }

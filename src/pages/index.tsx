@@ -8,6 +8,7 @@ import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 import { getTheme } from "../utils/theme";
 // @ts-ignore
 import { getSession } from "next-auth/client";
+import Ads from "../components/ads/Ads";
 
 export default function IndexPage({ theme, featured, session }: { featured: Featured } & HasTheme & HasSession): JSX.Element {
     return (
@@ -65,6 +66,8 @@ export default function IndexPage({ theme, featured, session }: { featured: Feat
                         a reliable platform that empowers content creators of all sizes.
                     </h4>
                 </section>
+                {/*Temp*/}
+                <Ads/>
             </>
         </Layout>
     );

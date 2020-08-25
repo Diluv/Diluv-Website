@@ -10,6 +10,7 @@ import Link from "next/link";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import GridArea from "../../../../../components/misc/GridArea";
+import Ads from "../../../../../components/ads/Ads";
 
 export default function Files({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
     return (
@@ -22,9 +23,9 @@ export default function Files({ theme, project, session }: { project: Project } 
             image={`${project.logo}`}
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}
         >
-            <>
-                <div className={`mx-auto w-5/6 lg:w-4/6`}>
-                    <ProjectInfo project={project} pageType={"members"} />
+            <div className={`lg:flex flex-row flex-row-reverse`}>
+                <div className={`lg:ml-0 mx-auto w-5/6 lg:w-4/6`}>
+                    <ProjectInfo project={project} pageType={"members"}/>
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <div className={`w-1/2`}>
@@ -34,7 +35,7 @@ export default function Files({ theme, project, session }: { project: Project } 
                                             <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
                                                 <a>
                                                     <GridArea name={`avatar`}>
-                                                        <img className={`w-16 h-16`} src={value.avatarURL} />
+                                                        <img className={`w-16 h-16`} src={value.avatarURL}/>
                                                     </GridArea>
                                                 </a>
                                             </Link>
@@ -53,7 +54,10 @@ export default function Files({ theme, project, session }: { project: Project } 
                         </div>
                     </div>
                 </div>
-            </>
+                <div className={`w-1/12 lg:w-1/6`}>
+                    <Ads/>
+                </div>
+            </div>
         </Layout>
     );
 }
