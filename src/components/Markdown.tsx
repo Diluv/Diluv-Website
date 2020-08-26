@@ -3,7 +3,6 @@ import remark from "remark";
 import reactRenderer from "remark-react";
 import merge from "deepmerge";
 import github from "hast-util-sanitize/lib/github.json";
-// @ts-ignore
 import html from "remark-html";
 // @ts-ignore
 import slug from "remark-slug";
@@ -37,7 +36,7 @@ function Markdown({ markdown }: Props): JSX.Element {
                         .use(admonitions) // Adds support for notices/admonitions
                         .use(underline) // Adds underlined text support
                         .use(spoiler) // Adds spoiler text support
-                        .use(html) // Renders previous stuff into HTML where approperiat
+                        .use(html) // Renders previous stuff into HTML where appropriate
                         .use(reactRenderer, {
                             // Renders to react fragments.
                             sanitize: schema
