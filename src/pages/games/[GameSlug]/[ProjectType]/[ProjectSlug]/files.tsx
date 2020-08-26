@@ -14,8 +14,12 @@ import Download from "../../../../../components/icons/Download";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import { FormattedDistanceTime } from "../../../../../components/misc/FormattedTime";
+import { useRouter } from "next/router";
 
 export default function Files({ project, files, theme, session }: { project: Project; files: ProjectFile[] } & HasTheme & HasSession): JSX.Element {
+
+    const router = useRouter();
+
     return (
         <Layout
             title={project.name}
@@ -97,8 +101,18 @@ export default function Files({ project, files, theme, session }: { project: Pro
                                                             href={value.downloadURL}
                                                             className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
                                                             download={true}
-                                                            onClick={async () => {
-                                                                await post(`${API_URL}/v1/site/files/${value.id}/download`, new FormData());
+                                                            onMouseDown={async(e)=> {
+                                                                if (e.button === 1 || e.button === 2) {
+                                                                    e.preventDefault();
+                                                                    // TODO Catch properly
+                                                                    await post(`${API_URL}/v1/site/files/${value.id}/download`, undefined)
+                                                                        .catch(() => {
+                                                                        })
+
+                                                                    if (e.button === 1) {
+                                                                        router.push(value.downloadURL);
+                                                                    }
+                                                                }
                                                             }}
                                                         >
                                                             <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
