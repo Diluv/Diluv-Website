@@ -3,7 +3,7 @@ import { Session } from "../interfaces";
 
 export function post(
     url: string,
-    data: Record<string, unknown> | FormData | undefined,
+    data: Record<string, unknown> | FormData,
     headers: any = {
         Accept: "application/json"
     }

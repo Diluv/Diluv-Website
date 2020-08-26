@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuthed, post } from "../../../../../utils/request";
+import { getAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
 import { HasSession, HasTheme, Project, ProjectFile } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
@@ -14,12 +14,8 @@ import Download from "../../../../../components/icons/Download";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import { FormattedDistanceTime } from "../../../../../components/misc/FormattedTime";
-import { useRouter } from "next/router";
 
 export default function Files({ project, files, theme, session }: { project: Project; files: ProjectFile[] } & HasTheme & HasSession): JSX.Element {
-
-    const router = useRouter();
-
     return (
         <Layout
             title={project.name}
@@ -101,23 +97,6 @@ export default function Files({ project, files, theme, session }: { project: Pro
                                                             href={value.downloadURL}
                                                             className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
                                                             download={true}
-                                                            onClick={async(e)=> {
-                                                                e.preventDefault();
-                                                                // TODO Catch properly
-                                                                await post(`${API_URL}/v1/site/files/${value.id}/download`, undefined)
-                                                                    .catch(() => {
-                                                                    })
-
-                                                                router.push(value.downloadURL);
-                                                            }}
-                                                            onMouseDown={async(e)=> {
-                                                                if (e.button === 2) {
-                                                                    // TODO Catch properly
-                                                                    await post(`${API_URL}/v1/site/files/${value.id}/download`, undefined)
-                                                                        .catch(() => {
-                                                                        })
-                                                                }
-                                                            }}
                                                         >
                                                             <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
                                                         </a>
