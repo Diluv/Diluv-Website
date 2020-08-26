@@ -101,17 +101,21 @@ export default function Files({ project, files, theme, session }: { project: Pro
                                                             href={value.downloadURL}
                                                             className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
                                                             download={true}
+                                                            onClick={async(e)=> {
+                                                                e.preventDefault();
+                                                                // TODO Catch properly
+                                                                await post(`${API_URL}/v1/site/files/${value.id}/download`, undefined)
+                                                                    .catch(() => {
+                                                                    })
+
+                                                                router.push(value.downloadURL);
+                                                            }}
                                                             onMouseDown={async(e)=> {
-                                                                if (e.button === 1 || e.button === 2) {
-                                                                    e.preventDefault();
+                                                                if (e.button === 2) {
                                                                     // TODO Catch properly
                                                                     await post(`${API_URL}/v1/site/files/${value.id}/download`, undefined)
                                                                         .catch(() => {
                                                                         })
-
-                                                                    if (e.button === 1) {
-                                                                        router.push(value.downloadURL);
-                                                                    }
                                                                 }
                                                             }}
                                                         >
