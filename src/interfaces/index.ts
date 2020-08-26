@@ -50,6 +50,7 @@ export interface ProjectFile {
     releaseType: string;
     classifier: string;
     createdAt: number;
+    changelog: string;
     gameVersions: Version[];
     gameSlug: string;
     projectTypeSlug: string;
