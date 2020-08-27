@@ -12,7 +12,7 @@ There are many ways to format simple text. This can be done by surrounding the t
 
 \*Italics Text\* -> _Italics Text_  
 \*\*Bold Text\*\* -> **Bold Text**  
-\_\_Underlined Text\_\_ -> **Underlined Text**  
+\_\_Underlined Text\_\_ -> __Underlined Text__  
 \~\~Striked Text\~\~ -> ~~Striked Text~~  
 \|\|Spoiler Text\|\| -> ||Spoiler Text||
 
@@ -20,7 +20,7 @@ There are many ways to format simple text. This can be done by surrounding the t
 
 \*\*\*Bold Italics\*\*\* -> **_Bold Italics_**  
 \_\_\*\*Bold Underline\*\*\_\_ -> ****Bold Underline****  
-\_\_\*\*\~\~Bold Underline Striked\~\~\*\*\_\_ -> ****~~Bold Underline Striked~~****
+\_\_\*\*\~\~Bold Underline Striked\~\~\*\*\_\_ -> __**~~Bold Underline Striked~~**__
 
 ## Escaping
 
@@ -120,7 +120,7 @@ Tables allow you to organize your data into rows and columns.
 | Netherite Hoe | Diamond Hoe | Golden Hoe    |
 ```
 
-| **1st**       | **2nd**     | 3rd           |
+| __1st__       | **2nd**     | 3rd           |
 | :------------ | :---------- | :------------ |
 | Dirt Block    | Trapdoor    | Diamond Block |
 | Netherite Hoe | Diamond Hoe | Golden Hoe    |
