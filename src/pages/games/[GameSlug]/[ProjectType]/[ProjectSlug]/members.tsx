@@ -12,7 +12,7 @@ import { getSession } from "next-auth/client";
 import GridArea from "../../../../../components/misc/GridArea";
 import Ads from "../../../../../components/ads/Ads";
 
-export default function Files({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
+export default function Members({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
     return (
         <Layout
             title={project.name}
@@ -25,7 +25,7 @@ export default function Files({ theme, project, session }: { project: Project } 
         >
             <div className={`lg:flex flex-row flex-row-reverse`}>
                 <div className={`lg:ml-0 mx-auto w-5/6 lg:w-4/6`}>
-                    <ProjectInfo project={project} pageType={"members"}/>
+                    <ProjectInfo project={project} pageType={"members"} />
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <div className={`w-1/2`}>
@@ -35,7 +35,7 @@ export default function Files({ theme, project, session }: { project: Project } 
                                             <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
                                                 <a>
                                                     <GridArea name={`avatar`}>
-                                                        <img className={`w-16 h-16`} src={value.avatarURL}/>
+                                                        <img className={`w-16 h-16`} src={value.avatarURL} />
                                                     </GridArea>
                                                 </a>
                                             </Link>
@@ -55,7 +55,7 @@ export default function Files({ theme, project, session }: { project: Project } 
                     </div>
                 </div>
                 <div className={`w-1/12 lg:w-1/6`}>
-                    <Ads/>
+                    <Ads />
                 </div>
             </div>
         </Layout>
