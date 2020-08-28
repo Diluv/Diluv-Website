@@ -41,7 +41,7 @@
     "remark-react": "^7.0.1",
     "remark-slug": "^6.0.0",
     "remark-spoiler": "^1.0.6",
-    "remark-underline": "^1.0.5",
+    "remark-underline": "1.0.5",
     "simplebar": "^6.0.0-beta.2",
     "simplebar-react": "^2.2.1"
   },
@@ -64,7 +64,7 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.7.0",
     "prettier": "2.1.0",
-    "tailwindcss": "1.7.3",
+    "tailwindcss": "1.7.5",
     "tailwindcss-dark-mode": "^1.1.6",
     "tailwindcss-text-indent": "^1.0.2",
     "typescript": "4.0.2"

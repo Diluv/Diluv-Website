@@ -17,7 +17,7 @@ module.exports = {
                 })
             }),
             spacing: {
-                "0.125": "2px"
+                0.125: "2px"
             },
             gridTemplateColumns: {
                 "project-4": "0.25fr 1.25fr 0.5fr 1fr",
@@ -37,10 +37,10 @@ module.exports = {
                 "pagination": "repeat(auto-fit, minmax(11%,1fr));"
             },
             opacity: {
-                "95": "0.95",
-                "90": "0.90",
-                "85": "0.85",
-                "80": "0.80"
+                95: "0.95",
+                90: "0.90",
+                85: "0.85",
+                80: "0.80"
             },
             minWidth: {
                 "0": "0",
@@ -62,13 +62,13 @@ module.exports = {
                 "40": "10rem"
             },
             height: {
-                "screen": "100vh",
-                "28": "7rem",
-                "80": "20rem",
-                "112": "28rem"
+                screen: "100vh",
+                28: "7rem",
+                80: "20rem",
+                112: "28rem"
             },
             width: {
-                "28": "7rem"
+                28: "7rem"
             },
             boxShadow: {
                 "light": "0 1px 3px 0 rgba(255, 255, 255, .1), 0 1px 2px 0 rgba(255, 255, 255, .06)",
@@ -117,16 +117,16 @@ module.exports = {
                     "030": "#f6f6f6",
                     "040": "#f3f3f3",
                     "050": "#f0f0f0",
-                    100: "#e6e6e6",
-                    200: "#c9c9c9",
-                    300: "#adadad",
-                    400: "#919191",
-                    500: "#757575",
-                    600: "#5c5c5c",
-                    700: "#454545",
-                    800: "#2e2e2e",
-                    850: "#242424",
-                    900: "#1b1b1b"
+                    "100": "#e6e6e6",
+                    "200": "#c9c9c9",
+                    "300": "#adadad",
+                    "400": "#919191",
+                    "500": "#757575",
+                    "600": "#5c5c5c",
+                    "700": "#454545",
+                    "800": "#2e2e2e",
+                    "850": "#242424",
+                    "900": "#1b1b1b"
                 }
             }
         }
@@ -168,5 +168,11 @@ module.exports = {
                 h6: { fontSize: config("theme.fontSize.xs") }
             });
         })
-    ]
+    ],
+    experimental: {
+        applyComplexClasses: true
+    },
+    future: {
+        removeDeprecatedGapUtilities: true
+    }
 };
