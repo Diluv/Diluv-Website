@@ -35,7 +35,9 @@ function Markdown({ markdown }: Props): JSX.Element {
                         .use(headings) // Applies references for slug anchors. May be an issue here with how it's being applied as it throws a console error.
                         .use(admonitions) // Adds support for notices/admonitions
                         .use(underline) // Adds underlined text support
-                        .use(spoiler) // Adds spoiler text support
+                        .use(spoiler, {
+                            classNames: `bg-black text-black hover:bg-transparent dark:text-white dark:bg-white dark-hover:bg-transparent`
+                        }) // Adds spoiler text support
                         .use(html) // Renders previous stuff into HTML where appropriate
                         .use(reactRenderer, {
                             // Renders to react fragments.
