@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
+import { Project, ProjectType, SelectData, Session, Sort, Tag } from "../../../../interfaces";
 import { getAuthed } from "../../../../utils/request";
 
 import { API_URL, SITE_URL } from "../../../../utils/api";
@@ -29,6 +29,7 @@ interface Props {
     page: number;
     version: string;
     currentTags: string[];
+    session: Session | undefined
 }
 
 export default function Projects({
@@ -41,7 +42,8 @@ export default function Projects({
     currentSort,
     page,
     version,
-    currentTags
+    currentTags,
+    session
 }: Props ): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
@@ -119,15 +121,19 @@ export default function Projects({
                                     }
                                 })}
                             </div>
-                            <div className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
-                                <AuthorizedLink
-                                    href={`/create/games/[GameSlug]/[ProjectType]/`}
-                                    as={`/create/games/${gameSlug}/${projectData.slug}/`}
-                                    className={`mx-auto text-center`}
-                                >
-                                    Create Project
-                                </AuthorizedLink>
-                            </div>
+                            {
+                                session && (
+                                    <div className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
+                                        <AuthorizedLink
+                                            href={`/create/games/[GameSlug]/[ProjectType]/`}
+                                            as={`/create/games/${gameSlug}/${projectData.slug}/`}
+                                            className={`mx-auto text-center`}
+                                        >
+                                            Create Project
+                                        </AuthorizedLink>
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
 
