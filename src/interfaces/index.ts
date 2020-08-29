@@ -2,10 +2,6 @@ export type Data<T> = {
     data: T;
 };
 
-export interface HasTheme {
-    theme: Theme;
-}
-
 export interface HasSession {
     session?: Session;
 }
@@ -149,10 +145,6 @@ export interface Featured {
 export interface SelectData {
     value: string;
     label: string;
-}
-
-export interface Theme {
-    theme: string;
 }
 
 export interface AuthorPage {

@@ -1,6 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
-import { initGA } from "../components/analytics/Analytics";
 
 class MyDocument extends Document {
     render(): JSX.Element {
