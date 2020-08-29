@@ -4,10 +4,10 @@ import Search from "components/icons/Search";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../utils/request";
 import { API_URL, SITE_URL } from "../../utils/api";
-import { Game, HasTheme, Sort } from "../../interfaces";
+import { Game, Sort } from "../../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getTheme, reactSelectStyle } from "../../utils/theme";
+import { reactSelectStyle } from "../../utils/theme";
 import Select from "react-select";
 import { onBlur, onFocus } from "../../utils/util";
 import { DebounceInput } from "react-debounce-input";
@@ -32,12 +32,11 @@ function buildURL(search: string, sort: string) {
 }
 
 export default function GameIndex({
-    theme,
     games,
     sorts,
     currentSort,
     search,
-}: { games: Game[]; sorts: Sort[]; currentSort: string; search: string } & HasTheme): JSX.Element {
+}: { games: Game[]; sorts: Sort[]; currentSort: string; search: string } ): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     const [displaySearch] = useState(search);
@@ -55,7 +54,6 @@ export default function GameIndex({
     return (
         <Layout
             title="Games"
-            theme={theme}
             canonical={`${SITE_URL}/games`}
             description={`Games on Diluv`}
             image={`${SITE_URL}/static/diluv.png`}
@@ -146,7 +144,6 @@ export default function GameIndex({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const theme = getTheme(context);
     const { sort = "", search = "" } = context.query;
 
     const params = new URLSearchParams();
@@ -163,7 +160,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
     return {
         props: {
-            theme,
             games: games.data.games,
             sorts: games.data.sort,
             currentSort: sort.length ? sort : `name`,

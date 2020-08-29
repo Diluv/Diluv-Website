@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
+import { Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
 import { getAuthed } from "../../../../utils/request";
 
 import { API_URL, SITE_URL } from "../../../../utils/api";
@@ -9,7 +9,7 @@ import ProjectCard from "../../../../components/project/ProjectCard";
 import Search from "../../../../components/icons/Search";
 import { onBlur, onFocus } from "../../../../utils/util";
 import Select, { ActionMeta } from "react-select";
-import { getTheme, reactSelectStyle } from "../../../../utils/theme";
+import { reactSelectStyle } from "../../../../utils/theme";
 import { useRouter } from "next/router";
 import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
@@ -32,7 +32,6 @@ interface Props {
 }
 
 export default function Projects({
-    theme,
     search,
     gameSlug,
     projectData,
@@ -43,7 +42,7 @@ export default function Projects({
     page,
     version,
     currentTags
-}: Props & HasTheme): JSX.Element {
+}: Props ): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     const [displaySearch] = useState(search);
@@ -94,7 +93,6 @@ export default function Projects({
     return (
         <Layout
             title={projectData.name}
-            theme={theme}
             canonical={`/games/${gameSlug}/${projectData.slug}`}
             description={`${gameSlug} ${projectData.name} | Diluv`}
             image={`${SITE_URL}/static/diluv.png`}
@@ -314,7 +312,6 @@ export default function Projects({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const theme = getTheme(context);
     let { GameSlug, ProjectType, page = 1, sort = "", version = "", search = "", tags } = context.query;
     page = Number(page);
 
@@ -353,7 +350,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
         return {
             props: {
-                theme,
                 search: search ?? ``,
                 gameSlug: GameSlug,
                 projectData: data.data.currentType,

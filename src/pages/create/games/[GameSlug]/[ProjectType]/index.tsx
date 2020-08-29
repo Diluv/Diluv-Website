@@ -1,8 +1,8 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed, postAuthed } from "../../../../../utils/request";
 import { API_URL, SITE_URL } from "../../../../../utils/api";
-import { getTheme, reactSelectStyle } from "../../../../../utils/theme";
-import { HasTheme, SelectData, Tag } from "../../../../../interfaces";
+import { reactSelectStyle } from "../../../../../utils/theme";
+import { SelectData, Tag } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
 import React, { useRef, useState } from "react";
 import Dropzone from "react-dropzone";
@@ -18,11 +18,10 @@ import Select from "react-select";
 import { StateManager } from "react-select/src/stateManager";
 
 export default function Index({
-    theme,
     GameSlug,
     ProjectType,
     tags
-}: { GameSlug: string; ProjectType: string; tags: Tag[] } & HasTheme): JSX.Element {
+}: { GameSlug: string; ProjectType: string; tags: Tag[] } ): JSX.Element {
     const [ session, loading ] = useSession();
 
     ensureAuthed(session);
@@ -53,7 +52,6 @@ export default function Index({
     return (
         <Layout
             title={`Create ${ProjectType}`}
-            theme={theme}
             canonical={`/create/games/${GameSlug}${ProjectType}`}
             description={`Create project | Diluv`}
             image={`${SITE_URL}/static/diluv.png`}
@@ -307,7 +305,6 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
     const { GameSlug, ProjectType } = context.query;
 
-    const theme = getTheme(context);
     const session = await getSession(context);
     let tags = [];
     if (session) {
@@ -315,6 +312,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
         tags = data.data.tags;
     }
     return {
-        props: { theme, GameSlug, ProjectType, session: session ?? null, tags } // will be passed to the page component as props
+        props: { GameSlug, ProjectType, session: session ?? null, tags } // will be passed to the page component as props
     };
 };

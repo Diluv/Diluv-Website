@@ -12,12 +12,18 @@ export function getTheme(context: GetServerSidePropsContext): Theme {
     let theme = "light";
     if (context.req) {
         if (context.req.headers.cookie) {
-            if (parse(context.req.headers.cookie)["theme"]) {
-                theme = parse(context.req.headers.cookie)["theme"];
-                if (theme !== "light" && theme !== "dark") {
-                    theme = "light";
-                }
-            }
+            return getCookieTheme(context.req.headers.cookie);
+        }
+    }
+    return { theme };
+}
+
+export function getCookieTheme(cookie: string): Theme {
+    let theme = "light";
+    if (parse(cookie)["theme"]) {
+        theme = parse(cookie)["theme"];
+        if (theme !== "light" && theme !== "dark") {
+            theme = "light";
         }
     }
     return { theme };

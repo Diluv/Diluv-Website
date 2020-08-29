@@ -3,23 +3,21 @@ import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
-import { HasTheme, Project, ProjectFile } from "../../../../../interfaces";
+import { Project, ProjectFile } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import filesize from "filesize";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 import SimpleBar from "simplebar-react";
-import { getTheme } from "../../../../../utils/theme";
 import Download from "../../../../../components/icons/Download";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import { FormattedDistanceTime } from "../../../../../utils/dynamic";
 
-export default function Files({ project, files, theme }: { project: Project; files: ProjectFile[] } & HasTheme): JSX.Element {
+export default function Files({ project, files }: { project: Project; files: ProjectFile[] }): JSX.Element {
     return (
         <Layout
             title={project.name}
-            theme={theme}
             canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}
             description={`${project.summary}`}
             image={`${project.logo}`}
@@ -115,12 +113,11 @@ export default function Files({ project, files, theme }: { project: Project; fil
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const theme = getTheme(context);
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files`, { session: session });
     return {
-        props: { theme, project: data.data.project, files: data.data.files, session: session ?? null } // will be passed to the page component as props
+        props: { project: data.data.project, files: data.data.files, session: session ?? null } // will be passed to the page component as props
     };
 };

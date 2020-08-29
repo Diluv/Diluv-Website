@@ -3,9 +3,9 @@ import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
-import { HasTheme, Project, SelectData } from "../../../../../interfaces";
+import { Project, SelectData } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
-import { getTheme, reactSelectStyle } from "../../../../../utils/theme";
+import { reactSelectStyle } from "../../../../../utils/theme";
 import Markdown from "../../../../../components/Markdown";
 // @ts-ignore
 import { getSession, useSession } from "next-auth/client";
@@ -16,8 +16,8 @@ import Dropzone from "react-dropzone";
 import Select from "react-select";
 import SimpleBar from "simplebar-react";
 
-export default function ProjectIndex({ theme, project}: { project: Project } & HasTheme ): JSX.Element {
-    const [ session, loading ] = useSession();
+export default function ProjectIndex({ project }: { project: Project }): JSX.Element {
+    const [session, loading] = useSession();
 
     ensureAuthed(session);
 
@@ -46,14 +46,13 @@ export default function ProjectIndex({ theme, project}: { project: Project } & H
     return (
         <Layout
             title={`${project.name} Settings`}
-            theme={theme}
             canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
             description={`${project.summary}`}
             image={`${project.logo}`}
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
         >
             <div className={`w-5/6 lg:w-4/6 mx-auto mt-4 mb-8`}>
-                <ProjectInfo project={project} pageType={"settings"} />
+                <ProjectInfo project={project} pageType={"settings"}/>
                 {logoErrors.length > 0 ? (
                     <div className={`my-4`}>
                         {" "}
@@ -105,7 +104,7 @@ export default function ProjectIndex({ theme, project}: { project: Project } & H
                                 >
                                     <input {...getInputProps()} />
                                     {logo.length ? (
-                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"} />
+                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"}/>
                                     ) : (
                                         <p className={`text-center select-none`}>Upload logo</p>
                                     )}
@@ -251,7 +250,7 @@ export default function ProjectIndex({ theme, project}: { project: Project } & H
                                     } bg-white dark:bg-dark-900`}
                                 >
                                     <SimpleBar className={`h-full`}>
-                                        <Markdown markdown={content} />
+                                        <Markdown markdown={content}/>
                                     </SimpleBar>
                                 </div>
                             )}
@@ -289,12 +288,11 @@ export default function ProjectIndex({ theme, project}: { project: Project } & H
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const theme = getTheme(context);
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
     return {
-        props: { theme, project: data.data, session: session ?? null } // will be passed to the page component as props
+        props: { project: data.data, session: session ?? null } // will be passed to the page component as props
     };
 };

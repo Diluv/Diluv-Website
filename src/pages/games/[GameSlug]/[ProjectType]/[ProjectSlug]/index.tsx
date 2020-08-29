@@ -3,19 +3,17 @@ import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
-import { HasTheme, Project } from "../../../../../interfaces";
+import { Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
-import { getTheme } from "../../../../../utils/theme";
 import Markdown from "../../../../../components/Markdown";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import Ads from "../../../../../components/ads/Ads";
 
-export default function ProjectIndex({ theme, project }: { project: Project } & HasTheme ): JSX.Element {
+export default function ProjectIndex({  project }: { project: Project } ): JSX.Element {
     return (
         <Layout
             title={project.name}
-            theme={theme}
             canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`}
             description={`${project.summary}`}
             image={`${project.logo}`}
@@ -39,12 +37,11 @@ export default function ProjectIndex({ theme, project }: { project: Project } & 
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const theme = getTheme(context);
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
     return {
-        props: { theme, project: data.data, session: session ?? null } // will be passed to the page component as props
+        props: { project: data.data, session: session ?? null } // will be passed to the page component as props
     };
 };

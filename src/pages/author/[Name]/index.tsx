@@ -1,8 +1,8 @@
 import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { AuthorPage, HasTheme, Sort } from "../../../interfaces";
-import { getTheme, reactSelectStyle } from "../../../utils/theme";
+import { AuthorPage, Sort } from "../../../interfaces";
+import { reactSelectStyle } from "../../../utils/theme";
 import { getAuthed } from "../../../utils/request";
 import { API_URL } from "../../../utils/api";
 import { followCursor } from "tippy.js";
@@ -17,18 +17,16 @@ import GridArea from "../../../components/misc/GridArea";
 import { FormattedDistanceTime, FormattedTime } from "../../../utils/dynamic";
 
 export default function AuthorProjects({
-    theme,
     data,
     currentSort,
     page,
-}: { data: AuthorPage; currentSort: string; page: number } & HasTheme): JSX.Element {
+}: { data: AuthorPage; currentSort: string; page: number } ): JSX.Element {
     const maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
 
     return (
         <Layout
             title={data.user.displayName}
-            theme={theme}
             canonical={`/author/${data.user.username}`}
             description={`${data.user.displayName} | Diluv`}
             image={`${data.user.avatarURL}`}
@@ -152,7 +150,6 @@ function ProjectOptions({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const theme = getTheme(context);
     let { Name, sort = "", page = 1 } = context.query;
     page = Number(page);
 
@@ -168,6 +165,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
 
     return {
-        props: { theme, data: data.data, currentSort: sort.length ? sort : `new`, page: page, session: session ?? null } // will be passed to the page component as props
+        props: { data: data.data, currentSort: sort.length ? sort : `new`, page: page, session: session ?? null } // will be passed to the page component as props
     };
 };

@@ -2,19 +2,17 @@ import React from "react";
 import Layout from "../components/Layout";
 import { getAuthed } from "../utils/request";
 import { API_URL, SITE_URL } from "../utils/api";
-import { Featured, HasTheme } from "../interfaces";
+import { Featured } from "../interfaces";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
-import { getTheme } from "../utils/theme";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import Ads from "../components/ads/Ads";
 
-export default function IndexPage({ theme, featured }: { featured: Featured } & HasTheme ): JSX.Element {
+export default function IndexPage({  featured }: { featured: Featured }  ): JSX.Element {
     return (
         <Layout
             title="Diluv"
-            theme={theme}
             canonical={SITE_URL}
             description={`Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content creators of all gaming communities.`}
             image={`${SITE_URL}/static/diluv.png`}
@@ -73,10 +71,9 @@ export default function IndexPage({ theme, featured }: { featured: Featured } & 
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const theme = getTheme(context);
     const session = await getSession(context);
     const featured = await getAuthed(`${API_URL}/v1/site`, { session: session });
     return {
-        props: { theme, featured: featured.data, session: session ?? null } // will be passed to the page component as props
+        props: { featured: featured.data, session: session ?? null } // will be passed to the page component as props
     };
 };

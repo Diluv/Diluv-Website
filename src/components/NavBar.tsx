@@ -1,16 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
-import { Theme } from "../utils/context";
 // @ts-ignore
 import { signin, signout, useSession } from "next-auth/client";
+import useDarkMode from "use-dark-mode";
 
 function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
-    const theme = useContext(Theme);
     const [session, loading] = useSession();
+
+    const darkMode = useDarkMode(false, { classNameDark: "mode-dark", classNameLight: "mode-light" });
+
     return (
         <>
             <header className="text-gray-400 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
@@ -63,7 +65,10 @@ function NavBar(): JSX.Element {
                                 )}
                                 {session && <DropDownAction action={() => signout()}>Sign out</DropDownAction>}
                                 <DropDownSpacer/>
-                                <DropDownAction action={() => theme.toggleTheme()}>Toggle Theme</DropDownAction>
+                                <DropDownAction action={() => {
+                                    darkMode.toggle();
+                                }}>Toggle
+                                    Theme</DropDownAction>
                             </DropDown>
                         </div>
                         <div className={`block md:hidden text-center`}>
@@ -87,7 +92,7 @@ function NavBar(): JSX.Element {
                                             Sign out
                                         </button>
                                     )}
-                                    <span className={`hover:text-white cursor-pointer select-none`} onClick={() => theme.toggleTheme()}>
+                                    <span className={`hover:text-white cursor-pointer select-none`} onClick={() => darkMode.toggle()}>
                                         Change Theme
                                     </span>
                                 </div>
