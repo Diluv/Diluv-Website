@@ -1,21 +1,20 @@
-import React, { Component, FunctionComponent, ReactNode } from "react";
+import React from "react";
 import Layout from "../components/Layout";
-import { get, getAuthed } from "../utils/request";
+import { getAuthed } from "../utils/request";
 import { API_URL, SITE_URL } from "../utils/api";
-import { Featured, HasSession, HasTheme } from "../interfaces";
-import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult, NextPageContext } from "next";
+import { Featured, HasTheme } from "../interfaces";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 import { getTheme } from "../utils/theme";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import Ads from "../components/ads/Ads";
 
-export default function IndexPage({ theme, featured, session }: { featured: Featured } & HasTheme & HasSession): JSX.Element {
+export default function IndexPage({ theme, featured }: { featured: Featured } & HasTheme ): JSX.Element {
     return (
         <Layout
             title="Diluv"
             theme={theme}
-            session={session}
             canonical={SITE_URL}
             description={`Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content creators of all gaming communities.`}
             image={`${SITE_URL}/static/diluv.png`}

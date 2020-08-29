@@ -2,8 +2,8 @@ import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
-import { API_URL, SITE_URL } from "../../../../../utils/api";
-import { HasSession, HasTheme, Project } from "../../../../../interfaces";
+import { API_URL } from "../../../../../utils/api";
+import { HasTheme, Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import { getTheme } from "../../../../../utils/theme";
 import Markdown from "../../../../../components/Markdown";
@@ -11,12 +11,11 @@ import Markdown from "../../../../../components/Markdown";
 import { getSession } from "next-auth/client";
 import Ads from "../../../../../components/ads/Ads";
 
-export default function ProjectIndex({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
+export default function ProjectIndex({ theme, project }: { project: Project } & HasTheme ): JSX.Element {
     return (
         <Layout
             title={project.name}
             theme={theme}
-            session={session}
             canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`}
             description={`${project.summary}`}
             image={`${project.logo}`}

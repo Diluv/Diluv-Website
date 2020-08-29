@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "components/Layout";
-import { GetServerSideProps, GetServerSidePropsContext, NextPageContext } from "next";
-import { AuthorPage, HasSession, HasTheme, Sort } from "../../../interfaces";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { AuthorPage, HasTheme, Sort } from "../../../interfaces";
 import { getTheme, reactSelectStyle } from "../../../utils/theme";
 import { getAuthed } from "../../../utils/request";
 import { API_URL } from "../../../utils/api";
@@ -21,8 +21,7 @@ export default function AuthorProjects({
     data,
     currentSort,
     page,
-    session
-}: { data: AuthorPage; currentSort: string; page: number } & HasTheme & HasSession): JSX.Element {
+}: { data: AuthorPage; currentSort: string; page: number } & HasTheme): JSX.Element {
     const maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
 
@@ -30,7 +29,6 @@ export default function AuthorProjects({
         <Layout
             title={data.user.displayName}
             theme={theme}
-            session={session}
             canonical={`/author/${data.user.username}`}
             description={`${data.user.displayName} | Diluv`}
             image={`${data.user.avatarURL}`}

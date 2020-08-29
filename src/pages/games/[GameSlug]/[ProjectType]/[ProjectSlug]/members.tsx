@@ -3,7 +3,7 @@ import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
-import { HasSession, HasTheme, Project } from "../../../../../interfaces";
+import { HasTheme, Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import { getTheme } from "../../../../../utils/theme";
 import Link from "next/link";
@@ -12,12 +12,11 @@ import { getSession } from "next-auth/client";
 import GridArea from "../../../../../components/misc/GridArea";
 import Ads from "../../../../../components/ads/Ads";
 
-export default function Members({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
+export default function Members({ theme, project }: { project: Project } & HasTheme ): JSX.Element {
     return (
         <Layout
             title={project.name}
             theme={theme}
-            session={session}
             canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}
             description={`${project.summary}`}
             image={`${project.logo}`}

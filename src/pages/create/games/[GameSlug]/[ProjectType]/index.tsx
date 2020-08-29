@@ -2,7 +2,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed, postAuthed } from "../../../../../utils/request";
 import { API_URL, SITE_URL } from "../../../../../utils/api";
 import { getTheme, reactSelectStyle } from "../../../../../utils/theme";
-import { HasSession, HasTheme, SelectData, Tag } from "../../../../../interfaces";
+import { HasTheme, SelectData, Tag } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
 import React, { useRef, useState } from "react";
 import Dropzone from "react-dropzone";
@@ -10,7 +10,7 @@ import Alert from "../../../../../components/Alert";
 import Markdown from "../../../../../components/Markdown";
 import SimpleBar from "simplebar-react";
 // @ts-ignore
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { ensureAuthed } from "../../../../../utils/auth";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
@@ -21,9 +21,10 @@ export default function Index({
     theme,
     GameSlug,
     ProjectType,
-    session,
     tags
-}: { GameSlug: string; ProjectType: string; tags: Tag[] } & HasTheme & HasSession): JSX.Element {
+}: { GameSlug: string; ProjectType: string; tags: Tag[] } & HasTheme): JSX.Element {
+    const [ session, loading ] = useSession();
+
     ensureAuthed(session);
 
     if (!session) {
@@ -53,7 +54,6 @@ export default function Index({
         <Layout
             title={`Create ${ProjectType}`}
             theme={theme}
-            session={session}
             canonical={`/create/games/${GameSlug}${ProjectType}`}
             description={`Create project | Diluv`}
             image={`${SITE_URL}/static/diluv.png`}

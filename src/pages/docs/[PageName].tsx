@@ -3,7 +3,7 @@ import Markdown from "../../components/Markdown";
 import React from "react";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getTheme } from "../../utils/theme";
-import { HasMarkdown, HasSession, HasTheme } from "../../interfaces";
+import { HasMarkdown, HasTheme } from "../../interfaces";
 import { readAsString } from "../../utils/files";
 // @ts-ignore
 import { getSession } from "next-auth/client";
@@ -13,14 +13,12 @@ export default function Feedback({
     theme,
     title,
     pageContents,
-    session,
     PageName
-}: HasTheme & HasMarkdown & HasSession & { PageName: string }): JSX.Element {
+}: HasTheme & HasMarkdown & { PageName: string }): JSX.Element {
     return (
         <Layout
             title={title}
             theme={theme}
-            session={session}
             canonical={`${SITE_URL}/${PageName}`}
             description={`${title} | Diluv`}
             image={`${SITE_URL}/static/diluv.png`}

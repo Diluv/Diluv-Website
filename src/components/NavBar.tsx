@@ -2,15 +2,15 @@ import React, { useContext, useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
-import { Auth, Theme } from "../utils/context";
+import { Theme } from "../utils/context";
 // @ts-ignore
-import { signin, signout } from "next-auth/client";
+import { signin, signout, useSession } from "next-auth/client";
 
 function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
     const theme = useContext(Theme);
-    const auth = useContext(Auth);
+    const [session, loading] = useSession();
     return (
         <>
             <header className="text-gray-400 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
@@ -18,7 +18,7 @@ function NavBar(): JSX.Element {
                     <div className={`w-full md:w-auto flex flex-row justify-between items-center`}>
                         <Link href={"/"}>
                             <a className="flex font-medium items-center text-white md:mb-0">
-                                <Drop className={`w-10 h-10`} />
+                                <Drop className={`w-10 h-10`}/>
                                 <span className="ml-3 text-xl">Diluv</span>
                             </a>
                         </Link>
@@ -28,11 +28,11 @@ function NavBar(): JSX.Element {
                         >
                             {showingMenu ? (
                                 <svg className={`fill-current w-5 h-5 block md:hidden`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+                                    <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
                                 </svg>
                             ) : (
                                 <svg className={`fill-current w-5 h-5 block md:hidden`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
                                 </svg>
                             )}
                         </button>
@@ -54,35 +54,35 @@ function NavBar(): JSX.Element {
                             </Link>
                         </nav>
                         <div className="hidden md:block">
-                            <DropDown name={auth.session ? auth.session.user.name : "Account"} className={`hover:text-white`}>
-                                {!auth.session && <DropDownAction action={() => signin("DILUV")}>Sign in</DropDownAction>}
-                                {auth.session && (
-                                    <DropDownLinkInternal href={`/author/[Name]/`} as={`/author/${auth.session.user.id}`}>
+                            <DropDown name={session ? session.user.name : "Account"} className={`hover:text-white`}>
+                                {!session && <DropDownAction action={() => signin("DILUV")}>Sign in</DropDownAction>}
+                                {session && (
+                                    <DropDownLinkInternal href={`/author/[Name]/`} as={`/author/${session.user.id}`}>
                                         Profile
                                     </DropDownLinkInternal>
                                 )}
-                                {auth.session && <DropDownAction action={() => signout()}>Sign out</DropDownAction>}
-                                <DropDownSpacer />
+                                {session && <DropDownAction action={() => signout()}>Sign out</DropDownAction>}
+                                <DropDownSpacer/>
                                 <DropDownAction action={() => theme.toggleTheme()}>Toggle Theme</DropDownAction>
                             </DropDown>
                         </div>
                         <div className={`block md:hidden text-center`}>
                             <p className={`hover:text-white cursor-pointer`} onClick={() => setShowingUserMenu(!showUserMenu)}>
-                                {auth.session ? auth.session.user.name : "Account"}
+                                {session ? session.user.name : "Account"}
                             </p>
                             <div className={`${showUserMenu ? `block` : `hidden`}`}>
                                 <div className={`flex flex-col`}>
-                                    {!auth.session && (
+                                    {!session && (
                                         <button className={`hover:text-white`} onClick={() => signin("DILUV")}>
                                             Sign in
                                         </button>
                                     )}
-                                    {auth.session && (
-                                        <Link href={`/author/[Name]/`} as={`/author/${auth.session.user.id}`}>
+                                    {session && (
+                                        <Link href={`/author/[Name]/`} as={`/author/${session.user.id}`}>
                                             <a>Profile</a>
                                         </Link>
                                     )}
-                                    {auth.session && (
+                                    {session && (
                                         <button className={`hover:text-white`} onClick={() => signout()}>
                                             Sign out
                                         </button>

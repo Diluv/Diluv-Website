@@ -1,11 +1,9 @@
 import React, { ReactNode, useContext } from "react";
-import { Auth } from "../../utils/context";
 import Link from "next/link";
 
 // @ts-ignore
-import { signin } from "next-auth/client";
+import { signin, useSession } from "next-auth/client";
 import { SITE_URL } from "utils/api";
-
 export default function AuthorizedLink({
     href,
     as,
@@ -17,9 +15,8 @@ export default function AuthorizedLink({
     children: ReactNode;
     className?: string;
 }): JSX.Element {
-    const auth = useContext(Auth);
-
-    if (auth.session) {
+    const [ session, loading ] = useSession();
+    if (session) {
         return (
             <Link href={href} as={as}>
                 <a className={className}>{children}</a>

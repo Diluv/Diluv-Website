@@ -3,8 +3,8 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import Head from "next/head";
 import SimpleBar from "simplebar-react";
-import { HasSession, HasTheme } from "../interfaces";
-import { Theme, Auth } from "../utils/context";
+import { HasTheme } from "../interfaces";
+import { Theme } from "../utils/context";
 import axios, { AxiosError } from "axios";
 import Router from "next/router";
 import { NextSeo } from "next-seo";
@@ -20,7 +20,7 @@ type Props = {
     image: string;
 };
 
-function Layout({ theme, children, title = "Diluv", session, description, canonical, url, image }: Props & HasTheme & HasSession): JSX.Element {
+function Layout({ theme, children, title = "Diluv", description, canonical, url, image }: Props & HasTheme): JSX.Element {
     const [themeState, setTheme] = useState({
         theme: theme.theme
     });
@@ -31,7 +31,7 @@ function Layout({ theme, children, title = "Diluv", session, description, canoni
         const handleRouteChange = (url: string) => {
             // @ts-ignore
             simpleBarRef.current?.getScrollElement().scrollTo(0, 0);
-            pageView(url)
+            pageView(url);
         };
         Router.events.on("routeChangeComplete", handleRouteChange);
         return () => {
@@ -48,7 +48,8 @@ function Layout({ theme, children, title = "Diluv", session, description, canoni
 
                     axios
                         .post("/api/set_theme", { theme: theme })
-                        .then(() => {})
+                        .then(() => {
+                        })
                         .catch((reason: AxiosError) => {
                             console.log(reason);
                         });
@@ -58,53 +59,48 @@ function Layout({ theme, children, title = "Diluv", session, description, canoni
                     setTheme({ theme: newTheme });
                     axios
                         .post("/api/set_theme", { theme: newTheme })
-                        .then(() => {})
+                        .then(() => {
+                        })
                         .catch((reason: AxiosError) => {
                             console.log(reason);
                         });
                 }
             }}
         >
-            <Auth.Provider
-                value={{
-                    session: session
+            <NextSeo
+                title={title}
+                description={description}
+                canonical={`${SITE_URL}${canonical}`}
+                openGraph={{
+                    type: "website",
+                    title: title,
+                    url: `${SITE_URL}${url}`,
+                    description: description,
+                    images: [{ url: image, alt: (title + " logo") }],
+                    site_name: "Diluv"
                 }}
-            >
-                <NextSeo
-                    title={title}
-                    description={description}
-                    canonical={`${SITE_URL}${canonical}`}
-                    openGraph={{
-                        type: "website",
-                        title: title,
-                        url: `${SITE_URL}${url}`,
-                        description: description,
-                        images: [{ url: image, alt: (title + " logo") }],
-                        site_name: "Diluv"
-                    }}
-                    twitter={{
-                        cardType: "summary",
-                        site: "@DiluvMods",
-                        handle: "@DiluvMods"
-                    }}
-                />
+                twitter={{
+                    cardType: "summary",
+                    site: "@DiluvMods",
+                    handle: "@DiluvMods"
+                }}
+            />
 
-                <div className={`${themeState.theme === "dark" ? `mode-dark` : `mode-light`}`}>
-                    <SimpleBar className={`minmax-height`} ref={simpleBarRef}>
-                        <div className={`min-h-screen flex flex-col bg-gray-100 dark:bg-dark-900 dark:text-dark-100`}>
-                            <Head>
-                                <title>{title}</title>
-                                <meta charSet="utf-8" />
-                            </Head>
-                            <header>
-                                <NavBar />
-                            </header>
-                            <main className={`flex-grow`}>{children}</main>
-                            <Footer />
-                        </div>
-                    </SimpleBar>
-                </div>
-            </Auth.Provider>
+            <div className={`${themeState.theme === "dark" ? `mode-dark` : `mode-light`}`}>
+                <SimpleBar className={`minmax-height`} ref={simpleBarRef}>
+                    <div className={`min-h-screen flex flex-col bg-gray-100 dark:bg-dark-900 dark:text-dark-100`}>
+                        <Head>
+                            <title>{title}</title>
+                            <meta charSet="utf-8"/>
+                        </Head>
+                        <header>
+                            <NavBar/>
+                        </header>
+                        <main className={`flex-grow`}>{children}</main>
+                        <Footer/>
+                    </div>
+                </SimpleBar>
+            </div>
         </Theme.Provider>
     );
 }

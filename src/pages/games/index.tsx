@@ -4,7 +4,7 @@ import Search from "components/icons/Search";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../utils/request";
 import { API_URL, SITE_URL } from "../../utils/api";
-import { Game, HasSession, HasTheme, Sort } from "../../interfaces";
+import { Game, HasTheme, Sort } from "../../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getTheme, reactSelectStyle } from "../../utils/theme";
@@ -37,8 +37,7 @@ export default function GameIndex({
     sorts,
     currentSort,
     search,
-    session
-}: { games: Game[]; sorts: Sort[]; currentSort: string; search: string } & HasTheme & HasSession): JSX.Element {
+}: { games: Game[]; sorts: Sort[]; currentSort: string; search: string } & HasTheme): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     const [displaySearch] = useState(search);
@@ -57,7 +56,6 @@ export default function GameIndex({
         <Layout
             title="Games"
             theme={theme}
-            session={session}
             canonical={`${SITE_URL}/games`}
             description={`Games on Diluv`}
             image={`${SITE_URL}/static/diluv.png`}

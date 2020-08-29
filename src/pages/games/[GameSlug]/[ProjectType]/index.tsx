@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { HasSession, HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
+import { HasTheme, Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
 import { getAuthed } from "../../../../utils/request";
 
 import { API_URL, SITE_URL } from "../../../../utils/api";
@@ -42,9 +42,8 @@ export default function Projects({
     currentSort,
     page,
     version,
-    currentTags,
-    session
-}: Props & HasTheme & HasSession): JSX.Element {
+    currentTags
+}: Props & HasTheme): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     const [displaySearch] = useState(search);
@@ -96,7 +95,6 @@ export default function Projects({
         <Layout
             title={projectData.name}
             theme={theme}
-            session={session}
             canonical={`/games/${gameSlug}/${projectData.slug}`}
             description={`${gameSlug} ${projectData.name} | Diluv`}
             image={`${SITE_URL}/static/diluv.png`}
@@ -376,8 +374,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
         });
         context.res?.end();
         return {
-            props: {
-            }
+            props: {}
         };
     });
 };

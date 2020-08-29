@@ -3,12 +3,12 @@ import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
 import { API_URL } from "../../../../../utils/api";
-import { HasSession, HasTheme, Project, SelectData } from "../../../../../interfaces";
+import { HasTheme, Project, SelectData } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import { getTheme, reactSelectStyle } from "../../../../../utils/theme";
 import Markdown from "../../../../../components/Markdown";
 // @ts-ignore
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { ensureAuthed } from "../../../../../utils/auth";
 import { StateManager } from "react-select/src/stateManager";
 import Alert from "../../../../../components/Alert";
@@ -16,7 +16,9 @@ import Dropzone from "react-dropzone";
 import Select from "react-select";
 import SimpleBar from "simplebar-react";
 
-export default function ProjectIndex({ theme, project, session }: { project: Project } & HasTheme & HasSession): JSX.Element {
+export default function ProjectIndex({ theme, project}: { project: Project } & HasTheme ): JSX.Element {
+    const [ session, loading ] = useSession();
+
     ensureAuthed(session);
 
     if (!session) {
@@ -45,7 +47,6 @@ export default function ProjectIndex({ theme, project, session }: { project: Pro
         <Layout
             title={`${project.name} Settings`}
             theme={theme}
-            session={session}
             canonical={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
             description={`${project.summary}`}
             image={`${project.logo}`}

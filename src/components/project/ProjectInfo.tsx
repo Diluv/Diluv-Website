@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
 import { canEditProject, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
 import Alert from "../Alert";
 import Download from "../icons/Download";
-import { Auth } from "../../utils/context";
 import GridArea from "../misc/GridArea";
 import FormattedTime from "../misc/FormattedTime";
+// @ts-ignore
 
 export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }): JSX.Element {
     function isDescription(): boolean {
@@ -25,8 +25,6 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
     function isSettings(): boolean {
         return pageType === "settings";
     }
-
-    const auth = useContext(Auth);
     return (
         <div id={"topInfo"}>
             {projectHasReleaseStatus(project) && !project.review ? (
