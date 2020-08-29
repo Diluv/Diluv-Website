@@ -1,7 +1,8 @@
-import format from "date-fns/format";
 import React, { useLayoutEffect, useState } from "react";
+import formatDistance from "date-fns/formatDistance";
 
-export default function FormattedTime({ prefix, time }: { prefix?: string, time: number }) {
+
+export default function FormattedDistanceTime({ prefix, start, end = new Date() }: { prefix?: string, start: number, end?: Date }) {
 
     let [browser, setBrowser] = useState(false);
 
@@ -14,7 +15,7 @@ export default function FormattedTime({ prefix, time }: { prefix?: string, time:
     if (!browser) {
         return <>
             <div className={`flex`}>
-                <span>{prefix + ` `}</span>
+                <span>{prefix ? prefix + ` ` : ``}</span>
                 <div className={`ml-1 animate-pulse my-auto`}>
                     <div className={`h-4 bg-gray-400 dark:bg-dark-600 ${prefix ? `w-40` : `w-24`}`}/>
                 </div>
@@ -23,7 +24,6 @@ export default function FormattedTime({ prefix, time }: { prefix?: string, time:
     }
 
     return <>
-        <span>{prefix ? prefix + ` ` : ``}{format(time, "yyyy-MM-dd HH:mm:ss")}</span>
+        <span>{prefix ? prefix + ` ` : ``}{formatDistance(start, end, { addSuffix: true })}</span>
     </>;
 }
-

@@ -9,7 +9,7 @@ import Time from "../icons/Time";
 import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
 import GridArea from "../misc/GridArea";
-import FormattedTime, { FormattedDistanceTime } from "../misc/FormattedTime";
+import { FormattedDistanceTime, FormattedTime } from "../../utils/dynamic";
 
 interface Props {
     gameSlug: string;
@@ -54,7 +54,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                 <GridArea name={`image`}>
                     <Link href={projectUrlRef} as={projectUrl}>
                         <a>
-                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name} />
+                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name}/>
                         </a>
                     </Link>
                 </GridArea>
@@ -89,7 +89,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                                 <span className={`mr-1`}>{project.downloads}</span>
                             </div>
                         </Tippy>
@@ -106,7 +106,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                                 <FormattedDistanceTime start={project.createdAt}/>
                             </div>
                         </Tippy>
@@ -122,7 +122,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                                 <FormattedDistanceTime start={project.updatedAt}/>
                             </div>
                         </Tippy>
@@ -131,7 +131,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
 
                 {project.tags.map((value, i) => (
                     <GridArea name={`tag${i + 1}`} className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center`} key={value.slug}>
-                        <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter} setTagFilter={setTagFilter} />
+                        <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter} setTagFilter={setTagFilter}/>
                     </GridArea>
                 ))}
             </div>

@@ -13,7 +13,7 @@ import { getTheme } from "../../../../../utils/theme";
 import Download from "../../../../../components/icons/Download";
 // @ts-ignore
 import { getSession } from "next-auth/client";
-import { FormattedDistanceTime } from "../../../../../components/misc/FormattedTime";
+import { FormattedDistanceTime } from "../../../../../utils/dynamic";
 
 export default function Files({ project, files, theme }: { project: Project; files: ProjectFile[] } & HasTheme): JSX.Element {
     return (

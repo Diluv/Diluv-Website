@@ -9,7 +9,7 @@ import Time from "../icons/Time";
 import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
 import GridArea from "../misc/GridArea";
-import FormattedTime, { FormattedDistanceTime } from "../misc/FormattedTime";
+import { FormattedDistanceTime, FormattedTime } from "../../utils/dynamic";
 
 interface Props {
     project: Project;

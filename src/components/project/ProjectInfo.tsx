@@ -6,7 +6,7 @@ import { canEditProject, listContributors, projectHasReleaseStatus, projectHasRe
 import Alert from "../Alert";
 import Download from "../icons/Download";
 import GridArea from "../misc/GridArea";
-import FormattedTime from "../misc/FormattedTime";
+import { FormattedTime } from "../../utils/dynamic";
 // @ts-ignore
 
 export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }): JSX.Element {

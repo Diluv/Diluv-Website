@@ -14,7 +14,7 @@ import Select from "react-select";
 import Pagination, { buildURL } from "../../../components/misc/Pagination";
 import { useRouter } from "next/router";
 import GridArea from "../../../components/misc/GridArea";
-import FormattedTime, { FormattedDistanceTime } from "../../../components/misc/FormattedTime";
+import { FormattedDistanceTime, FormattedTime } from "../../../utils/dynamic";
 
 export default function AuthorProjects({
     theme,
