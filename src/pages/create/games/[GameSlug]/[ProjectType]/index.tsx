@@ -271,16 +271,22 @@ export default function Index({
                                     "Accept": "application/json",
                                     "content-type": "multipart/form-data"
                                 };
-                                const formData = new FormData();
-                                formData.set("name", refName.current?.value ?? "");
-                                formData.set("summary", refSummary.current?.value ?? "");
-                                formData.set("description", refDescription.current?.value ?? "");
-                                formData.set("logo", logoFile ?? "");
+                                const data = {
+                                    name: refName.current?.value ?? "",
+                                    summary: refSummary.current?.value ?? "",
+                                    description: refDescription.current?.value ?? "",
+                                    tags: [] as string[]
+                                };
                                 if (refTags.current?.state.value) {
                                     (refTags.current.state.value as []).map((value: SelectData, index) => {
-                                        formData.set(`tag${index + 1}`, value.value);
+                                        data.tags[index] = value.value;
                                     });
                                 }
+
+                                const formData = new FormData();
+                                formData.set("logo", logoFile ?? "");
+                                formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
+
                                 postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session: session })
                                     .then((value) => {
                                         router.push(
