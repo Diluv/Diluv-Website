@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:10
+FROM mhart/alpine-node:slim-10
 WORKDIR /app
 COPY node_modules/ ./node_modules/
 COPY public ./public
