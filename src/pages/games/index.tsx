@@ -35,8 +35,13 @@ export default function GameIndex({
     games,
     sorts,
     currentSort,
-    search,
-}: { games: Game[]; sorts: Sort[]; currentSort: string; search: string } ): JSX.Element {
+    search
+}: {
+    games: Game[];
+    sorts: Sort[];
+    currentSort: string;
+    search: string;
+}): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     const [displaySearch] = useState(search);
@@ -91,7 +96,7 @@ export default function GameIndex({
                                     onBlur={() => onBlur(setSelectedField)}
                                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                         const newUrl = buildURL(event.target.value, currentSort);
-                                        router.push(`/games`, `/games${newUrl}`, { shallow: false });
+                                        router.push(`/games${newUrl}`);
                                     }}
                                 />
                             </div>
