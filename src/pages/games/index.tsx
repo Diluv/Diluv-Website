@@ -73,7 +73,7 @@ export default function GameIndex({
                             <div className={"relative my-auto flex-grow ml-1"}>
                                 <Search
                                     className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${
-                                        search.trim().length ? `text-diluv-500` : `text-black`
+                                        search.trim().length ? `text-diluv-500` : ``
                                     } ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
                                     width={"1rem"}
                                     height={"1rem"}
