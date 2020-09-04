@@ -2,7 +2,6 @@ import React from "react";
 import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
-import HourGlass from "../icons/HourGlass";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 import Time from "../icons/Time";
@@ -10,6 +9,7 @@ import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
 import GridArea from "../misc/GridArea";
 import { FormattedDistanceTime, FormattedTime } from "../../utils/dynamic";
+import Calendar from "../icons/Calendar";
 
 interface Props {
     project: Project;
@@ -102,7 +102,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <HourGlass className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                                <Calendar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
                                 <FormattedDistanceTime start={project.createdAt} />
                             </div>
                         </Tippy>
