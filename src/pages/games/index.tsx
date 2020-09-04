@@ -116,7 +116,7 @@ export default function GameIndex({
                                     styles={reactSelectStyle}
                                     onChange={(e: any) => {
                                         const newUrl = buildURL(search, e.value);
-                                        router.push(`/games`, `/games${newUrl}`, { shallow: false });
+                                        router.push(`/games${newUrl}`);
                                     }}
                                     classNamePrefix={"select"}
                                 />
