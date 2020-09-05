@@ -25,6 +25,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
     function isSettings(): boolean {
         return pageType === "settings";
     }
+
     return (
         <div id={"topInfo"}>
             {projectHasReleaseStatus(project) && !project.review ? (
@@ -42,16 +43,27 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                 <></>
             )}
 
-            <div className={`grid mt-4 mb-4 sm:gap-x-4 gap-y-1 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
+            <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
                 <GridArea name={`image`}>
                     <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name}/>
                 </GridArea>
-                <GridArea name={"name"}>
-                    <h4 className={`font-semibold`}>{project.name}</h4>
-                </GridArea>
-                <GridArea name={`authors`} className={`text-gray-600 dark:text-dark-400 mb-1`}>
-                    <span>{`by `}</span>
-                    {listContributors(project)}
+                <GridArea name={`projectInfo`}>
+
+                    <div className={`leading-tight`}>
+                        <h4 className={`font-semibold`}>{project.name}</h4>
+
+                        <div className={`text-gray-600 dark:text-dark-400`}>
+                            <span>{`by `}</span>
+                            {listContributors(project)}
+                        </div>
+                    </div>
+
+
+                    <p className={`my-1`}>Project Type:
+                        <Link href={`/games/[Gameslug]/[ProjectType]/`} as={`/games/${project.game.slug}/${project.projectType.slug}`}>
+                            <a className={"ml-1 hover:text-diluv-500"}>{project.projectType.name}</a>
+                        </Link>
+                    </p>
                 </GridArea>
                 <GridArea name={`summary`}>
                     <p>{project.summary}</p>
