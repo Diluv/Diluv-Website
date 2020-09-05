@@ -1,0 +1,249 @@
+import React, { useRef, useState } from "react";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import Layout from "components/Layout";
+import { AuthorizedUser, SelectData } from "../../interfaces";
+import { getAuthed, postAuthed } from "../../utils/request";
+import { API_URL } from "../../utils/api";
+// @ts-ignore
+import { getSession, useSession } from "next-auth/client";
+import { ensureAuthed } from "../../utils/auth";
+import Dropzone from "react-dropzone";
+import Alert from "../../components/Alert";
+import StateManager from "react-select";
+import { useRouter } from "next/dist/client/router";
+
+export default function AuthorEdit({
+    user
+}: { user: AuthorizedUser }): JSX.Element {
+
+    const [session, loading] = useSession();
+    const [logo, setLogo] = useState(user.avatarURL);
+    const [logoFile, setLogoFile] = useState<File>();
+    const [logoErrors, setLogoErrors] = useState<string[]>([]);
+
+    const refName = useRef<HTMLInputElement>(null);
+    const [validName, setValidName] = useState(false);
+    const refSummary = useRef<HTMLInputElement>(null);
+    const [validSummary, setValidSummary] = useState(false);
+    const refDescription = useRef<HTMLTextAreaElement>(null);
+    const [validDescription, setValidDescription] = useState(false);
+    const refTags = useRef<StateManager>(null);
+    const [validTags, setValidTags] = useState(false);
+    const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
+    const router = useRouter();
+
+    function canSubmit(): boolean {
+        return validName && validSummary && validDescription && !!logoFile && validTags;
+    }
+
+    ensureAuthed(session);
+
+    if (!session) {
+        return <> </>;
+    }
+    return (
+        <Layout
+            title={`${user.displayName} Settings | Diluv`}
+            canonical={`/author/${user.username}`}
+            description={`${user.displayName} | Diluv`}
+            image={`${user.avatarURL}`}
+            url={`/author/${user.username}`}
+        >
+            <div className={`w-5/6 mx-auto mt-4 mb-8`}>
+                {logoErrors.length > 0 ? (
+                    <div className={`my-4`}>
+                        {" "}
+                        {logoErrors.map((value) => {
+                            return (
+                                <div key={value}>
+                                    <Alert type={"danger"} canDismiss={true}>
+                                        {value}
+                                    </Alert>
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <> </>
+                )}
+                <div className={`grid gap-y-2 sm:gap-y-0 createSettingsFormSmall sm:createSettingsFormMedium md:createSettingsFormLarge`}>
+                    <div className={`w-64 h-64 mx-auto sm:mx-0`} style={{ gridArea: "image" }}>
+                        <Dropzone
+                            onDrop={(acceptedFiles) => {
+                                const file = acceptedFiles[0];
+                                const u = URL.createObjectURL(file);
+                                const img = new Image();
+                                setLogoFile(file);
+                                img.onload = function () {
+                                    const newLogoErrors = [];
+                                    if (img.width !== img.height) {
+                                        newLogoErrors.push(`Project Logo does not have a dimension ratio of 1:1!`);
+                                    }
+                                    if (img.width > 1024 * 8 || img.height > 1024 * 8) {
+                                        newLogoErrors.push(`Project Logo can not be bigger than ${1024 * 8}!`);
+                                    }
+                                    setLogoErrors(newLogoErrors);
+                                    if (!newLogoErrors.length) {
+                                        setLogo(URL.createObjectURL(acceptedFiles[0]));
+                                    } else {
+                                        setLogo("");
+                                    }
+                                };
+
+                                img.src = u;
+                            }}
+                            accept={["image/gif", "image/jpeg", "image/png", "image/webp"]}
+                        >
+                            {({ getRootProps, getInputProps }) => (
+                                <div
+                                    {...getRootProps()}
+                                    className={`w-64 h-64 mx-auto sm:mx-0 border-2 dark:border-dark-700 box-content cursor-pointer`}
+                                >
+                                    <input {...getInputProps()} />
+                                    {logo.length ? (
+                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"}/>
+                                    ) : (
+                                        <p className={`text-center select-none`}>Upload logo</p>
+                                    )}
+                                </div>
+                            )}
+                        </Dropzone>
+                    </div>
+                    <div className={`flex flex-col md:flex-row sm:ml-4`} style={{ gridArea: "name" }}>
+                        <label htmlFor={`nameField`} className={`mb-1 md:my-auto`}>
+                            Display Name:
+                        </label>
+                        <input
+                            type={`text`}
+                            placeholder={`Enter Display Name`}
+                            id={`nameField`}
+                            ref={refName}
+                            defaultValue={user.displayName}
+                            className={`md:ml-2 p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 dark:bg-dark-800 flex-grow outline-none`}
+                            onChange={(event) => {
+                                if (event.target.value.length == user.displayName.length && event.target.value.toLowerCase() === user.displayName.toLowerCase()) {
+                                    setValidName(true);
+                                } else {
+                                    setValidName(false);
+                                }
+                            }}
+                            maxLength={50}
+                        />
+                    </div>
+                    <div className={`flex flex-col md:flex-row sm:ml-4`} style={{ gridArea: "email" }}>
+                        <label htmlFor={`summaryField`} className={`mb-1 md:my-auto`}>
+                            Email:
+                        </label>
+                        <input
+                            type={`text`}
+                            placeholder={`Enter Email`}
+                            id={`summaryField`}
+                            defaultValue={user.email}
+                            ref={refSummary}
+                            className={`md:ml-2 p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 flex-grow dark:bg-dark-800 outline-none`}
+                            onChange={(event) => {
+                                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                if (re.test(String(event.target.value).toLowerCase())) {
+                                    setValidSummary(true);
+                                } else {
+                                    setValidSummary(false);
+                                }
+                            }}
+                            maxLength={250}
+                        />
+                    </div>
+                    <div className={`flex flex-col md:flex-row sm:ml-4`} style={{ gridArea: "newPassword" }}>
+                        <label htmlFor={`summaryField`} className={`mb-1 md:my-auto`}>
+                            New password:
+                        </label>
+                        <input
+                            type={`password`}
+                            placeholder={`********`}
+                            id={`summaryField`}
+                            ref={refSummary}
+                            className={`md:ml-2 p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 flex-grow dark:bg-dark-800 outline-none`}
+                            onChange={(event) => {
+                                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                if (re.test(String(event.target.value).toLowerCase())) {
+                                    setValidSummary(true);
+                                } else {
+                                    setValidSummary(false);
+                                }
+                            }}
+                            maxLength={250}
+                        />
+                    </div>
+                    <div className={`flex flex-col md:flex-row sm:ml-4`} style={{ gridArea: "currentPassword" }}>
+                        <label htmlFor={`summaryField`} className={`mb-1 md:my-auto`}>
+                            Current password:
+                        </label>
+                        <input
+                            type={`password`}
+                            placeholder={`********`}
+                            id={`summaryField`}
+                            ref={refSummary}
+                            className={`md:ml-2 p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 flex-grow dark:bg-dark-800 outline-none`}
+                            onChange={(event) => {
+                                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                if (re.test(String(event.target.value).toLowerCase())) {
+                                    setValidSummary(true);
+                                } else {
+                                    setValidSummary(false);
+                                }
+                            }}
+                            maxLength={250}
+                        />
+                    </div>
+                    <div className={``} style={{ gridArea: "create" }}>
+                        <button
+                            className={`btn-diluv sm:w-auto`}
+                            disabled={!canSubmit()}
+                            onClick={() => {
+                                const headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
+                                    "Accept": "application/json",
+                                    "content-type": "multipart/form-data"
+                                };
+                                const data = {
+                                    name: refName.current?.value ?? "",
+                                    summary: refSummary.current?.value ?? "",
+                                    description: refDescription.current?.value ?? "",
+                                    tags: [] as string[]
+                                };
+                                if (refTags.current?.state.value) {
+                                    (refTags.current.state.value as []).map((value: SelectData, index) => {
+                                        data.tags[index] = value.value;
+                                    });
+                                }
+
+                                const formData = new FormData();
+                                formData.set("logo", logoFile ?? "");
+                                formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
+
+                            //     postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session: session })
+                            //         .then((value) => {
+                            //             router.push(
+                            //                 `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`,
+                            //                 `/games/${GameSlug}/${ProjectType}/${value.data.slug}`
+                            //             );
+                            //         })
+                            //         .catch((reason: AxiosError) => {
+                            //             console.log(reason.response?.data);
+                            //         });
+                            }}
+                        >
+                            Update Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    );
+}
+
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const session = await getSession(context);
+    const data = await getAuthed(`${API_URL}/v1/users/self`, { session: session });
+    return {
+        props: { user: data.data, session: session ?? null } // will be passed to the page component as props
+    };
+};

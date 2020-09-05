@@ -120,6 +120,11 @@ export interface User {
     createdAt: number;
 }
 
+export interface AuthorizedUser extends User{
+    email: string;
+    mfa: boolean;
+}
+
 export interface Contributors extends User {
     role: string;
 }

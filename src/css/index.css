@@ -209,6 +209,25 @@
     grid-template-rows: 16rem 1fr 1fr 1fr minmax(28rem, auto) 2rem;
   }
 
+  /* Settings */
+  .createSettingsFormLarge {
+    grid-template-areas: "image name" "image space" "image email" "image space2" "image newPassword" "image space3" "image currentPassword" ". ." "create .";
+    grid-template-columns: 16rem auto;
+    grid-template-rows: 2rem 0.5rem 2rem 0.5rem 2rem 0.5rem 2rem 2rem 0.5rem 2rem;
+  }
+
+  .createSettingsFormMedium {
+    grid-template-areas: "image name" "image space" "image email" "image newPassword" "image currentPassword" "create .";
+    grid-template-columns: 16rem auto;
+    grid-template-rows: 3.5rem 0.5rem 3.5rem 3.5rem 5.5rem 5.5rem 2rem;
+  }
+
+  .createSettingsFormSmall {
+    grid-template-areas: "image" "name" "email" "newPassword" "currentPassword" "create";
+    grid-template-columns: 1fr;
+    grid-template-rows: 16rem 1fr 1fr 1fr 1fr 2rem;
+  }
+
   .profilePageLarge {
     grid-template-areas: "image summary";
     grid-template-columns: 16rem 1fr;
