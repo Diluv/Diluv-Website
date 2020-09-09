@@ -2,6 +2,7 @@ import "../css/index.css";
 import "../css/markdown.css";
 import "../css/admonition.css";
 import "../css/reactselect.css";
+import "../css/alerts.css";
 
 import "simplebar/dist/simplebar.min.css";
 import React from "react";
