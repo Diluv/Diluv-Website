@@ -53,7 +53,9 @@ export interface ProjectFile {
     projectSlug: string;
     uploaderUserId: number;
     uploaderUsername: string;
+    uploaderDisplayName: string;
     downloadURL: string;
+    downloads: number;
 }
 
 export interface Project {
@@ -169,15 +171,15 @@ export interface SessionUser {
 
 declare global {
     interface Window {
-        ga: {}
+        ga: {};
         adsbygoogle: {}[];
     }
 }
 
 export interface GoogleAdProps {
-    client?: string
-    slot: string
-    format?: string
-    responsive?: boolean
-    className?: string,
+    client?: string;
+    slot: string;
+    format?: string;
+    responsive?: boolean;
+    className?: string;
 }

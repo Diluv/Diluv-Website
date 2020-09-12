@@ -11,7 +11,7 @@ import { getSession } from "next-auth/client";
 import GridArea from "../../../../../components/misc/GridArea";
 import Ads from "../../../../../components/ads/Ads";
 
-export default function Members({ project }: { project: Project }  ): JSX.Element {
+export default function Members({ project }: { project: Project }): JSX.Element {
     return (
         <Layout
             title={project.name}
@@ -38,7 +38,7 @@ export default function Members({ project }: { project: Project }  ): JSX.Elemen
                                             </Link>
                                             <GridArea name={`name`}>
                                                 <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
-                                                    <a className={` hover:text-diluv-600 dark-hover:text-diluv-500`}>{value.displayName}</a>
+                                                    <a className={`hover:text-diluv-600 dark-hover:text-diluv-500`}>{value.displayName}</a>
                                                 </Link>
                                             </GridArea>
                                             <GridArea name={`role`}>
