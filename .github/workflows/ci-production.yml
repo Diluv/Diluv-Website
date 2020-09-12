@@ -18,9 +18,6 @@ jobs:
       - name: Check typescript files
         run: npm run type-check
 
-      - name: Production npm
-        run: npm run build
-
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
@@ -29,3 +26,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: "latest"
           tag_semver: true
+          dockerfile: Dockerfile.multistage
