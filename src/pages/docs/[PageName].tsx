@@ -8,22 +8,18 @@ import { readAsString } from "../../utils/files";
 import { getSession } from "next-auth/client";
 import { SITE_URL } from "../../utils/api";
 
-export default function Feedback({
-    title,
-    pageContents,
-    PageName
-}: HasMarkdown & { PageName: string }): JSX.Element {
+export default function Feedback({ title, pageContents, PageName }: HasMarkdown & { PageName: string }): JSX.Element {
     return (
         <Layout
             title={title}
             canonical={`${SITE_URL}/${PageName}`}
             description={`${title} | Diluv`}
             image={`${SITE_URL}/static/diluv.png`}
-            url={`${SITE_URL}/${PageName}`}
+            url={`/${PageName}`}
         >
             <div className={`container mx-auto my-4`}>
                 <div className={`w-11/12 mx-auto`}>
-                    <Markdown markdown={pageContents}/>
+                    <Markdown markdown={pageContents} />
                 </div>
             </div>
         </Layout>
