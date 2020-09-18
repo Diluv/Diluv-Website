@@ -50,37 +50,6 @@ export default function File({ project, file }: { project: Project; file: Projec
                                         <FormattedDistanceTime start={file.createdAt} />
                                     </div>
                                     <div className={`my-2 mx-4`}>
-                                        <h3 className={`font-semibold`}>Uploaded by</h3>
-                                        <Link href={`/author/[Name]`} as={`/author/${file.uploaderUsername}`}>
-                                            <a>
-                                                <div className={`flex`}>
-                                                    <img className={`w-6 h-6 mr-1`} src={"https://images.placeholders.dev/?width=400&height=400"} />
-                                                    <p>{file.uploaderDisplayName}</p>
-                                                </div>
-                                            </a>
-                                        </Link>
-                                    </div>
-                                    <div className={`my-2 mx-4 my-auto`}>
-                                        <button className={`btn btn-diluv`}>Download</button>
-                                    </div>
-                                </div>
-                                <div className={``}>
-                                    <div className={`my-2 mx-4`}>
-                                        <h2 className={`font-semibold`}>Game Versions</h2>
-                                        <div className={`flex flex-wrap`}>
-                                            {file.gameVersions.map((gv) => {
-                                                return (
-                                                    <p key={gv.version} className={`mr-1`}>
-                                                        {gv.version}
-                                                    </p>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className={``}>
-                                    <div className={`my-2 mx-4 `}>
                                         <h2 className={`font-semibold`}>SHA512</h2>
                                         <div className={`flex flex-wrap`}>
                                             <Tippy
@@ -106,14 +75,38 @@ export default function File({ project, file }: { project: Project; file: Projec
                                             </Tippy>
                                         </div>
                                     </div>
+                                    <div className={`my-2 mx-4`}>
+                                        <h3 className={`font-semibold`}>Uploaded by</h3>
+                                        <Link href={`/author/[Name]`} as={`/author/${file.uploaderUsername}`}>
+                                            <a>
+                                                <div className={`flex`}>
+                                                    <img className={`w-6 h-6 mr-1`} src={"https://images.placeholders.dev/?width=400&height=400"} />
+                                                    <p>{file.uploaderDisplayName}</p>
+                                                </div>
+                                            </a>
+                                        </Link>
+                                    </div>
+                                    <div className={`my-2 mx-4 my-auto`}>
+                                        <button className={`btn btn-diluv`}>Download</button>
+                                    </div>
+                                </div>
+                                <div className={`my-2 mx-4`}>
+                                    <h2 className={`font-semibold`}>Game Versions</h2>
+                                    <div className={`flex flex-wrap`}>
+                                        {file.gameVersions.map((gv) => {
+                                            return (
+                                                <p key={gv.version} className={`mr-1`}>
+                                                    {gv.version}
+                                                </p>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
 
-                                <div className={``}>
-                                    <div className={`my-2 mx-4`}>
-                                        <h2 className={`font-semibold`}>Changelog</h2>
-                                        <div className={`mt-2`}>
-                                            <Markdown markdown={file.changelog} />
-                                        </div>
+                                <div className={`my-2 mx-4`}>
+                                    <h2 className={`font-semibold`}>Changelog</h2>
+                                    <div className={`mt-2`}>
+                                        <Markdown markdown={file.changelog} />
                                     </div>
                                 </div>
                             </SimpleBar>
