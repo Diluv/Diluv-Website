@@ -86,14 +86,6 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     ))}
                 </GridArea>
 
-                <GridArea name={`download`}>
-                    <div className={`block py-2`}>
-                        <div className={`btn-diluv my-auto mx-auto inline cursor-pointer select-none`}>
-                            <Download className={`inline mr-2 text-white fill-current`}/>
-                            <span>Download latest file</span>
-                        </div>
-                    </div>
-                </GridArea>
             </div>
             <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info mt-4`}>
                 {isDescription() ? (
