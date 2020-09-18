@@ -12,6 +12,10 @@ import { API_URL } from "../../../../../../utils/api";
 import { getAuthed } from "../../../../../../utils/request";
 // @ts-ignore
 import { getSession } from "next-auth/client";
+import Markdown from "../../../../../../components/Markdown";
+import Tippy from "@tippyjs/react";
+import { followCursor } from "tippy.js";
+import ChartBar from "../../../../../../components/icons/ChartBar";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
     return (
@@ -28,7 +32,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                     <div id={"pageContent"}>
                         <div className={`pb-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>
-                                <div className={`flex flex-col sm:flex-row`}>
+                                <div className={`flex flex-col sm:flex-row justify-between`}>
                                     <div className={`my-2 mx-4`}>
                                         <h3 className={`font-semibold`}>File Name</h3>
                                         <p className={``}>{file.name}</p>
@@ -71,6 +75,44 @@ export default function File({ project, file }: { project: Project; file: Projec
                                                     </p>
                                                 );
                                             })}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={``}>
+                                    <div className={`my-2 mx-4 `}>
+                                        <h2 className={`font-semibold`}>SHA512</h2>
+                                        <div className={`flex flex-wrap`}>
+                                            <Tippy
+                                                content={
+                                                    <div
+                                                        className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center flex flex-wrap break-all`}
+                                                    >
+                                                        <p className={``}>{file.sha512}</p>
+                                                    </div>
+                                                }
+                                                followCursor={true}
+                                                plugins={[followCursor]}
+                                                duration={0}
+                                                hideOnClick={false}
+                                            >
+                                                <div>
+                                                    <a href={file.downloadURL + ".asc"}>
+                                                        <p className={`truncate w-64 hover:text-diluv-600 dark-hover:text-diluv-500`}>
+                                                            {file.sha512}
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                            </Tippy>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={``}>
+                                    <div className={`my-2 mx-4`}>
+                                        <h2 className={`font-semibold`}>Changelog</h2>
+                                        <div className={`mt-2`}>
+                                            <Markdown markdown={file.changelog} />
                                         </div>
                                     </div>
                                 </div>
