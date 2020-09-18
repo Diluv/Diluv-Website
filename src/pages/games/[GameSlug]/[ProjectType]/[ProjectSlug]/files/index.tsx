@@ -65,7 +65,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                         <span className={`my-auto`}>
                                                             {value.gameVersions.length ? value.gameVersions[0].version : "NA"}
                                                         </span>
-                                                        {value.gameVersions.length >= 1 ? (
+                                                        {value.gameVersions.length > 1 ? (
                                                             <Tippy
                                                                 content={
                                                                     <div
