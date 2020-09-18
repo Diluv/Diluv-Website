@@ -49,7 +49,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                 </GridArea>
                 <GridArea name={`projectInfo`}>
 
-                    <div className={`leading-tight`}>
+                    <div className={`leading-tight mt-2 sm:mt-0`}>
                         <h4 className={`font-semibold`}>{project.name}</h4>
 
                         <div className={`text-gray-600 dark:text-dark-400`}>
