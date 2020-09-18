@@ -77,7 +77,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                         <h3 className={`font-semibold`}>Uploaded by</h3>
                                         <Link href={`/author/[Name]`} as={`/author/${file.uploaderUsername}`}>
                                             <a>
-                                                <div className={`flex`}>
+                                                <div className={`inline-flex`}>
                                                     <img className={`w-6 h-6 mr-1`} src={project.contributors.filter(value => value.userId = file.uploaderUserId).map(value => value.avatarURL)[0]} />
                                                     <p>{file.uploaderDisplayName}</p>
                                                 </div>
