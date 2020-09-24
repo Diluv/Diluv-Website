@@ -51,7 +51,7 @@ export default function AuthorProjects({
                                 duration={0}
                                 hideOnClick={false}
                             >
-                                <div>
+                                <div className={`w-auto inline-block`}>
                                     <FormattedDistanceTime start={data.user.createdAt} prefix={`Joined `}/>
                                 </div>
                             </Tippy>
