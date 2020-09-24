@@ -51,7 +51,9 @@ export default function AuthorProjects({
                                 duration={0}
                                 hideOnClick={false}
                             >
-                                <FormattedDistanceTime start={data.user.createdAt} prefix={`Joined `}/>
+                                <div>
+                                    <FormattedDistanceTime start={data.user.createdAt} prefix={`Joined `}/>
+                                </div>
                             </Tippy>
                         </GridArea>
                     </div>
