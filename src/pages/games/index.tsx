@@ -57,13 +57,7 @@ export default function GameIndex({
     }
 
     return (
-        <Layout
-            title="Games"
-            canonical={`${SITE_URL}/games`}
-            description={`Games on Diluv`}
-            image={`${SITE_URL}/static/diluv.png`}
-            url={`${SITE_URL}/games`}
-        >
+        <Layout title="Games" canonical={`${SITE_URL}/games`} description={`Games on Diluv`} image={`${SITE_URL}/static/diluv.png`} url={`/games`}>
             <>
                 <div id={"header"} className={`text-center my-4 w-full lg:w-5/6 mx-auto`}>
                     <h1 className={`text-3xl`}>Games</h1>

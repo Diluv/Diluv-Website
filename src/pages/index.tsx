@@ -9,14 +9,14 @@ import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 import { getSession } from "next-auth/client";
 import Ads from "../components/ads/Ads";
 
-export default function IndexPage({  featured }: { featured: Featured }  ): JSX.Element {
+export default function IndexPage({ featured }: { featured: Featured }): JSX.Element {
     return (
         <Layout
             title="Diluv"
             canonical={SITE_URL}
             description={`Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content creators of all gaming communities.`}
             image={`${SITE_URL}/static/diluv.png`}
-            url={SITE_URL}
+            url={"/"}
         >
             <>
                 <section id={"intro"} className={`w-5/6 mx-auto text-center my-4`}>
@@ -64,7 +64,7 @@ export default function IndexPage({  featured }: { featured: Featured }  ): JSX.
                     </h4>
                 </section>
                 {/*Temp*/}
-                <Ads/>
+                <Ads />
             </>
         </Layout>
     );

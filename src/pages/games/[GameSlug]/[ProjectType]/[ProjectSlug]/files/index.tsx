@@ -55,7 +55,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                             href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files/[FileId]`}
                                                             as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.id}`}
                                                         >
-                                                            <a className={`cursor-pointer`}>
+                                                            <a className={`cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-500`}>
                                                                 <pre>{value.name}</pre>
                                                             </a>
                                                         </Link>
@@ -65,7 +65,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                         <span className={`my-auto`}>
                                                             {value.gameVersions.length ? value.gameVersions[0].version : "NA"}
                                                         </span>
-                                                        {value.gameVersions.length >= 1 ? (
+                                                        {value.gameVersions.length > 1 ? (
                                                             <Tippy
                                                                 content={
                                                                     <div

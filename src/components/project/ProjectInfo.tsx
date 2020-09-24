@@ -49,7 +49,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                 </GridArea>
                 <GridArea name={`projectInfo`}>
 
-                    <div className={`leading-tight`}>
+                    <div className={`leading-tight mt-2 sm:mt-0`}>
                         <h4 className={`font-semibold`}>{project.name}</h4>
 
                         <div className={`text-gray-600 dark:text-dark-400`}>
@@ -86,14 +86,6 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     ))}
                 </GridArea>
 
-                <GridArea name={`download`}>
-                    <div className={`block py-2`}>
-                        <div className={`btn-diluv my-auto mx-auto inline cursor-pointer select-none`}>
-                            <Download className={`inline mr-2 text-white fill-current`}/>
-                            <span>Download latest file</span>
-                        </div>
-                    </div>
-                </GridArea>
             </div>
             <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info mt-4`}>
                 {isDescription() ? (
