@@ -12,7 +12,7 @@ export default function Feedback({ title, pageContents, PageName }: HasMarkdown 
     return (
         <Layout
             title={title}
-            canonical={`${SITE_URL}/${PageName}`}
+            canonical={`/${PageName}`}
             description={`${title} | Diluv`}
             image={`${SITE_URL}/static/diluv.png`}
             url={`/${PageName}`}
