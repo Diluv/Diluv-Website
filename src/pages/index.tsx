@@ -1,19 +1,18 @@
 import React from "react";
 import Layout from "../components/Layout";
-import { getAuthed } from "../utils/request";
+import { get } from "../utils/request";
 import { API_URL, SITE_URL } from "../utils/api";
 import { Featured } from "../interfaces";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { GetStaticProps } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 // @ts-ignore
-import { getSession } from "next-auth/client";
 import Ads from "../components/ads/Ads";
 
 export default function IndexPage({ featured }: { featured: Featured }): JSX.Element {
     return (
         <Layout
             title="Diluv"
-            canonical={SITE_URL}
+            canonical={"/"}
             description={`Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content creators of all gaming communities.`}
             image={`${SITE_URL}/static/diluv.png`}
             url={"/"}
@@ -70,10 +69,10 @@ export default function IndexPage({ featured }: { featured: Featured }): JSX.Ele
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const session = await getSession(context);
-    const featured = await getAuthed(`${API_URL}/v1/site`, { session: session });
+export const getStaticProps: GetStaticProps = async () => {
+    const featured = await get(`${API_URL}/v1/site`);
     return {
-        props: { featured: featured.data, session: session ?? null } // will be passed to the page component as props
+        props: { featured: featured.data },
+        revalidate: 60
     };
 };
