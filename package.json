@@ -39,7 +39,7 @@
     "remark-slug": "^6.0.0",
     "remark-spoiler": "^1.0.6",
     "remark-underline": "1.0.5",
-    "simplebar": "^6.0.0-beta.2",
+    "simplebar": "^6.0.0-beta.5",
     "simplebar-react": "^2.2.1",
     "use-dark-mode": "^2.3.1"
   },
