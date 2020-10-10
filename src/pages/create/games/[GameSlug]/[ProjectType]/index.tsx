@@ -237,7 +237,7 @@ export default function Index({
                                     } p-1 dark:bg-dark-800`}
                                     onChange={(e) => {
                                         setContent(e.target.value);
-                                        if (e.target.value.length >= 50 && e.target.value.length <= 1000) {
+                                        if (e.target.value.length >= 50 && e.target.value.length <= 10000) {
                                             setValidDescription(true);
                                         } else {
                                             setValidDescription(false);
@@ -245,7 +245,7 @@ export default function Index({
                                     }}
                                     defaultValue={content}
                                     ref={refDescription}
-                                    maxLength={1000}
+                                    maxLength={10000}
                                 />
                             )}
 
