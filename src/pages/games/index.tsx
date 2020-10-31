@@ -14,6 +14,7 @@ import { DebounceInput } from "react-debounce-input";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import GridArea from "../../components/misc/GridArea";
+import Image from "next/image";
 
 function buildURL(search: string, sort: string) {
     const params = new URLSearchParams();
@@ -123,13 +124,14 @@ export default function GameIndex({
                                 <div key={game.slug}>
                                     <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${game.slug}/${game.defaultProjectType}`}>
                                         <a>
-                                            <picture>
-                                                {game.logoURL.sources.map((value) => (
-                                                    <source key={value.src + "-" + value.type} srcSet={value.src} type={value.type} />
-                                                ))}
-                                                <source srcSet={game.logoURL.fallback.src} type={game.logoURL.fallback.type} />
-                                                <img src={game.logoURL.fallback.src} className={`w-full`} alt={game.name} />
-                                            </picture>
+                                            {/*<picture>*/}
+                                            {/*    {game.logoURL.sources.map((value) => (*/}
+                                            {/*        <source key={value.src + "-" + value.type} srcSet={value.src} type={value.type} />*/}
+                                            {/*    ))}*/}
+                                            {/*    <source srcSet={game.logoURL.fallback.src} type={game.logoURL.fallback.type} />*/}
+                                            {/*    <img src={game.logoURL.fallback.src} className={`w-full`} alt={game.name} />*/}
+                                            {/*</picture>*/}
+                                            <Image src={game.logoURL.sources[0].src} className={`w-full`} alt={game.name} width={360} height={180} quality={100} />
                                         </a>
                                     </Link>
                                 </div>
