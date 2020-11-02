@@ -16,10 +16,9 @@ export default function TeamMember({ name, avatar, twitter, github, description 
                 <source type="image/png" src={avatar + ".png"} />
                 <img src={avatar + ".png"}  className={`w-full`} />
             </picture>
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center mt-2">
                 <p className="text-lg font-bold">{name}</p>
-                {/*<p className="mb-2 text-xs text-gray-800">role?</p>*/}
-                <p className="text-sm tracking-wide text-gray-800">
+                <p className="text-sm tracking-wide text-gray-800 dark:text-dark-200">
                     {description}
                 </p>
             </div>
