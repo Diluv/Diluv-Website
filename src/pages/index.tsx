@@ -7,6 +7,7 @@ import { GetStaticProps } from "next";
 import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 // @ts-ignore
 import Ads from "../components/ads/Ads";
+import GameCard from "../components/misc/GameCard";
 
 export default function IndexPage({ featured }: { featured: Featured }): JSX.Element {
     return (
@@ -33,7 +34,7 @@ export default function IndexPage({ featured }: { featured: Featured }): JSX.Ele
                                 <h3 className={`border-b-2 dark:border-dark-700 pb-1 font-medium text-xl`}>Popular Games</h3>
                                 <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
                                     {featured.featuredGames.map((game) => (
-                                        <FeaturedGameCard game={game} key={game.slug} />
+                                        <GameCard game={game} key={game.slug}/>
                                     ))}
                                 </div>
                             </div>
@@ -44,7 +45,7 @@ export default function IndexPage({ featured }: { featured: Featured }): JSX.Ele
                                 <h3 className={`border-b-2 dark:border-dark-700 pb-1 font-medium text-xl`}>New Games</h3>
                                 <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
                                     {featured.featuredGames.map((game) => (
-                                        <FeaturedGameCard game={game} key={game.slug} />
+                                        <GameCard game={game} key={game.slug}/>
                                     ))}
                                 </div>
                             </div>
