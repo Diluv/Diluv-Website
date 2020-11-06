@@ -11,7 +11,7 @@ export default function GameCard(props: { game: Game }) {
                 <div className={`flex flex-col`}>
                     <Image src={props.game.logoURL.sources[0].src} className={`w-full`} alt={props.game.name} width={400} height={180} quality={100} />
                     <div className={`h-16 hover:h-32 hover:break-normal`}>
-                        <p className={`text-center bg-dark-800 px-1 py-2 text-lg`}>
+                        <p className={`text-center bg-gray-300 dark:bg-dark-800 px-1 py-2 text-lg`}>
                             {props.game.name}
                         </p>
                     </div>
