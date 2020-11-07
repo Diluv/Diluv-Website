@@ -24,8 +24,8 @@ export default function ProjectIndex({ project }: { project: Project }): JSX.Ele
     if (!session) {
         return <> </>;
     }
-    const [content, setContent] = useState("");
-    const [logo, setLogo] = useState("");
+    const [content, setContent] = useState(project.description);
+    const [logo, setLogo] = useState(project.logo);
     const [logoFile, setLogoFile] = useState<File>();
     const [logoErrors, setLogoErrors] = useState<string[]>([]);
 
@@ -52,7 +52,7 @@ export default function ProjectIndex({ project }: { project: Project }): JSX.Ele
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
         >
             <div className={`w-5/6 lg:w-4/6 mx-auto mt-4 mb-8`}>
-                <ProjectInfo project={project} pageType={"settings"}/>
+                <ProjectInfo project={project} pageType={"settings"} />
                 {logoErrors.length > 0 ? (
                     <div className={`my-4`}>
                         {" "}
@@ -69,7 +69,7 @@ export default function ProjectIndex({ project }: { project: Project }): JSX.Ele
                 ) : (
                     <> </>
                 )}
-                <div className={`grid gap-y-2 sm:gap-y-0 createFormSmall sm:createFormMedium md:createFormLarge`}>
+                <div className={`grid gap-y-2 sm:gap-y-0 createFormSmall sm:createFormMedium md:createFormLarge mt-4`}>
                     <div className={`w-64 h-64 mx-auto sm:mx-0`} style={{ gridArea: "image" }}>
                         <Dropzone
                             onDrop={(acceptedFiles) => {
@@ -104,7 +104,13 @@ export default function ProjectIndex({ project }: { project: Project }): JSX.Ele
                                 >
                                     <input {...getInputProps()} />
                                     {logo.length ? (
-                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"}/>
+                                        <div className={`bg-white`}>
+                                            <div style={{ backgroundImage: `url(${logo})` }} className={`w-64 h-64 mx-auto sm:mx-0 bg-contain bg-center `}>
+                                                <div className={`grid w-full h-full text-center hover:bg-black hover:bg-opacity-50 opacity-0 hover:opacity-100`}>
+                                                    <p className={`my-auto text-5xl text-white`}>Edit</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     ) : (
                                         <p className={`text-center select-none`}>Upload logo</p>
                                     )}
@@ -130,6 +136,7 @@ export default function ProjectIndex({ project }: { project: Project }): JSX.Ele
                                 }
                             }}
                             maxLength={50}
+                            defaultValue={project.name}
                         />
                     </div>
                     <div className={`flex flex-col md:flex-row sm:ml-4`} style={{ gridArea: "summary" }}>
@@ -150,6 +157,7 @@ export default function ProjectIndex({ project }: { project: Project }): JSX.Ele
                                 }
                             }}
                             maxLength={250}
+                            defaultValue={project.summary}
                         />
                     </div>
                     <div className={`flex flex-col md:flex-row sm:ml-4`} style={{ gridArea: "tags" }}>
@@ -159,8 +167,9 @@ export default function ProjectIndex({ project }: { project: Project }): JSX.Ele
                         <Select
                             isSearchable={true}
                             inputId="tags"
-                            // options={tags.map(value => {
-                            //     return { value: value.slug, label: value.name };
+                            options={project.tags.map(value => {
+                                return { value: value.slug, label: value.name };
+                            })}
                             isMulti={true}
                             ref={refTags}
                             onChange={(e: any) => {
@@ -250,36 +259,41 @@ export default function ProjectIndex({ project }: { project: Project }): JSX.Ele
                                     } bg-white dark:bg-dark-900`}
                                 >
                                     <SimpleBar className={`h-full`}>
-                                        <Markdown markdown={content}/>
+                                        <Markdown markdown={content} />
                                     </SimpleBar>
                                 </div>
                             )}
                         </div>
                     </div>
-                    <div className={``} style={{ gridArea: "create" }}>
-                        <button
-                            className={`btn-diluv sm:w-auto`}
-                            disabled={!canSubmit()}
-                            onClick={() => {
-                                const formData = new FormData();
-                                formData.set("name", refName.current?.value ?? "");
-                                formData.set("summary", refSummary.current?.value ?? "");
-                                formData.set("description", refDescription.current?.value ?? "");
-                                formData.set("logo", logoFile ?? "");
-                                if (refTags.current?.state.value) {
-                                    (refTags.current.state.value as []).map((value: SelectData, index) => {
-                                        formData.set(`tag${index + 1}`, value.value);
-                                    });
-                                }
-                                // postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session: session }).then(value => {
-                                //     router.push(`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`, `/games/${GameSlug}/${ProjectType}/${value.data.slug}`);
-                                // }).catch((reason: AxiosError) => {
-                                //     console.log(reason.response?.data);
-                                // });
-                            }}
-                        >
-                            Create project
-                        </button>
+                    <div className={`mt-2`} style={{ gridArea: "create" }}>
+                        <div className={`flex gap-x-2`}>
+                            <button
+                                className={`btn-diluv sm:w-auto`}
+                                disabled={!canSubmit()}
+                                onClick={() => {
+                                    const formData = new FormData();
+                                    formData.set("name", refName.current?.value ?? "");
+                                    formData.set("summary", refSummary.current?.value ?? "");
+                                    formData.set("description", refDescription.current?.value ?? "");
+                                    formData.set("logo", logoFile ?? "");
+                                    if (refTags.current?.state.value) {
+                                        (refTags.current.state.value as []).map((value: SelectData, index) => {
+                                            formData.set(`tag${index + 1}`, value.value);
+                                        });
+                                    }
+                                    // postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session: session }).then(value => {
+                                    //     router.push(`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`, `/games/${GameSlug}/${ProjectType}/${value.data.slug}`);
+                                    // }).catch((reason: AxiosError) => {
+                                    //     console.log(reason.response?.data);
+                                    // });
+                                }}
+                            >
+                                Save
+                            </button>
+                            <button className={`btn-cancle sm:w-auto`}>
+                                Cancle
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -24,6 +24,18 @@
   @apply bg-diluv-500 opacity-50 cursor-default;
 }
 
+.btn-cancle {
+  @apply block w-full bg-red-500 text-white p-2 select-none;
+}
+
+.btn-cancle:hover {
+  @apply bg-red-600;
+}
+
+.btn-cancle:disabled {
+  @apply bg-red-500 opacity-50 cursor-default;
+}
+
 .theme-dark {
   background-color: #2d3748;
   color: #f7fafc;
