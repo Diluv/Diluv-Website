@@ -32,13 +32,13 @@ export default function Files({ project, files }: { project: Project; files: Pro
                             <SimpleBar autoHide={false} className={`py-2`}>
                                 <table className={`table-auto w-full border dark:border-dark-700  cursor-default`}>
                                     <thead>
-                                        <tr className={`border bg-gray-100 dark:bg-dark-800 dark:border-dark-700`}>
-                                            <th className={`border dark:border-dark-700 px-2 py-2`}>Name</th>
-                                            <th className={`border dark:border-dark-700 px-2 py-2`}>Game Versions</th>
-                                            <th className={`border dark:border-dark-700 px-2 py-2`}>Size</th>
-                                            <th className={`border dark:border-dark-700 px-2 py-2`}>Status</th>
-                                            <th className={`border dark:border-dark-700 px-2 py-2`}>Date</th>
-                                            <th className={`border dark:border-dark-700 px-2 py-2`}>
+                                        <tr className={`border bg-gray-100 dark:bg-dark-700 dark:border-dark-600`}>
+                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Name</th>
+                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Game Versions</th>
+                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Size</th>
+                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Status</th>
+                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Date</th>
+                                            <th className={`border dark:border-dark-600 px-2 py-2`}>
                                                 <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
                                             </th>
                                         </tr>
@@ -47,10 +47,10 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                         {files.map((value) => {
                                             return (
                                                 <tr
-                                                    className={`odd:bg-white even:bg-diluv-100 dark-odd:bg-black dark-even:bg-dark-850`}
+                                                    className={`odd:bg-white even:bg-diluv-100 dark-odd:bg-dark-850 dark-even:bg-dark-800`}
                                                     key={value.id}
                                                 >
-                                                    <td className={`border dark:border-dark-700 px-2 py-2`}>
+                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>
                                                         <Link
                                                             href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files/[FileId]`}
                                                             as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.id}`}
@@ -61,7 +61,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                         </Link>
                                                     </td>
 
-                                                    <td className={`border dark:border-dark-700 px-2 py-2`}>
+                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>
                                                         <span className={`my-auto`}>
                                                             {value.gameVersions.length ? value.gameVersions[0].version : "NA"}
                                                         </span>
@@ -84,7 +84,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                             >
                                                                 <div className={`inline-flex float-right`}>
                                                                     <span
-                                                                        className={`px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-700 cursor-default`}
+                                                                        className={`px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-600 cursor-default`}
                                                                     >{`+ ${value.gameVersions.length} more`}</span>
                                                                 </div>
                                                             </Tippy>
@@ -92,14 +92,14 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                             <></>
                                                         )}
                                                     </td>
-                                                    <td className={`border dark:border-dark-700 px-2 py-2`}>
+                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>
                                                         <pre>{filesize(value.size)}</pre>
                                                     </td>
-                                                    <td className={`border dark:border-dark-700 px-2 py-2`}>{value.releaseType}</td>
-                                                    <td className={`border dark:border-dark-700 px-2 py-2`}>
+                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>{value.releaseType}</td>
+                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>
                                                         <FormattedDistanceTime start={value.createdAt} />
                                                     </td>
-                                                    <td className={`border dark:border-dark-700`}>
+                                                    <td className={`border dark:border-dark-600`}>
                                                         <a
                                                             href={value.downloadURL}
                                                             className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
