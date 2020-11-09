@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../../utils/request";
@@ -11,9 +11,10 @@ import Tippy from "@tippyjs/react";
 import SimpleBar from "simplebar-react";
 import Download from "../../../../../../components/icons/Download";
 import Link from "next/link";
-// @ts-ignore
 import { getSession } from "next-auth/client";
 import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
+import { Table, TableBody, TableData, TableHead, TableHeader, TableRow } from "../../../../../../components/ui/Table";
+import DownloadLink from "../../../../../../components/ui/DownloadLink";
 
 export default function Files({ project, files }: { project: Project; files: ProjectFile[] }): JSX.Element {
     return (
@@ -30,27 +31,23 @@ export default function Files({ project, files }: { project: Project; files: Pro
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>
-                                <table className={`table-auto w-full border dark:border-dark-700  cursor-default`}>
-                                    <thead>
-                                        <tr className={`border bg-gray-100 dark:bg-dark-700 dark:border-dark-600`}>
-                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Name</th>
-                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Game Versions</th>
-                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Size</th>
-                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Status</th>
-                                            <th className={`border dark:border-dark-600 px-2 py-2`}>Date</th>
-                                            <th className={`border dark:border-dark-600 px-2 py-2`}>
-                                                <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <Table>
+                                    <TableHead>
+                                        <TableHeader children={`Name`} />
+                                        <TableHeader children={`Game Versions`} />
+                                        <TableHeader children={`Size`} />
+                                        <TableHeader children={`Status`} />
+                                        <TableHeader children={`Date`} />
+                                        <TableHeader>
+                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
+                                        </TableHeader>
+
+                                    </TableHead>
+                                    <TableBody>
                                         {files.map((value) => {
                                             return (
-                                                <tr
-                                                    className={`odd:bg-white even:bg-diluv-100 dark-odd:bg-dark-850 dark-even:bg-dark-800`}
-                                                    key={value.id}
-                                                >
-                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>
+                                                <TableRow key={value.id}>
+                                                    <TableData>
                                                         <Link
                                                             href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files/[FileId]`}
                                                             as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.id}`}
@@ -59,9 +56,8 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                                 <pre>{value.name}</pre>
                                                             </a>
                                                         </Link>
-                                                    </td>
-
-                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>
+                                                    </TableData>
+                                                    <TableData>
                                                         <span className={`my-auto`}>
                                                             {value.gameVersions.length ? value.gameVersions[0].version : "NA"}
                                                         </span>
@@ -91,28 +87,26 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                         ) : (
                                                             <></>
                                                         )}
-                                                    </td>
-                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>
+                                                    </TableData>
+                                                    <TableData>
                                                         <pre>{filesize(value.size)}</pre>
-                                                    </td>
-                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>{value.releaseType}</td>
-                                                    <td className={`border dark:border-dark-600 px-2 py-2`}>
+                                                    </TableData>
+                                                    <TableData>
+                                                        {value.releaseType}
+                                                    </TableData>
+                                                    <TableData>
                                                         <FormattedDistanceTime start={value.createdAt} />
-                                                    </td>
-                                                    <td className={`border dark:border-dark-600`}>
-                                                        <a
-                                                            href={value.downloadURL}
-                                                            className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
-                                                            download={true}
-                                                        >
+                                                    </TableData>
+                                                    <TableData>
+                                                        <DownloadLink url={value.downloadURL}>
                                                             <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                        </DownloadLink>
+                                                    </TableData>
+                                                </TableRow>
                                             );
                                         })}
-                                    </tbody>
-                                </table>
+                                    </TableBody>
+                                </Table>
                             </SimpleBar>
                         </div>
                     </div>
@@ -121,6 +115,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
         </Layout>
     );
 }
+
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
     const { GameSlug, ProjectType, ProjectSlug } = context.query;

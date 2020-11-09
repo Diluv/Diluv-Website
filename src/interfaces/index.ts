@@ -2,10 +2,6 @@ export type Data<T> = {
     data: T;
 };
 
-export interface HasSession {
-    session?: Session;
-}
-
 export interface HasMarkdown {
     title: string;
     pageContents: string;
@@ -156,18 +152,18 @@ export interface AuthorPage {
     projectCount: number;
 }
 
-export interface Session {
-    user: SessionUser;
-    expires: string;
-    accessToken: string;
-}
-
-export interface SessionUser {
-    name: string;
-    email: string;
-    image: string;
-    id: string;
-}
+// export interface Session {
+//     user: SessionUser;
+//     expires: string;
+//     accessToken: string;
+// }
+//
+// export interface SessionUser {
+//     name: string;
+//     email: string;
+//     image: string;
+//     id: string;
+// }
 
 declare global {
     interface Window {

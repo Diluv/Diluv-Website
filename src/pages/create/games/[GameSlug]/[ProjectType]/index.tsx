@@ -26,6 +26,7 @@ export default function Index({
 
     ensureAuthed(session);
 
+
     if (!session) {
         return <> </>;
     }

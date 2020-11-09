@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
@@ -7,21 +7,34 @@ import { Project, SelectData } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import { reactSelectStyle } from "../../../../../utils/theme";
 import Markdown from "../../../../../components/Markdown";
-// @ts-ignore
-import { getSession, useSession } from "next-auth/client";
+import { getSession, signIn, useSession } from "next-auth/client";
 import { ensureAuthed } from "../../../../../utils/auth";
 import { StateManager } from "react-select/src/stateManager";
 import Alert from "../../../../../components/Alert";
 import Dropzone from "react-dropzone";
 import Select from "react-select";
 import SimpleBar from "simplebar-react";
+import { canEditProject } from "../../../../../utils/util";
+import { useRouter } from "next/router";
 
 export default function ProjectIndex({ project }: { project: Project }): JSX.Element {
     const [session, loading] = useSession();
+    const [canEdit, setCanEdit] = useState(false);
+    const router = useRouter();
 
     ensureAuthed(session);
 
-    if (!session) {
+    useEffect(() => {
+        if(canEditProject(project)){
+            setCanEdit(true);
+
+        }else{
+            router.push("/");
+        }
+
+    }, [project]);
+
+    if (!session || !canEdit) {
         return <> </>;
     }
     const [content, setContent] = useState(project.description);

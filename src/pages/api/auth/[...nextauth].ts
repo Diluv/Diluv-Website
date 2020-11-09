@@ -1,17 +1,19 @@
 // @ts-ignore
-import NextAuth from "next-auth";
+import NextAuth, { InitOptions, User } from "next-auth";
 // @ts-ignore
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next";
 import { IS4_URL } from "utils/api";
+import { GenericObject, SessionBase } from "next-auth/_utils";
 
-const options = {
+const options: InitOptions = {
     // Configure one or more authentication providers
     providers: [
         Providers.IdentityServer4({
-            id: "DILUV",
-            name: "Diluv",
+            id: "DILUV" as "identity-server4",
+            name: "Diluv" as "IdentityServer4",
             scope: "openid profile", // Allowed Scopes
+            // @ts-ignore
             params: {
                 grant_type: "authorization_code"
             },
@@ -23,7 +25,7 @@ const options = {
         })
     ],
     callbacks: {
-        session: async (session: any, user: any, sessionToken: any) => {
+        session: async (session: SessionBase | GenericObject, user: GenericObject) => {
             session["user"]["id"] = user.id;
             session["accessToken"] = user.accessToken;
             return Promise.resolve(session);
