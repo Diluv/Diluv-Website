@@ -26,10 +26,6 @@ export default function Index({
 
     ensureAuthed(session);
 
-
-    if (!session) {
-        return <> </>;
-    }
     const [content, setContent] = useState("");
     const [logo, setLogo] = useState("");
     const [logoFile, setLogoFile] = useState<File>();
@@ -48,6 +44,10 @@ export default function Index({
 
     function canSubmit(): boolean {
         return validName && validSummary && validDescription && !!logoFile && validTags;
+    }
+
+    if (!session) {
+        return <> </>;
     }
 
     return (
