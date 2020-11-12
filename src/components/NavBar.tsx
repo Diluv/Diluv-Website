@@ -20,7 +20,7 @@ function NavBar(): JSX.Element {
                     <div className={`w-full md:w-auto flex flex-row justify-between items-center`}>
                         <Link href={"/"}>
                             <a className="flex font-medium items-center text-white md:mb-0">
-                                <Drop className={`w-10 h-10`}/>
+                                <Drop className={`w-10 h-10`} />
                                 <span className="ml-3 text-xl">Diluv</span>
                             </a>
                         </Link>
@@ -30,11 +30,11 @@ function NavBar(): JSX.Element {
                         >
                             {showingMenu ? (
                                 <svg className={`fill-current w-5 h-5 block md:hidden`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+                                    <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
                                 </svg>
                             ) : (
                                 <svg className={`fill-current w-5 h-5 block md:hidden`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
                                 </svg>
                             )}
                         </button>
@@ -59,16 +59,20 @@ function NavBar(): JSX.Element {
                             <DropDown name={session ? session.user.name : "Account"} className={`hover:text-white`}>
                                 {!session && <DropDownAction action={() => signin("DILUV")}>Sign in</DropDownAction>}
                                 {session && (
+                                    // @ts-ignore
                                     <DropDownLinkInternal href={`/author/[Name]/`} as={`/author/${session.user.id}`}>
                                         Profile
                                     </DropDownLinkInternal>
                                 )}
                                 {session && <DropDownAction action={() => signout()}>Sign out</DropDownAction>}
-                                <DropDownSpacer/>
-                                <DropDownAction action={() => {
-                                    darkMode.toggle();
-                                }}>Toggle
-                                    Theme</DropDownAction>
+                                <DropDownSpacer />
+                                <DropDownAction
+                                    action={() => {
+                                        darkMode.toggle();
+                                    }}
+                                >
+                                    Toggle Theme
+                                </DropDownAction>
                             </DropDown>
                         </div>
                         <div className={`block md:hidden text-center`}>
@@ -83,6 +87,7 @@ function NavBar(): JSX.Element {
                                         </button>
                                     )}
                                     {session && (
+                                        // @ts-ignore
                                         <Link href={`/author/[Name]/`} as={`/author/${session.user.id}`}>
                                             <a>Profile</a>
                                         </Link>

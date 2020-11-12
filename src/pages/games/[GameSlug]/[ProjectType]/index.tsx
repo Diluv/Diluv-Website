@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { Project, ProjectType, SelectData, Session, Sort, Tag } from "../../../../interfaces";
+import { Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
 import { getAuthed } from "../../../../utils/request";
 
 import { API_URL, SITE_URL } from "../../../../utils/api";
@@ -17,6 +17,7 @@ import Pagination, { buildURL } from "../../../../components/misc/Pagination";
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import AuthorizedLink from "../../../../components/auth/AuthorizedLink";
+import { Session } from "next-auth";
 
 interface Props {
     search: string;
@@ -29,7 +30,7 @@ interface Props {
     page: number;
     version: string;
     currentTags: string[];
-    session: Session | undefined
+    session: Session | undefined | null;
 }
 
 export default function Projects({
@@ -44,7 +45,7 @@ export default function Projects({
     version,
     currentTags,
     session
-}: Props ): JSX.Element {
+}: Props): JSX.Element {
     const [selectedField, setSelectedField] = useState("");
     // Fix for < 3 search killing things
     const [displaySearch] = useState(search);
@@ -121,19 +122,19 @@ export default function Projects({
                                     }
                                 })}
                             </div>
-                            {
-                                session && (
-                                    <div className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}>
-                                        <AuthorizedLink
-                                            href={`/create/games/[GameSlug]/[ProjectType]/`}
-                                            as={`/create/games/${gameSlug}/${projectData.slug}/`}
-                                            className={`mx-auto text-center`}
-                                        >
-                                            Create Project
-                                        </AuthorizedLink>
-                                    </div>
-                                )
-                            }
+                            {session && (
+                                <div
+                                    className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}
+                                >
+                                    <AuthorizedLink
+                                        href={`/create/games/[GameSlug]/[ProjectType]/`}
+                                        as={`/create/games/${gameSlug}/${projectData.slug}/`}
+                                        className={`mx-auto text-center`}
+                                    >
+                                        Create Project
+                                    </AuthorizedLink>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -350,33 +351,35 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const session = await getSession(context);
     return await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`, {
         session: session
-    }).then(data => {
-        // @ts-ignore
-        page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
+    })
+        .then((data) => {
+            // @ts-ignore
+            page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
 
-        return {
-            props: {
-                search: search ?? ``,
-                gameSlug: GameSlug,
-                projectData: data.data.currentType,
-                types: data.data.types,
-                projects: data.data.projects,
-                sorts: data.data.sorts,
-                currentSort: sort.length ? sort : "popular",
-                page: page,
-                version: version.length ? version : "",
-                currentTags: tagArr.length ? tagArr : [],
-                session: session ?? null
-            }
-        };
-    }).catch(() => {
-        context.res?.writeHead(302, {
-            "Location": `/games/${GameSlug}/`,
-            "Content-Type": "text/html; charset=utf-8"
+            return {
+                props: {
+                    search: search ?? ``,
+                    gameSlug: GameSlug,
+                    projectData: data.data.currentType,
+                    types: data.data.types,
+                    projects: data.data.projects,
+                    sorts: data.data.sorts,
+                    currentSort: sort.length ? sort : "popular",
+                    page: page,
+                    version: version.length ? version : "",
+                    currentTags: tagArr.length ? tagArr : [],
+                    session: session ?? null
+                }
+            };
+        })
+        .catch(() => {
+            context.res?.writeHead(302, {
+                "Location": `/games/${GameSlug}/`,
+                "Content-Type": "text/html; charset=utf-8"
+            });
+            context.res?.end();
+            return {
+                props: {}
+            };
         });
-        context.res?.end();
-        return {
-            props: {}
-        };
-    });
 };
