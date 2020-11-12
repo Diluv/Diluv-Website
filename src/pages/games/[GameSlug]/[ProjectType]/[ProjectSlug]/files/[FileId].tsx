@@ -78,7 +78,14 @@ export default function File({ project, file }: { project: Project; file: Projec
                                         <Link href={`/author/[Name]`} as={`/author/${file.uploaderUsername}`}>
                                             <a>
                                                 <div className={`inline-flex`}>
-                                                    <img className={`w-6 h-6 mr-1`} src={project.contributors.filter(value => value.userId = file.uploaderUserId).map(value => value.avatarURL)[0]} />
+                                                    <img
+                                                        className={`w-6 h-6 mr-1`}
+                                                        src={
+                                                            project.contributors
+                                                                .filter((value) => (value.userId = file.uploaderUserId))
+                                                                .map((value) => value.avatarURL)[0]
+                                                        }
+                                                    />
                                                     <p>{file.uploaderDisplayName}</p>
                                                 </div>
                                             </a>
@@ -87,7 +94,6 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     <div className={`mt-4 sm:my-auto lg:row-start-1 lg:col-start-5`}>
                                         <button className={`w-full sm:w-auto btn btn-diluv `}>Download</button>
                                     </div>
-
                                 </div>
                                 <div className={`my-2 mx-2`}>
                                     <h2 className={`font-semibold`}>Game Versions</h2>
@@ -104,7 +110,7 @@ export default function File({ project, file }: { project: Project; file: Projec
 
                                 <div className={`my-2 mx-2`}>
                                     <h2 className={`font-semibold`}>Changelog</h2>
-                                    <div className={`mt-2`}>
+                                    <div className={`mt-2 border border-gray-400 dark:border-dark-600 bg-gray-300 dark:bg-dark-800`}>
                                         <Markdown markdown={file.changelog} />
                                     </div>
                                 </div>
