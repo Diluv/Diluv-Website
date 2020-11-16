@@ -16,6 +16,7 @@ import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
+    console.log(file);
     return (
         <Layout
             title={project.name}
@@ -76,7 +77,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     <div className={`my-2 sm:my-0`}>
                                         <h3 className={`font-semibold`}>Uploaded by</h3>
                                         <Link href={`/author/[Name]`} as={`/author/${file.uploaderUsername}`}>
-                                            <a>
+                                            <a className={`hover:text-diluv-500`}>
                                                 <div className={`inline-flex`}>
                                                     <img
                                                         className={`w-6 h-6 mr-1`}
