@@ -4,21 +4,16 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import Dropzone from "react-dropzone";
-import Select from "react-select";
 import { StateManager } from "react-select/src/stateManager";
-import SimpleBar from "simplebar-react";
 import { ensureAuthed } from "utils/auth";
 import Alert from "../../../../../../components/Alert";
-import Markdown from "../../../../../../components/Markdown";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
-import { Project, SelectData, Tag } from "../../../../../../interfaces";
+import { Project, SlugName } from "../../../../../../interfaces";
 import { API_URL } from "../../../../../../utils/api";
 import { getAuthed } from "../../../../../../utils/request";
-import { reactSelectStyle } from "../../../../../../utils/theme";
 import { canEditProject } from "../../../../../../utils/util";
 
-export default function Description({ project, tags }: { project: Project; tags: Tag[] }): JSX.Element {
+export default function Description({ project, tags }: { project: Project; tags: SlugName[] }): JSX.Element {
     const [session, loading] = useSession();
     const [canEdit, setCanEdit] = useState(false);
     const router = useRouter();

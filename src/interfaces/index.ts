@@ -13,24 +13,10 @@ export interface Version {
     release: number;
 }
 
-export interface GameData {
-    slug: string;
-    name: string;
-    url: string;
-    logoURL: string;
-    bannerURL: string;
-    versions: Version[];
-}
-
-export interface ProjectTypeBase {
-    name: string;
-    slug: string;
-}
-
-export interface ProjectType extends ProjectTypeBase {
+export interface ProjectType extends SlugName {
     gameSlug: string;
     maxFileSize: number;
-    tags: Tag[];
+    tags: SlugName[];
     projectCount: number;
 }
 
@@ -47,25 +33,21 @@ export interface ProjectFile {
     gameSlug: string;
     projectTypeSlug: string;
     projectSlug: string;
-    uploaderUserId: number;
-    uploaderUsername: string;
-    uploaderDisplayName: string;
+    user: User;
     downloadURL: string;
     downloads: number;
 }
 
-export interface Project {
+export interface Project extends SlugName{
     id: number;
-    name: string;
-    slug: string;
     summary: string;
     description: string;
     logo: string;
     downloads: number;
     createdAt: number;
     updatedAt: number;
-    tags: Tag[];
-    game: GameBase;
+    tags: SlugName[];
+    game: SlugName;
     projectType: ProjectType;
     contributors: Contributors[];
     links: Link[];
@@ -79,22 +61,12 @@ export interface Link {
     url: string;
 }
 
-export interface Tag {
+export interface SlugName {
     slug: string;
     name: string;
 }
 
-export interface Sort {
-    slug: string;
-    displayName: string;
-}
-
-export interface GameBase {
-    name: string;
-    slug: string;
-}
-
-export interface Game extends GameBase {
+export interface Game extends SlugName {
     logoURL: Picture;
     url: string;
     defaultProjectType: string;
@@ -148,7 +120,7 @@ export interface SelectData {
 export interface AuthorPage {
     projects: Project[];
     user: User;
-    sort: Sort[];
+    sort: SlugName[];
     projectCount: number;
 }
 

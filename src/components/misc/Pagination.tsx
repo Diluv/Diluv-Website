@@ -4,7 +4,7 @@ import NavigationMore from "../icons/NavigationMore";
 import React from "react";
 // @ts-ignore
 import ReactPaginate from "@jaredlll08/react-paginate";
-import { Tag } from "../../interfaces";
+import { SlugName } from "../../interfaces";
 
 export function buildURL({
     search,
@@ -18,7 +18,7 @@ export function buildURL({
     page?: number;
     sort?: string;
     version?: string;
-    tags?: Tag[];
+    tags?: SlugName[];
     defaultSort?: string;
 }): string {
     const params = new URLSearchParams();

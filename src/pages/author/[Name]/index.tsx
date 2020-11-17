@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { AuthorPage, Sort } from "../../../interfaces";
+import { AuthorPage, SlugName } from "../../../interfaces";
 import { reactSelectStyle } from "../../../utils/theme";
 import { getAuthed } from "../../../utils/request";
 import { API_URL } from "../../../utils/api";
@@ -91,7 +91,7 @@ function ProjectOptions({
     currentSort: string;
     showSorts?: boolean;
 }) {
-    function getSortFromCurrent(): Sort {
+    function getSortFromCurrent(): SlugName {
         for (const sort of data.sort) {
             if (sort.slug === currentSort) {
                 return sort;
@@ -108,9 +108,9 @@ function ProjectOptions({
                     <Select
                         isSearchable={true}
                         inputId="sortProjects"
-                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
+                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
                         options={data.sort.map((value) => {
-                            return { value: value.slug, label: value.displayName };
+                            return { value: value.slug, label: value.name };
                         })}
                         styles={reactSelectStyle}
                         onChange={(e: any) => {

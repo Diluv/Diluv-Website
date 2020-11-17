@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { Project, ProjectType, SelectData, Sort, Tag } from "../../../../interfaces";
+import { Project, ProjectType, SelectData, SlugName } from "../../../../interfaces";
 import { getAuthed } from "../../../../utils/request";
 
 import { API_URL, SITE_URL } from "../../../../utils/api";
@@ -25,7 +25,7 @@ interface Props {
     projectData: ProjectType;
     types: ProjectType[];
     projects: Project[];
-    sorts: Sort[];
+    sorts: SlugName[];
     currentSort: string;
     page: number;
     version: string;
@@ -54,7 +54,7 @@ export default function Projects({
     const maxPage = Math.ceil(projectData.projectCount / 20);
     page = Number(page);
 
-    function getTagsFromCurrent(): Tag[] {
+    function getTagsFromCurrent(): SlugName[] {
         const tagArr = [];
         for (const tag of projectData.tags) {
             if (currentTags.indexOf(tag.slug) >= 0) {
@@ -84,7 +84,7 @@ export default function Projects({
         router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
     }
 
-    function getSortFromCurrent(): Sort {
+    function getSortFromCurrent(): SlugName {
         for (const sort of sorts) {
             if (sort.slug === currentSort) {
                 return sort;
@@ -246,9 +246,9 @@ export default function Projects({
                                     <Select
                                         isSearchable={true}
                                         inputId="sort"
-                                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
+                                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
                                         options={sorts.map((value) => {
-                                            return { value: value.slug, label: value.displayName };
+                                            return { value: value.slug, label: value.name };
                                         })}
                                         styles={reactSelectStyle}
                                         onChange={(e: any) => {

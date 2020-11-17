@@ -121,7 +121,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files`, { session: session });
+    const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files`, { session: session });
     return {
         props: { project: data.data.project, files: data.data.files, session: session ?? null } // will be passed to the page component as props
     };

@@ -4,8 +4,7 @@ import Search from "components/icons/Search";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../utils/request";
 import { API_URL, SITE_URL } from "../../utils/api";
-import { Game, Sort } from "../../interfaces";
-import Link from "next/link";
+import { Game, SlugName } from "../../interfaces";
 import { useRouter } from "next/router";
 import { reactSelectStyle } from "../../utils/theme";
 import Select from "react-select";
@@ -40,7 +39,7 @@ export default function GameIndex({
     search
 }: {
     games: Game[];
-    sorts: Sort[];
+    sorts: SlugName[];
     currentSort: string;
     search: string;
 }): JSX.Element {
@@ -49,7 +48,7 @@ export default function GameIndex({
     const [displaySearch] = useState(search);
     const router = useRouter();
 
-    function getSortFromCurrent(): Sort {
+    function getSortFromCurrent(): SlugName {
         for (const sort of sorts) {
             if (sort.slug === currentSort) {
                 return sort;
@@ -105,9 +104,9 @@ export default function GameIndex({
                                 <Select
                                     isSearchable={true}
                                     inputId="sortGames"
-                                    defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().displayName }}
+                                    defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
                                     options={sorts.map((value) => {
-                                        return { value: value.slug, label: value.displayName };
+                                        return { value: value.slug, label: value.name };
                                     })}
                                     styles={reactSelectStyle}
                                     onChange={(e: any) => {

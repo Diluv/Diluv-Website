@@ -8,12 +8,12 @@ import { StateManager } from "react-select/src/stateManager";
 import { ensureAuthed } from "utils/auth";
 import Alert from "../../../../../../components/Alert";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
-import { Project, Tag } from "../../../../../../interfaces";
+import { Project, SlugName } from "../../../../../../interfaces";
 import { API_URL } from "../../../../../../utils/api";
 import { getAuthed } from "../../../../../../utils/request";
 import { canEditProject } from "../../../../../../utils/util";
 
-export default function Logo({ project, tags }: { project: Project; tags: Tag[] }): JSX.Element {
+export default function Logo({ project, tags }: { project: Project; tags: SlugName[] }): JSX.Element {
     const [session, loading] = useSession();
     const [canEdit, setCanEdit] = useState(false);
     const router = useRouter();

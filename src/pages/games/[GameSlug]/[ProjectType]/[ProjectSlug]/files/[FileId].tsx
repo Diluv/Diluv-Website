@@ -76,18 +76,18 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h3 className={`font-semibold`}>Uploaded by</h3>
-                                        <Link href={`/author/[Name]`} as={`/author/${file.uploaderUsername}`}>
+                                        <Link href={`/author/[Name]`} as={`/author/${file.user.username}`}>
                                             <a className={`hover:text-diluv-500`}>
                                                 <div className={`inline-flex`}>
                                                     <img
                                                         className={`w-6 h-6 mr-1`}
                                                         src={
                                                             project.contributors
-                                                                .filter((value) => (value.userId = file.uploaderUserId))
+                                                                .filter((value) => (value.userId = file.user.userId))
                                                                 .map((value) => value.avatarURL)[0]
                                                         }
                                                     />
-                                                    <p>{file.uploaderDisplayName}</p>
+                                                    <p>{file.user.displayName}</p>
                                                 </div>
                                             </a>
                                         </Link>

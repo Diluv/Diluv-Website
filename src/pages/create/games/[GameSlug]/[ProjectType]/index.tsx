@@ -2,7 +2,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed, postAuthed } from "../../../../../utils/request";
 import { API_URL, SITE_URL } from "../../../../../utils/api";
 import { reactSelectStyle } from "../../../../../utils/theme";
-import { SelectData, Tag } from "../../../../../interfaces";
+import { SelectData, SlugName } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
 import React, { useRef, useState } from "react";
 import Dropzone from "react-dropzone";
@@ -21,7 +21,7 @@ export default function Index({
     GameSlug,
     ProjectType,
     tags
-}: { GameSlug: string; ProjectType: string; tags: Tag[] } ): JSX.Element {
+}: { GameSlug: string; ProjectType: string; tags: SlugName[] } ): JSX.Element {
     const [ session, loading ] = useSession();
 
     ensureAuthed(session);
