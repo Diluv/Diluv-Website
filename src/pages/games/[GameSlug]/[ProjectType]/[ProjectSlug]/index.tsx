@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
@@ -7,10 +7,10 @@ import { Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import Markdown from "../../../../../components/Markdown";
 // @ts-ignore
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import Ads from "../../../../../components/ads/Ads";
 
-export default function ProjectIndex({  project }: { project: Project } ): JSX.Element {
+export default function ProjectIndex({ project }: { project: Project }): JSX.Element {
     return (
         <Layout
             title={project.name}
@@ -29,7 +29,7 @@ export default function ProjectIndex({  project }: { project: Project } ): JSX.E
                     </div>
                 </div>
                 <div className={`w-1/12 lg:w-1/6`}>
-                    <Ads/>
+                    <Ads />
                 </div>
             </div>
         </Layout>

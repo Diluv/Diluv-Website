@@ -28,10 +28,6 @@ export default function Logo({ project, tags }: { project: Project; tags: SlugNa
         }
     }, [project]);
 
-    if (!session || !canEdit) {
-        return <> </>;
-    }
-
     const [content, setContent] = useState(project.description);
     const [logo, setLogo] = useState(project.logo);
     const [logoFile, setLogoFile] = useState<File>();
@@ -51,6 +47,9 @@ export default function Logo({ project, tags }: { project: Project; tags: SlugNa
         return validName && validSummary && validDescription && !!logoFile && validTags;
     }
 
+    if (!session || !canEdit) {
+        return <> </>;
+    }
     return (
         <Layout
             title={`${project.name} Settings`}
@@ -78,9 +77,13 @@ export default function Logo({ project, tags }: { project: Project; tags: SlugNa
                     <> </>
                 )}
                 <div className={`flex lg:flex-row flex-col gap-x-4 lg:mt-4`}>
-                    <SettingsMenu currentOption={OPTIONS.LOGO} gameSlug={project.game.slug} projectType={project.projectType.slug} projectSlug={project.slug}/>
-                    <div className={`flex-grow grid gap-y-2 sm:gap-y-0 createFormSmall sm:createFormMedium md:createFormLarge`}>
-                    </div>
+                    <SettingsMenu
+                        currentOption={OPTIONS.LOGO}
+                        gameSlug={project.game.slug}
+                        projectType={project.projectType.slug}
+                        projectSlug={project.slug}
+                    />
+                    <div className={`flex-grow grid gap-y-2 sm:gap-y-0 createFormSmall sm:createFormMedium md:createFormLarge`}></div>
                 </div>
             </div>
         </Layout>

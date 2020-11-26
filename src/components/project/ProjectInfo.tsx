@@ -45,10 +45,9 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
             <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
                 <GridArea name={`image`}>
-                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name}/>
+                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name} />
                 </GridArea>
                 <GridArea name={`projectInfo`}>
-
                     <div className={`leading-tight mt-2 sm:mt-0`}>
                         <h4 className={`font-semibold`}>{project.name}</h4>
 
@@ -58,8 +57,8 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                         </div>
                     </div>
 
-
-                    <p className={`my-1`}>Project Type:
+                    <p className={`my-1`}>
+                        Project Type:
                         <Link href={`/games/[Gameslug]/[ProjectType]/`} as={`/games/${project.game.slug}/${project.projectType.slug}`}>
                             <a className={"ml-1 hover:text-diluv-500"}>{project.projectType.name}</a>
                         </Link>
@@ -72,20 +71,19 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     <p>{`ProjectID: ${project.id}`}</p>
                 </GridArea>
                 <GridArea name={`created`}>
-                    <FormattedTime time={project.createdAt} prefix={`Created at:`}/>
+                    <FormattedTime time={project.createdAt} prefix={`Created at:`} />
                 </GridArea>
                 <GridArea name={`updated`}>
-                    <FormattedTime time={project.updatedAt} prefix={`Updated at:`}/>
+                    <FormattedTime time={project.updatedAt} prefix={`Updated at:`} />
                 </GridArea>
                 <GridArea name={`downloads`}>
                     <p>{`${project.downloads} Downloads`}</p>
                 </GridArea>
                 <GridArea name={`tags`} className={`grid my-auto gap-2 grid-cols-tags`}>
                     {project.tags.map((value) => (
-                        <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>
+                        <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug} />
                     ))}
                 </GridArea>
-
             </div>
             <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info mt-4`}>
                 {isDescription() ? (
@@ -141,8 +139,8 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
                 {canEditProject(project) ? (
                     isSettings() ? (
-                        <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-orange-500 hover:border-orange-500 col-start-5`}>
-                            <span className={`cursor-default select-none text-orange-600`}>Settings</span>
+                        <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-green-500 hover:border-green-500 col-start-5`}>
+                            <span className={`cursor-default select-none text-green-600`}>Settings</span>
                         </div>
                     ) : (
                         <Link
@@ -151,7 +149,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                         >
                             <a className={`col-start-5`}>
                                 <div
-                                    className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-orange-300 dark-hover:border-orange-700`}
+                                    className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-green-300 dark-hover:border-green-700`}
                                 >
                                     Settings
                                 </div>

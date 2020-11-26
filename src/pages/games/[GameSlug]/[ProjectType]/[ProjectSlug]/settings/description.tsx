@@ -12,6 +12,8 @@ import { Project, SlugName } from "../../../../../../interfaces";
 import { API_URL } from "../../../../../../utils/api";
 import { getAuthed } from "../../../../../../utils/request";
 import { canEditProject } from "../../../../../../utils/util";
+import SimpleBar from "simplebar-react";
+import Markdown from "../../../../../../components/Markdown";
 
 export default function Description({ project, tags }: { project: Project; tags: SlugName[] }): JSX.Element {
     const [session, loading] = useSession();
@@ -28,29 +30,15 @@ export default function Description({ project, tags }: { project: Project; tags:
         }
     }, [project]);
 
+    const [content, setContent] = useState(project.description);
+
+    const refDescription = useRef<HTMLTextAreaElement>(null);
+    const [validDescription, setValidDescription] = useState(false);
+    const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
+
     if (!session || !canEdit) {
         return <> </>;
     }
-
-    const [content, setContent] = useState(project.description);
-    const [logo, setLogo] = useState(project.logo);
-    const [logoFile, setLogoFile] = useState<File>();
-    const [logoErrors, setLogoErrors] = useState<string[]>([]);
-
-    const refName = useRef<HTMLInputElement>(null);
-    const [validName, setValidName] = useState(false);
-    const refSummary = useRef<HTMLInputElement>(null);
-    const [validSummary, setValidSummary] = useState(false);
-    const refDescription = useRef<HTMLTextAreaElement>(null);
-    const [validDescription, setValidDescription] = useState(false);
-    const refTags = useRef<StateManager>(null);
-    const [validTags, setValidTags] = useState(false);
-    const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
-
-    function canSubmit(): boolean {
-        return validName && validSummary && validDescription && !!logoFile && validTags;
-    }
-
     return (
         <Layout
             title={`${project.name} Settings`}
@@ -61,25 +49,111 @@ export default function Description({ project, tags }: { project: Project; tags:
         >
             <div className={`w-5/6 lg:w-4/6 mx-auto mt-4 mb-8`}>
                 <ProjectInfo project={project} pageType={"settings"} />
-                {logoErrors.length > 0 ? (
-                    <div className={`my-4`}>
-                        {" "}
-                        {logoErrors.map((value) => {
-                            return (
-                                <div key={value}>
-                                    <Alert type={"danger"} canDismiss={true}>
-                                        {value}
-                                    </Alert>
-                                </div>
-                            );
-                        })}
-                    </div>
-                ) : (
-                    <> </>
-                )}
                 <div className={`flex lg:flex-row flex-col gap-x-4 lg:mt-4`}>
-                <SettingsMenu currentOption={OPTIONS.DESCRIPTION} gameSlug={project.game.slug} projectType={project.projectType.slug} projectSlug={project.slug}/>
-                    <div className={`flex-grow grid gap-y-2 sm:gap-y-0 createFormSmall sm:createFormMedium md:createFormLarge`}>
+                    <SettingsMenu
+                        currentOption={OPTIONS.DESCRIPTION}
+                        gameSlug={project.game.slug}
+                        projectType={project.projectType.slug}
+                        projectSlug={project.slug}
+                    />
+                    <div className={`flex-grow`}>
+                        <div className={`p-1 flex flex-col`}>
+                            <div>
+                                <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info`}>
+                                    <div
+                                        onClick={() =>
+                                            setViewMode({
+                                                showEdit: true,
+                                                showPreview: false
+                                            })
+                                        }
+                                        className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
+                                            viewMode.showEdit && !viewMode.showPreview
+                                                ? `border-diluv-500 hover:border-diluv-500`
+                                                : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                        }`}
+                                    >
+                                        <span className={`select-none ${viewMode.showEdit && !viewMode.showPreview ? `text-diluv-600` : ``}`}>
+                                            Edit Description
+                                        </span>
+                                    </div>
+                                    <div
+                                        onClick={() =>
+                                            setViewMode({
+                                                showEdit: false,
+                                                showPreview: true
+                                            })
+                                        }
+                                        className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
+                                            !viewMode.showEdit && viewMode.showPreview
+                                                ? `border-diluv-500 hover:border-diluv-500`
+                                                : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                        }`}
+                                    >
+                                        <span className={`select-none ${!viewMode.showEdit && viewMode.showPreview ? `text-diluv-600` : ``}`}>
+                                            Preview Description
+                                        </span>
+                                    </div>
+                                    <div
+                                        onClick={() =>
+                                            setViewMode({
+                                                showEdit: true,
+                                                showPreview: true
+                                            })
+                                        }
+                                        className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
+                                            viewMode.showEdit && viewMode.showPreview
+                                                ? `border-diluv-500 hover:border-diluv-500`
+                                                : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                        }`}
+                                    >
+                                        <span className={`select-none ${viewMode.showEdit && viewMode.showPreview ? `text-diluv-600` : ``}`}>
+                                            Split View
+                                        </span>
+                                    </div>
+                                </div>
+                                <div
+                                    className={`${
+                                        viewMode.showEdit && viewMode.showPreview ? `flex flex-col sm:flex-row` : ``
+                                    } h-112 sm:h-80 md:h-112`}
+                                >
+                                    {viewMode.showEdit && (
+                                        <textarea
+                                            className={`outline-none resize-none border dark:border-dark-700 ${
+                                                viewMode.showEdit && viewMode.showPreview ? `w-full sm:w-1/2 h-64 sm:h-80 md:h-full` : `w-full h-full`
+                                            } p-1 dark:bg-dark-800`}
+                                            onChange={(e) => {
+                                                setContent(e.target.value);
+                                                if (e.target.value.length >= 50 && e.target.value.length <= 10000) {
+                                                    setValidDescription(true);
+                                                } else {
+                                                    setValidDescription(false);
+                                                }
+                                            }}
+                                            defaultValue={content}
+                                            ref={refDescription}
+                                            maxLength={10000}
+                                        />
+                                    )}
+
+                                    {viewMode.showPreview && (
+                                        <div
+                                            className={`p-2 outline-none resize-none border dark:border-dark-700 break-all ${
+                                                viewMode.showEdit && viewMode.showPreview ? `w-full sm:w-1/2 h-64 sm:h-80 md:h-full` : `w-full h-full`
+                                            } bg-white dark:bg-dark-900`}
+                                        >
+                                            <SimpleBar className={`h-full`}>
+                                                <Markdown markdown={content} />
+                                            </SimpleBar>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className={`mt-2`}>
+                                <button className={`btn-diluv sm:w-auto`}>Save</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -33,15 +33,14 @@ export default function Files({ project, files }: { project: Project; files: Pro
                             <SimpleBar autoHide={false} className={`py-2`}>
                                 <Table>
                                     <TableHead>
-                                        <TableHeader children={`Name`} />
-                                        <TableHeader children={`Game Versions`} />
-                                        <TableHeader children={`Size`} />
-                                        <TableHeader children={`Status`} />
-                                        <TableHeader children={`Date`} />
+                                        <TableHeader>Name</TableHeader>
+                                        <TableHeader>Game Versions</TableHeader>
+                                        <TableHeader>Size</TableHeader>
+                                        <TableHeader>Status</TableHeader>
+                                        <TableHeader>Date</TableHeader>
                                         <TableHeader>
                                             <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
                                         </TableHeader>
-
                                     </TableHead>
                                     <TableBody>
                                         {files.map((value) => {
@@ -91,9 +90,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                     <TableData>
                                                         <pre>{filesize(value.size)}</pre>
                                                     </TableData>
-                                                    <TableData>
-                                                        {value.releaseType}
-                                                    </TableData>
+                                                    <TableData>{value.releaseType}</TableData>
                                                     <TableData>
                                                         <FormattedDistanceTime start={value.createdAt} />
                                                     </TableData>
@@ -115,7 +112,6 @@ export default function Files({ project, files }: { project: Project; files: Pro
         </Layout>
     );
 }
-
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
