@@ -1,8 +1,44 @@
 const plugin = require("tailwindcss/plugin");
+const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
     purge: ["./src/**/*.html", "./src/**/*.tsx", "./src/**/*.ts"],
     theme: {
+        colors: {
+            ...defaultTheme.colors,
+            hsl: {
+                100: "hsl(0,0%,90%)",
+                200: "hsl(0,0%,80%)",
+                300: "hsl(0,0%,70%)",
+                400: "hsl(0,0%,60%)",
+                500: "hsl(0,0%,50%)",
+                600: "hsl(0,0%,40%)",
+                700: "hsl(0,0%,30%)",
+                800: "hsl(0,0%,20%)",
+                900: "hsl(0,0%,10%)"
+            },
+            tag: {
+                DEFAULT: "#DEEBFF",
+                dark: "#414a5a"
+            },
+            diluv: {
+                100: "#ECF6FC",
+                200: "#CFE9F8",
+                300: "#B1DBF4",
+                400: "#77C1EC",
+                DEFAULT: "#3DA6E4",
+                500: "#3DA6E4",
+                600: "#3795CD",
+                700: "#256489",
+                800: "#1B4B67",
+                900: "#123244"
+            },
+            dark: {
+                ...colors.trueGray,
+                850: "#1F1F1F"
+            }
+        },
         extend: {
             textIndent: (theme, { negative }) => ({
                 ...{
@@ -82,52 +118,6 @@ module.exports = {
                 "invalid-light": "0 0 0 3px rgba(245,101,101,0.5)",
                 "valid-dark": "0 0 0 3px rgba(72,187,120,0.8)",
                 "invalid-dark": "0 0 0 3px rgba(245,101,101,0.8)"
-            },
-            colors: {
-                hsl: {
-                    100: "hsl(0,0%,90%)",
-                    200: "hsl(0,0%,80%)",
-                    300: "hsl(0,0%,70%)",
-                    400: "hsl(0,0%,60%)",
-                    500: "hsl(0,0%,50%)",
-                    600: "hsl(0,0%,40%)",
-                    700: "hsl(0,0%,30%)",
-                    800: "hsl(0,0%,20%)",
-                    900: "hsl(0,0%,10%)"
-                },
-                tag: {
-                    default: "#DEEBFF",
-                    dark: "#414a5a"
-                },
-                diluv: {
-                    100: "#ECF6FC",
-                    200: "#CFE9F8",
-                    300: "#B1DBF4",
-                    400: "#77C1EC",
-                    default: "#3DA6E4",
-                    500: "#3DA6E4",
-                    600: "#3795CD",
-                    700: "#256489",
-                    800: "#1B4B67",
-                    900: "#123244"
-                },
-                dark: {
-                    "010": '#fefefe',
-                    "020": '#fdfdfd',
-                    "030": '#fcfcfc',
-                    "040": '#fbfbfb',
-                    "050": '#fafafa',
-                    "100": '#f4f4f5',
-                    "200": '#e4e4e7',
-                    "300": '#d4d4d8',
-                    "400": '#a1a1aa',
-                    "500": '#71717a',
-                    "600": '#52525b',
-                    "700": '#3f3f46',
-                    "800": '#27272a',
-                    "850": '#202023',
-                    "900": '#18181b',
-                }
             }
         }
     },
@@ -168,11 +158,5 @@ module.exports = {
                 h6: { fontSize: config("theme.fontSize.xs") }
             });
         })
-    ],
-    experimental: {
-        applyComplexClasses: true
-    },
-    future: {
-        removeDeprecatedGapUtilities: true
-    }
+    ]
 };

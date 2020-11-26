@@ -7,6 +7,7 @@ import Router from "next/router";
 import { NextSeo } from "next-seo";
 import { SITE_URL } from "../utils/api";
 import { initGA, pageView } from "./analytics/Analytics";
+import { useSession } from "next-auth/client";
 
 type Props = {
     children: JSX.Element | JSX.Element[];
@@ -19,8 +20,8 @@ type Props = {
 
 function Layout({ children, title = "Diluv", description, canonical, url, image }: Props): JSX.Element {
     const simpleBarRef = useRef(null);
+    const [session, loading] = useSession();
     useEffect(() => {
-
         initGA(url);
         // Handles resetting simple bar's position
         const handleRouteChange = (url: string) => {
@@ -34,42 +35,44 @@ function Layout({ children, title = "Diluv", description, canonical, url, image 
         };
     }, []);
 
-    return (<>
-        <NextSeo
-            title={title}
-            description={description}
-            canonical={`${SITE_URL}${canonical}`}
-            openGraph={{
-                type: "website",
-                title: title,
-                url: `${SITE_URL}${url}`,
-                description: description,
-                images: [{ url: image, alt: (title + " logo") }],
-                site_name: "Diluv"
-            }}
-            twitter={{
-                cardType: "summary",
-                site: "@DiluvMods",
-                handle: "@DiluvMods"
-            }}
-        />
+    return (
+        <>
+            <NextSeo
+                title={title}
+                description={description}
+                canonical={`${SITE_URL}${canonical}`}
+                openGraph={{
+                    type: "website",
+                    title: title,
+                    url: `${SITE_URL}${url}`,
+                    description: description,
+                    images: [{ url: image, alt: title + " logo" }],
+                    site_name: "Diluv"
+                }}
+                twitter={{
+                    cardType: "summary",
+                    site: "@DiluvMods",
+                    handle: "@DiluvMods"
+                }}
+            />
 
-        <div id={"theme_definer"} className={"test"}>
-            <SimpleBar className={`minmax-height`} ref={simpleBarRef}>
-                <div className={`min-h-screen flex flex-col bg-gray-100 dark:bg-dark-900 dark:text-dark-100`}>
-                    <Head>
-                        <title>{title}</title>
-                        <meta charSet="utf-8"/>
-                    </Head>
-                    <header>
-                        <NavBar/>
-                    </header>
-                    <main className={`flex-grow`}>{children}</main>
-                    <Footer/>
-                </div>
-            </SimpleBar>
-        </div>
-    </>);
+            <div id={"theme_definer"} className={"test"}>
+                <SimpleBar className={`minmax-height`} ref={simpleBarRef}>
+                    <div className={`min-h-screen flex flex-col bg-gray-100 dark:bg-dark-900 dark:text-dark-100`}>
+                        <Head>
+                            <title>{title}</title>
+                            <meta charSet="utf-8" />
+                        </Head>
+                        <header>
+                            <NavBar />
+                        </header>
+                        <main className={`flex-grow`}>{children}</main>
+                        <Footer />
+                    </div>
+                </SimpleBar>
+            </div>
+        </>
+    );
 }
 
 export default Layout;

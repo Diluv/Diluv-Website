@@ -4,7 +4,6 @@ import { get } from "../utils/request";
 import { API_URL, SITE_URL } from "../utils/api";
 import { Featured } from "../interfaces";
 import { GetStaticProps } from "next";
-import FeaturedGameCard from "../components/featured/FeaturedGameCard";
 // @ts-ignore
 import Ads from "../components/ads/Ads";
 import GameCard from "../components/misc/GameCard";

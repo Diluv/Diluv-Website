@@ -1,32 +1,31 @@
-// @ts-ignore
-import NextAuth, { InitOptions, User } from "next-auth";
-// @ts-ignore
-import Providers from "next-auth/providers";
+import NextAuth from "next-auth";
 import { NextApiRequest, NextApiResponse } from "next";
-import { IS4_URL } from "utils/api";
-import { GenericObject, SessionBase } from "next-auth/_utils";
+import { AUTH_URL } from "utils/api";
 
-const options: InitOptions = {
+const options = {
     // Configure one or more authentication providers
     providers: [
-        Providers.IdentityServer4({
-            id: "DILUV" as "identity-server4",
-            name: "Diluv" as "IdentityServer4",
-            scope: "openid profile", // Allowed Scopes
-            // @ts-ignore
-            params: {
-                grant_type: "authorization_code"
-            },
-            domain: IS4_URL,
+        {
+            id: "DILUV",
+            name: "Diluv",
+            type: "oauth",
+            version: "2.0",
+            scope: "openid profile",
+            params: { grant_type: "authorization_code" },
+            domain: AUTH_URL,
             clientId: "DILUV_WEBSITE",
+            accessTokenUrl: `${AUTH_URL}/auth/realms/Diluv/protocol/openid-connect/token`,
+            authorizationUrl: `${AUTH_URL}/auth/realms/Diluv/protocol/openid-connect/auth?response_type=code`,
+            profileUrl: `${AUTH_URL}/auth/realms/Diluv/protocol/openid-connect/userinfo`,
             profile: (profile: any) => {
                 return { ...profile, id: profile.username, name: profile.preferred_username };
             }
-        })
+        }
     ],
     callbacks: {
-        session: async (session: SessionBase | GenericObject, user: GenericObject) => {
+        session: async (session: any, user: any) => {
             session["user"]["id"] = user.id;
+            session["user"]["role"] = user.role;
             session["accessToken"] = user.accessToken;
             return Promise.resolve(session);
         },
@@ -35,6 +34,7 @@ const options: InitOptions = {
             if (hasAccount) {
                 token.id = profile.username;
                 token.accessToken = account.accessToken;
+                token.role = profile.role;
             }
             return Promise.resolve(token);
         }
@@ -42,7 +42,8 @@ const options: InitOptions = {
     session: {
         jwt: true,
         // Seconds - How long until an idle session expires and is no longer valid.
-        maxAge: 60 * 60
+        // Set to 50 minutes
+        maxAge: 3000
     }
 };
 
