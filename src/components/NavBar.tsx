@@ -56,7 +56,7 @@ function NavBar(): JSX.Element {
                             </Link>
                         </nav>
                         <div className="hidden md:block">
-                            <DropDown name={session ? session.user.name : "Account"} className={`hover:text-white`}>
+                            <DropDown name={session && session.user.name ? session.user.name : "Account"} className={`hover:text-white`}>
                                 {!session && <DropDownAction action={() => signin("DILUV")}>Sign in</DropDownAction>}
                                 {session && (
                                     // @ts-ignore
