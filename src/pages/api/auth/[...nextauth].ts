@@ -71,7 +71,6 @@ const options = {
                 return Promise.resolve(session);
             },
             jwt: async (token: any, user: any, account: any, profile: any, isNewUser: boolean) => {
-                console.log("JWT called at " + new Date().toISOString());
                 if (profile) {
                     return Promise.resolve({
                         ...token,
