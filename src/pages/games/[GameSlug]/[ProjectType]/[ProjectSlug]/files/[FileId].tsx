@@ -16,7 +16,6 @@ import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
-    console.log(file);
     return (
         <Layout
             title={project.name}

@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import { NextApiRequest, NextApiResponse } from "next";
 import { AUTH_URL, OPENID_CONNECT_URL } from "utils/api";
 import jwt_decode from "jwt-decode";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import qs from "querystring";
 
 const isTokenStale = (token: string): boolean => {
@@ -13,17 +13,20 @@ const isTokenStale = (token: string): boolean => {
 
 const refreshAuthToken = async (refreshToken: string) => {
 
-    const responseData = await axios.get(`${OPENID_CONNECT_URL}token`, {
+    const responseData = await axios.post(`${OPENID_CONNECT_URL}token`, qs.stringify({
+        "grant_type": "refresh_token",
+        "refresh_token": refreshToken,
+        "client_id": "DILUv_WEBSITE"
+    }), {
         headers: {
             "Content-Type": `application/x-www-form-urlencoded`
-        },
-        data: {
-            "grant_type": "refresh_token",
-            "refresh_token": refreshToken,
-            "client_id": "DILUv_WEBSITE"
         }
-    }).then((response: AxiosResponse<any>) => response);
-    if (responseData.data?.access_token) {
+    }).then((response: AxiosResponse) => response).catch((reason: AxiosError) => {
+        console.log("Failed to refresh token!");
+        console.log(reason.response?.data);
+        return reason.response;
+    });
+    if (responseData && responseData.data?.access_token) {
         return {
             accessToken: responseData.data.access_token,
             refreshToken: responseData.data.refresh_token
@@ -68,6 +71,7 @@ const options = {
                 return Promise.resolve(session);
             },
             jwt: async (token: any, user: any, account: any, profile: any, isNewUser: boolean) => {
+                console.log("JWT called at " + new Date().toISOString());
                 if (profile) {
                     return Promise.resolve({
                         ...token,
@@ -92,8 +96,8 @@ const options = {
         session: {
             jwt: true,
             // Seconds - How long until an idle session expires and is no longer valid.
-            // Set to 50 minutes
-            maxAge: 3000
+            // Set to 29 days
+            maxAge: 29 * 24 * 60 * 60
         },
         events: {
             signOut: async (message: any) => {
