@@ -15,7 +15,7 @@ function NavBar(): JSX.Element {
 
     return (
         <>
-            <header className="text-gray-400 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
+            <header className="text-gray-200 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
                 <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row justify-between md:justify-start items-center">
                     <div className={`w-full md:w-auto flex flex-row justify-between items-center`}>
                         <Link href={"/"}>
