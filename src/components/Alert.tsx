@@ -5,6 +5,7 @@ function Alert(props: {
     children?: ReactNode;
     type: "danger" | "warning" | "success" | "info";
     canDismiss?: boolean;
+    onDismiss?: () => void
 }): JSX.Element {
     const [closed, setClosed] = useState(false);
     const { canDismiss, type, children, className } = props;
@@ -27,6 +28,9 @@ function Alert(props: {
                             }
                             setTimeout(() => {
                                 setClosed(true);
+                                if (props.onDismiss) {
+                                    props.onDismiss();
+                                }
                             }, 200);
                         }}
                         role="button"

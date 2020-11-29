@@ -14,7 +14,7 @@ import { SITE_URL } from "utils/api";
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const { session } = pageProps;
     return (
-        <Provider options={{ clientMaxAge: 60, keepAlive: 3 * 60 }} session={session}>
+        <Provider options={{ clientMaxAge: 10 * 60, keepAlive: 15 * 60 }} session={session}>
             <Component {...pageProps} />
         </Provider>
     );

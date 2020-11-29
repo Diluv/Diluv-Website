@@ -58,3 +58,34 @@ export function getAuthed(
         headers
     });
 }
+
+
+export function patch(
+    url: string,
+    data: Record<string, unknown> | FormData,
+    headers: any = {
+        Accept: "application/json"
+    }
+): Promise<AxiosResponse> {
+    return axios.patch(url, data, {
+        headers
+    });
+}
+
+export function patchAuthed(
+    url: string,
+    data: Record<string, unknown> | FormData,
+    {
+        headers = {
+            Accept: "application/json"
+        },
+        session
+    }: { headers?: any; session?: Session }
+): Promise<AxiosResponse> {
+    if (session) {
+        headers.Authorization = `Bearer ${session.accessToken}`;
+    }
+    return axios.patch(url, data, {
+        headers
+    });
+}

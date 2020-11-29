@@ -4,16 +4,16 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { StateManager } from "react-select/src/stateManager";
 import { ensureAuthed } from "utils/auth";
-import Alert from "../../../../../../components/Alert";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import { Project, SlugName } from "../../../../../../interfaces";
 import { API_URL } from "../../../../../../utils/api";
-import { getAuthed } from "../../../../../../utils/request";
+import { getAuthed, patch, patchAuthed } from "../../../../../../utils/request";
 import { canEditProject } from "../../../../../../utils/util";
 import SimpleBar from "simplebar-react";
 import Markdown from "../../../../../../components/Markdown";
+import Loading from "../../../../../../components/icons/Loading";
+import Alert from "../../../../../../components/Alert";
 
 export default function Description({ project, tags }: { project: Project; tags: SlugName[] }): JSX.Element {
     const [session, loading] = useSession();
@@ -36,6 +36,11 @@ export default function Description({ project, tags }: { project: Project; tags:
     const [validDescription, setValidDescription] = useState(false);
     const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
 
+    const [submitting, setSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const [errors, setErrors] = useState<string[]>([]);
+
     if (!session || !canEdit) {
         return <> </>;
     }
@@ -49,6 +54,21 @@ export default function Description({ project, tags }: { project: Project; tags:
         >
             <div className={`w-5/6 lg:w-4/6 mx-auto mt-4 mb-8`}>
                 <ProjectInfo project={project} pageType={"settings"} />
+                {errors.length > 0 ? (
+                    <div className={`my-4`}>
+                        {errors.filter((item, index, array) => array.indexOf(item) === index).map((value) => {
+                            return (
+                                <div key={value}>
+                                    <Alert type={"danger"} canDismiss={true} onDismiss={() => {
+                                        setErrors(errors.filter((item) => item !== value));
+                                    }}>
+                                        {value}
+                                    </Alert>
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : <> </>}
                 <div className={`flex lg:flex-row flex-col gap-x-4 lg:mt-4`}>
                     <SettingsMenu
                         currentOption={OPTIONS.DESCRIPTION}
@@ -151,7 +171,29 @@ export default function Description({ project, tags }: { project: Project; tags:
                             </div>
 
                             <div className={`mt-2`}>
-                                <button className={`btn-diluv sm:w-auto`}>Save</button>
+                                <button className={`btn-diluv sm:w-16 sm:h-10`} onClick={event => {
+                                    setSubmitting(true);
+                                    const formData = new FormData();
+                                    formData.set("data", new Blob([JSON.stringify({ description: refDescription.current?.value })], { type: "application/json" }));
+
+                                    patchAuthed(`${API_URL}/v1/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`, formData, { session: session }).then(value => {
+                                        console.log(value);
+                                        setSubmitting(false);
+                                        setSubmitted(true);
+                                        setErrors([]);
+                                        setTimeout(() => {
+                                            setSubmitted(false);
+                                        }, 2000);
+
+                                    }).catch(reason => {
+                                        setSubmitting(false);
+                                        setErrors([...errors, reason.response.data.message]);
+                                    });
+                                }}>
+                                    {submitting ? <div className={`mx-auto text-center`}>
+                                        <Loading className={`mx-auto`} />
+                                    </div> : <span>{submitted ? "Saved" : "Save"}</span>}
+                                </button>
                             </div>
                         </div>
                     </div>
