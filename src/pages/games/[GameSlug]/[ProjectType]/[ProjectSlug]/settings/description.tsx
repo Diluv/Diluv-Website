@@ -14,6 +14,7 @@ import SimpleBar from "simplebar-react";
 import Markdown from "../../../../../../components/Markdown";
 import Loading from "../../../../../../components/icons/Loading";
 import Alert from "../../../../../../components/Alert";
+import TextEditor from "../../../../../../components/ui/TextEditor";
 
 export default function Description({ project, tags }: { project: Project; tags: SlugName[] }): JSX.Element {
     const [session, loading] = useSession();
@@ -138,10 +139,9 @@ export default function Description({ project, tags }: { project: Project; tags:
                                     } h-112 sm:h-80 md:h-112`}
                                 >
                                     {viewMode.showEdit && (
-                                        <textarea
-                                            className={`outline-none resize-none border dark:border-dark-700 ${
-                                                viewMode.showEdit && viewMode.showPreview ? `w-full sm:w-1/2 h-64 sm:h-80 md:h-full` : `w-full h-full`
-                                            } p-1 dark:bg-dark-800`}
+                                        <TextEditor
+                                            className={`border  dark:border-dark-700 bg-white dark:bg-dark-800 ${viewMode.showEdit && viewMode.showPreview ? `w-full sm:w-1/2 h-64 sm:h-80 md:h-full` : `w-full h-full`}`}
+                                            innerClassName={`outline-none resize-none  w-full h-full p-1 dark:bg-dark-800`}
                                             onChange={(e) => {
                                                 setContent(e.target.value);
                                                 if (e.target.value.length >= 50 && e.target.value.length <= 10000) {
@@ -151,7 +151,7 @@ export default function Description({ project, tags }: { project: Project; tags:
                                                 }
                                             }}
                                             defaultValue={content}
-                                            ref={refDescription}
+                                            innerRef={refDescription}
                                             maxLength={10000}
                                         />
                                     )}
