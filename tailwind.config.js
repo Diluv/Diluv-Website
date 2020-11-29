@@ -37,7 +37,8 @@ module.exports = {
             dark: {
                 ...colors.trueGray,
                 850: "#1F1F1F"
-            }
+            },
+            amber: colors.amber
         },
         extend: {
             textIndent: (theme, { negative }) => ({

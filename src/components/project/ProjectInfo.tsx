@@ -139,8 +139,8 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
                 {canEditProject(project) ? (
                     isSettings() ? (
-                        <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-green-500 hover:border-green-500 col-start-5`}>
-                            <span className={`cursor-default select-none text-green-600`}>Settings</span>
+                        <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 col-start-5`}>
+                            <span className={`cursor-default select-none text-amber-600`}>Settings</span>
                         </div>
                     ) : (
                         <Link
@@ -149,7 +149,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                         >
                             <a className={`col-start-5`}>
                                 <div
-                                    className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-green-300 dark-hover:border-green-700`}
+                                    className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
                                 >
                                     Settings
                                 </div>
