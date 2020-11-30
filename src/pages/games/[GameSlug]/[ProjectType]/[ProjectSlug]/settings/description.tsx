@@ -34,7 +34,7 @@ export default function Description({ project, tags }: { project: Project; tags:
     const [content, setContent] = useState(project.description);
 
     const refDescription = useRef<HTMLTextAreaElement>(null);
-    const [validDescription, setValidDescription] = useState(false);
+    const [validDescription, setValidDescription] = useState(content.length >= 50 && content.length <= 10000);
     const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
 
     const [submitting, setSubmitting] = useState(false);
@@ -171,7 +171,7 @@ export default function Description({ project, tags }: { project: Project; tags:
                             </div>
 
                             <div className={`mt-2`}>
-                                <button className={`btn-diluv sm:w-16 sm:h-10`} onClick={event => {
+                                <button className={`btn-diluv sm:w-16 sm:h-10`} disabled={!validDescription} onClick={event => {
                                     setSubmitting(true);
                                     const formData = new FormData();
                                     formData.set("data", new Blob([JSON.stringify({ description: refDescription.current?.value })], { type: "application/json" }));

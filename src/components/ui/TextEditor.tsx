@@ -13,6 +13,6 @@ export default function TextEditor({ className, innerClassName, defaultValue, ma
             ref={innerRef}
             maxLength={maxLength}
         />
-        <div className={`px-1 ml-auto my-1 ${length > (maxLength * 0.8) ? (length === maxLength ? `text-red-600 dark:text-red-400` : `text-amber-600 dark:text-amber-400`) : `dark:text-gray-400 `}`}>{length} / {maxLength}</div>
+        <div className={`px-1 ml-auto my-1 ${length > (maxLength * 0.8) ? (length >= maxLength ? `text-red-600 dark:text-red-400` : `text-amber-600 dark:text-amber-400`) : `dark:text-gray-400 `}`}>{length} / {maxLength}</div>
     </div>;
 }
