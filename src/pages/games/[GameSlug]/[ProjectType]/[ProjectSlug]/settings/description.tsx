@@ -34,7 +34,7 @@ export default function Description({ project, tags }: { project: Project; tags:
     const [content, setContent] = useState(project.description);
 
     const refDescription = useRef<HTMLTextAreaElement>(null);
-    const [validDescription, setValidDescription] = useState(false);
+    const [validDescription, setValidDescription] = useState(content.length >= 50 && content.length <= 10000);
     const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
 
     const [submitting, setSubmitting] = useState(false);
