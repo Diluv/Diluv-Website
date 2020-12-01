@@ -1,5 +1,9 @@
 /* purgecss start ignore */
 @layer base {
+
+  .markdown img {
+    @apply inline-block;
+  }
   .markdown a {
     @apply underline;
   }
