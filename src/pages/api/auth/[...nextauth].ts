@@ -18,7 +18,7 @@ const refreshAuthToken = async (refreshToken: string) => {
             qs.stringify({
                 grant_type: "refresh_token",
                 refresh_token: refreshToken,
-                client_id: "DILUv_WEBSITE"
+                client_id: "DILUV_WEBSITE"
             }),
             {
                 headers: {
