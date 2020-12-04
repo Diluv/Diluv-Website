@@ -72,9 +72,13 @@ const options = {
     ],
     callbacks: {
         session: async (session: any, user: any, sessionToken: any) => {
-            session["user"]["id"] = user.id;
-            session["user"]["role"] = user.role;
-            session["accessToken"] = user.accessToken;
+            if (user) {
+                session["user"]["id"] = user.id;
+                session["user"]["role"] = user.role;
+                session["accessToken"] = user.accessToken;
+            } else {
+                return Promise.resolve(null);
+            }
             return Promise.resolve(session);
         },
         jwt: async (token: any, user: any, account: any, profile: any, isNewUser: boolean) => {
