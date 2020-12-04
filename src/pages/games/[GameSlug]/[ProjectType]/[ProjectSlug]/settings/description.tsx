@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { ensureAuthed } from "utils/auth";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
-import { Project, SlugName } from "../../../../../../interfaces";
+import { Project, SelectData, SlugName } from "../../../../../../interfaces";
 import { API_URL } from "../../../../../../utils/api";
 import { getAuthed, patch, patchAuthed } from "../../../../../../utils/request";
 import { canEditProject } from "../../../../../../utils/util";
@@ -15,6 +15,8 @@ import Markdown from "../../../../../../components/Markdown";
 import Loading from "../../../../../../components/icons/Loading";
 import Alert from "../../../../../../components/Alert";
 import TextEditor from "../../../../../../components/ui/TextEditor";
+import Select from "react-select";
+import { reactSelectStyle } from "../../../../../../utils/theme";
 
 export default function Description({ project, tags }: { project: Project; tags: SlugName[] }): JSX.Element {
     const [session, loading] = useSession();
@@ -36,6 +38,7 @@ export default function Description({ project, tags }: { project: Project; tags:
 
     const [validName, setValidName] = useState(project.name.length >= 5 && project.name.length <= 50);
     const [validSummary, setValidSummary] = useState(project.summary.length >= 10 && project.summary.length <= 250);
+    const [validTags, setValidTags] = useState(project.tags.length > 0);
     const [validDescription, setValidDescription] = useState(project.description.length >= 50 && project.description.length <= 10000);
     const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
 
@@ -142,6 +145,35 @@ export default function Description({ project, tags }: { project: Project; tags:
                                         maxLength={250}
                                     />
                                 </div>
+
+                                <div className={`flex flex-col md:flex-row`}>
+                                    <label htmlFor={"tags"} className={`mb-1 md:my-auto`}>
+                                        Tags:
+                                    </label>
+                                    <Select
+                                        isSearchable={true}
+                                        inputId="tags"
+                                        options={tags.map((value) => {
+                                            return { value: value.slug, label: value.name };
+                                        })}
+                                        defaultValue={displayState.tags.map((value) => {
+                                            return { value: value.slug, label: value.name };
+                                        })}
+                                        isMulti={true}
+                                        onChange={(event: any) => {
+                                            setProjectState((prevState) => {
+                                                return {
+                                                    ...prevState,
+                                                    tags: event
+                                                };
+                                            });
+                                            setValidTags(event && event.length > 0);
+                                        }}
+                                        styles={reactSelectStyle}
+                                        classNamePrefix={"select"}
+                                        className={`md:ml-2 flex-grow`}
+                                    />
+                                </div>
                             </div>
                             <div>
                                 <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info`}>
@@ -243,11 +275,11 @@ export default function Description({ project, tags }: { project: Project; tags:
                             <div>
                                 <button
                                     className={`btn-diluv sm:w-16 sm:h-10`}
-                                    disabled={!validDescription || !validName || !validSummary}
+                                    disabled={!validDescription || !validName || !validSummary || !validTags}
                                     onClick={(event) => {
                                         setSubmitting(true);
                                         const formData = new FormData();
-                                        const data: { description?: string; name?: string; summary?: string } = {};
+                                        const data: { description?: string; name?: string; summary?: string; tags?: string[] } = {};
                                         if (projectState.description !== project.description) {
                                             data.description = projectState.description;
                                         }
@@ -256,6 +288,14 @@ export default function Description({ project, tags }: { project: Project; tags:
                                         }
                                         if (projectState.summary !== project.summary) {
                                             data.summary = projectState.summary;
+                                        }
+                                        if (JSON.stringify(projectState.tags) !== JSON.stringify(project.tags)) {
+                                            (projectState.tags as []).map((value: SelectData, index) => {
+                                                if (!data.tags) {
+                                                    data.tags = [];
+                                                }
+                                                data.tags[index] = value.value;
+                                            });
                                         }
 
                                         formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));

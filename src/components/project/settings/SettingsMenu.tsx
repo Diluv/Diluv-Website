@@ -6,7 +6,6 @@ import { ReactNode } from "react";
 export const OPTIONS = {
     DESCRIPTION: "description",
     LOGO: "logo",
-    SUMMARY: "summary",
     TEAM_MEMBERS: "members",
     NYI: "nyi"
 };
@@ -62,15 +61,6 @@ export function SettingsSideBar({
                         projectSlug={projectSlug}
                     >
                         Logo
-                    </SettingsSideBarOption>
-                    <SettingsSideBarOption
-                        optionValue={OPTIONS.SUMMARY}
-                        currentValue={currentOption}
-                        gameSlug={gameSlug}
-                        projectType={projectType}
-                        projectSlug={projectSlug}
-                    >
-                        Summary
                     </SettingsSideBarOption>
                 </SettingsGroup>
                 <SettingsGroup headerName="Team">
@@ -138,6 +128,7 @@ function SettingsSideBarOption({
     function isCurrent() {
         return optionValue === currentValue;
     }
+
     return (
         <>
             {!isCurrent() && optionValue !== OPTIONS.NYI ? (
@@ -176,8 +167,6 @@ export function SettingsBar(): JSX.Element {
 
                 <div className={`bg-dark-800 hover:bg-diluv-900 select-none cursor-pointer p-2 border border-dark-700`}>Description</div>
                 <div className={`bg-dark-800 hover:bg-diluv-900 select-none cursor-pointer p-2 border border-dark-700`}>Logo</div>
-                <div className={`bg-dark-800 hover:bg-diluv-900 select-none cursor-pointer p-2 border border-dark-700`}>Summary</div>
-                
             </div>
         </div>
     );
