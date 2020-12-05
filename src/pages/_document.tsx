@@ -58,6 +58,7 @@ class MyDocument extends Document {
     }
 })();`
                 }}/>
+                <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e715aa1d5a2244d5a6cca17bbef955da"}'/>
                 <Main/>
                 <NextScript/>
                 </body>
