@@ -161,10 +161,16 @@ export default function Description({ project, tags }: { project: Project; tags:
                                         })}
                                         isMulti={true}
                                         onChange={(event: any) => {
+                                            if (!event) {
+                                                setValidTags(false);
+                                                return;
+                                            }
                                             setProjectState((prevState) => {
                                                 return {
                                                     ...prevState,
-                                                    tags: event
+                                                    tags: event.map((value: any) => {
+                                                        return { slug: value.value, name: value.label };
+                                                    })
                                                 };
                                             });
                                             setValidTags(event && event.length > 0);
@@ -294,7 +300,7 @@ export default function Description({ project, tags }: { project: Project; tags:
                                                 if (!data.tags) {
                                                     data.tags = [];
                                                 }
-                                                data.tags[index] = value.value;
+                                                data.tags[index] = value.slug;
                                             });
                                         }
 
