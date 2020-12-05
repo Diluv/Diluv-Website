@@ -296,7 +296,7 @@ export default function Description({ project, tags }: { project: Project; tags:
                                             data.summary = projectState.summary;
                                         }
                                         if (JSON.stringify(projectState.tags) !== JSON.stringify(project.tags)) {
-                                            (projectState.tags as []).map((value: SelectData, index) => {
+                                            (projectState.tags as []).map((value: SlugName, index) => {
                                                 if (!data.tags) {
                                                     data.tags = [];
                                                 }
