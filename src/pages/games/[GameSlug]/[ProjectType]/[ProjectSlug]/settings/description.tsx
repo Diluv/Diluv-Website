@@ -161,10 +161,16 @@ export default function Description({ project, tags }: { project: Project; tags:
                                         })}
                                         isMulti={true}
                                         onChange={(event: any) => {
+                                            if (!event) {
+                                                setValidTags(false);
+                                                return;
+                                            }
                                             setProjectState((prevState) => {
                                                 return {
                                                     ...prevState,
-                                                    tags: event
+                                                    tags: event.map((value: any) => {
+                                                        return { slug: value.value, name: value.label };
+                                                    })
                                                 };
                                             });
                                             setValidTags(event && event.length > 0);
@@ -290,11 +296,11 @@ export default function Description({ project, tags }: { project: Project; tags:
                                             data.summary = projectState.summary;
                                         }
                                         if (JSON.stringify(projectState.tags) !== JSON.stringify(project.tags)) {
-                                            (projectState.tags as []).map((value: SelectData, index) => {
+                                            (projectState.tags as []).map((value: SlugName, index) => {
                                                 if (!data.tags) {
                                                     data.tags = [];
                                                 }
-                                                data.tags[index] = value.value;
+                                                data.tags[index] = value.slug;
                                             });
                                         }
 
