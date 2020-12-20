@@ -1,8 +1,8 @@
-# Do the npm install or yarn install in the full image
 FROM mhart/alpine-node:12.19.0 AS builder
 WORKDIR /app
 COPY . .
 RUN npm ci
+RUN npm run type-check
 RUN npm run build:staging
 RUN npm prune --production
 
