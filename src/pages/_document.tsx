@@ -23,7 +23,6 @@ class MyDocument extends Document {
                         name="description"
                         content="Diluv is a platform for fan made gaming content such as mods and texture packs made for modders, by modders."
                     />
-                    <link href='https://download.nodecdn.net' rel='preconnect' crossOrigin="anonymous"/>
                 </Head>
                 <body className={`min-h-100vh`}>
                 <script dangerouslySetInnerHTML={{
@@ -58,7 +57,6 @@ class MyDocument extends Document {
     }
 })();`
                 }}/>
-                <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e715aa1d5a2244d5a6cca17bbef955da"}'/>
                 <Main/>
                 <NextScript/>
                 </body>
