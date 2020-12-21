@@ -1,4 +1,4 @@
-/*! purgecss start ignore */
+/* purgecss start ignore */
 @layer base {
   .admonition {
     margin-bottom: 1em;
@@ -82,4 +82,4 @@
     color: #f1c40f;
   }
 }
-/*! purgecss end ignore */
+/* purgecss end ignore */

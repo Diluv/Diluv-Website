@@ -3,7 +3,7 @@ import React, { MutableRefObject, ReactNode, useRef, useState } from "react";
 function Alert(props: {
     className?: string;
     children?: ReactNode;
-    type: "danger" | "warning" | "success" | "info";
+    type: "alert-danger" | "alert-warning" | "alert-success" | "alert-info";
     canDismiss?: boolean;
     onDismiss?: () => void
 }): JSX.Element {
@@ -15,7 +15,7 @@ function Alert(props: {
         return <></>;
     }
     return (
-        <div className={`${className || ""} alert-${type} px-4 py-3 relative`} ref={alertRef}>
+        <div className={`${className || ""} ${type} px-4 py-3 relative`} ref={alertRef}>
             {children}
             {canDismiss && (
                 <span className="absolute top-0 bottom-0 right-0 px-4 py-3">

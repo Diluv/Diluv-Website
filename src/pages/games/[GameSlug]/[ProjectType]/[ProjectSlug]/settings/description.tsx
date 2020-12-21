@@ -68,7 +68,7 @@ export default function Description({ project, tags }: { project: Project; tags:
                                 return (
                                     <div key={value}>
                                         <Alert
-                                            type={"danger"}
+                                            type={"alert-danger"}
                                             canDismiss={true}
                                             onDismiss={() => {
                                                 setErrors(errors.filter((item) => item !== value));

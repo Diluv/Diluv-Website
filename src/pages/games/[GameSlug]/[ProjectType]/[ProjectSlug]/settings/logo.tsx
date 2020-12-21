@@ -66,7 +66,7 @@ export default function Logo({ project, tags }: { project: Project; tags: SlugNa
                         {logoErrors.map((value) => {
                             return (
                                 <div key={value}>
-                                    <Alert type={"danger"} canDismiss={true}>
+                                    <Alert type={"alert-danger"} canDismiss={true}>
                                         {value}
                                     </Alert>
                                 </div>

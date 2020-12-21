@@ -65,7 +65,7 @@ export default function Index({
                         {logoErrors.map((value) => {
                             return (
                                 <div key={value}>
-                                    <Alert type={"danger"} canDismiss={true}>
+                                    <Alert type={"alert-danger"} canDismiss={true}>
                                         {value}
                                     </Alert>
                                 </div>

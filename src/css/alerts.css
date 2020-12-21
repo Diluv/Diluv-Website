@@ -1,4 +1,4 @@
-/*! purgecss start ignore */
+/* purgecss start ignore */
 @layer base {
   .alert-danger {
     background-color:rgba(212, 80, 89, 0.1);
@@ -68,4 +68,4 @@
     color:#45c962;
   }
 }
-/*! purgecss end ignore */
+/* purgecss end ignore */

@@ -29,14 +29,14 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
     return (
         <div id={"topInfo"}>
             {projectHasReleaseStatus(project) && !project.review ? (
-                <Alert type={"warning"} className={`my-4`}>
+                <Alert type={"alert-warning"} className={`my-4`}>
                     This project is under review and only people with permission can see it!
                 </Alert>
             ) : (
                 <></>
             )}
             {projectHasReviewStatus(project) && !project.released ? (
-                <Alert type={"warning"} className={`my-4`}>
+                <Alert type={"alert-warning"} className={`my-4`}>
                     This project is not released yet!
                 </Alert>
             ) : (
