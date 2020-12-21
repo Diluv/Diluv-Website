@@ -3,7 +3,7 @@
   src: url("Hero.woff") format("woff2"), url("Hero.woff") format("woff");
 }
 
-/* purgecss start ignore */
+/*! purgecss start ignore */
 @tailwind base;
 @tailwind components;
 /* purgecss end ignore */
@@ -163,7 +163,7 @@
   }
 }
 
-/* purgecss start ignore */
+/*! purgecss start ignore */
 .simplebar-scrollbar::before {
   background-color: #3da6e4 !important;
   border: 1px solid #256489 !important;
