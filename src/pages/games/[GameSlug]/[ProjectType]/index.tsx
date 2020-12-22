@@ -4,7 +4,7 @@ import React, { ChangeEvent, useState } from "react";
 import { Project, ProjectType, SelectData, SlugName } from "../../../../interfaces";
 import { getAuthed } from "../../../../utils/request";
 
-import { API_URL, SITE_URL } from "../../../../utils/api";
+import { API_URL, getSession, Session, SITE_URL } from "../../../../utils/api";
 import ProjectCard from "../../../../components/project/ProjectCard";
 import Search from "../../../../components/icons/Search";
 import { onBlur, onFocus } from "../../../../utils/util";
@@ -14,10 +14,7 @@ import { useRouter } from "next/router";
 import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
 import Pagination, { buildURL } from "../../../../components/misc/Pagination";
-// @ts-ignore
-import { getSession } from "next-auth/client";
 import AuthorizedLink from "../../../../components/auth/AuthorizedLink";
-import { Session } from "next-auth";
 
 interface Props {
     search: string;
@@ -115,7 +112,7 @@ export default function Projects({
                                         );
                                     } else {
                                         return (
-                                            <Link key={value.slug} href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${gameSlug}/${value.slug}`}>
+                                            <Link key={value.slug} href={`/games/${gameSlug}/${value.slug}`}>
                                                 <a className={`text-2xl text-hsl-500 mr-3`}>{value.name}</a>
                                             </Link>
                                         );
@@ -127,8 +124,7 @@ export default function Projects({
                                     className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}
                                 >
                                     <AuthorizedLink
-                                        href={`/create/games/[GameSlug]/[ProjectType]/`}
-                                        as={`/create/games/${gameSlug}/${projectData.slug}/`}
+                                        href={`/create/games/${gameSlug}/${projectData.slug}/`}
                                         className={`mx-auto text-center`}
                                     >
                                         Create Project
@@ -350,7 +346,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     params.sort();
     const session = await getSession(context);
     return await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`, {
-        session: session
+        session
     })
         .then((data) => {
             // @ts-ignore
@@ -365,10 +361,10 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
                     projects: data.data.projects,
                     sorts: data.data.sorts,
                     currentSort: sort.length ? sort : "popular",
-                    page: page,
+                    page,
                     version: version.length ? version : "",
                     currentTags: tagArr.length ? tagArr : [],
-                    session: session ?? null
+                    session
                 }
             };
         })

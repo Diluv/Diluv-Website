@@ -1,7 +1,6 @@
 import Layout from "components/Layout";
 import SettingsMenu, { OPTIONS } from "components/project/settings/SettingsMenu";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { StateManager } from "react-select/src/stateManager";
@@ -9,16 +8,13 @@ import { ensureAuthed } from "utils/auth";
 import Alert from "../../../../../../components/Alert";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import { Project, SlugName } from "../../../../../../interfaces";
-import { API_URL } from "../../../../../../utils/api";
+import { API_URL, getSession, Session } from "../../../../../../utils/api";
 import { getAuthed } from "../../../../../../utils/request";
 import { canEditProject } from "../../../../../../utils/util";
 
-export default function Logo({ project, tags }: { project: Project; tags: SlugName[] }): JSX.Element {
-    const [session, loading] = useSession();
+export default function Logo({ project, tags, session }: { project: Project; tags: SlugName[]; session: Session }): JSX.Element {
     const [canEdit, setCanEdit] = useState(false);
     const router = useRouter();
-
-    ensureAuthed(session);
 
     useEffect(() => {
         if (canEditProject(project)) {
@@ -59,7 +55,7 @@ export default function Logo({ project, tags }: { project: Project; tags: SlugNa
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
         >
             <div className={`w-5/6 lg:w-4/6 mx-auto mt-4 mb-8`}>
-                <ProjectInfo project={project} pageType={"settings"} />
+                <ProjectInfo project={project} pageType={"settings"}/>
                 {logoErrors.length > 0 ? (
                     <div className={`my-4`}>
                         {" "}
@@ -94,8 +90,11 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}/settings`, { session: session });
+    if (!ensureAuthed(session, context.res, `/api/login`)) {
+        return { props: {} };
+    }
+    const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}/settings`, { session });
     return {
-        props: { project: data.data.project, tags: data.data.tags, session: session ?? null } // will be passed to the page component as props
+        props: { project: data.data.project, tags: data.data.tags, session } // will be passed to the page component as props
     };
 };

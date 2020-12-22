@@ -6,7 +6,7 @@ import React from "react";
 export default function GameCard(props: { game: Game }) {
     return (
         <div className={``}>
-            <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${props.game.slug}/${props.game.defaultProjectType}`}>
+            <Link href={`/games/${props.game.slug}/${props.game.defaultProjectType}`}>
                 <a>
                     <div className={`flex flex-col`}>
                         <Image

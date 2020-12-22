@@ -2,11 +2,10 @@ import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
-import { API_URL } from "../../../../../utils/api";
+import { API_URL, getSession } from "../../../../../utils/api";
 import { Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import Markdown from "../../../../../components/Markdown";
-import { getSession } from "next-auth/client";
 import Ads from "../../../../../components/ads/Ads";
 
 export default function ProjectIndex({ project }: { project: Project }): JSX.Element {
@@ -39,10 +38,10 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    return getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session })
+    return getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session })
         .then(value => {
             return {
-                props: { project: value.data, session: session ?? null } // will be passed to the page component as props
+                props: { project: value.data, session } // will be passed to the page component as props
             };
         }).catch(() => {
             context.res?.writeHead(302, {

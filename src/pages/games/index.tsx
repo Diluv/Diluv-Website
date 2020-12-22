@@ -3,17 +3,14 @@ import Layout from "components/Layout";
 import Search from "components/icons/Search";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../utils/request";
-import { API_URL, SITE_URL } from "../../utils/api";
+import { API_URL, getSession, SITE_URL } from "../../utils/api";
 import { Game, SlugName } from "../../interfaces";
 import { useRouter } from "next/router";
 import { reactSelectStyle } from "../../utils/theme";
 import Select from "react-select";
 import { onBlur, onFocus } from "../../utils/util";
 import { DebounceInput } from "react-debounce-input";
-// @ts-ignore
-import { getSession } from "next-auth/client";
 import GridArea from "../../components/misc/GridArea";
-import Image from "next/image";
 import GameCard from "../../components/misc/GameCard";
 
 function buildURL(search: string, sort: string) {
@@ -144,7 +141,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
     const session = await getSession(context);
 
-    const games = await getAuthed(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
+    const games = await getAuthed(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`, { session });
 
     return {
         props: {
@@ -152,7 +149,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
             sorts: games.data.sort,
             currentSort: sort.length ? sort : `name`,
             search: search ?? ``,
-            session: session ?? null
+            session: session
         } // will be passed to the page component as props
     };
 };

@@ -5,16 +5,17 @@ import "../css/reactselect.css";
 import "../css/alerts.css";
 
 import "simplebar/dist/simplebar.min.css";
-import React from "react";
+import React, { createElement } from "react";
 import { AppProps } from "next/app";
-// @ts-ignore
-import { Provider } from "next-auth/client";
-import { SITE_URL } from "utils/api";
+import { Session, SessionContext, useSession } from "../utils/api";
 
-export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-    const { session } = pageProps;
+const Provider = ({ children, session }: { children: any, session: Session }) => {
+    return createElement(SessionContext.Provider, { value: useSession(session) }, children);
+};
+
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
     return (
-        <Provider options={{ clientMaxAge: 10 * 60, keepAlive: 15 * 60 }} session={session}>
+        <Provider session={pageProps.session}>
             <Component {...pageProps} />
         </Provider>
     );

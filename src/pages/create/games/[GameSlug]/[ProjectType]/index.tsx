@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed, postAuthed } from "../../../../../utils/request";
-import { API_URL, SITE_URL } from "../../../../../utils/api";
+import { API_URL, getSession, Session, SITE_URL } from "../../../../../utils/api";
 import { reactSelectStyle } from "../../../../../utils/theme";
 import { SelectData, SlugName } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
@@ -9,8 +9,6 @@ import Dropzone from "react-dropzone";
 import Alert from "../../../../../components/Alert";
 import Markdown from "../../../../../components/Markdown";
 import SimpleBar from "simplebar-react";
-// @ts-ignore
-import { getSession, useSession } from "next-auth/client";
 import { ensureAuthed } from "../../../../../utils/auth";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
@@ -20,11 +18,9 @@ import { StateManager } from "react-select/src/stateManager";
 export default function Index({
     GameSlug,
     ProjectType,
-    tags
-}: { GameSlug: string; ProjectType: string; tags: SlugName[] } ): JSX.Element {
-    const [ session, loading ] = useSession();
-
-    ensureAuthed(session);
+    tags,
+    session
+}: { GameSlug: string; ProjectType: string; tags: SlugName[], session: Session }): JSX.Element {
 
     const [content, setContent] = useState("");
     const [logo, setLogo] = useState("");
@@ -44,10 +40,6 @@ export default function Index({
 
     function canSubmit(): boolean {
         return validName && validSummary && validDescription && !!logoFile && validTags;
-    }
-
-    if (!session) {
-        return <> </>;
     }
 
     return (
@@ -110,7 +102,7 @@ export default function Index({
                                 >
                                     <input {...getInputProps()} />
                                     {logo.length ? (
-                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"} />
+                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"}/>
                                     ) : (
                                         <p className={`text-center select-none`}>Upload logo</p>
                                     )}
@@ -257,7 +249,7 @@ export default function Index({
                                     } bg-white dark:bg-dark-900`}
                                 >
                                     <SimpleBar className={`h-full`}>
-                                        <Markdown markdown={content} />
+                                        <Markdown markdown={content}/>
                                     </SimpleBar>
                                 </div>
                             )}
@@ -288,7 +280,7 @@ export default function Index({
                                 formData.set("logo", logoFile ?? "");
                                 formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
 
-                                postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session: session })
+                                postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session })
                                     .then((value) => {
                                         router.push(
                                             `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`,
@@ -313,12 +305,15 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType } = context.query;
 
     const session = await getSession(context);
+    if (!ensureAuthed(session, context.res, `/api/login`)) {
+        return { props: {} };
+    }
     let tags = [];
     if (session) {
-        const data = await getAuthed(`${API_URL}/v1/site/create/games/${GameSlug}/${ProjectType}`, { session: session });
+        const data = await getAuthed(`${API_URL}/v1/site/create/games/${GameSlug}/${ProjectType}`, { session });
         tags = data.data.tags;
     }
     return {
-        props: { GameSlug, ProjectType, session: session ?? null, tags } // will be passed to the page component as props
+        props: { GameSlug, ProjectType, session, tags }
     };
 };

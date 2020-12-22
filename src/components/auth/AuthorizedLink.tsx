@@ -1,31 +1,27 @@
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode } from "react";
 import Link from "next/link";
+import { SITE_URL, useSession } from "utils/api";
 
-// @ts-ignore
-import { signin, useSession } from "next-auth/client";
-import { SITE_URL } from "utils/api";
 export default function AuthorizedLink({
     href,
-    as,
     children,
     className
 }: {
     href: string;
-    as?: string;
     children: ReactNode;
     className?: string;
 }): JSX.Element {
-    const [ session, loading ] = useSession();
-    if (session) {
+    const [session, loading] = useSession();
+    if (!loading && session) {
         return (
-            <Link href={href} as={as}>
+            <Link href={href}>
                 <a className={className}>{children}</a>
             </Link>
         );
     }
     return (
-        <p className={className} onClick={() => signin("DILUV", { callbackUrl: `${SITE_URL}${as}` })}>
-            {children}
-        </p>
+        <Link href={`${SITE_URL}/api/login?redirectTo=${href}`}>
+            <a className={className}>{children}</a>
+        </Link>
     );
 }

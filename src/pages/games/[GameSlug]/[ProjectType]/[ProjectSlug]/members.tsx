@@ -2,12 +2,10 @@ import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../utils/request";
-import { API_URL } from "../../../../../utils/api";
+import { API_URL, getSession } from "../../../../../utils/api";
 import { Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import Link from "next/link";
-// @ts-ignore
-import { getSession } from "next-auth/client";
 import GridArea from "../../../../../components/misc/GridArea";
 import Ads from "../../../../../components/ads/Ads";
 
@@ -29,7 +27,7 @@ export default function Members({ project }: { project: Project }): JSX.Element 
                                 {project.contributors.map((value) => {
                                     return (
                                         <div key={value.userId} className={`grid gap-x-2 my-1 memberList`}>
-                                            <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
+                                            <Link href={`/author/${value.username}`}>
                                                 <a>
                                                     <GridArea name={`avatar`}>
                                                         <img className={`w-16 h-16`} src={value.avatarURL} />
@@ -37,7 +35,7 @@ export default function Members({ project }: { project: Project }): JSX.Element 
                                                 </a>
                                             </Link>
                                             <GridArea name={`name`}>
-                                                <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
+                                                <Link href={`/author/${value.username}`}>
                                                     <a className={`hover:text-diluv-600 dark-hover:text-diluv-500`}>{value.displayName}</a>
                                                 </Link>
                                             </GridArea>
@@ -63,8 +61,8 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session: session });
+    const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session });
     return {
-        props: { project: data.data, session: session ?? null } // will be passed to the page component as props
+        props: { project: data.data, session } // will be passed to the page component as props
     };
 };

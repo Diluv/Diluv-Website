@@ -4,10 +4,8 @@ import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
 import { canEditProject, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
 import Alert from "../Alert";
-import Download from "../icons/Download";
 import GridArea from "../misc/GridArea";
 import { FormattedTime } from "../../utils/dynamic";
-// @ts-ignore
 
 export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }): JSX.Element {
     function isDescription(): boolean {
@@ -45,7 +43,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
             <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
                 <GridArea name={`image`}>
-                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name} />
+                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name}/>
                 </GridArea>
                 <GridArea name={`projectInfo`}>
                     <div className={`leading-tight mt-2 sm:mt-0`}>
@@ -59,7 +57,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
                     <p className={`my-1`}>
                         Project Type:
-                        <Link href={`/games/[Gameslug]/[ProjectType]/`} as={`/games/${project.game.slug}/${project.projectType.slug}`}>
+                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}`}>
                             <a className={"ml-1 hover:text-diluv-500"}>{project.projectType.name}</a>
                         </Link>
                     </p>
@@ -71,17 +69,17 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     <p>{`ProjectID: ${project.id}`}</p>
                 </GridArea>
                 <GridArea name={`created`}>
-                    <FormattedTime time={project.createdAt} prefix={`Created at:`} />
+                    <FormattedTime time={project.createdAt} prefix={`Created at:`}/>
                 </GridArea>
                 <GridArea name={`updated`}>
-                    <FormattedTime time={project.updatedAt} prefix={`Updated at:`} />
+                    <FormattedTime time={project.updatedAt} prefix={`Updated at:`}/>
                 </GridArea>
                 <GridArea name={`downloads`}>
                     <p>{`${project.downloads} Downloads`}</p>
                 </GridArea>
                 <GridArea name={`tags`} className={`grid my-auto gap-2 grid-cols-tags`}>
                     {project.tags.map((value) => (
-                        <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug} />
+                        <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>
                     ))}
                 </GridArea>
             </div>
@@ -91,10 +89,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                         <span className={`cursor-default select-none text-diluv-600`}>Description</span>
                     </div>
                 ) : (
-                    <Link
-                        href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`}
-                        as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}
-                    >
+                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}>
                         <a>
                             <div className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}>
                                 Description
@@ -109,9 +104,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     </div>
                 ) : (
                     <Link
-                        href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files`}
-                        as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}
-                    >
+                        href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
                         <a>
                             <div className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}>
                                 Files
@@ -125,10 +118,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                         <span className={`cursor-default select-none text-diluv-600`}>Members</span>
                     </div>
                 ) : (
-                    <Link
-                        href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/members`}
-                        as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}
-                    >
+                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}>
                         <a>
                             <div className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}>
                                 Members
@@ -143,10 +133,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                             <span className={`cursor-default select-none text-amber-600`}>Settings</span>
                         </div>
                     ) : (
-                        <Link
-                            href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/settings`}
-                            as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
-                        >
+                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
                             <a className={`col-start-5`}>
                                 <div
                                     className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}

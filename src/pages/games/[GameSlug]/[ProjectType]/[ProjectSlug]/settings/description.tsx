@@ -1,14 +1,13 @@
 import Layout from "components/Layout";
 import SettingsMenu, { OPTIONS } from "components/project/settings/SettingsMenu";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ensureAuthed } from "utils/auth";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
-import { Project, SelectData, SlugName } from "../../../../../../interfaces";
-import { API_URL } from "../../../../../../utils/api";
-import { getAuthed, patch, patchAuthed } from "../../../../../../utils/request";
+import { Project, SlugName } from "../../../../../../interfaces";
+import { API_URL, getSession, Session } from "../../../../../../utils/api";
+import { getAuthed, patchAuthed } from "../../../../../../utils/request";
 import { canEditProject } from "../../../../../../utils/util";
 import SimpleBar from "simplebar-react";
 import Markdown from "../../../../../../components/Markdown";
@@ -18,12 +17,9 @@ import TextEditor from "../../../../../../components/ui/TextEditor";
 import Select from "react-select";
 import { reactSelectStyle } from "../../../../../../utils/theme";
 
-export default function Description({ project, tags }: { project: Project; tags: SlugName[] }): JSX.Element {
-    const [session, loading] = useSession();
+export default function Description({ project, tags, session }: { project: Project; tags: SlugName[], session: Session }): JSX.Element {
     const [canEdit, setCanEdit] = useState(false);
     const router = useRouter();
-
-    ensureAuthed(session);
 
     useEffect(() => {
         if (canEditProject(project)) {
@@ -59,7 +55,7 @@ export default function Description({ project, tags }: { project: Project; tags:
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
         >
             <div className={`w-5/6 lg:w-4/6 mx-auto mt-4 mb-8`}>
-                <ProjectInfo project={displayState} pageType={"settings"} />
+                <ProjectInfo project={displayState} pageType={"settings"}/>
                 {errors.length > 0 ? (
                     <div className={`my-4`}>
                         {errors
@@ -271,7 +267,7 @@ export default function Description({ project, tags }: { project: Project; tags:
                                             } bg-white dark:bg-dark-900`}
                                         >
                                             <SimpleBar className={`h-full`}>
-                                                <Markdown markdown={projectState.description} />
+                                                <Markdown markdown={projectState.description}/>
                                             </SimpleBar>
                                         </div>
                                     )}
@@ -309,7 +305,7 @@ export default function Description({ project, tags }: { project: Project; tags:
                                         patchAuthed(
                                             `${API_URL}/v1/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`,
                                             formData,
-                                            { session: session }
+                                            { session }
                                         )
                                             .then((value) => {
                                                 setSubmitting(false);
@@ -329,7 +325,7 @@ export default function Description({ project, tags }: { project: Project; tags:
                                 >
                                     {submitting ? (
                                         <div className={`mx-auto text-center`}>
-                                            <Loading className={`mx-auto`} />
+                                            <Loading className={`mx-auto`}/>
                                         </div>
                                     ) : (
                                         <span>{submitted ? "Saved" : "Save"}</span>
@@ -348,8 +344,12 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}/settings`, { session: session });
+    if (!ensureAuthed(session, context.res, `/api/login`)) {
+        return { props: {} };
+    }
+
+    const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}/settings`, { session });
     return {
-        props: { project: data.data.project, tags: data.data.tags, session: session ?? null } // will be passed to the page component as props
+        props: { project: data.data.project, tags: data.data.tags, session } // will be passed to the page component as props
     };
 };

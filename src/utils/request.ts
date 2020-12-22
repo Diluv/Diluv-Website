@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { Session } from "next-auth/client";
+import { Session } from "./api";
 
 export function post(
     url: string,
@@ -49,7 +49,7 @@ export function getAuthed(
             Accept: "application/json"
         },
         session
-    }: { headers?: any; session?: Session | null }
+    }: { headers?: any; session: Session | null }
 ): Promise<AxiosResponse> {
     if (session) {
         headers.Authorization = `Bearer ${session.accessToken}`;
