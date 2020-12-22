@@ -6,8 +6,7 @@ export default async function silentLogin(req: NextApiRequest, res: NextApiRespo
         await auth0.handleLogin(req, res, {
             authParams: {
                 prompt: "none"
-            },
-            redirectTo: "/testing"
+            }
         });
     } catch (error) {
         console.error(error);

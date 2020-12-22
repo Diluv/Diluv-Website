@@ -3,11 +3,12 @@ import Drop from "./icons/Drop";
 import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLink, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
 import useDarkMode from "use-dark-mode";
-import { Session } from "../utils/api";
+import { useSession } from "../utils/api";
 
-function NavBar({ session }: { session: Session | undefined | null }): JSX.Element {
+function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
+    const [session, loading] = useSession();
 
     const darkMode = useDarkMode(false, { classNameDark: "mode-dark", classNameLight: "mode-light" });
 

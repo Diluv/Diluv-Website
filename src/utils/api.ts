@@ -1,4 +1,5 @@
 import { IncomingMessage } from "http";
+import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL;
@@ -60,6 +61,7 @@ export const getSession = async ({ req, ctx }: NextContext = {}): Promise<Sessio
 };
 
 function _useSessionHook(session: Session | null): [Session | null | undefined, boolean] {
+    const router = useRouter();
     const [data, setData] = useState(session);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -79,6 +81,14 @@ function _useSessionHook(session: Session | null): [Session | null | undefined, 
             const session = await getSession();
             __DILUV._clientSession = session;
 
+            if (!session) {
+                if (localStorage.getItem("diluv") != null) {
+                    localStorage.removeItem("diluv");
+                    router.push(`/api/silent-login`);
+                }
+            } else if (localStorage.getItem("diluv") == null) {
+                localStorage.setItem("diluv", "true");
+            }
             setData(session);
             setLoading(false);
         };

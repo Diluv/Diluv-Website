@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import Head from "next/head";
 import SimpleBar from "simplebar-react";
 import Router from "next/router";
 import { NextSeo } from "next-seo";
-import { __DILUV, SITE_URL, useSession } from "../utils/api";
+import { SITE_URL, useSession } from "../utils/api";
 import { initGA, pageView } from "./analytics/Analytics";
 
 type Props = {
@@ -17,10 +17,10 @@ type Props = {
     image: string;
 };
 
-function Layout({ children, title = "Diluv", description, canonical, url, image }: Props): JSX.Element {
+export default function Layout({ children, title = "Diluv", description, canonical, url, image }: Props): JSX.Element {
     const simpleBarRef = useRef(null);
     const [session, loading] = useSession();
-    const [refresh, setBackgroundRefresh] = useState(false);
+
     useEffect(() => {
         initGA(url);
         // Handles resetting simple bar's position
@@ -35,27 +35,6 @@ function Layout({ children, title = "Diluv", description, canonical, url, image 
             Router.events.off("routeChangeComplete", handleRouteChange);
         };
     }, []);
-
-    useEffect(() => {
-        if (!loading) {
-            if (!session) {
-                if (localStorage.getItem("diluv") != null) {
-                    setBackgroundRefresh(true);
-                    window.addEventListener("message", (event) => {
-                        if ("auth" == event.data.event_id) {
-                            setBackgroundRefresh(false);
-                            if (__DILUV._getSession) {
-                                __DILUV._getSession(true);
-                            }
-                        }
-                    });
-                }
-            } else if (localStorage.getItem("diluv") == null) {
-                localStorage.setItem("diluv", "true");
-                setBackgroundRefresh(false);
-            }
-        }
-    }, [loading]);
 
     return (
         <>
@@ -86,23 +65,13 @@ function Layout({ children, title = "Diluv", description, canonical, url, image 
                             <meta charSet="utf-8"/>
                         </Head>
                         <header>
-                            <NavBar session={session}/>
+                            <NavBar/>
                         </header>
                         <main className={`flex-grow`}>{children}</main>
                         <Footer/>
                     </div>
                 </SimpleBar>
-                {
-                    refresh && (
-                        <iframe
-                            src={`${SITE_URL}/api/silent-login`}
-                            style={{ visibility: "hidden", position: "absolute", width: 0, height: 0 }}>
-                        </iframe>
-                    )
-                }
             </div>
         </>
     );
 }
-
-export default Layout;
