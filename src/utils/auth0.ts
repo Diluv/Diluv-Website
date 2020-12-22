@@ -10,8 +10,7 @@ export default initAuth0({
     session: {
         cookieSecret: "01234567890123456789012345678901234567890123456789",
         cookieLifetime: 60 * 60 * 8,
-        // cookieDomain: 'localhost',
-        cookieSameSite: "lax",
+        cookieSameSite: "strict",
         storeIdToken: false,
         storeAccessToken: true,
         storeRefreshToken: true

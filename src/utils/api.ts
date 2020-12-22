@@ -23,9 +23,8 @@ export interface Session {
     accessTokenExpiresAt: number
 }
 
-export const __DILUV: { _clientSession?: Session | null, _getSession?: (refresh: boolean) => Promise<void> } = {
+export const __DILUV: { _clientSession?: Session | null } = {
     _clientSession: undefined,
-    _getSession: undefined
 };
 
 // @ts-ignore
@@ -92,7 +91,6 @@ function _useSessionHook(session: Session | null): [Session | null | undefined, 
             setData(session);
             setLoading(false);
         };
-        __DILUV._getSession = _getSession;
 
         _getSession();
     });
