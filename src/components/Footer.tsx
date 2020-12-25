@@ -8,10 +8,17 @@ function Footer(): JSX.Element {
             <footer className="font-hero bg-gradient-to-b from-gray-800 to-gray-900">
                 <div className="container px-5 py-8 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-no-wrap flex-wrap flex-col">
                     <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-                        <a className="flex font-medium items-center md:justify-start justify-center text-white">
-                            <Drop className={`w-10 h-10`} />
-                            <span className="ml-3 text-xl">Diluv</span>
-                        </a>
+
+
+                        <Link href={`/`}>
+
+                            <a className="inline-flex font-medium items-center md:justify-start justify-center text-white">
+                                <Drop className={`w-10 h-10`} />
+                                <span className="ml-3 text-xl">Diluv</span>
+                            </a>
+
+                        </Link>
+
                         <p className="mt-2 text-sm text-gray-400">For modders, by modders</p>
                     </div>
                     <div className="flex-grow flex flex-wrap md:pl-20 md:mt-0 mt-10 md:text-left text-center">
