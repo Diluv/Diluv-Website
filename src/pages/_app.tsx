@@ -3,7 +3,7 @@ import "../css/markdown.css";
 import "../css/admonition.css";
 import "../css/reactselect.css";
 import "../css/alerts.css";
-import "nprogress/nprogress.css";
+import "../css/nprogress.css";
 import "simplebar/dist/simplebar.min.css";
 
 import React from "react";
