@@ -8,8 +8,9 @@ import Time from "../icons/Time";
 import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
 import GridArea from "../misc/GridArea";
-import { FormattedDistanceTime, FormattedTime } from "../../utils/dynamic";
+import { FormattedTime } from "../../utils/dynamic";
 import Calendar from "../icons/Calendar";
+import FormattedDistanceTime from "../misc/FormattedTimeDistance";
 
 interface Props {
     gameSlug: string;
@@ -31,7 +32,7 @@ function getCreatedTip(createdAt: number): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Created On</p>
-            <FormattedTime time={createdAt}/>
+            <FormattedTime time={createdAt} />
         </div>
     );
 }
@@ -40,7 +41,7 @@ function getUpdatedTip(updatedAt: number): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Updated On</p>
-            <FormattedTime time={updatedAt}/>
+            <FormattedTime time={updatedAt} />
         </div>
     );
 }
@@ -54,7 +55,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                 <GridArea name={`image`}>
                     <Link href={projectUrlRef} as={projectUrl}>
                         <a>
-                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name}/>
+                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name} />
                         </a>
                     </Link>
                 </GridArea>
@@ -89,7 +90,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <span className={`mr-1`}>{project.downloads}</span>
                             </div>
                         </Tippy>
@@ -106,8 +107,8 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Calendar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
-                                <FormattedDistanceTime start={project.createdAt}/>
+                                <Calendar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <FormattedDistanceTime start={project.createdAt} />
                             </div>
                         </Tippy>
                     </div>
@@ -122,8 +123,8 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
-                                <FormattedDistanceTime start={project.updatedAt}/>
+                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <FormattedDistanceTime start={project.updatedAt} />
                             </div>
                         </Tippy>
                     </div>
@@ -131,7 +132,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
 
                 {project.tags.map((value, i) => (
                     <GridArea name={`tag${i + 1}`} className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center`} key={value.slug}>
-                        <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter} setTagFilter={setTagFilter}/>
+                        <FilterTag tagSlug={value.slug} tagName={value.name} tagFilter={tagFilter} setTagFilter={setTagFilter} />
                     </GridArea>
                 ))}
             </div>
