@@ -6,6 +6,8 @@ import { API_URL } from "../../../../../utils/api";
 import { Project } from "../../../../../interfaces";
 import ProjectInfo from "../../../../../components/project/ProjectInfo";
 import Link from "next/link";
+import Image from "next/image";
+
 // @ts-ignore
 import { getSession } from "next-auth/client";
 import GridArea from "../../../../../components/misc/GridArea";
@@ -32,7 +34,7 @@ export default function Members({ project }: { project: Project }): JSX.Element 
                                             <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
                                                 <a>
                                                     <GridArea name={`avatar`}>
-                                                        <img className={`w-16 h-16`} src={value.avatarURL} />
+                                                        <Image width={64} height={64} src={value.avatarURL} />
                                                     </GridArea>
                                                 </a>
                                             </Link>
