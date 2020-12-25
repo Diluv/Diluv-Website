@@ -34,7 +34,7 @@ export default function Members({ project }: { project: Project }): JSX.Element 
                                             <Link href={`/author/[Name]`} as={`/author/${value.username}`}>
                                                 <a>
                                                     <GridArea name={`avatar`}>
-                                                        <Image width={64} height={64} src={value.avatarURL} />
+                                                        <Image width={64} height={64} src={value.avatarURL} alt={value.username + " avatar"} />
                                                     </GridArea>
                                                 </a>
                                             </Link>
