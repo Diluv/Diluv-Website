@@ -6,7 +6,7 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL as string;
 export const COOKIE_SECRET = process.env.COOKIE_SECRET as string;
 
 export default initAuth0({
-    domain: `${OPENID_CONNECT_URL}/auth/realms/Diluv`,
+    domain: `${OPENID_CONNECT_URL}`,
     clientId: "DILUV_WEBSITE",
     clientSecret: "DILUV_WEBSITE",
     scope: "openid profile",
