@@ -5,18 +5,20 @@ import "../css/reactselect.css";
 import "../css/alerts.css";
 import "../css/nprogress.css";
 import "simplebar/dist/simplebar.min.css";
-
-import React, { useEffect } from "react";
+import React, { useEffect, createElement } from "react";
 import { AppProps } from "next/app";
 import Router from "next/router";
 import NProgress from "nprogress";
-// @ts-ignore
-import { Provider } from "next-auth/client";
+import { Session, SessionContext, useSession } from "../utils/api";
 
 NProgress.configure({ showSpinner: false });
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
+
+const Provider = ({ children, session }: { children: any, session: Session }) => {
+    return createElement(SessionContext.Provider, { value: useSession(session) }, children);
+};
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 
@@ -28,9 +30,8 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         }
     }, []);
 
-    const { session } = pageProps;
     return (
-        <Provider options={{ clientMaxAge: 10 * 60, keepAlive: 15 * 60 }} session={session}>
+        <Provider session={pageProps.session}>
             <Component {...pageProps} />
         </Provider>
     );

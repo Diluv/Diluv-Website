@@ -7,10 +7,8 @@ import SimpleBar from "simplebar-react";
 import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
 import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { API_URL } from "../../../../../../utils/api";
+import { API_URL, getSession } from "../../../../../../utils/api";
 import { getAuthed } from "../../../../../../utils/request";
-// @ts-ignore
-import { getSession } from "next-auth/client";
 import Markdown from "../../../../../../components/Markdown";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
@@ -26,7 +24,7 @@ export default function File({ project, file }: { project: Project; file: Projec
         >
             <>
                 <div className={`mx-auto w-5/6 lg:w-4/6`}>
-                    <ProjectInfo project={project} pageType={"file"} />
+                    <ProjectInfo project={project} pageType={"file"}/>
                     <div id={"pageContent"}>
                         <div className={`pb-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>
@@ -45,7 +43,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h3 className={`font-semibold`}>Uploaded</h3>
-                                        <FormattedDistanceTime start={file.createdAt} />
+                                        <FormattedDistanceTime start={file.createdAt}/>
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h2 className={`font-semibold`}>SHA512</h2>
@@ -75,7 +73,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h3 className={`font-semibold`}>Uploaded by</h3>
-                                        <Link href={`/author/[Name]`} as={`/author/${file.user.username}`}>
+                                        <Link href={`/author/${file.user.username}`}>
                                             <a className={`hover:text-diluv-500`}>
                                                 <div className={`inline-flex`}>
                                                     <img
@@ -111,7 +109,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                 <div className={`my-2 mx-2`}>
                                     <h2 className={`font-semibold`}>Changelog</h2>
                                     <div className={`mt-2 border border-gray-400 dark:border-dark-600 bg-gray-300 dark:bg-dark-800`}>
-                                        <Markdown markdown={file.changelog} />
+                                        <Markdown markdown={file.changelog}/>
                                     </div>
                                 </div>
                             </SimpleBar>
@@ -127,8 +125,8 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug, FileId } = context.query;
 
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files/${FileId}`, { session: session });
+    const data = await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files/${FileId}`, { session });
     return {
-        props: { project: data.data.project, session: session ?? null, file: data.data.file } // will be passed to the page component as props
+        props: { project: data.data.project, session, file: data.data.file } // will be passed to the page component as props
     };
 };

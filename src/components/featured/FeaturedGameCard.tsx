@@ -5,7 +5,7 @@ import Link from "next/link";
 function FeaturedGameCard({ game }: { game: Game }): JSX.Element {
     return (
         <div className={``}>
-            <Link href={`/games/[GameSlug]/[ProjectType]`} as={`/games/${game.slug}/${game.defaultProjectType}`}>
+            <Link href={`/games/${game.slug}/${game.defaultProjectType}`}>
                 <a aria-label={game.name}>
                     <picture>
                         {game.logoURL.sources.map((value) => (

@@ -10,7 +10,6 @@ export const reactSelectStyle: Partial<Styles> = {
             "borderRadius": 0,
             "borderColor": props.isFocused ? "#A0AEC0" : "#CBD5E0",
             "boxShadow": "none",
-            // @ts-ignore
             "&:hover": {
                 borderColor: "#A0AEC0"
             }

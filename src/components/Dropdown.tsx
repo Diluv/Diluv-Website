@@ -30,7 +30,8 @@ function DropDown(props: { name: string; children: ReactNode; className?: string
                         setIsComponentVisible(!isComponentVisible);
                         // This is needed to make sure it stays in the right position...
                         if (update) {
-                            update().then(() => {});
+                            update().then(() => {
+                            });
                         }
                     }}
                 >
@@ -54,10 +55,10 @@ export function DropDownItem(props: { children: ReactNode; className?: string })
     return <div className={`${className || ""} text-gray-800 px-6 py-2`}>{children}</div>;
 }
 
-export function DropDownLinkInternal(props: { children: ReactNode; className?: string; href: string; as: string }): JSX.Element {
-    const { href, children, className, as } = props;
+export function DropDownLinkInternal(props: { children: ReactNode; className?: string; href: string }): JSX.Element {
+    const { href, children, className } = props;
     return (
-        <Link href={href} as={as}>
+        <Link href={href}>
             <a className={`${className || ""} text-gray-800 px-6 py-2 hover:bg-gray-400 transition-colors duration-150 ease-in cursor-pointer block`}>
                 {children}
             </a>
@@ -91,7 +92,7 @@ export function DropDownAction(props: { children: ReactNode; className?: string;
 }
 
 export function DropDownSpacer() {
-    return <div className="border-gray-400 border-b" />;
+    return <div className="border-gray-400 border-b"/>;
 }
 
 export default DropDown;

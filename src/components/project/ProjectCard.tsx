@@ -53,7 +53,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
         <>
             <div className={`grid my-4 w-full mx-auto gap-x-2 gap-y-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
                 <GridArea name={`image`}>
-                    <Link href={projectUrlRef} as={projectUrl}>
+                    <Link href={projectUrl} >
                         <a>
                             <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name} />
                         </a>
@@ -61,7 +61,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                 </GridArea>
 
                 <GridArea name={`header`} className={"sm:ml-2 leading-snug"}>
-                    <Link href={projectUrlRef} as={projectUrl}>
+                    <Link href={projectUrl}>
                         <a>
                             <div className={`inline-flex`}>
                                 <h4 className={`font-semibold`}>{project.name}</h4>

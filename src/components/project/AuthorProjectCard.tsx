@@ -42,13 +42,12 @@ function getUpdatedTip(updatedAt: number) {
 }
 
 function AuthorProjectCard({ project }: Props): JSX.Element {
-    const projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
     const projectUrl = `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`;
     return (
         <>
             <div className={`grid my-3 w-full mx-auto gap-x-2 gap-y-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
                 <GridArea name={`image`}>
-                    <Link href={projectUrlRef} as={projectUrl}>
+                    <Link href={projectUrl}>
                         <a>
                             <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name}/>
                         </a>
@@ -56,7 +55,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                 </GridArea>
 
                 <GridArea name={`header`} className={"sm:ml-2 leading-snug"}>
-                    <Link href={projectUrlRef} as={projectUrl}>
+                    <Link href={projectUrl}>
                         <a>
                             <div className={`inline-flex`}>
                                 <h4 className={`font-semibold`}>{project.name}</h4>

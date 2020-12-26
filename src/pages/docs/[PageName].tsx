@@ -4,9 +4,7 @@ import React from "react";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { HasMarkdown } from "../../interfaces";
 import { readAsString } from "../../utils/files";
-// @ts-ignore
-import { getSession } from "next-auth/client";
-import { SITE_URL } from "../../utils/api";
+import { getSession, SITE_URL } from "../../utils/api";
 
 export default function Feedback({ title, pageContents, PageName }: HasMarkdown & { PageName: string }): JSX.Element {
     return (
@@ -45,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     if (title) {
         const pageContents = readAsString(`public/docs/${pageFile}.md`);
         return {
-            props: { PageName, title, pageContents, session: session ?? null }
+            props: { PageName, title, pageContents, session }
         };
     }
 

@@ -11,6 +11,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^0.16.0",
     "@jaredlll08/react-paginate": "^7.0.1",
     "@popperjs/core": "^2.5.4",
     "@tippyjs/react": "^4.2.0",
@@ -21,7 +22,6 @@
     "filesize": "^6.1.0",
     "jwt-decode": "^3.1.2",
     "next": "10.0.3",
-    "next-auth": "3.1.0",
     "next-compose-plugins": "2.2.1",
     "next-images": "1.6.2",
     "next-seo": "4.17.0",
@@ -50,7 +50,6 @@
     "@babel/core": "7.12.9",
     "@babel/preset-env": "7.12.7",
     "@fullhuman/postcss-purgecss": "3.0.0",
-    "@types/next-auth": "3.1.17",
     "@types/node": "14.14.10",
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.0",

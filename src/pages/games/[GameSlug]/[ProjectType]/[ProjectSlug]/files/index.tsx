@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../../utils/request";
-import { API_URL } from "../../../../../../utils/api";
+import { API_URL, getSession } from "../../../../../../utils/api";
 import { Project, ProjectFile } from "../../../../../../interfaces";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import filesize from "filesize";
@@ -11,7 +11,6 @@ import Tippy from "@tippyjs/react";
 import SimpleBar from "simplebar-react";
 import Download from "../../../../../../components/icons/Download";
 import Link from "next/link";
-import { getSession } from "next-auth/client";
 import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
 import { Table, TableBody, TableData, TableHead, TableHeader, TableRow } from "../../../../../../components/ui/Table";
 import DownloadLink from "../../../../../../components/ui/DownloadLink";
@@ -27,7 +26,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
         >
             <>
                 <div className={`mx-auto w-5/6 lg:w-4/6`}>
-                    <ProjectInfo project={project} pageType={"files"} />
+                    <ProjectInfo project={project} pageType={"files"}/>
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>
@@ -39,7 +38,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                         <TableHeader>Status</TableHeader>
                                         <TableHeader>Date</TableHeader>
                                         <TableHeader>
-                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
+                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"}/>
                                         </TableHeader>
                                     </TableHead>
                                     <TableBody>
@@ -47,10 +46,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                             return (
                                                 <TableRow key={value.id}>
                                                     <TableData>
-                                                        <Link
-                                                            href={`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files/[FileId]`}
-                                                            as={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.id}`}
-                                                        >
+                                                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.id}`}>
                                                             <a className={`cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-500`}>
                                                                 <pre>{value.name}</pre>
                                                             </a>
@@ -92,11 +88,11 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                     </TableData>
                                                     <TableData>{value.releaseType}</TableData>
                                                     <TableData>
-                                                        <FormattedDistanceTime start={value.createdAt} />
+                                                        <FormattedDistanceTime start={value.createdAt}/>
                                                     </TableData>
                                                     <TableData>
                                                         <DownloadLink url={value.downloadURL}>
-                                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
+                                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"}/>
                                                         </DownloadLink>
                                                     </TableData>
                                                 </TableRow>
@@ -117,8 +113,8 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files`, { session: session });
+    const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files`, { session });
     return {
-        props: { project: data.data.project, files: data.data.files, session: session ?? null } // will be passed to the page component as props
+        props: { project: data.data.project, files: data.data.files, session } // will be passed to the page component as props
     };
 };

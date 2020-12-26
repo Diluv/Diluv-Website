@@ -4,11 +4,9 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { AuthorPage, SlugName } from "../../../interfaces";
 import { reactSelectStyle } from "../../../utils/theme";
 import { getAuthed } from "../../../utils/request";
-import { API_URL } from "../../../utils/api";
+import { API_URL, getSession } from "../../../utils/api";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
-// @ts-ignore
-import { getSession } from "next-auth/client";
 import AuthorProjectCard from "../../../components/project/AuthorProjectCard";
 import Select from "react-select";
 import Pagination, { buildURL } from "../../../components/misc/Pagination";
@@ -164,9 +162,9 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     }
     const session = await getSession(context);
     params.sort();
-    const data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session: session });
+    const data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session });
 
     return {
-        props: { data: data.data, currentSort: sort.length ? sort : `new`, page: page, session: session ?? null } // will be passed to the page component as props
+        props: { data: data.data, currentSort: sort.length ? sort : `new`, page: page, session } // will be passed to the page component as props
     };
 };

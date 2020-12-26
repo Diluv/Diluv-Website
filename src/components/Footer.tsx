@@ -31,7 +31,7 @@ function Footer(): JSX.Element {
                                     </a>
                                 </p>
                                 <p>
-                                    <Link href={"/docs/[PageName]"} as={"/docs/formatting"}>
+                                    <Link href={"/docs/formatting"}>
                                         <a className="text-gray-400 hover:text-white">Formatting Guide</a>
                                     </Link>
                                 </p>
@@ -46,22 +46,22 @@ function Footer(): JSX.Element {
                                     </Link>
                                 </p>
                                 <p>
-                                    <Link href={"/docs/[PageName]"} as={"/docs/privacy"}>
+                                    <Link href={"/docs/privacy"}>
                                         <a className="text-gray-400 hover:text-white">Privacy</a>
                                     </Link>
                                 </p>
                                 <p>
-                                    <Link href={"/docs/[PageName]"} as={"/docs/terms"}>
+                                    <Link href={"/docs/terms"}>
                                         <a className="text-gray-400 hover:text-white">Terms Of Service</a>
                                     </Link>
                                 </p>
                                 <p>
-                                    <Link href={"/docs/[PageName]"} as={"/docs/conduct"}>
+                                    <Link href={"/docs/conduct"}>
                                         <a className="text-gray-400 hover:text-white">Code of Conduct</a>
                                     </Link>
                                 </p>
                                 <p>
-                                    <Link href={"/docs/[PageName]"} as={"/docs/disclosure"}>
+                                    <Link href={"/docs/disclosure"}>
                                         <a className="text-gray-400 hover:text-white">Responsible Disclosure</a>
                                     </Link>
                                 </p>
@@ -81,7 +81,7 @@ function Footer(): JSX.Element {
                                     </a>
                                 </p>
                                 <p>
-                                    <Link href={"/docs/[PageName]"} as={"/docs/feedback"}>
+                                    <Link href={"/docs/feedback"}>
                                         <a className="text-gray-400 hover:text-white">Feedback</a>
                                     </Link>
                                 </p>
