@@ -28,11 +28,11 @@ export function listContributors(project: Project): ReactNode[] {
 }
 
 export function projectHasReleaseStatus(project: Project): boolean {
-    return "released" in project;
+    return Object.keys(project).includes("released");
 }
 
 export function projectHasReviewStatus(project: Project): boolean {
-    return "review" in project;
+    return Object.keys(project).includes("review");
 }
 
 export function canEditProject(project: Project): boolean {
