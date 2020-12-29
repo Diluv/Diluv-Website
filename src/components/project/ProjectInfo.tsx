@@ -44,7 +44,15 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
             <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
                 <GridArea name={`image`}>
-                    <Image src={project.logo} alt={project.name} width={224} height={224} layout={`responsive`} />
+                    <Image
+                        src={project.logo}
+                        alt={project.name}
+                        width={300}
+                        height={300}
+                        layout={`responsive`}
+                        className={`sm:h-56 w-full sm:w-56`}
+                        sizes={`100vw`}
+                    />
                 </GridArea>
                 <GridArea name={`projectInfo`}>
                     <div className={`leading-tight mt-2 sm:mt-0`}>
