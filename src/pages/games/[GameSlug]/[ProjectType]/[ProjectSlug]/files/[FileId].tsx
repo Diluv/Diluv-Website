@@ -12,6 +12,7 @@ import { getAuthed } from "../../../../../../utils/request";
 import Markdown from "../../../../../../components/Markdown";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
+import Image from "next/image";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
     return (
@@ -24,7 +25,7 @@ export default function File({ project, file }: { project: Project; file: Projec
         >
             <>
                 <div className={`mx-auto w-5/6 lg:w-4/6`}>
-                    <ProjectInfo project={project} pageType={"file"}/>
+                    <ProjectInfo project={project} pageType={"file"} />
                     <div id={"pageContent"}>
                         <div className={`pb-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>
@@ -43,7 +44,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h3 className={`font-semibold`}>Uploaded</h3>
-                                        <FormattedDistanceTime start={file.createdAt}/>
+                                        <FormattedDistanceTime start={file.createdAt} />
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h2 className={`font-semibold`}>SHA512</h2>
@@ -76,13 +77,15 @@ export default function File({ project, file }: { project: Project; file: Projec
                                         <Link href={`/author/${file.user.username}`}>
                                             <a className={`hover:text-diluv-500`}>
                                                 <div className={`inline-flex`}>
-                                                    <img
-                                                        className={`w-6 h-6 mr-1`}
+                                                    <Image
+                                                        className={`mr-1`}
                                                         src={
                                                             project.contributors
                                                                 .filter((value) => (value.userId = file.user.userId))
                                                                 .map((value) => value.avatarURL)[0]
                                                         }
+                                                        width={24}
+                                                        height={24}
                                                     />
                                                     <p>{file.user.displayName}</p>
                                                 </div>
@@ -109,7 +112,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                 <div className={`my-2 mx-2`}>
                                     <h2 className={`font-semibold`}>Changelog</h2>
                                     <div className={`mt-2 border border-gray-400 dark:border-dark-600 bg-gray-300 dark:bg-dark-800`}>
-                                        <Markdown markdown={file.changelog}/>
+                                        <Markdown markdown={file.changelog} />
                                     </div>
                                 </div>
                             </SimpleBar>
