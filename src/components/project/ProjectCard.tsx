@@ -11,6 +11,7 @@ import GridArea from "../misc/GridArea";
 import { FormattedTime } from "../../utils/dynamic";
 import Calendar from "../icons/Calendar";
 import FormattedDistanceTime from "../misc/FormattedTimeDistance";
+import Image from "next/image";
 
 interface Props {
     gameSlug: string;
@@ -53,9 +54,11 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
         <>
             <div className={`grid my-4 w-full mx-auto gap-x-2 gap-y-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
                 <GridArea name={`image`}>
-                    <Link href={projectUrl} >
+                    <Link href={projectUrl}>
                         <a>
-                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name} />
+                            <div className={`w-32 h-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`}>
+                                <Image src={project.logo} alt={project.name} width={128} height={128} layout={`responsive`} />
+                            </div>
                         </a>
                     </Link>
                 </GridArea>
