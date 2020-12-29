@@ -6,6 +6,7 @@ import { canEditProject, listContributors, projectHasReleaseStatus, projectHasRe
 import Alert from "../Alert";
 import GridArea from "../misc/GridArea";
 import { FormattedTime } from "../../utils/dynamic";
+import Image from "next/image";
 
 export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }): JSX.Element {
     function isDescription(): boolean {
@@ -43,7 +44,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
             <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
                 <GridArea name={`image`}>
-                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name} />
+                    <Image src={project.logo} alt={project.name} width={224} height={224} layout={`responsive`} />
                 </GridArea>
                 <GridArea name={`projectInfo`}>
                     <div className={`leading-tight mt-2 sm:mt-0`}>
