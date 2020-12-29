@@ -51,7 +51,6 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                         height={300}
                         layout={`responsive`}
                         className={`sm:h-56 w-full sm:w-56`}
-                        sizes={`100vw`}
                     />
                 </GridArea>
                 <GridArea name={`projectInfo`}>
