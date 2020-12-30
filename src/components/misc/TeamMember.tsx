@@ -1,20 +1,21 @@
 import React from "react";
+import { CDN_URL } from "../../utils/api";
 
 type Props = {
     readonly name: string;
-    readonly avatar: string;
+    readonly username: string;
     readonly twitter: string;
     readonly github: string;
     readonly description: string;
 }
 
-export default function TeamMember({ name, avatar, twitter, github, description }: Props): JSX.Element {
+export default function TeamMember({ name, username, twitter, github, description }: Props): JSX.Element {
     return (
-        <div >
+        <div>
             <picture>
-                <source type="image/webp" src={avatar + ".webp"} />
-                <source type="image/png" src={avatar + ".png"} />
-                <img src={avatar + ".png"}  className={`w-full`} />
+                <source type="image/webp" src={`${CDN_URL}/users/${username}/avatar.webp`}/>
+                <source type="image/png" src={`${CDN_URL}/users/${username}/avatar.png`}/>
+                <img src={`${CDN_URL}/users/${username}/avatar.png`} className={`w-full`}/>
             </picture>
             <div className="flex flex-col justify-center mt-2">
                 <p className="text-lg font-bold">{name}</p>

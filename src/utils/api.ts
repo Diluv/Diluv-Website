@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 export const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL;
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL as string;
+export const CDN_URL = process.env.NEXT_PUBLIC_CDN_URL as string;
 export const GOOGLE_ANALYTICS_KEY = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_KEY as string;
 export const GOOGLE_ADSENSE_KEY = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_KEY as string;
 
