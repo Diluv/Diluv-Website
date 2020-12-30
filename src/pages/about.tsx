@@ -35,7 +35,7 @@ export default function Feedback(): JSX.Element {
                     <div className="grid gap-10 mx-auto sm:grid-cols-2 lg:grid-cols-3 lg:max-w-screen-lg">
                         <TeamMember name="Darkhax" avatar="https://i.imgur.com/dEAn657" description="I'm a self-taught software engineer and have over 10 years of experience with developing mods. My main modding obsession has been Minecraft however I also publish mods for Stardew Valley, Subnautica, and other indie games." twitter="DarkhaxDev" github="Darkhax" />
                         <TeamMember name="Jared" avatar="https://imgur.com/mdevWDk" description="I'm an Open Source developer focusing on web development and Minecraft mods. I made most of this website!" twitter="jaredlll08" github="jaredlll08" />
-                        <TeamMember name="LCLC98" avatar="https://imgur.com/wvWfT5Z" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." twitter="lclc98" github="lclc98" />
+                        <TeamMember name="LCLC98" avatar="https://imgur.com/wvWfT5Z" description="I have been programming for 8 years and started with developing Minecraft mods. I have worked on a lot of different types of software." twitter="lclc98" github="lclc98" />
                     </div>
                 </div>
             </div>
