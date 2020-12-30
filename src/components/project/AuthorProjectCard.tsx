@@ -10,6 +10,7 @@ import { listContributors } from "../../utils/util";
 import GridArea from "../misc/GridArea";
 import { FormattedDistanceTime, FormattedTime } from "../../utils/dynamic";
 import Calendar from "../icons/Calendar";
+import Image from "next/image";
 
 interface Props {
     project: Project;
@@ -27,7 +28,7 @@ function getCreatedTip(createdAt: number) {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Created On</p>
-            <FormattedTime time={createdAt}/>
+            <FormattedTime time={createdAt} />
         </div>
     );
 }
@@ -36,7 +37,7 @@ function getUpdatedTip(updatedAt: number) {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Updated On</p>
-            <FormattedTime time={updatedAt}/>
+            <FormattedTime time={updatedAt} />
         </div>
     );
 }
@@ -49,7 +50,9 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                 <GridArea name={`image`}>
                     <Link href={projectUrl}>
                         <a>
-                            <img src={project.logo} className={`w-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`} alt={project.name}/>
+                            <div className={`w-32 h-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`}>
+                                <Image src={project.logo} alt={project.name} width={128} height={128} layout={`responsive`} />
+                            </div>
                         </a>
                     </Link>
                 </GridArea>
@@ -84,7 +87,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <span className={`mr-1`}>{project.downloads}</span>
                             </div>
                         </Tippy>
@@ -101,7 +104,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Calendar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                                <Calendar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <FormattedDistanceTime start={project.createdAt} />
                             </div>
                         </Tippy>
@@ -117,7 +120,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`}/>
+                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <FormattedDistanceTime start={project.updatedAt} />
                             </div>
                         </Tippy>
@@ -126,7 +129,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
 
                 {project.tags.map((value, i) => (
                     <GridArea name={`tag${i + 1}`} className={`sm:ml-2 lg:ml-0 my-auto cursor-default text-center}`} key={value.slug}>
-                        <DisplayTag tagSlug={value.slug} tagName={value.name}/>
+                        <DisplayTag tagSlug={value.slug} tagName={value.name} />
                     </GridArea>
                 ))}
             </div>

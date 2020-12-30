@@ -13,8 +13,8 @@ export default function GameCard(props: { game: Game }) {
                             src={props.game.logoURL.sources[0].src}
                             className={`w-full`}
                             alt={props.game.name}
-                            width={250}
-                            height={130}
+                            width={360}
+                            height={180}
                             quality={100}
                         />
                         <div className={`h-16 hover:h-32 hover:break-normal`}>

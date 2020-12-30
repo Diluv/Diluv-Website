@@ -13,12 +13,9 @@ import Pagination, { buildURL } from "../../../components/misc/Pagination";
 import { useRouter } from "next/router";
 import GridArea from "../../../components/misc/GridArea";
 import { FormattedDistanceTime, FormattedTime } from "../../../utils/dynamic";
+import Image from "next/image";
 
-export default function AuthorProjects({
-    data,
-    currentSort,
-    page,
-}: { data: AuthorPage; currentSort: string; page: number } ): JSX.Element {
+export default function AuthorProjects({ data, currentSort, page }: { data: AuthorPage; currentSort: string; page: number }): JSX.Element {
     const maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
 
@@ -34,14 +31,14 @@ export default function AuthorProjects({
                 <div className={`w-11/12 mx-auto`}>
                     <div className={`grid gap-x-2 gap-y-2 sm:gap-y-0 profilePageSmall sm:profilePageLarge`}>
                         <GridArea name={`image`}>
-                            <img src={data.user.avatarURL} alt={data.user.displayName} />
+                            <Image src={data.user.avatarURL} alt={data.user.displayName} width={256} height={256} />
                         </GridArea>
                         <GridArea name={`summary`}>
                             <h3>{data.user.displayName}</h3>
                             <Tippy
                                 content={
                                     <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                                        <FormattedTime time={data.user.createdAt}/>
+                                        <FormattedTime time={data.user.createdAt} />
                                     </div>
                                 }
                                 followCursor={true}
@@ -50,7 +47,7 @@ export default function AuthorProjects({
                                 hideOnClick={false}
                             >
                                 <div className={`w-auto inline-block`}>
-                                    <FormattedDistanceTime start={data.user.createdAt} prefix={`Joined `}/>
+                                    <FormattedDistanceTime start={data.user.createdAt} prefix={`Joined `} />
                                 </div>
                             </Tippy>
                         </GridArea>

@@ -6,6 +6,7 @@ import { canEditProject, listContributors, projectHasReleaseStatus, projectHasRe
 import Alert from "../Alert";
 import GridArea from "../misc/GridArea";
 import { FormattedTime } from "../../utils/dynamic";
+import Image from "next/image";
 
 export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }): JSX.Element {
     function isDescription(): boolean {
@@ -26,14 +27,14 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
     return (
         <div id={"topInfo"}>
-            {projectHasReleaseStatus(project) && !project.review ? (
+            {projectHasReviewStatus(project) && project.review ? (
                 <Alert type={"alert-warning"} className={`my-4`}>
                     This project is under review and only people with permission can see it!
                 </Alert>
             ) : (
                 <></>
             )}
-            {projectHasReviewStatus(project) && !project.released ? (
+            {projectHasReleaseStatus(project) && !project.released ? (
                 <Alert type={"alert-warning"} className={`my-4`}>
                     This project is not released yet!
                 </Alert>
@@ -43,7 +44,14 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
             <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
                 <GridArea name={`image`}>
-                    <img src={project.logo} className={`sm:h-56 w-full sm:w-56`} alt={project.name}/>
+                    <Image
+                        src={project.logo}
+                        alt={project.name}
+                        width={300}
+                        height={300}
+                        layout={`responsive`}
+                        className={`sm:h-56 w-full sm:w-56`}
+                    />
                 </GridArea>
                 <GridArea name={`projectInfo`}>
                     <div className={`leading-tight mt-2 sm:mt-0`}>
@@ -69,17 +77,17 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     <p>{`ProjectID: ${project.id}`}</p>
                 </GridArea>
                 <GridArea name={`created`}>
-                    <FormattedTime time={project.createdAt} prefix={`Created at:`}/>
+                    <FormattedTime time={project.createdAt} prefix={`Created at:`} />
                 </GridArea>
                 <GridArea name={`updated`}>
-                    <FormattedTime time={project.updatedAt} prefix={`Updated at:`}/>
+                    <FormattedTime time={project.updatedAt} prefix={`Updated at:`} />
                 </GridArea>
                 <GridArea name={`downloads`}>
                     <p>{`${project.downloads} Downloads`}</p>
                 </GridArea>
                 <GridArea name={`tags`} className={`grid my-auto gap-2 grid-cols-tags`}>
                     {project.tags.map((value) => (
-                        <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug}/>
+                        <DisplayTag tagName={value.name} tagSlug={value.slug} key={value.slug} />
                     ))}
                 </GridArea>
             </div>
@@ -103,8 +111,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                         <span className={`cursor-default select-none text-diluv-600`}>Files</span>
                     </div>
                 ) : (
-                    <Link
-                        href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
+                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
                         <a>
                             <div className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}>
                                 Files
