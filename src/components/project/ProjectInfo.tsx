@@ -91,15 +91,19 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     ))}
                 </GridArea>
             </div>
-            <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info mt-4`}>
+            <div
+                className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-2 sm:grid-cols-project-info text-center sm:text-left mt-4`}
+            >
                 {isDescription() ? (
-                    <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
+                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
                         <span className={`cursor-default select-none text-diluv-600`}>Description</span>
                     </div>
                 ) : (
                     <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}>
-                        <a>
-                            <div className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}>
+                        <a className={`block`}>
+                            <div
+                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}
+                            >
                                 Description
                             </div>
                         </a>
@@ -107,13 +111,15 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                 )}
 
                 {isFiles() ? (
-                    <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
+                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
                         <span className={`cursor-default select-none text-diluv-600`}>Files</span>
                     </div>
                 ) : (
                     <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
-                        <a>
-                            <div className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}>
+                        <a className={`block`}>
+                            <div
+                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700 `}
+                            >
                                 Files
                             </div>
                         </a>
@@ -121,38 +127,37 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                 )}
 
                 {isMembers() ? (
-                    <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
+                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
                         <span className={`cursor-default select-none text-diluv-600`}>Members</span>
                     </div>
                 ) : (
                     <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}>
-                        <a>
-                            <div className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}>
+                        <a className={`block`}>
+                            <div
+                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}
+                            >
                                 Members
                             </div>
                         </a>
                     </Link>
                 )}
 
-                {canEditProject(project) ? (
-                    isSettings() ? (
-                        <div className={`px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 col-start-5`}>
+                {canEditProject(project) &&
+                    (isSettings() ? (
+                        <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-5`}>
                             <span className={`cursor-default select-none text-amber-600`}>Settings</span>
                         </div>
                     ) : (
                         <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
-                            <a className={`col-start-5`}>
+                            <a className={`block sm:col-start-5`}>
                                 <div
-                                    className={`px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
                                 >
                                     Settings
                                 </div>
                             </a>
                         </Link>
-                    )
-                ) : (
-                    <> </>
-                )}
+                    ))}
             </div>
         </div>
     );
