@@ -37,6 +37,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                         <TableHeader>Size</TableHeader>
                                         <TableHeader>Status</TableHeader>
                                         <TableHeader>Date</TableHeader>
+                                        <TableHeader>Downloads</TableHeader>
                                         <TableHeader>
                                             <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"}/>
                                         </TableHeader>
@@ -89,6 +90,9 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                     <TableData>{value.releaseType}</TableData>
                                                     <TableData>
                                                         <FormattedDistanceTime start={value.createdAt}/>
+                                                    </TableData>
+                                                    <TableData>
+                                                        {value.downloads}
                                                     </TableData>
                                                     <TableData>
                                                         <DownloadLink url={value.downloadURL}>
