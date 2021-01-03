@@ -78,7 +78,6 @@ export default function File({ project, file }: { project: Project; file: Projec
                                             <a className={`hover:text-diluv-500`}>
                                                 <div className={`inline-flex`}>
                                                     <Image
-                                                        className={`mr-1`}
                                                         src={
                                                             project.contributors
                                                                 .filter((value) => (value.userId = file.user.userId))
@@ -87,7 +86,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                                         width={24}
                                                         height={24}
                                                     />
-                                                    <p>{file.user.displayName}</p>
+                                                    <p className={`ml-1`}>{file.user.displayName}</p>
                                                 </div>
                                             </a>
                                         </Link>
