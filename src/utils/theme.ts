@@ -1,9 +1,10 @@
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 import { State } from "react-select/base";
 import { OptionTypeBase } from "react-select/src/types";
-import { Styles } from "react-select";
+import { OptionProps, Styles } from "react-select";
+import { StylesConfig } from "react-select/src/styles";
 
-export const reactSelectStyle: Partial<Styles> = {
+export const reactSelectStyle: StylesConfig<any, boolean> = {
     control: (base: CSSProperties, props: any) => {
         return {
             ...base,
@@ -15,8 +16,10 @@ export const reactSelectStyle: Partial<Styles> = {
             }
         };
     },
-    option: (provided: CSSProperties, state: State<OptionTypeBase>): Partial<CSSProperties> => ({
-        ...provided,
-        color: "black"
-    })
+    option(base: React.CSSProperties, props: OptionProps<any, boolean>): React.CSSProperties {
+        return {
+            ...base,
+            color: "black"
+        };
+    }
 };

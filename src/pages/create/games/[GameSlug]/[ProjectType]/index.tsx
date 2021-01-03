@@ -271,7 +271,7 @@ export default function Index({
                                     tags: [] as string[]
                                 };
                                 if (refTags.current?.state.value) {
-                                    (refTags.current.state.value as []).map((value: SelectData, index) => {
+                                    (refTags.current.state.value as unknown as []).map((value: SelectData, index) => {
                                         data.tags[index] = value.value;
                                     });
                                 }
