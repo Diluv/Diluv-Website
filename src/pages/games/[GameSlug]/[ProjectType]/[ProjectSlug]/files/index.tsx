@@ -127,12 +127,13 @@ export default function Files({ project, files, currentSort, sorts }: {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const { GameSlug, ProjectType, ProjectSlug, sort = "" } = context.query;
+    let { GameSlug, ProjectType, ProjectSlug, sort = "", page = 1 } = context.query;
+    page = Number(page);
 
     const params = new URLSearchParams();
-    // if (page) {
-    //     params.append("page", `${page}`);
-    // }
+    if (page) {
+        params.append("page", `${page}`);
+    }
     if (sort) {
         params.append("sort", `${sort}`);
     }
@@ -141,6 +142,9 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`, { session });
+    // TODO When the api returns the maxCount, re-enable this
+    // page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
+
     return {
         props: { project: data.data.project, files: data.data.files, session, currentSort: sort.length ? sort : "new" } // will be passed to the page component as props
     };
