@@ -3,7 +3,7 @@ import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../../utils/request";
 import { API_URL, getSession } from "../../../../../../utils/api";
-import { Project, ProjectFile } from "../../../../../../interfaces";
+import { Project, ProjectFile, SlugName } from "../../../../../../interfaces";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import filesize from "filesize";
 import { followCursor } from "tippy.js";
@@ -15,7 +15,20 @@ import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
 import { Table, TableBody, TableData, TableHead, TableHeader, TableRow } from "../../../../../../components/ui/Table";
 import DownloadLink from "../../../../../../components/ui/DownloadLink";
 
-export default function Files({ project, files }: { project: Project; files: ProjectFile[] }): JSX.Element {
+export default function Files({ project, files, currentSort, sorts }: {
+    project: Project; files: ProjectFile[]; sorts: SlugName[];
+    currentSort: string;
+}): JSX.Element {
+
+    function getSortFromCurrent(): SlugName {
+        for (const sort of sorts) {
+            if (sort.slug === currentSort) {
+                return sort;
+            }
+        }
+        return sorts[0];
+    }
+
     return (
         <Layout
             title={project.name}
@@ -26,7 +39,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
         >
             <>
                 <div className={`mx-auto w-5/6 lg:w-4/6`}>
-                    <ProjectInfo project={project} pageType={"files"}/>
+                    <ProjectInfo project={project} pageType={"files"} />
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>
@@ -39,7 +52,7 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                         <TableHeader>Date</TableHeader>
                                         <TableHeader>Downloads</TableHeader>
                                         <TableHeader>
-                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"}/>
+                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
                                         </TableHeader>
                                     </TableHead>
                                     <TableBody>
@@ -89,14 +102,14 @@ export default function Files({ project, files }: { project: Project; files: Pro
                                                     </TableData>
                                                     <TableData>{value.releaseType}</TableData>
                                                     <TableData>
-                                                        <FormattedDistanceTime start={value.createdAt}/>
+                                                        <FormattedDistanceTime start={value.createdAt} />
                                                     </TableData>
                                                     <TableData>
                                                         {value.downloads}
                                                     </TableData>
                                                     <TableData>
                                                         <DownloadLink url={value.downloadURL}>
-                                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"}/>
+                                                            <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
                                                         </DownloadLink>
                                                     </TableData>
                                                 </TableRow>
@@ -114,11 +127,21 @@ export default function Files({ project, files }: { project: Project; files: Pro
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const { GameSlug, ProjectType, ProjectSlug } = context.query;
+    const { GameSlug, ProjectType, ProjectSlug, sort = "" } = context.query;
+
+    const params = new URLSearchParams();
+    // if (page) {
+    //     params.append("page", `${page}`);
+    // }
+    if (sort) {
+        params.append("sort", `${sort}`);
+    }
+
+    params.sort();
 
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files`, { session });
+    const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`, { session });
     return {
-        props: { project: data.data.project, files: data.data.files, session } // will be passed to the page component as props
+        props: { project: data.data.project, files: data.data.files, session, currentSort: sort.length ? sort : "new" } // will be passed to the page component as props
     };
 };
