@@ -108,7 +108,7 @@ export default function Files({ project, files, currentSort, sorts }: {
                                                         {value.downloads}
                                                     </TableData>
                                                     <TableData>
-                                                        <DownloadLink url={value.downloadURL}>
+                                                        <DownloadLink url={value.downloadURL} className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}>
                                                             <Download className={`fill-current mx-auto`} width={"1rem"} height={"1rem"} />
                                                         </DownloadLink>
                                                     </TableData>

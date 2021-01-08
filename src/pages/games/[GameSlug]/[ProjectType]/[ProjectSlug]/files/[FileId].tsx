@@ -13,6 +13,8 @@ import Markdown from "../../../../../../components/Markdown";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 import Image from "next/image";
+import DownloadLink from "../../../../../../components/ui/DownloadLink";
+import { TableData } from "../../../../../../components/ui/Table";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
     return (
@@ -92,7 +94,9 @@ export default function File({ project, file }: { project: Project; file: Projec
                                         </Link>
                                     </div>
                                     <div className={`mt-4 sm:my-auto lg:row-start-1 lg:col-start-5`}>
-                                        <button className={`w-full sm:w-auto btn btn-diluv `}>Download</button>
+                                        <DownloadLink url={file.downloadURL} className={`w-full sm:w-auto btn btn-diluv inline-block`}>
+                                                Download
+                                        </DownloadLink>
                                     </div>
                                 </div>
                                 <div className={`my-2 mx-2`}>
