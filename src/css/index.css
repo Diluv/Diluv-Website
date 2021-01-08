@@ -107,9 +107,9 @@
   }
 
   .projectInfoSmall {
-    grid-template-areas: "image" "projectInfo" "summary" "id" "created" "updated" "downloads" "tags" "download";
+    grid-template-areas: "image" "projectInfo" "summary" "id" "created" "updated" "downloads" "tags";
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto auto auto auto auto auto 2rem 2.5rem;
+    grid-template-rows: 1fr auto auto auto auto auto auto 2rem;
   }
 
   .projectInfoMedium {
