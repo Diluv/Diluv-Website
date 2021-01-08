@@ -4,6 +4,7 @@ import "../css/admonition.css";
 import "../css/reactselect.css";
 import "../css/alerts.css";
 import "../css/nprogress.css";
+import "../css/tables.css"
 import "simplebar/dist/simplebar.min.css";
 import React, { useEffect, createElement } from "react";
 import { AppProps } from "next/app";
