@@ -1,5 +1,9 @@
 /* purgecss start ignore */
 @layer base {
+
+  .mode-dark .select__input {
+    @apply text-dark-100 !important;
+  }
   .mode-dark .select__control {
     @apply bg-dark-800 !important text-dark-100 !important border-dark-700 !important;
   }
