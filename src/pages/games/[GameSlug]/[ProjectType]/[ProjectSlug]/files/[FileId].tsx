@@ -94,7 +94,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                         </Link>
                                     </div>
                                     <div className={`mt-4 sm:my-auto lg:row-start-1 lg:col-start-5`}>
-                                        <DownloadLink url={file.downloadURL} className={`w-full sm:w-auto btn btn-diluv inline-block`}>
+                                        <DownloadLink url={file.downloadURL} className={`w-full text-center sm:text-left sm:w-auto btn btn-diluv inline-block`}>
                                                 Download
                                         </DownloadLink>
                                     </div>
