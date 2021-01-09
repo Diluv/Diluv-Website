@@ -124,7 +124,7 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                     />
                                 </div>
                             </div>
-                            <div className={`my-auto col-start-4`}>
+                            <div className={`my-auto xl:col-start-4`}>
                                 <Pagination
                                     maxPage={maxPage}
                                     page={page}
