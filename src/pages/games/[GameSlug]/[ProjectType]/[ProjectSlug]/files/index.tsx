@@ -310,7 +310,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     }
 
     params.sort();
-    console.log(params);
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`, { session });
     page = Math.min(Math.ceil(data.data.fileCount / 20), Math.max(1, page));
