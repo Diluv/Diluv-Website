@@ -1,9 +1,9 @@
-import React, { FC, ReactNode } from "react";
+import React, { useMemo } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../../utils/request";
 import { API_URL, getSession } from "../../../../../../utils/api";
-import { Project, ProjectFile, SlugName } from "../../../../../../interfaces";
+import { Project, ProjectFile, SlugName, Version } from "../../../../../../interfaces";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import filesize from "filesize";
 import { followCursor } from "tippy.js";
@@ -11,14 +11,24 @@ import Tippy from "@tippyjs/react";
 import Download from "../../../../../../components/icons/Download";
 import Link from "next/link";
 import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
-import { Table, Thead, Tbody, Tr, Th, Td, Table as ResponsiveTable } from "react-super-responsive-table";
+import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 
 import DownloadLink from "../../../../../../components/ui/DownloadLink";
+import Select from "react-select";
+import { reactSelectStyle } from "../../../../../../utils/theme";
+import Pagination, { buildURL } from "../../../../../../components/misc/Pagination";
+import { useRouter } from "next/router";
 
-export default function Files({ project, files, currentSort, sorts }: {
+export default function Files({ project, files, currentSort, sorts, page, fileCount }: {
     project: Project; files: ProjectFile[]; sorts: SlugName[];
     currentSort: string;
+    page: number;
+    fileCount: number;
+
 }): JSX.Element {
+
+    const router = useRouter();
+    const maxPage = Math.ceil(fileCount / 20);
 
     function getSortFromCurrent(): SlugName {
         for (const sort of sorts) {
@@ -28,6 +38,20 @@ export default function Files({ project, files, currentSort, sorts }: {
         }
         return sorts[0];
     }
+
+    const gameVersions = useMemo(() => {
+        let versions: Version[] = [];
+        files.map(file => file.gameVersions).forEach((value) => {
+            value.forEach(value1 => {
+                if (versions.indexOf(value1) === -1)
+                    versions.push(value1);
+            });
+        });
+        return versions;
+    }, files);
+
+
+
 
     return (
         <Layout
@@ -40,8 +64,92 @@ export default function Files({ project, files, currentSort, sorts }: {
             <>
                 <div className={`mx-auto w-5/6 lg:w-4/6`}>
                     <ProjectInfo project={project} pageType={"files"} />
+                    <div id={`options`}>
+                        <div className={`grid grid-cols-1 xl:grid-cols-file gap-4 w-full py-2`}>
+                            <div className={`flex`}>
+                                <label htmlFor={`sort`} className={`flex-none my-auto mr-1`}>
+                                    Sort
+                                </label>
+                                <div className={"relative my-auto flex-grow ml-1"}>
+                                    <Select
+                                        isSearchable={true}
+                                        inputId="sort"
+                                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
+                                        options={sorts.map((value) => {
+                                            return { value: value.slug, label: value.name };
+                                        })}
+                                        styles={reactSelectStyle}
+                                        onChange={(e: any) => {
+                                            const newUrl = buildURL({
+                                                page: page,
+                                                sort: e.value,
+                                                defaultSort: "new"
+                                            });
+                                            router.push(
+                                                `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files${newUrl}`,
+                                                `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`,
+                                                { shallow: false }
+                                            );
+                                        }}
+                                        classNamePrefix={"select"}
+                                    />
+                                </div>
+                            </div>
+                            <div className={`flex hidden`}>
+                                <label htmlFor={`sort`} className={`flex-none my-auto mr-1`}>
+                                    Game version
+                                </label>
+                                <div className={"relative my-auto flex-grow ml-1"}>
+                                    <Select
+                                        isClearable={true}
+                                        isSearchable={true}
+                                        inputId="gameVersion"
+                                        options={gameVersions.map(value => {
+                                            return { value: value.version, label: value.version };
+                                        })}
+                                        styles={reactSelectStyle}
+                                        placeholder={`Select version`}
+                                        onChange={(e: any) => {
+                                            // const newUrl = buildURL({
+                                            //     page: page,
+                                            //     sort: e.value
+                                            // });
+                                            // router.push(
+                                            //     `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files${newUrl}`,
+                                            //     `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`,
+                                            //     { shallow: false }
+                                            // );
+                                        }}
+                                        classNamePrefix={"select"}
+                                    />
+                                </div>
+                            </div>
+                            <div className={`my-auto col-start-4`}>
+                                <Pagination
+                                    maxPage={maxPage}
+                                    page={page}
+                                    asBuilder={(pageIndex: number) => {
+                                        const newUrl = buildURL({
+                                            page: pageIndex,
+                                            sort: currentSort,
+                                            defaultSort: "new"
+                                        });
+                                        return `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`;
+                                    }}
+                                    hrefBuilder={(pageIndex: number) => {
+                                        const newUrl = buildURL({
+                                            page: pageIndex,
+                                            sort: currentSort,
+                                            defaultSort: "new"
+                                        });
+                                        return `/games/[GameSlug]/[ProjectType]/[GameSlug]/files${newUrl}`;
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </div>
                     <div id={"pageContent"}>
-                        <div className={`py-4`}>
+                        <div className={`pb-4`}>
                             <Table className={`table-diluv`}>
                                 <Thead>
                                     <Tr className={`table-head-row-diluv`}>
@@ -111,7 +219,7 @@ export default function Files({ project, files, currentSort, sorts }: {
                                                 <Td className={`table-data-diluv td-full`}>
                                                     <DownloadLink url={value.downloadURL} className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}>
                                                         <Download className={`fill-current mx-auto hidden lg:block`} width={"1rem"} height={"1rem"} />
-                                                        <p className={`fill-current mx-auto lg:hidden block btn btn-diluv text-center`} >Download</p>
+                                                        <p className={`fill-current mx-auto lg:hidden block btn btn-diluv text-center`}>Download</p>
 
                                                     </DownloadLink>
                                                 </Td>
@@ -144,10 +252,17 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`, { session });
-    // TODO When the api returns the maxCount, re-enable this
-    // page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
+    page = Math.min(Math.ceil(data.data.fileCount / 20), Math.max(1, page));
 
     return {
-        props: { project: data.data.project, files: data.data.files, session, currentSort: sort.length ? sort : "new" } // will be passed to the page component as props
+        props: {
+            project: data.data.project,
+            files: data.data.files,
+            session,
+            currentSort: sort.length ? sort : "new",
+            sorts: data.data.sorts,
+            page,
+            fileCount: data.data.fileCount
+        } // will be passed to the page component as props
     };
 };

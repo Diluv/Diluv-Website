@@ -92,7 +92,7 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                 </GridArea>
             </div>
             <div
-                className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-2 sm:grid-cols-project-info text-center sm:text-left mt-4`}
+                className={`grid border-b-2 border-gray-300 dark:border-dark-700 sm:grid-cols-project-info text-center sm:text-left mt-4`}
             >
                 {isDescription() ? (
                     <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
