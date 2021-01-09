@@ -60,7 +60,7 @@ module.exports = {
                 0.125: "2px"
             },
             gridTemplateColumns: {
-                "file": "0.5fr 0.75fr 1fr 0.5fr",
+                "file": "0.75fr 1fr 1.5fr 1fr 1.25fr",
                 "project-4": "0.25fr 1.25fr 0.5fr 1fr",
                 "project-types": "1fr auto auto auto 1fr",
                 "auto": "repeat(auto-fill, minmax(8.3%,1fr));",

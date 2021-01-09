@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { ChangeEvent, useMemo, useState } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../../utils/request";
@@ -18,17 +18,25 @@ import Select from "react-select";
 import { reactSelectStyle } from "../../../../../../utils/theme";
 import Pagination, { buildURL } from "../../../../../../components/misc/Pagination";
 import { useRouter } from "next/router";
+import Search from "../../../../../../components/icons/Search";
+import { DebounceInput } from "react-debounce-input";
+import { onBlur, onFocus } from "../../../../../../utils/util";
 
-export default function Files({ project, files, currentSort, sorts, page, fileCount }: {
+export default function Files({ project, files, currentSort, sorts, page, fileCount, version, search }: {
     project: Project; files: ProjectFile[]; sorts: SlugName[];
     currentSort: string;
     page: number;
     fileCount: number;
+    version: string;
+    search: string;
 
 }): JSX.Element {
 
     const router = useRouter();
     const maxPage = Math.ceil(fileCount / 20);
+    // Fix for < 3 search killing things
+    const [displaySearch] = useState(search);
+    const [selectedField, setSelectedField] = useState("");
 
     function getSortFromCurrent(): SlugName {
         for (const sort of sorts) {
@@ -51,8 +59,6 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
     }, files);
 
 
-
-
     return (
         <Layout
             title={project.name}
@@ -66,6 +72,47 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                     <ProjectInfo project={project} pageType={"files"} />
                     <div id={`options`}>
                         <div className={`grid grid-cols-1 xl:grid-cols-file gap-4 w-full py-2`}>
+                            <div className={`flex`}>
+                                <label htmlFor={`searchFiles`} className={`flex-none my-auto mr-1`}>
+                                    Search
+                                </label>
+                                <div className={"flex flex-grow my-auto ml-1"}>
+                                    <Search
+                                        className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${
+                                            search.trim().length ? `text-diluv-500` : ``
+                                        } ${selectedField === "searchFiles" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
+                                        width={"1rem"}
+                                        height={"1rem"}
+                                    />
+                                    <DebounceInput
+                                        className={
+                                            "p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow indent-sm dark:border-dark-700 dark-hover:border-dark-600 dark-focus:border-dark-600 dark:bg-dark-800"
+                                        }
+                                        minLength={3}
+                                        debounceTimeout={500}
+                                        placeholder={"Search files"}
+                                        id={"searchFiles"}
+                                        value={displaySearch}
+                                        onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)}
+                                        onBlur={() => onBlur(setSelectedField)}
+                                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                            const newUrl = buildURL({
+                                                search: event.target.value,
+                                                page: page,
+                                                sort: currentSort,
+                                                version: version,
+                                                defaultSort: "new"
+                                            });
+
+                                            router.push(
+                                                `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files${newUrl}`,
+                                                `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`,
+                                                { shallow: false }
+                                            );
+                                        }}
+                                    />
+                                </div>
+                            </div>
                             <div className={`flex`}>
                                 <label htmlFor={`sort`} className={`flex-none my-auto mr-1`}>
                                     Sort
@@ -81,8 +128,10 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                         styles={reactSelectStyle}
                                         onChange={(e: any) => {
                                             const newUrl = buildURL({
+                                                search: displaySearch,
                                                 page: page,
                                                 sort: e.value,
+                                                version: version,
                                                 defaultSort: "new"
                                             });
                                             router.push(
@@ -95,6 +144,7 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                     />
                                 </div>
                             </div>
+                            {/* TODO make this shown when I have the data */}
                             <div className={`flex hidden`}>
                                 <label htmlFor={`sort`} className={`flex-none my-auto mr-1`}>
                                     Game version
@@ -110,26 +160,30 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                         styles={reactSelectStyle}
                                         placeholder={`Select version`}
                                         onChange={(e: any) => {
-                                            // const newUrl = buildURL({
-                                            //     page: page,
-                                            //     sort: e.value
-                                            // });
-                                            // router.push(
-                                            //     `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files${newUrl}`,
-                                            //     `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`,
-                                            //     { shallow: false }
-                                            // );
+                                            const newUrl = buildURL({
+                                                search: displaySearch,
+                                                page: page,
+                                                sort: currentSort,
+                                                version: e ? e.value : ``,
+                                                defaultSort: "new"
+                                            });
+                                            router.push(
+                                                `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files${newUrl}`,
+                                                `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`,
+                                                { shallow: false }
+                                            );
                                         }}
                                         classNamePrefix={"select"}
                                     />
                                 </div>
                             </div>
-                            <div className={`my-auto xl:col-start-4`}>
+                            <div className={`my-auto xl:col-start-5`}>
                                 <Pagination
                                     maxPage={maxPage}
                                     page={page}
                                     asBuilder={(pageIndex: number) => {
                                         const newUrl = buildURL({
+                                            search: displaySearch,
                                             page: pageIndex,
                                             sort: currentSort,
                                             defaultSort: "new"
@@ -138,6 +192,7 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                     }}
                                     hrefBuilder={(pageIndex: number) => {
                                         const newUrl = buildURL({
+                                            search: displaySearch,
                                             page: pageIndex,
                                             sort: currentSort,
                                             defaultSort: "new"
@@ -206,10 +261,10 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                                         <></>
                                                     )}
                                                 </Td>
-                                                <Td className={`table-data-diluv`}>
+                                                <Td className={`table-data-diluv text-center`}>
                                                     <pre>{filesize(value.size)}</pre>
                                                 </Td>
-                                                <Td className={`table-data-diluv`}>{value.releaseType}</Td>
+                                                <Td className={`table-data-diluv text-center`}>{value.releaseType}</Td>
                                                 <Td className={`table-data-diluv`}>
                                                     <FormattedDistanceTime start={value.createdAt} />
                                                 </Td>
@@ -237,7 +292,7 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    let { GameSlug, ProjectType, ProjectSlug, sort = "", page = 1 } = context.query;
+    let { GameSlug, ProjectType, ProjectSlug, sort = "", page = 1, version = "", search = "" } = context.query;
     page = Number(page);
 
     const params = new URLSearchParams();
@@ -247,21 +302,29 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     if (sort) {
         params.append("sort", `${sort}`);
     }
+    if (version) {
+        params.append("game_version", `${version}`);
+    }
+    if (search && search.length) {
+        params.append("search", `${search}`);
+    }
 
     params.sort();
-
+    console.log(params);
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`, { session });
     page = Math.min(Math.ceil(data.data.fileCount / 20), Math.max(1, page));
 
     return {
         props: {
+            search: search ?? ``,
             project: data.data.project,
             files: data.data.files,
             session,
             currentSort: sort.length ? sort : "new",
             sorts: data.data.sorts,
             page,
+            version: version ?? ``,
             fileCount: data.data.fileCount
         } // will be passed to the page component as props
     };
