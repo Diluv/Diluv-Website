@@ -362,7 +362,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
                     sorts: data.data.sorts,
                     currentSort: sort.length ? sort : "popular",
                     page,
-                    version: version.length ? version : "",
+                    version: version ?? ``,
                     currentTags: tagArr.length ? tagArr : [],
                     session
                 }

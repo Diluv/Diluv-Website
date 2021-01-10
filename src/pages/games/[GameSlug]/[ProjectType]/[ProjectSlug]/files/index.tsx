@@ -1,9 +1,9 @@
-import React, { FC, ReactNode } from "react";
+import React, { ChangeEvent, useMemo, useState } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../../utils/request";
 import { API_URL, getSession } from "../../../../../../utils/api";
-import { Project, ProjectFile, SlugName } from "../../../../../../interfaces";
+import { Project, ProjectFile, SlugName, Version } from "../../../../../../interfaces";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import filesize from "filesize";
 import { followCursor } from "tippy.js";
@@ -11,14 +11,32 @@ import Tippy from "@tippyjs/react";
 import Download from "../../../../../../components/icons/Download";
 import Link from "next/link";
 import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
-import { Table, Thead, Tbody, Tr, Th, Td, Table as ResponsiveTable } from "react-super-responsive-table";
+import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 
 import DownloadLink from "../../../../../../components/ui/DownloadLink";
+import Select from "react-select";
+import { reactSelectStyle } from "../../../../../../utils/theme";
+import Pagination, { buildURL } from "../../../../../../components/misc/Pagination";
+import { useRouter } from "next/router";
+import Search from "../../../../../../components/icons/Search";
+import { DebounceInput } from "react-debounce-input";
+import { onBlur, onFocus } from "../../../../../../utils/util";
 
-export default function Files({ project, files, currentSort, sorts }: {
+export default function Files({ project, files, currentSort, sorts, page, fileCount, version, search }: {
     project: Project; files: ProjectFile[]; sorts: SlugName[];
     currentSort: string;
+    page: number;
+    fileCount: number;
+    version: string;
+    search: string;
+
 }): JSX.Element {
+
+    const router = useRouter();
+    const maxPage = Math.ceil(fileCount / 20);
+    // Fix for < 3 search killing things
+    const [displaySearch] = useState(search);
+    const [selectedField, setSelectedField] = useState("");
 
     function getSortFromCurrent(): SlugName {
         for (const sort of sorts) {
@@ -28,6 +46,18 @@ export default function Files({ project, files, currentSort, sorts }: {
         }
         return sorts[0];
     }
+
+    const gameVersions = useMemo(() => {
+        let versions: Version[] = [];
+        files.map(file => file.gameVersions).forEach((value) => {
+            value.forEach(value1 => {
+                if (versions.indexOf(value1) === -1)
+                    versions.push(value1);
+            });
+        });
+        return versions;
+    }, files);
+
 
     return (
         <Layout
@@ -40,8 +70,141 @@ export default function Files({ project, files, currentSort, sorts }: {
             <>
                 <div className={`mx-auto w-5/6 lg:w-4/6`}>
                     <ProjectInfo project={project} pageType={"files"} />
+                    <div id={`options`}>
+                        <div className={`grid grid-cols-1 xl:grid-cols-file gap-4 w-full py-2`}>
+                            <div className={`flex`}>
+                                <label htmlFor={`searchFiles`} className={`flex-none my-auto mr-1`}>
+                                    Search
+                                </label>
+                                <div className={"flex flex-grow my-auto ml-1"}>
+                                    <Search
+                                        className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${
+                                            search.trim().length ? `text-diluv-500` : ``
+                                        } ${selectedField === "searchFiles" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
+                                        width={"1rem"}
+                                        height={"1rem"}
+                                    />
+                                    <DebounceInput
+                                        className={
+                                            "p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow indent-sm dark:border-dark-700 dark-hover:border-dark-600 dark-focus:border-dark-600 dark:bg-dark-800"
+                                        }
+                                        minLength={3}
+                                        debounceTimeout={500}
+                                        placeholder={"Search files"}
+                                        id={"searchFiles"}
+                                        value={displaySearch}
+                                        onFocus={(event: React.FocusEvent<any>) => onFocus(setSelectedField, event)}
+                                        onBlur={() => onBlur(setSelectedField)}
+                                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                            const newUrl = buildURL({
+                                                search: event.target.value,
+                                                page: page,
+                                                sort: currentSort,
+                                                version: version,
+                                                defaultSort: "new"
+                                            });
+
+                                            router.push(
+                                                `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files${newUrl}`,
+                                                `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`,
+                                                { shallow: false }
+                                            );
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className={`flex`}>
+                                <label htmlFor={`sort`} className={`flex-none my-auto mr-1`}>
+                                    Sort
+                                </label>
+                                <div className={"relative my-auto flex-grow ml-1"}>
+                                    <Select
+                                        isSearchable={true}
+                                        inputId="sort"
+                                        defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
+                                        options={sorts.map((value) => {
+                                            return { value: value.slug, label: value.name };
+                                        })}
+                                        styles={reactSelectStyle}
+                                        onChange={(e: any) => {
+                                            const newUrl = buildURL({
+                                                search: displaySearch,
+                                                page: page,
+                                                sort: e.value,
+                                                version: version,
+                                                defaultSort: "new"
+                                            });
+                                            router.push(
+                                                `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files${newUrl}`,
+                                                `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`,
+                                                { shallow: false }
+                                            );
+                                        }}
+                                        classNamePrefix={"select"}
+                                    />
+                                </div>
+                            </div>
+                            {/* TODO make this shown when I have the data */}
+                            <div className={`flex hidden`}>
+                                <label htmlFor={`sort`} className={`flex-none my-auto mr-1`}>
+                                    Game version
+                                </label>
+                                <div className={"relative my-auto flex-grow ml-1"}>
+                                    <Select
+                                        isClearable={true}
+                                        isSearchable={true}
+                                        inputId="gameVersion"
+                                        options={gameVersions.map(value => {
+                                            return { value: value.version, label: value.version };
+                                        })}
+                                        styles={reactSelectStyle}
+                                        placeholder={`Select version`}
+                                        onChange={(e: any) => {
+                                            const newUrl = buildURL({
+                                                search: displaySearch,
+                                                page: page,
+                                                sort: currentSort,
+                                                version: e ? e.value : ``,
+                                                defaultSort: "new"
+                                            });
+                                            router.push(
+                                                `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files${newUrl}`,
+                                                `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`,
+                                                { shallow: false }
+                                            );
+                                        }}
+                                        classNamePrefix={"select"}
+                                    />
+                                </div>
+                            </div>
+                            <div className={`my-auto xl:col-start-5`}>
+                                <Pagination
+                                    maxPage={maxPage}
+                                    page={page}
+                                    asBuilder={(pageIndex: number) => {
+                                        const newUrl = buildURL({
+                                            search: displaySearch,
+                                            page: pageIndex,
+                                            sort: currentSort,
+                                            defaultSort: "new"
+                                        });
+                                        return `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files${newUrl}`;
+                                    }}
+                                    hrefBuilder={(pageIndex: number) => {
+                                        const newUrl = buildURL({
+                                            search: displaySearch,
+                                            page: pageIndex,
+                                            sort: currentSort,
+                                            defaultSort: "new"
+                                        });
+                                        return `/games/[GameSlug]/[ProjectType]/[GameSlug]/files${newUrl}`;
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </div>
                     <div id={"pageContent"}>
-                        <div className={`py-4`}>
+                        <div className={`pb-4`}>
                             <Table className={`table-diluv`}>
                                 <Thead>
                                     <Tr className={`table-head-row-diluv`}>
@@ -98,10 +261,10 @@ export default function Files({ project, files, currentSort, sorts }: {
                                                         <></>
                                                     )}
                                                 </Td>
-                                                <Td className={`table-data-diluv`}>
+                                                <Td className={`table-data-diluv text-center`}>
                                                     <pre>{filesize(value.size)}</pre>
                                                 </Td>
-                                                <Td className={`table-data-diluv`}>{value.releaseType}</Td>
+                                                <Td className={`table-data-diluv text-center`}>{value.releaseType}</Td>
                                                 <Td className={`table-data-diluv`}>
                                                     <FormattedDistanceTime start={value.createdAt} />
                                                 </Td>
@@ -111,7 +274,7 @@ export default function Files({ project, files, currentSort, sorts }: {
                                                 <Td className={`table-data-diluv td-full`}>
                                                     <DownloadLink url={value.downloadURL} className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}>
                                                         <Download className={`fill-current mx-auto hidden lg:block`} width={"1rem"} height={"1rem"} />
-                                                        <p className={`fill-current mx-auto lg:hidden block btn btn-diluv text-center`} >Download</p>
+                                                        <p className={`fill-current mx-auto lg:hidden block btn btn-diluv text-center`}>Download</p>
 
                                                     </DownloadLink>
                                                 </Td>
@@ -129,7 +292,7 @@ export default function Files({ project, files, currentSort, sorts }: {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    let { GameSlug, ProjectType, ProjectSlug, sort = "", page = 1 } = context.query;
+    let { GameSlug, ProjectType, ProjectSlug, sort = "", page = 1, version = "", search = "" } = context.query;
     page = Number(page);
 
     const params = new URLSearchParams();
@@ -139,15 +302,30 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     if (sort) {
         params.append("sort", `${sort}`);
     }
+    if (version) {
+        params.append("game_version", `${version}`);
+    }
+    if (search && search.length) {
+        params.append("search", `${search}`);
+    }
 
     params.sort();
-
+    console.log(params);
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`, { session });
-    // TODO When the api returns the maxCount, re-enable this
-    // page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
+    page = Math.min(Math.ceil(data.data.fileCount / 20), Math.max(1, page));
 
     return {
-        props: { project: data.data.project, files: data.data.files, session, currentSort: sort.length ? sort : "new" } // will be passed to the page component as props
+        props: {
+            search: search ?? ``,
+            project: data.data.project,
+            files: data.data.files,
+            session,
+            currentSort: sort.length ? sort : "new",
+            sorts: data.data.sorts,
+            page,
+            version: version ?? ``,
+            fileCount: data.data.fileCount
+        } // will be passed to the page component as props
     };
 };
