@@ -13,8 +13,8 @@ export default function TeamMember({ name, username, twitter, github, descriptio
     return (
         <div>
             <picture>
-                <source type="image/avif" src={`${CDN_URL}/users/${username}/avatar.avif`}/>
-                <source type="image/webp" src={`${CDN_URL}/users/${username}/avatar.webp`}/>
+                <source type="image/avif" srcSet={`${CDN_URL}/users/${username}/avatar.avif`}/>
+                <source type="image/webp" srcSet={`${CDN_URL}/users/${username}/avatar.webp`}/>
                 <img src={`${CDN_URL}/users/${username}/avatar.png`} className={`w-full`}/>
             </picture>
             <div className="flex flex-col justify-center mt-2">
