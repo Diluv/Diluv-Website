@@ -41,3 +41,10 @@ export function canEditProject(project: Project): boolean {
     }
     return false;
 }
+
+export function canUploadFile(project: Project): boolean {
+    if (project.permissions) {
+        return project.permissions.indexOf("file.upload") >= 0;
+    }
+    return false;
+}

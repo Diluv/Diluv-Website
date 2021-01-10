@@ -2,7 +2,7 @@ import React from "react";
 import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
-import { canEditProject, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
+import { canEditProject, canUploadFile, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
 import Alert from "../Alert";
 import GridArea from "../misc/GridArea";
 import { FormattedTime } from "../../utils/dynamic";
@@ -23,6 +23,10 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
 
     function isSettings(): boolean {
         return pageType === "settings";
+    }
+
+    function isUploadFile(): boolean {
+        return pageType === "uploadFile"
     }
 
     return (
@@ -142,22 +146,39 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                     </Link>
                 )}
 
+                {canUploadFile(project) &&
+                (isUploadFile() ? (
+                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-5`}>
+                        <span className={`cursor-default select-none text-amber-600`}>Upload File</span>
+                    </div>
+                ) : (
+                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/upload`}>
+                        <a className={`block sm:col-start-5`}>
+                            <div
+                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
+                            >
+                                Upload File
+                            </div>
+                        </a>
+                    </Link>
+                ))}
+
                 {canEditProject(project) &&
-                    (isSettings() ? (
-                        <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-5`}>
-                            <span className={`cursor-default select-none text-amber-600`}>Settings</span>
-                        </div>
-                    ) : (
-                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
-                            <a className={`block sm:col-start-5`}>
-                                <div
-                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
-                                >
-                                    Settings
-                                </div>
-                            </a>
-                        </Link>
-                    ))}
+                (isSettings() ? (
+                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-6`}>
+                        <span className={`cursor-default select-none text-amber-600`}>Settings</span>
+                    </div>
+                ) : (
+                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
+                        <a className={`block sm:col-start-6`}>
+                            <div
+                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
+                            >
+                                Settings
+                            </div>
+                        </a>
+                    </Link>
+                ))}
             </div>
         </div>
     );
