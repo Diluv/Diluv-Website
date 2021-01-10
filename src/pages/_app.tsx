@@ -21,7 +21,7 @@ const Provider = ({ children, session }: { children: any, session: Session }) =>
     return createElement(SessionContext.Provider, { value: useSession(session) }, children);
 };
 
-export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
 
     useEffect(() => {
         if ("serviceWorker" in navigator) {
