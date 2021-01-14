@@ -12,7 +12,7 @@ The Diluv team has a great appreciation for security researchers and encourages 
 
 ## Disclosure Process
 
-Thank you in advance for notifying us about a potential security issue. The best way to notify us of security issues is to send an email to security@diluv.com. You may also send us a private message [@DiluvSupport](https://twitter.com/DiluvSupport). When submitting your report please include as much relevant information as possible. Proposed solutions to security issues are also welcome. We may send a follow up message and request further information about your report as well.
+Thank you in advance for notifying us about a potential security issue. The best way to notify us of security issues is to send an email to security@diluv.com. You may also send us a private message [@DiluvMods](https://twitter.com/DiluvMods). When submitting your report please include as much relevant information as possible. Proposed solutions to security issues are also welcome. We may send a follow up message and request further information about your report as well.
 
 ## Public Disclosure
 

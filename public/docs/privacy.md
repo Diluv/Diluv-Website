@@ -8,7 +8,7 @@ This privacy policy applies to diluv.com and any other service operated by Diluv
 
 ## Contact
 
-If you have any questions or concerns about the Privacy Policy you may email us at support@diluv.com. You may also reach out to us on our public [Discord](https://discord.diluv.com) server or our [Twitter account](https://twitter.com/DiluvSupport).
+If you have any questions or concerns about the Privacy Policy you may email us at support@diluv.com. You may also reach out to us on our public [Discord](https://discord.diluv.com) server or our [Twitter account](https://twitter.com/DiluvMods).
 
 ## Personal Data
 
