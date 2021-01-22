@@ -17,7 +17,7 @@ import TextEditor from "../../../../../../components/ui/TextEditor";
 import Select from "react-select";
 import { reactSelectStyle } from "../../../../../../utils/theme";
 
-export default function Description({ project, tags, session }: { project: Project; tags: SlugName[], session: Session }): JSX.Element {
+export default function Description({ project, tags, session }: { project: Project; tags: SlugName[]; session: Session }): JSX.Element {
     const [canEdit, setCanEdit] = useState(false);
     const router = useRouter();
 
@@ -55,7 +55,7 @@ export default function Description({ project, tags, session }: { project: Proje
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
         >
             <div className={`w-5/6 lg:w-4/6 mx-auto mt-4 mb-8`}>
-                <ProjectInfo project={displayState} pageType={"settings"}/>
+                <ProjectInfo project={displayState} pageType={"settings"} />
                 {errors.length > 0 ? (
                     <div className={`my-4`}>
                         {errors
@@ -238,6 +238,7 @@ export default function Description({ project, tags, session }: { project: Proje
                                 >
                                     {viewMode.showEdit && (
                                         <TextEditor
+                                            id={`description`}
                                             className={`border  dark:border-dark-700 bg-white dark:bg-dark-800 ${
                                                 viewMode.showEdit && viewMode.showPreview ? `w-full sm:w-1/2 h-64 sm:h-80 md:h-full` : `w-full h-full`
                                             }`}
@@ -267,7 +268,7 @@ export default function Description({ project, tags, session }: { project: Proje
                                             } bg-white dark:bg-dark-900`}
                                         >
                                             <SimpleBar className={`h-full`}>
-                                                <Markdown markdown={projectState.description}/>
+                                                <Markdown markdown={projectState.description} />
                                             </SimpleBar>
                                         </div>
                                     )}
@@ -325,7 +326,7 @@ export default function Description({ project, tags, session }: { project: Proje
                                 >
                                     {submitting ? (
                                         <div className={`mx-auto text-center`}>
-                                            <Loading className={`mx-auto`}/>
+                                            <Loading className={`mx-auto`} />
                                         </div>
                                     ) : (
                                         <span>{submitted ? "Saved" : "Save"}</span>

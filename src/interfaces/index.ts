@@ -10,7 +10,7 @@ export interface HasMarkdown {
 export interface Version {
     version: string;
     type: string;
-    release: number;
+    releasedAt: number;
 }
 
 export interface ProjectType extends SlugName {
@@ -38,7 +38,7 @@ export interface ProjectFile {
     downloads: number;
 }
 
-export interface Project extends SlugName{
+export interface Project extends SlugName {
     id: number;
     summary: string;
     description: string;
@@ -122,6 +122,14 @@ export interface AuthorPage {
     user: User;
     sort: SlugName[];
     projectCount: number;
+}
+
+export interface UploadData {
+    filters: SlugName[];
+    gameVersions: Version[];
+    loaders: SlugName[];
+    releaseTypes: SlugName[];
+    classifiers: string[];
 }
 
 // export interface Session {

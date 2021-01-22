@@ -5,18 +5,21 @@ export default function TextEditor({
     innerClassName,
     defaultValue,
     maxLength,
-    onChange
+    onChange,
+    id
 }: {
     className: string;
     innerClassName: string;
     onChange: ChangeEventHandler<HTMLTextAreaElement>;
     defaultValue: string;
     maxLength: number;
+    id: string;
 }) {
     const [length, setLength] = useState(defaultValue.length);
     return (
         <div className={`flex flex-col ${className}`}>
             <textarea
+                id={id}
                 className={`${innerClassName}`}
                 onChange={(event) => {
                     onChange(event);

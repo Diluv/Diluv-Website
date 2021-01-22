@@ -20,8 +20,12 @@ export default function Index({
     ProjectType,
     tags,
     session
-}: { GameSlug: string; ProjectType: string; tags: SlugName[], session: Session }): JSX.Element {
-
+}: {
+    GameSlug: string;
+    ProjectType: string;
+    tags: SlugName[];
+    session: Session;
+}): JSX.Element {
     const [content, setContent] = useState("");
     const [logo, setLogo] = useState("");
     const [logoFile, setLogoFile] = useState<File>();
@@ -102,7 +106,7 @@ export default function Index({
                                 >
                                     <input {...getInputProps()} />
                                     {logo.length ? (
-                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"}/>
+                                        <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"} />
                                     ) : (
                                         <p className={`text-center select-none`}>Upload logo</p>
                                     )}
@@ -249,7 +253,7 @@ export default function Index({
                                     } bg-white dark:bg-dark-900`}
                                 >
                                     <SimpleBar className={`h-full`}>
-                                        <Markdown markdown={content}/>
+                                        <Markdown markdown={content} />
                                     </SimpleBar>
                                 </div>
                             )}
@@ -271,7 +275,7 @@ export default function Index({
                                     tags: [] as string[]
                                 };
                                 if (refTags.current?.state.value) {
-                                    (refTags.current.state.value as unknown as []).map((value: SelectData, index) => {
+                                    ((refTags.current.state.value as unknown) as []).map((value: SelectData, index) => {
                                         data.tags[index] = value.value;
                                     });
                                 }
