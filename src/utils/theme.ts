@@ -1,11 +1,9 @@
-import React, { CSSProperties } from "react";
-import { State } from "react-select/base";
+import { StylesConfig } from "react-select";
+import { CSSObject } from "@emotion/serialize";
 import { OptionTypeBase } from "react-select/src/types";
-import { OptionProps, Styles } from "react-select";
-import { StylesConfig } from "react-select/src/styles";
 
 export const reactSelectStyle: StylesConfig<any, boolean> = {
-    control: (base: CSSProperties, props: any) => {
+    control(base: CSSObject, props: OptionTypeBase): CSSObject {
         return {
             ...base,
             "borderRadius": 0,
@@ -16,7 +14,7 @@ export const reactSelectStyle: StylesConfig<any, boolean> = {
             }
         };
     },
-    option(base: React.CSSProperties, props: OptionProps<any, boolean>): React.CSSProperties {
+    option(base: CSSObject, props: OptionTypeBase): CSSObject {
         return {
             ...base,
             color: "black"
