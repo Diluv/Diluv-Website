@@ -139,7 +139,7 @@
   .createFormLarge {
     grid-template-areas: "image name" "image space" "image summary" "image space2" "image tags" "image ." "description description" ". ." "create .";
     grid-template-columns: 16rem auto;
-    grid-template-rows: 2rem 0.5rem 2rem 0.5rem 2rem 9rem minmax(28rem, auto) 0.5rem 2rem;
+    grid-template-rows: 4rem 0.5rem 4rem 0.5rem 4rem 3rem minmax(28rem, auto) 0.5rem 2rem;
   }
 
   .createFormMedium {

@@ -360,10 +360,10 @@ function Form({ uploadData }: { uploadData: UploadData }) {
                     <div className={`${viewMode.showEdit && viewMode.showPreview ? `flex flex-col md:flex-row` : ``} h-112 md:h-80 md:h-112`}>
                         {viewMode.showEdit && (
                             <TextEditor
-                                className={`border  dark:border-dark-700 bg-white dark:bg-dark-800 ${
+                                className={`border dark:border-dark-700 bg-white dark:bg-dark-800 ${
                                     viewMode.showEdit && viewMode.showPreview ? `w-full md:w-1/2 h-64 md:h-80 md:h-full` : `w-full h-full`
                                 }`}
-                                innerClassName={`outline-none resize-none  w-full h-full p-1 dark:bg-dark-800`}
+                                innerClassName={`outline-none resize-none w-full h-full p-1 dark:bg-dark-800`}
                                 onChange={(e) => {
                                     setChangelog(e.target.value);
                                     if (e.target.value.length <= 2000) {
