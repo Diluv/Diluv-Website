@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useField } from "formik";
-import Select from "react-select";
-import { reactSelectStyle } from "../../../utils/theme";
 
 export default function TextEditorField(
     props: {
@@ -29,8 +27,8 @@ export default function TextEditorField(
                 onChange={(event) => {
                     setLength(event.target.value.length);
                     setValue(event.target.value);
-                    setTouched(true);
                 }}
+                onBlur={() => setTouched(true)}
                 maxLength={maxLength}
             />
 

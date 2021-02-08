@@ -1,10 +1,9 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuthed } from "../../../../../utils/request";
+import { getAuthed, postAuthed } from "../../../../../utils/request";
 import { API_URL, getSession, Session, SITE_URL } from "../../../../../utils/api";
 import { SlugName } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
 import React, { useState } from "react";
-import Dropzone from "react-dropzone";
 import Alert from "../../../../../components/Alert";
 import Markdown from "../../../../../components/Markdown";
 import SimpleBar from "simplebar-react";
@@ -14,6 +13,9 @@ import { Field, Form, Formik, FormikHelpers, FormikValues } from "formik";
 import TextEditorField from "../../../../../components/ui/form/TextEditorField";
 import SelectField from "../../../../../components/ui/form/SelectField";
 import * as yup from "yup";
+import Dropzone from "react-dropzone";
+import DropZoneField from "../../../../../components/ui/form/DropZoneField";
+import { AxiosError } from "axios";
 
 const schema = yup.object({
     name: yup.string().min(5, "Must be 5 or more characters").max(70, "Must be 70 characters or less").required("Required"),
@@ -44,9 +46,6 @@ export default function Index({
     session: Session;
 }): JSX.Element {
     const router = useRouter();
-
-    const [logo, setLogo] = useState("");
-    const [logoFile, setLogoFile] = useState<File>();
 
     const [logoErrors, setLogoErrors] = useState<string[]>([]);
     const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
@@ -91,52 +90,34 @@ export default function Index({
                         description: ""
                     }}
                     onSubmit={async (values, { setSubmitting }: FormikHelpers<Values>) => {
-                        alert(JSON.stringify(values, null, 2));
+                        const headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
+                            "Accept": "application/json",
+                            "content-type": "multipart/form-data"
+                        };
+                        const data = {
+                            name: values.name,
+                            summary: values.summary,
+                            description: values.description,
+                            tags: values.tags.map((value) => value.slug)
+                        };
+
+                        const formData = new FormData();
+                        formData.set("logo", values.logo);
+                        formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
+
+                        postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session })
+                            .then((value) => {
+                                router.push(`/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`, `/games/${GameSlug}/${ProjectType}/${value.data.slug}`);
+                            })
+                            .catch((reason: AxiosError) => {
+                                console.log(reason.response?.data);
+                            });
                     }}
                 >
                     {({ touched, errors, isSubmitting, values }) => (
                         <Form className={`grid gap-y-2 sm:gap-y-0 createFormSmall sm:createFormMedium md:createFormLarge`}>
                             <div className={`w-64 h-64 mx-auto sm:mx-0`} style={{ gridArea: "image" }}>
-                                <Dropzone
-                                    onDrop={(acceptedFiles) => {
-                                        const file = acceptedFiles[0];
-                                        const u = URL.createObjectURL(file);
-                                        const img = new Image();
-                                        setLogoFile(file);
-                                        img.onload = function () {
-                                            const newLogoErrors = [];
-                                            if (img.width !== img.height) {
-                                                newLogoErrors.push(`Project Logo does not have a dimension ratio of 1:1!`);
-                                            }
-                                            if (img.width > 1024 * 8 || img.height > 1024 * 8) {
-                                                newLogoErrors.push(`Project Logo can not be bigger than ${1024 * 8}!`);
-                                            }
-                                            setLogoErrors(newLogoErrors);
-                                            if (!newLogoErrors.length) {
-                                                setLogo(URL.createObjectURL(acceptedFiles[0]));
-                                            } else {
-                                                setLogo("");
-                                            }
-                                        };
-
-                                        img.src = u;
-                                    }}
-                                    accept={["image/gif", "image/jpeg", "image/png", "image/webp"]}
-                                >
-                                    {({ getRootProps, getInputProps }) => (
-                                        <div
-                                            {...getRootProps()}
-                                            className={`w-64 h-64 mx-auto sm:mx-0 border-2 dark:border-dark-700 box-content cursor-pointer`}
-                                        >
-                                            <input {...getInputProps()} />
-                                            {logo.length ? (
-                                                <img src={logo} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"} />
-                                            ) : (
-                                                <p className={`text-center select-none`}>Upload logo</p>
-                                            )}
-                                        </div>
-                                    )}
-                                </Dropzone>
+                                <DropZoneField name={"logo"} />
                             </div>
                             <div className={`flex flex-col sm:ml-4 gap-y-2`} style={{ gridArea: "name" }}>
                                 <div className={`flex gap-x-2 justify-between`}>
@@ -177,13 +158,7 @@ export default function Index({
                                     </label>
                                     {touched.tags && errors.tags ? <span className={`text-red-600 dark:text-red-500`}>{errors.tags}</span> : null}
                                 </div>
-                                <SelectField
-                                    name={`tags`}
-                                    iid={`tags`}
-                                    options={tags.map((value) => {
-                                        return { value: value.slug, label: value.name };
-                                    })}
-                                />
+                                <SelectField name={`tags`} iid={`tags`} options={tags} />
                             </div>
 
                             <div className={`mt-4`} style={{ gridArea: "description" }}>
@@ -272,43 +247,7 @@ export default function Index({
                                 </div>
                             </div>
                             <div className={``} style={{ gridArea: "create" }}>
-                                <button
-                                    type={"submit"}
-                                    className={`btn-diluv sm:w-auto`}
-                                    disabled={isSubmitting}
-                                    // onClick={() => {
-                                    //     const headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
-                                    //         "Accept": "application/json",
-                                    //         "content-type": "multipart/form-data"
-                                    //     };
-                                    //     const data = {
-                                    //         name: refName.current?.value ?? "",
-                                    //         summary: refSummary.current?.value ?? "",
-                                    //         description: refDescription.current?.value ?? "",
-                                    //         tags: [] as string[]
-                                    //     };
-                                    //     if (refTags.current?.state.value) {
-                                    //         ((refTags.current.state.value as unknown) as []).map((value: SelectData, index) => {
-                                    //             data.tags[index] = value.value;
-                                    //         });
-                                    //     }
-                                    //
-                                    //     const formData = new FormData();
-                                    //     formData.set("logo", logoFile ?? "");
-                                    //     formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
-                                    //
-                                    //     postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session })
-                                    //         .then((value) => {
-                                    //             router.push(
-                                    //                 `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`,
-                                    //                 `/games/${GameSlug}/${ProjectType}/${value.data.slug}`
-                                    //             );
-                                    //         })
-                                    //         .catch((reason: AxiosError) => {
-                                    //             console.log(reason.response?.data);
-                                    //         });
-                                    // }}
-                                >
+                                <button type={"submit"} className={`btn-diluv sm:w-auto`} disabled={isSubmitting}>
                                     Create project
                                 </button>
                             </div>
