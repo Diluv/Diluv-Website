@@ -115,9 +115,14 @@ export default function Index({
                     }}
                 >
                     {({ touched, errors, isSubmitting, values }) => (
-                        <Form className={`grid gap-y-2 sm:gap-y-0 createFormSmall sm:createFormMedium md:createFormLarge`}>
+                        <Form className={`grid gap-y-2 sm:gap-y-0 createForm`}>
                             <div className={`w-64 h-64 mx-auto sm:mx-0`} style={{ gridArea: "image" }}>
-                                <DropZoneField name={"logo"} />
+                                <DropZoneField
+                                    name={"logo"}
+                                    setErrors={(errors1) => {
+                                        setLogoErrors(errors1);
+                                    }}
+                                />
                             </div>
                             <div className={`flex flex-col sm:ml-4 gap-y-2`} style={{ gridArea: "name" }}>
                                 <div className={`flex gap-x-2 justify-between`}>
