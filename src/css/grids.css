@@ -1,0 +1,25 @@
+/* purgecss start ignore */
+
+.createForm {
+  grid-template-areas: "image" "name" "summary" "tags" "description" "create";
+  grid-template-columns: 1fr;
+  grid-template-rows: 16rem 1fr 1fr 1fr minmax(28rem, auto) 2rem;
+}
+
+@screen sm {
+  .createForm {
+    grid-template-areas: "image name" "image ." "image summary" "image ." "image tags" "image ." "description description" ". ." "create .";
+    grid-template-columns: 16rem auto;
+    grid-template-rows: 4rem 0.75rem 4rem 0.75rem 4rem 2rem minmax(20rem, auto) 0.5rem 2rem;
+  }
+}
+
+@screen md {
+  .createForm {
+    grid-template-areas: "image name" "image ." "image summary" "image ." "image tags" "image ." "description description" ". ." "create .";
+    grid-template-columns: 16rem auto;
+    grid-template-rows: 4rem 0.5rem 4rem 0.5rem 4rem 3rem minmax(28rem, auto) 0.5rem 2rem;
+  }
+}
+
+/* purgecss end ignore */

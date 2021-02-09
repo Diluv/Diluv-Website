@@ -4,7 +4,8 @@ import "../css/admonition.css";
 import "../css/reactselect.css";
 import "../css/alerts.css";
 import "../css/nprogress.css";
-import "../css/tables.css"
+import "../css/tables.css";
+import "../css/grids.css";
 import "simplebar/dist/simplebar.min.css";
 import React, { useEffect, createElement } from "react";
 import { AppProps } from "next/app";
@@ -17,12 +18,11 @@ Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-const Provider = ({ children, session }: { children: any, session: Session }) => {
+const Provider = ({ children, session }: { children: any; session: Session }) => {
     return createElement(SessionContext.Provider, { value: useSession(session) }, children);
 };
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
-
     useEffect(() => {
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function () {
