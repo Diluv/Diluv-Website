@@ -2,10 +2,12 @@ import { useField } from "formik";
 import React, { useEffect, useState } from "react";
 import Dropzone, { FileError, FileRejection } from "react-dropzone";
 import fileSize from "filesize";
+import { onLoadAsync, readUploadedFileAsText } from "../../../utils/util";
 
 // TODO pass these in as props
 const validTypes = ["image/gif", "image/jpeg", "image/png", "image/webp"];
 const fileSizeLimit = 1000000;
+const imageSizeRestriction = 1024 * 8;
 
 function Preview(props: { file: Blob }) {
     const { file } = props;
@@ -41,18 +43,34 @@ export default function DropZoneField(props: { name: string; setErrors: (errors:
 
     return (
         <Dropzone
-            onDrop={(acceptedFiles, fileRejections) => {
+            onDrop={async (acceptedFiles, fileRejections) => {
+                const file = acceptedFiles[0];
                 const errors: string[] = [];
                 if (fileRejections && fileRejections.length > 0) {
                     fileRejections[0].errors.map((error) => {
                         errors.push(error.message);
                     });
                 }
+                if (file) {
+                    const img = new Image();
+                    const imageProm: Promise<HTMLImageElement> = onLoadAsync(img);
+                    img.src = URL.createObjectURL(file);
+                    const image: HTMLImageElement = await imageProm;
 
+                    if (image.width != image.height) {
+                        errors.push("Image width and height need to be the same (1:1 ratio)!");
+                    }
+
+                    if (img.width > imageSizeRestriction || img.height > imageSizeRestriction) {
+                        errors.push(`Project Logo can not be bigger than ${imageSizeRestriction}!`);
+                    }
+                }
                 setErrors(errors);
-
-                const file = acceptedFiles[0];
-                setValue(file);
+                if (errors.length === 0) {
+                    setValue(file);
+                } else {
+                    setValue(null);
+                }
             }}
             onFileDialogCancel={() => {
                 setTouched(true);
@@ -65,7 +83,7 @@ export default function DropZoneField(props: { name: string; setErrors: (errors:
                 if (file.size > fileSizeLimit) {
                     rejections.push({
                         code: "file-too-large",
-                        message: `Provided file is ${fileSize(file.size)}. The max upload size is: ${fileSize(fileSizeLimit)}!`
+                        message: `Provided file size is: ${fileSize(file.size)}. The max upload size is: ${fileSize(fileSizeLimit)}!`
                     });
                 }
                 if (validTypes.indexOf(file.type) == -1) {
