@@ -4,23 +4,29 @@ import { reactSelectStyle } from "../../../utils/theme";
 import React from "react";
 import { SlugName } from "../../../interfaces";
 
-export default function SelectField(props: { options: SlugName[]; iid: string; name: string }) {
+export default function SelectField(props: { options: SlugName[]; iid: string; name: string; isMulti: boolean }) {
     const [field, meta, helpers] = useField(props);
 
     const { options } = props;
     const { touched, error, value } = meta;
     const { setValue, setTouched } = helpers;
 
-    function convertToOptions(slugNames: SlugName[]) {
+    function convertToOptions(slugNames: SlugName | SlugName[]) {
+        if (!Array.isArray(slugNames)) {
+            slugNames = [slugNames];
+        }
         slugNames = slugNames || [];
         return slugNames.map((options) => {
             return { value: options.slug, label: options.name };
         });
     }
 
-    function convertToSlugNames(options: ValueType<any, any>[]) {
+    function convertToSlugNames(options: ValueType<any, any> | ValueType<any, any>[]) {
+        if (!Array.isArray(options)) {
+            options = [options];
+        }
         options = options || [];
-        return options.map((option) => {
+        return options.map((option: ValueType<any, any>) => {
             return { slug: option.value, name: option.label };
         });
     }
@@ -33,7 +39,7 @@ export default function SelectField(props: { options: SlugName[]; iid: string; n
             options={convertToOptions(options)}
             name={props.name}
             value={convertToOptions(value)}
-            isMulti={true}
+            isMulti={props.isMulti}
             onChange={(option: ValueType<any, any>[]) => {
                 setValue(convertToSlugNames(option));
             }}

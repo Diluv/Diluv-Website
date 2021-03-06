@@ -24,12 +24,49 @@ import TextEditor from "../../../../../../components/ui/TextEditor";
 import SimpleBar from "simplebar-react";
 import Markdown from "../../../../../../components/Markdown";
 import Alert from "../../../../../../components/Alert";
+import * as yup from "yup";
+import { Field, Formik, FormikHelpers, FormikValues } from "formik";
+import SelectField from "../../../../../../components/ui/form/SelectField";
 
 interface Filter extends SlugName {
     checked: boolean;
 }
 
+const schema = yup.object({
+    version: yup.string().max(20, "Must be 20 characters or less").required("Required"),
+    releaseType: yup.object().shape({ name: yup.string(), slug: yup.string() }).required("Required"),
+    gameVersions: yup
+        .array()
+        .of(
+            yup.object().shape({
+                name: yup.string(),
+                slug: yup.string()
+            })
+        )
+        .min(1, "Must have at-least 1 version")
+        .required("Required"),
+    loaders: yup
+        .array()
+        .of(
+            yup.object().shape({
+                name: yup.string(),
+                slug: yup.string()
+            })
+        )
+        .min(1, "Must have at-least 1 loader") // TODO do we want to enforce atleast one loader?
+        .required("Required"),
+    changelog: yup.string().max(2000, "Must be less than 2000 characters").required("Required")
+});
+
 export default function Upload({ project, uploadData }: { project: Project; uploadData: UploadData }): JSX.Element {
+    interface Values extends FormikValues {
+        version: string;
+        releaseType: SlugName;
+        gameVersions: SlugName[];
+        loaders: SlugName[];
+        changelog: string;
+    }
+
     return (
         <Layout
             title={project.name}
@@ -42,6 +79,85 @@ export default function Upload({ project, uploadData }: { project: Project; uplo
                 <div className={`mx-auto w-5/6 lg:w-4/6`}>
                     <ProjectInfo project={project} pageType={"uploadFile"} />
                     <div className={`my-4`}>
+                        <div>
+                            <Formik
+                                validationSchema={schema}
+                                initialValues={{
+                                    version: "",
+                                    releaseType: { name: "Release", slug: "release" },
+                                    gameVersions: [],
+                                    loaders: [],
+                                    changelog: ""
+                                }}
+                                onSubmit={async (values, { setSubmitting }: FormikHelpers<Values>) => {
+                                    // const headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
+                                    //     "Accept": "application/json",
+                                    //     "content-type": "multipart/form-data"
+                                    // };
+                                    // const data = {
+                                    //     name: values.name,
+                                    //     summary: values.summary,
+                                    //     description: values.description,
+                                    //     tags: values.tags.map((value) => value.slug)
+                                    // };
+                                    //
+                                    // const formData = new FormData();
+                                    // formData.set("logo", values.logo);
+                                    // formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
+                                    // postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session })
+                                    //     .then((value) => {
+                                    //         router.push(
+                                    //             `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`,
+                                    //             `/games/${GameSlug}/${ProjectType}/${value.data.slug}`
+                                    //         );
+                                    //     })
+                                    //     .catch((reason: AxiosError) => {
+                                    //         console.log(reason.response?.data);
+                                    //     });
+                                }}
+                            >
+                                {({ touched, errors, isSubmitting, values }) => (
+                                    <div>
+                                        <div className={`flex flex-col gap-y-2`}>
+                                            <div className={`md:flex gap-x-4`}>
+                                                <div className={`flex flex-col gap-y-2 md:w-1/2`}>
+                                                    <div className={`flex gap-x-2 justify-between`}>
+                                                        <label htmlFor={`version`} className={`font-medium`}>
+                                                            Version
+                                                        </label>
+                                                        {touched.version && errors.version ? (
+                                                            <span className={`text-red-600 dark:text-red-500`}>{errors.version}</span>
+                                                        ) : null}
+                                                    </div>
+                                                    <Field
+                                                        placeholder={`Enter version`}
+                                                        id={`version`}
+                                                        name={"version"}
+                                                        className={`p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow dark:border-dark-700 dark-hover:border-dark-600 dark-focus:border-dark-600 dark:bg-dark-800`}
+                                                    />
+                                                </div>
+                                                <div className={`flex flex-col gap-y-2 md:w-1/2`}>
+                                                    <div className={`flex gap-x-2 justify-between`}>
+                                                        <label htmlFor={`releaseSelect`} className={`font-medium`}>
+                                                            Release Type:
+                                                        </label>
+                                                        {touched.tags && errors.tags ? (
+                                                            <span className={`text-red-600 dark:text-red-500`}>{errors.tags}</span>
+                                                        ) : null}
+                                                    </div>
+                                                    <SelectField
+                                                        name={`releaseType`}
+                                                        iid={`releaseType`}
+                                                        options={uploadData.releaseTypes}
+                                                        isMulti={false}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </Formik>
+                        </div>
                         <div>
                             <Uploady destination={{ url: "https://4567.imja.red/v1/games" }} autoUpload={false} noPortal={true} multiple={false}>
                                 <Form uploadData={uploadData} />

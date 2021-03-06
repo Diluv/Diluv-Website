@@ -163,7 +163,7 @@ export default function Index({
                                     </label>
                                     {touched.tags && errors.tags ? <span className={`text-red-600 dark:text-red-500`}>{errors.tags}</span> : null}
                                 </div>
-                                <SelectField name={`tags`} iid={`tags`} options={tags} />
+                                <SelectField name={`tags`} iid={`tags`} options={tags} isMulti={true} />
                             </div>
 
                             <div className={`mt-4`} style={{ gridArea: "description" }}>
