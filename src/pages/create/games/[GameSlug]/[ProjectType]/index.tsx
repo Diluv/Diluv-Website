@@ -13,8 +13,7 @@ import { Field, Form, Formik, FormikHelpers, FormikValues } from "formik";
 import TextEditorField from "../../../../../components/ui/form/TextEditorField";
 import SelectField from "../../../../../components/ui/form/SelectField";
 import * as yup from "yup";
-import Dropzone from "react-dropzone";
-import DropZoneField from "../../../../../components/ui/form/DropZoneField";
+import { DropZoneImageField } from "../../../../../components/ui/form/DropZoneField";
 import { AxiosError } from "axios";
 
 const schema = yup.object({
@@ -117,7 +116,7 @@ export default function Index({
                     {({ touched, errors, isSubmitting, values }) => (
                         <Form className={`grid gap-y-2 sm:gap-y-0 createForm`}>
                             <div className={`w-64 h-64 mx-auto sm:mx-0`} style={{ gridArea: "image" }}>
-                                <DropZoneField
+                                <DropZoneImageField
                                     name={"logo"}
                                     setErrors={(errors1) => {
                                         setLogoErrors(errors1);
@@ -163,7 +162,7 @@ export default function Index({
                                     </label>
                                     {touched.tags && errors.tags ? <span className={`text-red-600 dark:text-red-500`}>{errors.tags}</span> : null}
                                 </div>
-                                <SelectField name={`tags`} iid={`tags`} options={tags} isMulti={true} />
+                                <SelectField name={`tags`} iid={`tags`} options={tags} isMulti={true} closeOnSelect={false} filterOption={null} />
                             </div>
 
                             <div className={`mt-4`} style={{ gridArea: "description" }}>

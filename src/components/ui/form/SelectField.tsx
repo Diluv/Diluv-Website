@@ -3,8 +3,16 @@ import Select, { ValueType } from "react-select";
 import { reactSelectStyle } from "../../../utils/theme";
 import React from "react";
 import { SlugName } from "../../../interfaces";
+import { Option } from "react-select/src/filters";
 
-export default function SelectField(props: { options: SlugName[]; iid: string; name: string; isMulti: boolean }) {
+export default function SelectField(props: {
+    options: SlugName[];
+    iid: string;
+    name: string;
+    isMulti: boolean;
+    closeOnSelect: boolean;
+    filterOption?: ((option: Option, rawInput: string) => boolean) | null;
+}) {
     const [field, meta, helpers] = useField(props);
 
     const { options } = props;
@@ -17,7 +25,9 @@ export default function SelectField(props: { options: SlugName[]; iid: string; n
         }
         slugNames = slugNames || [];
         return slugNames.map((options) => {
-            return { value: options.slug, label: options.name };
+            if (typeof options !== "undefined") {
+                return { value: options.slug, label: options.name };
+            }
         });
     }
 
@@ -49,6 +59,9 @@ export default function SelectField(props: { options: SlugName[]; iid: string; n
             onBlur={() => {
                 setTouched(true);
             }}
+            openMenuOnFocus={true}
+            closeMenuOnSelect={props.closeOnSelect}
+            filterOption={props.filterOption}
         />
     );
 }
