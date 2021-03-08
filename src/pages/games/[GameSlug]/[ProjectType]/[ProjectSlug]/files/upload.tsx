@@ -4,15 +4,18 @@ import { Project, SlugName, UploadData } from "../../../../../../interfaces";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import { createFilter } from "react-select";
 import * as yup from "yup";
-import { Field, Formik, FormikErrors, FormikHelpers, FormikTouched, FormikValues, useField } from "formik";
+import { Field, Form, Formik, FormikErrors, FormikHelpers, FormikTouched, FormikValues } from "formik";
 import SelectField from "../../../../../../components/ui/form/SelectField";
 import SimpleBar from "simplebar-react";
 import Markdown from "../../../../../../components/Markdown";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { API_URL, getSession } from "../../../../../../utils/api";
-import { getAuthed } from "../../../../../../utils/request";
+import { API_URL, getSession, Session } from "../../../../../../utils/api";
+import { getAuthed, postAuthed } from "../../../../../../utils/request";
 import TextEditorField from "../../../../../../components/ui/form/TextEditorField";
 import { DropZoneFileField } from "../../../../../../components/ui/form/DropZoneField";
+import GameSlug from "../../../index";
+import { useRouter } from "next/router";
+import { AxiosError } from "axios";
 
 interface Filter extends SlugName {
     checked: boolean;
@@ -27,8 +30,15 @@ interface Values extends FormikValues {
     file: any;
 }
 
+const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/;
 const schema = yup.object({
-    version: yup.string().max(20, "Must be 20 characters or less").required("Required"),
+    version: yup
+        .string()
+        .max(20, "Must be 20 characters or less")
+        .test("semver-check", "Version is not valid SemVer!", (string) => {
+            return semver.test(string || "");
+        })
+        .required("Required"),
     releaseType: yup.object().shape({ name: yup.string(), slug: yup.string() }).required("Required"),
     gameVersions: yup
         .array()
@@ -50,7 +60,7 @@ const schema = yup.object({
         )
         .min(1, "Must have at-least 1 loader") // TODO do we want to enforce at-least one loader?
         .required("Required"),
-    changelog: yup.string().max(2000, "Must be less than 2000 characters").required("Required"),
+    changelog: yup.string().max(2000, "Must be less than 2000 characters"),
     file: yup.mixed().required()
 });
 
@@ -78,7 +88,7 @@ function ReleaseGroup({ touched, errors, uploadData }: { touched: FormikTouched<
         <div className={`flex flex-col gap-y-2 md:w-1/2`}>
             <div className={`flex gap-x-2 justify-between`}>
                 <label htmlFor={`releaseSelect`} className={`font-medium`}>
-                    Game Versions:
+                    Release Type:
                 </label>
                 {touched.tags && errors.tags ? <span className={`text-red-600 dark:text-red-500`}>{errors.tags}</span> : null}
             </div>
@@ -124,14 +134,14 @@ function GameVersionGroup({ touched, errors, uploadData }: { touched: FormikTouc
     return (
         <div className={`flex flex-col gap-y-2 md:w-1/2`}>
             <div className={`flex gap-x-2 justify-between`}>
-                <label htmlFor={`versionSelect`} className={`font-medium`}>
-                    Release Type:
+                <label htmlFor={`gameVersions`} className={`font-medium`}>
+                    Game Versions:
                 </label>
                 {touched.tags && errors.tags ? <span className={`text-red-600 dark:text-red-500`}>{errors.tags}</span> : null}
             </div>
             <SelectField
-                name={`versionSelect`}
-                iid={`versionSelect`}
+                name={`gameVersions`}
+                iid={`gameVersions`}
                 options={displayedVersions}
                 isMulti={true}
                 closeOnSelect={false}
@@ -172,14 +182,14 @@ function LoaderGroup({ touched, errors, uploadData }: { touched: FormikTouched<V
         <div className={`md:w-1/2`}>
             <div className={`flex flex-col gap-y-2`}>
                 <div className={`flex gap-x-2 justify-between`}>
-                    <label htmlFor={`loaderSelect`} className={`font-medium`}>
+                    <label htmlFor={`loaders`} className={`font-medium`}>
                         Loaders:
                     </label>
                     {touched.tags && errors.tags ? <span className={`text-red-600 dark:text-red-500`}>{errors.tags}</span> : null}
                 </div>
                 <SelectField
-                    name={`loaderSelect`}
-                    iid={`loaderSelect`}
+                    name={`loaders`}
+                    iid={`loaders`}
                     options={uploadData.loaders}
                     isMulti={true}
                     filterOption={createFilter({ ignoreAccents: true })}
@@ -190,18 +200,7 @@ function LoaderGroup({ touched, errors, uploadData }: { touched: FormikTouched<V
     );
 }
 
-function FileGroup({
-    touched,
-    errors,
-    setErrors
-}: {
-    touched: FormikTouched<Values>;
-    errors: FormikErrors<Values>;
-    setErrors: (errors: string[]) => void;
-}) {
-    const [field, meta, helpers] = useField("file");
-
-    const { setValue, setTouched } = helpers;
+function FileGroup({ setErrors }: { setErrors: (errors: string[]) => void }) {
     return (
         <div>
             <label htmlFor="file" className={`font-medium`}>
@@ -210,16 +209,15 @@ function FileGroup({
             <div className={`md:flex mb-2 md:mb-0`}>
                 <DropZoneFileField name={"file"} setErrors={setErrors} />
             </div>
-            {/*<Thumb file={values.file} />*/}
         </div>
     );
 }
 
-export default function Upload({ project, uploadData }: { project: Project; uploadData: UploadData }): JSX.Element {
+export default function Upload({ project, uploadData, session }: { project: Project; uploadData: UploadData; session: Session }): JSX.Element {
     const [changelog, setChangelog] = useState("");
     const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
     const [fileErrors, setFileErrors] = useState<string[]>([]);
-
+    const router = useRouter();
     return (
         <Layout
             title={project.name}
@@ -244,37 +242,44 @@ export default function Upload({ project, uploadData }: { project: Project; uplo
                                     file: undefined
                                 }}
                                 onSubmit={async (values, { setSubmitting }: FormikHelpers<Values>) => {
-                                    // const headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
-                                    //     "Accept": "application/json",
-                                    //     "content-type": "multipart/form-data"
-                                    // };
-                                    // const data = {
-                                    //     name: values.name,
-                                    //     summary: values.summary,
-                                    //     description: values.description,
-                                    //     tags: values.tags.map((value) => value.slug)
-                                    // };
-                                    //
-                                    // const formData = new FormData();
-                                    // formData.set("logo", values.logo);
-                                    // formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
-                                    // postAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, formData, { headers: headers, session })
-                                    //     .then((value) => {
-                                    //         router.push(
-                                    //             `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/`,
-                                    //             `/games/${GameSlug}/${ProjectType}/${value.data.slug}`
-                                    //         );
-                                    //     })
-                                    //     .catch((reason: AxiosError) => {
-                                    //         console.log(reason.response?.data);
-                                    //     });
+                                    const headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
+                                        "Accept": "application/json",
+                                        "content-type": "multipart/form-data"
+                                    };
+                                    const data = {
+                                        version: values.version,
+                                        changelog: values.changelog,
+                                        releaseType: values.releaseType.slug,
+                                        classifier: "binary", // TODO remove
+                                        gameVersions: values.gameVersions.map((value) => value.slug),
+                                        loaders: values.loaders.map((value) => value.slug),
+                                        dependencies: [] // TODO do this
+                                    };
+
+                                    const formData = new FormData();
+                                    formData.set("file", values.file);
+                                    formData.set("filename", values.file.name);
+                                    formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
+                                    console.log("Submitting");
+                                    postAuthed(`${API_URL}/v1/projects/${project.id}/files`, formData, { headers: headers, session })
+                                        .then((value) => {
+                                            console.log(value);
+                                            router.push(
+                                                `/games/[GameSlug]/[ProjectType]/[ProjectSlug]/files/[FileId]`,
+                                                `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.data.id}`
+                                            );
+                                        })
+                                        .catch((reason: AxiosError) => {
+                                            console.log(reason.response?.data);
+                                        });
                                 }}
                             >
                                 {({ touched, errors, isSubmitting, values, setErrors }) => (
-                                    <div>
+                                    <Form>
+                                        {errors && JSON.stringify(errors)}
                                         <div className={`flex flex-col gap-y-2`}>
                                             <div>
-                                                <FileGroup touched={touched} errors={errors} setErrors={setFileErrors} />
+                                                <FileGroup setErrors={setFileErrors} />
                                             </div>
                                             <div className={`md:flex gap-x-4`}>
                                                 <VersionGroup touched={touched} errors={errors} />
@@ -372,8 +377,8 @@ export default function Upload({ project, uploadData }: { project: Project; uplo
                                                                             : `w-full h-full`
                                                                     }`}
                                                                     innerClassName={`outline-none resize-none w-full h-full p-1 dark:bg-dark-800`}
-                                                                    maxLength={10000}
-                                                                    minLength={50}
+                                                                    maxLength={2000}
+                                                                    minLength={0}
                                                                     id={`changelog`}
                                                                     name={`changelog`}
                                                                 />
@@ -397,18 +402,12 @@ export default function Upload({ project, uploadData }: { project: Project; uplo
                                                 </div>
                                             </div>
                                             <div>
-                                                <button
-                                                    className={`btn btn-diluv w-auto`}
-                                                    onClick={(event) => {
-                                                        // uploadyContext.processPending();
-                                                    }}
-                                                    // disabled={!canSubmit()}
-                                                >
+                                                <button className={`btn btn-diluv sm:w-auto`} type={"submit"} disabled={isSubmitting}>
                                                     Submit
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Form>
                                 )}
                             </Formik>
                         </div>

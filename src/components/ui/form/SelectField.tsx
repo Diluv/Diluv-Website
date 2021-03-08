@@ -4,6 +4,7 @@ import { reactSelectStyle } from "../../../utils/theme";
 import React from "react";
 import { SlugName } from "../../../interfaces";
 import { Option } from "react-select/src/filters";
+import { isNull } from "util";
 
 export default function SelectField(props: {
     options: SlugName[];
@@ -30,15 +31,33 @@ export default function SelectField(props: {
             }
         });
     }
+    function convertToValue(slugNames: SlugName | SlugName[]) {
+        if (props.isMulti) {
+            if (!Array.isArray(slugNames)) {
+                slugNames = [slugNames];
+            }
+            slugNames = slugNames || [];
+            return slugNames.map((options) => {
+                if (typeof options !== "undefined") {
+                    return { value: options.slug, label: options.name };
+                }
+            });
+        }
+        return { value: (slugNames as SlugName).slug, label: (slugNames as SlugName).name };
+    }
 
     function convertToSlugNames(options: ValueType<any, any> | ValueType<any, any>[]) {
-        if (!Array.isArray(options)) {
-            options = [options];
+        if (props.isMulti) {
+            if (!Array.isArray(options)) {
+                options = [options];
+            }
+            options = options || [];
+            return options.map((option: ValueType<any, any>) => {
+                return { slug: option.value, name: option.label };
+            });
         }
-        options = options || [];
-        return options.map((option: ValueType<any, any>) => {
-            return { slug: option.value, name: option.label };
-        });
+
+        return { slug: options.value, name: options.label };
     }
 
     return (
@@ -48,7 +67,7 @@ export default function SelectField(props: {
             instanceId={props.iid}
             options={convertToOptions(options)}
             name={props.name}
-            value={convertToOptions(value)}
+            value={convertToValue(value)}
             isMulti={props.isMulti}
             onChange={(option: ValueType<any, any>[]) => {
                 setValue(convertToSlugNames(option));

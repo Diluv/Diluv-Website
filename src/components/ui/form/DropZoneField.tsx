@@ -130,6 +130,7 @@ export function DropZoneFileField(props: { name: string; setErrors: (errors: str
                 setErrors(errors);
                 if (errors.length === 0) {
                     setValue(file);
+                    setTouched(true);
                 } else {
                     setValue(null);
                 }
@@ -142,16 +143,16 @@ export function DropZoneFileField(props: { name: string; setErrors: (errors: str
             validator={(file) => {
                 const rejections: FileError[] = [];
 
-                if (file.size > fileSizeLimit) {
-                    rejections.push({
-                        code: "file-too-large",
-                        message: `Provided file size is: ${fileSize(file.size)}. The max upload size is: ${fileSize(fileSizeLimit)}!`
-                    });
-                }
+                // if (file.size > fileSizeLimit) {
+                //     rejections.push({
+                //         code: "file-too-large",
+                //         message: `Provided file size is: ${fileSize(file.size)}. The max upload size is: ${fileSize(fileSizeLimit)}!`
+                //     });
+                // }
                 // TODO apply a file filter for any file??
                 return rejections.length === 0 ? null : rejections;
             }}
-            accept={validTypes}
+            // accept={validTypes}
         >
             {({ getRootProps, getInputProps }) => (
                 <div>
