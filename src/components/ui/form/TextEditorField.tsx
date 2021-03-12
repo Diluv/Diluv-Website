@@ -11,12 +11,12 @@ export default function TextEditorField(
     } & { [x: string]: any; name: string }
 ) {
     let { className, innerClassName, maxLength, id, minLength } = props;
-    const [length, setLength] = useState(0);
-
     const [field, meta, helpers] = useField(props);
 
     const { touched, error, value } = meta;
+
     const { setValue, setTouched } = helpers;
+    const [length, setLength] = useState(value.length);
 
     return (
         <div className={`flex flex-col ${className}`}>
