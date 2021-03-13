@@ -4,7 +4,8 @@ import { reactSelectStyle } from "../../../utils/theme";
 import React from "react";
 import { SlugName } from "../../../interfaces";
 import { Option } from "react-select/src/filters";
-import { isNull } from "util";
+import { FixedSizeList as List } from "react-window";
+import { MenuListProps } from "react-select/src/components/Menu";
 
 export default function SelectField(props: {
     options: SlugName[];
@@ -31,6 +32,7 @@ export default function SelectField(props: {
             }
         });
     }
+
     function convertToValue(slugNames: SlugName | SlugName[]) {
         if (props.isMulti) {
             if (!Array.isArray(slugNames)) {
@@ -60,8 +62,29 @@ export default function SelectField(props: {
         return { slug: options.value, name: options.label };
     }
 
+    function MenuList(props: MenuListProps) {
+        let children = props.children ? props.children : [];
+        // @ts-ignore
+        let length = children.length || 0;
+        const Row = ({ index, style, isScrolling }: { index: any; style: any; isScrolling: any }) => {
+            // @ts-ignore
+            return <div style={style}>{isScrolling ? <span style={{ padding: "8px 12px" }}>Loading...</span> : children[index]}</div>;
+        };
+
+        return (
+            <div>
+                <List height={length * 48 < 300 ? length * 48 : 300} itemCount={length} itemSize={48} width={"100%"} useIsScrolling={true}>
+                    {/* @ts-ignore */}
+                    {Row}
+                </List>
+                {/*<components.MenuList {...props}>{props.children}</components.MenuList>*/}
+            </div>
+        );
+    }
+
     return (
         <Select
+            components={{ MenuList }}
             isSearchable={true}
             inputId={props.iid}
             instanceId={props.iid}
