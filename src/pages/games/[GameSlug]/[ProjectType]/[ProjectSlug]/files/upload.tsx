@@ -2,24 +2,34 @@ import React, { useState } from "react";
 import Layout from "components/Layout";
 import { Project, SlugName, UploadData } from "../../../../../../interfaces";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
-import { createFilter } from "react-select";
+import Select, { components, createFilter, ValueType } from "react-select";
 import * as yup from "yup";
-import { Field, Form, Formik, FormikErrors, FormikHelpers, FormikTouched, FormikValues } from "formik";
+import { Field, Form, Formik, FormikErrors, FormikHelpers, FormikTouched, FormikValues, useField } from "formik";
 import SelectField from "../../../../../../components/ui/form/SelectField";
-import SimpleBar from "simplebar-react";
-import Markdown from "../../../../../../components/Markdown";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { API_URL, getSession, Session } from "../../../../../../utils/api";
-import { getAuthed, postAuthed, postUploadAuthed } from "../../../../../../utils/request";
-import TextEditorField from "../../../../../../components/ui/form/TextEditorField";
+import { getAuthed, postUploadAuthed } from "../../../../../../utils/request";
 import { DropZoneFileField } from "../../../../../../components/ui/form/DropZoneField";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
-
+import AsyncSelect from "react-select/async";
+import XCirlce from "../../../../../../components/icons/XCirlce";
+import { reactSelectStyle } from "../../../../../../utils/theme";
+import { OptionProps } from "react-select/src/components/Option";
 import ProgressBar from "../../../../../../components/ui/ProgressBar";
+import TextEditorField from "../../../../../../components/ui/form/TextEditorField";
+import SimpleBar from "simplebar-react";
+import Markdown from "../../../../../../components/Markdown";
 
 interface Filter extends SlugName {
     checked: boolean;
+}
+
+interface Dependency {
+    projectName: string;
+    projectId: number;
+    type: SlugName;
+    projectLogo: string;
 }
 
 interface Values extends FormikValues {
@@ -29,6 +39,7 @@ interface Values extends FormikValues {
     loaders: SlugName[];
     changelog: string;
     file: any;
+    dependencies: Dependency[];
 }
 
 const schema = yup.object({
@@ -55,7 +66,18 @@ const schema = yup.object({
         .min(1, "Must have at-least 1 loader") // TODO do we want to enforce at-least one loader?
         .required("Required"),
     changelog: yup.string().max(2000, "Must be less than 2000 characters"),
-    file: yup.mixed().required()
+    file: yup.mixed().required(),
+    dependencies: yup.array().of(
+        yup.object().shape({
+            projectId: yup.number(),
+            projectName: yup.string(),
+            projectLogo: yup.string(),
+            type: yup.object().shape({
+                name: yup.string(),
+                slug: yup.string()
+            })
+        })
+    )
 });
 
 function VersionGroup({ touched, errors }: { touched: FormikTouched<Values>; errors: FormikErrors<Values> }) {
@@ -207,8 +229,191 @@ function FileGroup({ setErrors }: { setErrors: (errors: string[]) => void }) {
     );
 }
 
+function DependencyGroup({
+    touched,
+    errors,
+    project,
+    uploadData,
+    session,
+    name
+}: {
+    touched: FormikTouched<Values>;
+    errors: FormikErrors<Values>;
+    project: Project;
+    uploadData: UploadData;
+    session: Session;
+    name: string;
+}) {
+    const [field, meta, helpers] = useField(name);
+
+    const { error, value } = meta;
+    const { setValue, setTouched } = helpers;
+    let [addingDependency, setAddingDependency] = useState(false);
+
+    const defaultDep = { projectId: -1, projectName: "", projectLogo: "", type: { slug: "", name: "" } };
+    let [dependency, setDependency] = useState(defaultDep);
+    const Option = (props: OptionProps<any, any>) => {
+        return (
+            <div className={`flex`}>
+                <components.Option {...props}>
+                    <div className={`flex gap-x-1`}>
+                        <img className={`h-8 w-8`} src={props.data.logo} alt={`${props.label} logo`} />
+                        <span className={`my-auto`}>{props.label}</span>
+                    </div>
+                </components.Option>
+            </div>
+        );
+    };
+
+    return (
+        <div className={`flex flex-col gap-y-2`}>
+            <div className={`flex gap-x-2 justify-between`}>
+                <label htmlFor={`version`} className={`font-medium`}>
+                    Dependencies
+                </label>
+                {touched.version && errors.version ? <span className={`text-red-600 dark:text-red-500`}>{errors.version}</span> : null}
+            </div>
+            {(value || []).map((dep: Dependency) => {
+                return (
+                    <div className={`p-2 flex gap-x-2`} key={dep.projectId}>
+                        <div
+                            className={`my-auto hover:text-red-500 cursor-pointer`}
+                            onClick={(event) => {
+                                let newDependencies = value.filter((dep1: Dependency) => {
+                                    return dep1.projectId !== dep.projectId;
+                                });
+                                setValue(newDependencies);
+                            }}
+                        >
+                            <XCirlce className={`w-6 h-6`} />
+                        </div>
+                        <img src={dep.projectLogo} className={"w-16 h-16"} />
+                        <div className={`flex flex-col gap-y-2`}>
+                            <span>{dep.projectName}</span>
+                            <span>{dep.type.name}</span>
+                        </div>
+                    </div>
+                );
+            })}
+            {addingDependency ? (
+                <div className={`p-4 w-96 h-64 bg-dark-800 relative border border-gray-300 dark:border-dark-700 flex flex-col`}>
+                    <div className={`absolute top-4 right-4 cursor-pointer hover:text-red-500`} onClick={() => setAddingDependency(false)}>
+                        <XCirlce className={`w-6 h-6`} />
+                    </div>
+                    <div className={`flex flex-col gap-y-2 flex-grow`}>
+                        <div className={`flex flex-col gap-y-2`}>
+                            Select Project
+                            <AsyncSelect
+                                cacheOptions={true}
+                                isSearchable={true}
+                                components={{ Option }}
+                                loadOptions={(inputValue) => {
+                                    return new Promise((resolve) => {
+                                        getAuthed(
+                                            `${API_URL}/v1/games/${project.game.slug}/${project.projectType.slug}/projects?search=${inputValue}`,
+                                            {
+                                                session
+                                            }
+                                        )
+                                            .then((response) => {
+                                                resolve(
+                                                    response.data.projects
+                                                        .filter((proj: Project) => {
+                                                            return (value || []).map((dep: Dependency) => dep.projectId).indexOf(proj.id) === -1;
+                                                        })
+                                                        .map((proj: Project) => {
+                                                            return { value: proj.id, label: proj.name, logo: proj.logo };
+                                                        })
+                                                );
+                                            })
+                                            .catch((reason) => {
+                                                console.log(reason);
+                                            });
+                                    });
+                                }}
+                                inputId={`dependency-select`}
+                                instanceId={`dependency-select`}
+                                isClearable={true}
+                                onChange={(option: ValueType<any, any>) => {
+                                    if (option) {
+                                        setDependency((prevState) => {
+                                            return { ...prevState, projectId: option.value, projectLogo: option.logo, projectName: option.label };
+                                        });
+                                    } else {
+                                        setDependency((prevState) => {
+                                            return { ...prevState, projectId: -1, projectLogo: "", projectName: "" };
+                                        });
+                                    }
+                                }}
+                                noOptionsMessage={(obj) => {
+                                    return "Type to load projects";
+                                }}
+                                styles={reactSelectStyle}
+                                classNamePrefix={"select"}
+                                className={`flex-grow`}
+                                openMenuOnFocus={true}
+                                closeMenuOnSelect={true}
+                                tabSelectsValue={false}
+                            />
+                        </div>
+                        <div className={`flex flex-col gap-y-2`}>
+                            Dependency Type
+                            <Select
+                                isSearchable={true}
+                                inputId={`dependency-type-select`}
+                                instanceId={`dependency-type-select`}
+                                isClearable={true}
+                                options={uploadData.dependencyTypes.map((type: SlugName) => {
+                                    return { label: type.name, value: type.slug };
+                                })}
+                                onChange={(option: ValueType<any, any>) => {
+                                    if (option) {
+                                        setDependency((prevState) => {
+                                            return { ...prevState, type: { slug: option.value, name: option.label } };
+                                        });
+                                    } else {
+                                        setDependency((prevState) => {
+                                            return { ...prevState, type: { slug: "", name: "" } };
+                                        });
+                                    }
+                                }}
+                                styles={reactSelectStyle}
+                                classNamePrefix={"select"}
+                                className={`flex-grow`}
+                                openMenuOnFocus={true}
+                                closeMenuOnSelect={true}
+                                tabSelectsValue={false}
+                            />
+                        </div>
+
+                        <button
+                            className={`btn btn-diluv text-center mt-auto`}
+                            onClick={(event) => {
+                                setAddingDependency(false);
+
+                                let newValue = value || [];
+                                newValue.push(dependency);
+                                setValue(newValue);
+                                setDependency(defaultDep);
+                            }}
+                            disabled={dependency.projectId === -1 || dependency.type.slug === ""}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <div>
+                    <button className={`btn btn-diluv w-64`} onClick={(event) => setAddingDependency(true)}>
+                        Add Dependency
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+}
+
 export default function Upload({ project, uploadData, session }: { project: Project; uploadData: UploadData; session: Session }): JSX.Element {
-    const [changelog, setChangelog] = useState("");
     const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
     const [fileErrors, setFileErrors] = useState<string[]>([]);
     const router = useRouter();
@@ -236,13 +441,15 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                     gameVersions: [],
                                     loaders: [],
                                     changelog: "",
-                                    file: undefined
+                                    file: undefined,
+                                    dependencies: []
                                 }}
                                 onSubmit={async (values, { setSubmitting }: FormikHelpers<Values>) => {
                                     const headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
                                         "Accept": "application/json",
                                         "content-type": "multipart/form-data"
                                     };
+
                                     const data = {
                                         version: values.version,
                                         changelog: values.changelog,
@@ -250,9 +457,13 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                         classifier: "binary", // TODO remove
                                         gameVersions: values.gameVersions.map((value) => value.slug),
                                         loaders: values.loaders.map((value) => value.slug),
-                                        dependencies: [] // TODO do this
+                                        dependencies: values.dependencies.map((dep) => {
+                                            return {
+                                                projectId: dep.projectId,
+                                                type: dep.type.slug
+                                            };
+                                        })
                                     };
-
                                     const formData = new FormData();
                                     formData.set("file", values.file);
                                     formData.set("filename", values.file.name);
@@ -283,7 +494,6 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                     <Form>
                                         <div className={`flex flex-col gap-y-2`}>
                                             <div>
-                                                {JSON.stringify(isSubmitting)}
                                                 <FileGroup setErrors={setFileErrors} />
                                             </div>
                                             <div className={`md:flex gap-x-4`}>
@@ -405,6 +615,16 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div>
+                                                <DependencyGroup
+                                                    touched={touched}
+                                                    errors={errors}
+                                                    project={project}
+                                                    session={session}
+                                                    uploadData={uploadData}
+                                                    name={"dependencies"}
+                                                />
                                             </div>
                                             <div className={`flex flex-col md:flex-row gap-y-4 gap-x-4`}>
                                                 <button className={`btn btn-diluv sm:w-auto`} type={"submit"} disabled={isSubmitting}>

@@ -130,6 +130,7 @@ export interface UploadData {
     loaders: SlugName[];
     releaseTypes: SlugName[];
     classifiers: string[];
+    dependencyTypes: SlugName[];
 }
 
 // export interface Session {
