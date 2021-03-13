@@ -31,6 +31,31 @@ export function postAuthed(
     });
 }
 
+export function postUploadAuthed(
+    url: string,
+    data: Record<string, unknown> | FormData,
+    {
+        headers = {
+            Accept: "application/json"
+        },
+        session
+    }: { headers?: any; session?: Session },
+    onPercentageChanged: (newPercentage: number) => void
+): Promise<AxiosResponse> {
+    if (session) {
+        headers.Authorization = `Bearer ${session.accessToken}`;
+    }
+    const config = {
+        headers: headers,
+        onUploadProgress: function (progressEvent: ProgressEvent) {
+            let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            console.log(percentCompleted);
+            onPercentageChanged(percentCompleted);
+        }
+    };
+    return axios.post(url, data, config);
+}
+
 export function get(
     url: string,
     headers: any = {
@@ -58,7 +83,6 @@ export function getAuthed(
         headers
     });
 }
-
 
 export function patch(
     url: string,

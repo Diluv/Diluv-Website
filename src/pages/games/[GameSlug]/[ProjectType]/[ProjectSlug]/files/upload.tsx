@@ -10,12 +10,14 @@ import SimpleBar from "simplebar-react";
 import Markdown from "../../../../../../components/Markdown";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { API_URL, getSession, Session } from "../../../../../../utils/api";
-import { getAuthed, postAuthed } from "../../../../../../utils/request";
+import { getAuthed, postAuthed, postUploadAuthed } from "../../../../../../utils/request";
 import TextEditorField from "../../../../../../components/ui/form/TextEditorField";
 import { DropZoneFileField } from "../../../../../../components/ui/form/DropZoneField";
-import GameSlug from "../../../index";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
+
+import { ReactUpload } from "react-upload-box";
+import ProgressBar from "../../../../../../components/ui/ProgressBar";
 
 interface Filter extends SlugName {
     checked: boolean;
@@ -218,6 +220,9 @@ export default function Upload({ project, uploadData, session }: { project: Proj
     const [viewMode, setViewMode] = useState({ showEdit: true, showPreview: false });
     const [fileErrors, setFileErrors] = useState<string[]>([]);
     const router = useRouter();
+
+    const [percentage, setPercentage] = useState(0);
+
     return (
         <Layout
             title={project.name}
@@ -260,8 +265,16 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                     formData.set("file", values.file);
                                     formData.set("filename", values.file.name);
                                     formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
-                                    console.log("Submitting");
-                                    postAuthed(`${API_URL}/v1/projects/${project.id}/files`, formData, { headers: headers, session })
+                                    setSubmitting(true);
+                                    await postUploadAuthed(
+                                        `${API_URL}/v1/projects/${project.id}/files`,
+                                        formData,
+                                        { headers: headers, session },
+                                        (newPercentage) => {
+                                            console.log(newPercentage);
+                                            setPercentage(newPercentage);
+                                        }
+                                    )
                                         .then((value) => {
                                             console.log(value);
                                             router.push(
@@ -276,9 +289,9 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                             >
                                 {({ touched, errors, isSubmitting, values, setErrors }) => (
                                     <Form>
-                                        {errors && JSON.stringify(errors)}
                                         <div className={`flex flex-col gap-y-2`}>
                                             <div>
+                                                {JSON.stringify(isSubmitting)}
                                                 <FileGroup setErrors={setFileErrors} />
                                             </div>
                                             <div className={`md:flex gap-x-4`}>
@@ -401,10 +414,17 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>
+                                            <div className={`flex flex-col md:flex-row gap-y-4 gap-x-4`}>
                                                 <button className={`btn btn-diluv sm:w-auto`} type={"submit"} disabled={isSubmitting}>
-                                                    Submit
+                                                    {isSubmitting ? `Submitting` : `Submit`}
                                                 </button>
+                                                {isSubmitting ? (
+                                                    <div className={`w-full my-auto`}>
+                                                        <ProgressBar completed={percentage} />
+                                                    </div>
+                                                ) : (
+                                                    <></>
+                                                )}
                                             </div>
                                         </div>
                                     </Form>
