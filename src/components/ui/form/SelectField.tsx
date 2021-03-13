@@ -81,6 +81,7 @@ export default function SelectField(props: {
             openMenuOnFocus={true}
             closeMenuOnSelect={props.closeOnSelect}
             filterOption={props.filterOption}
+            tabSelectsValue={false}
         />
     );
 }
