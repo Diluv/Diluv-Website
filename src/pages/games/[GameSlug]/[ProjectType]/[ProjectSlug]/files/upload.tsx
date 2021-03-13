@@ -31,15 +31,8 @@ interface Values extends FormikValues {
     file: any;
 }
 
-const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/;
 const schema = yup.object({
-    version: yup
-        .string()
-        .max(20, "Must be 20 characters or less")
-        .test("semver-check", "Version is not valid SemVer!", (string) => {
-            return semver.test(string || "");
-        })
-        .required("Required"),
+    version: yup.string().max(20, "Must be 20 characters or less").required("Required"),
     releaseType: yup.object().shape({ name: yup.string(), slug: yup.string() }).required("Required"),
     gameVersions: yup
         .array()
