@@ -16,7 +16,6 @@ import { DropZoneFileField } from "../../../../../../components/ui/form/DropZone
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 
-import { ReactUpload } from "react-upload-box";
 import ProgressBar from "../../../../../../components/ui/ProgressBar";
 
 interface Filter extends SlugName {
