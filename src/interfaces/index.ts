@@ -36,6 +36,12 @@ export interface ProjectFile {
     user: User;
     downloadURL: string;
     downloads: number;
+    dependencies: ProjectFileDependency[];
+}
+
+export interface ProjectFileDependency {
+    project: Project;
+    type: string;
 }
 
 export interface Project extends SlugName {

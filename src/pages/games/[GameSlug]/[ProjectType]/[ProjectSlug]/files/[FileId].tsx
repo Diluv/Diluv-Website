@@ -14,7 +14,6 @@ import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 import Image from "next/image";
 import DownloadLink from "../../../../../../components/ui/DownloadLink";
-import { TableData } from "../../../../../../components/ui/Table";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
     return (
@@ -65,7 +64,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                                 hideOnClick={false}
                                             >
                                                 <div>
-                                                    <a href={file.downloadURL + ".asc"} download={true}>
+                                                    <a href={file.downloadURL + ".asc"} download={true} target={"_blank"}>
                                                         <p className={`truncate w-64 sm:w-32 hover:text-diluv-600 dark-hover:text-diluv-500`}>
                                                             {file.sha512}
                                                         </p>
@@ -94,8 +93,11 @@ export default function File({ project, file }: { project: Project; file: Projec
                                         </Link>
                                     </div>
                                     <div className={`mt-4 sm:my-auto lg:row-start-1 lg:col-start-5`}>
-                                        <DownloadLink url={file.downloadURL} className={`w-full text-center sm:text-left sm:w-auto btn btn-diluv inline-block`}>
-                                                Download
+                                        <DownloadLink
+                                            url={file.downloadURL}
+                                            className={`w-full text-center sm:text-left sm:w-auto btn btn-diluv inline-block`}
+                                        >
+                                            Download
                                         </DownloadLink>
                                     </div>
                                 </div>
@@ -113,8 +115,26 @@ export default function File({ project, file }: { project: Project; file: Projec
                                 </div>
 
                                 <div className={`my-2 mx-2`}>
+                                    <h2 className={`font-semibold`}>Dependencies</h2>
+                                    <div className={`flex flex-wrap gap-x-2 gap-y-2`}>
+                                        {file.dependencies.map((fileDep) => {
+                                            return (
+                                                <div
+                                                    className={`p-2 border border-dark-400 dark:border-dark-600 flex gap-x-2 bg-dark-200 dark:bg-dark-800`}
+                                                >
+                                                    <img src={fileDep.project.logo} className={`w-12 h-12`} />
+                                                    <div className={`flex flex-col`}>
+                                                        <span className={`font-semibold break-all`}>{fileDep.project.name}</span>
+                                                        <span>{fileDep.type}</span>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                                <div className={`my-2 mx-2`}>
                                     <h2 className={`font-semibold`}>Changelog</h2>
-                                    <div className={`mt-2 border border-gray-400 dark:border-dark-600 bg-gray-300 dark:bg-dark-800`}>
+                                    <div className={`mt-2 pl-2 pt-2 border border-gray-400 dark:border-dark-600 bg-gray-300 dark:bg-dark-800`}>
                                         <Markdown markdown={file.changelog} />
                                     </div>
                                 </div>
