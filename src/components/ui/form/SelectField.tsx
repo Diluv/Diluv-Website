@@ -14,6 +14,7 @@ export default function SelectField(props: {
     isMulti: boolean;
     closeOnSelect: boolean;
     filterOption?: ((option: Option, rawInput: string) => boolean) | null;
+    window: boolean;
 }) {
     const [field, meta, helpers] = useField(props);
 
@@ -66,14 +67,14 @@ export default function SelectField(props: {
         let children = props.children ? props.children : [];
         // @ts-ignore
         let length = children.length || 0;
-        const Row = ({ index, style, isScrolling }: { index: any; style: any; isScrolling: any }) => {
+        const Row = ({ index, style }: { index: any; style: any }) => {
             // @ts-ignore
-            return <div style={style}>{isScrolling ? <span style={{ padding: "8px 12px" }}>Loading...</span> : children[index]}</div>;
+            return <div style={style}> {children[index]}</div>;
         };
 
         return (
             <div>
-                <List height={length * 48 < 300 ? length * 48 : 300} itemCount={length} itemSize={48} width={"100%"} useIsScrolling={true}>
+                <List height={length * 48 < 300 ? length * 48 : 300} itemCount={length} itemSize={48} width={"100%"}>
                     {/* @ts-ignore */}
                     {Row}
                 </List>
@@ -82,9 +83,35 @@ export default function SelectField(props: {
         );
     }
 
+    if (props.window) {
+        return (
+            <Select
+                components={{ MenuList }}
+                isSearchable={true}
+                inputId={props.iid}
+                instanceId={props.iid}
+                options={convertToOptions(options)}
+                name={props.name}
+                value={convertToValue(value)}
+                isMulti={props.isMulti}
+                onChange={(option: ValueType<any, any>[]) => {
+                    setValue(convertToSlugNames(option));
+                }}
+                styles={reactSelectStyle}
+                classNamePrefix={"select"}
+                className={`flex-grow`}
+                onBlur={() => {
+                    setTouched(true);
+                }}
+                openMenuOnFocus={true}
+                closeMenuOnSelect={props.closeOnSelect}
+                filterOption={props.filterOption}
+                tabSelectsValue={false}
+            />
+        );
+    }
     return (
         <Select
-            components={{ MenuList }}
             isSearchable={true}
             inputId={props.iid}
             instanceId={props.iid}

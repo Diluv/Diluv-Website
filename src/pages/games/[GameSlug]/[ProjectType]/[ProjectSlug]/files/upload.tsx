@@ -115,6 +115,7 @@ function ReleaseGroup({ touched, errors, uploadData }: { touched: FormikTouched<
                 isMulti={false}
                 filterOption={null}
                 closeOnSelect={true}
+                window={false}
             />
         </div>
     );
@@ -162,6 +163,16 @@ function GameVersionGroup({ touched, errors, uploadData }: { touched: FormikTouc
                 isMulti={true}
                 closeOnSelect={false}
                 filterOption={createFilter({ ignoreAccents: true })}
+                window={false}
+            />
+            <SelectField
+                name={`gameVersions`}
+                iid={`gameVersions`}
+                options={displayedVersions}
+                isMulti={true}
+                closeOnSelect={false}
+                filterOption={createFilter({ ignoreAccents: true })}
+                window={true}
             />
             <div className={`flex flex-wrap -mt-2`}>
                 {filters.map((filter) => {
@@ -210,6 +221,7 @@ function LoaderGroup({ touched, errors, uploadData }: { touched: FormikTouched<V
                     isMulti={true}
                     filterOption={createFilter({ ignoreAccents: true })}
                     closeOnSelect={false}
+                    window={false}
                 />
             </div>
         </div>
