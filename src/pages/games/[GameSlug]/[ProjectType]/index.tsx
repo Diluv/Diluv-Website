@@ -123,10 +123,7 @@ export default function Projects({
                                 <div
                                     className={`w-full sm:w-auto p-2 bg-diluv-500 hover:bg-diluv-600 cursor-pointer inline-flex text-white font-medium`}
                                 >
-                                    <AuthorizedLink
-                                        href={`/create/games/${gameSlug}/${projectData.slug}/`}
-                                        className={`mx-auto text-center`}
-                                    >
+                                    <AuthorizedLink href={`/create/games/${gameSlug}/${projectData.slug}/`} className={`mx-auto text-center`}>
                                         Create Project
                                     </AuthorizedLink>
                                 </div>
@@ -240,7 +237,7 @@ export default function Projects({
                                 </label>
                                 <div className={"relative my-auto flex-grow ml-1"}>
                                     <Select
-                                        isSearchable={true}
+                                        isSearchable={false}
                                         inputId="sort"
                                         defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
                                         options={sorts.map((value) => {

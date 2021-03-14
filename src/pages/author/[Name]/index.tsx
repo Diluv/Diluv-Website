@@ -101,7 +101,7 @@ function ProjectOptions({
             {showSorts && (
                 <div className={`md:col-start-1`}>
                     <Select
-                        isSearchable={true}
+                        isSearchable={false}
                         inputId="sortProjects"
                         defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
                         options={data.sort.map((value) => {

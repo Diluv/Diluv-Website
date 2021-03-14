@@ -99,7 +99,7 @@ export default function GameIndex({
                             </label>
                             <div className={"my-auto flex-grow ml-1"}>
                                 <Select
-                                    isSearchable={true}
+                                    isSearchable={false}
                                     inputId="sortGames"
                                     defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
                                     options={sorts.map((value) => {
@@ -117,9 +117,7 @@ export default function GameIndex({
                     </div>
                     <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 my-4`} id={`gameContainer`}>
                         {games.map((game: Game) => {
-                            return (
-                                <GameCard key={game.slug} game={game} />
-                            );
+                            return <GameCard key={game.slug} game={game} />;
                         })}
                     </div>
                 </div>

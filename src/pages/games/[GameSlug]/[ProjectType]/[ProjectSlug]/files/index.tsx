@@ -22,16 +22,25 @@ import Search from "../../../../../../components/icons/Search";
 import { DebounceInput } from "react-debounce-input";
 import { onBlur, onFocus } from "../../../../../../utils/util";
 
-export default function Files({ project, files, currentSort, sorts, page, fileCount, version, search }: {
-    project: Project; files: ProjectFile[]; sorts: SlugName[];
+export default function Files({
+    project,
+    files,
+    currentSort,
+    sorts,
+    page,
+    fileCount,
+    version,
+    search
+}: {
+    project: Project;
+    files: ProjectFile[];
+    sorts: SlugName[];
     currentSort: string;
     page: number;
     fileCount: number;
     version: string;
     search: string;
-
 }): JSX.Element {
-
     const router = useRouter();
     const maxPage = Math.ceil(fileCount / 20);
     // Fix for < 3 search killing things
@@ -49,15 +58,15 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
 
     const gameVersions = useMemo(() => {
         let versions: Version[] = [];
-        files.map(file => file.gameVersions).forEach((value) => {
-            value.forEach(value1 => {
-                if (versions.indexOf(value1) === -1)
-                    versions.push(value1);
+        files
+            .map((file) => file.gameVersions)
+            .forEach((value) => {
+                value.forEach((value1) => {
+                    if (versions.indexOf(value1) === -1) versions.push(value1);
+                });
             });
-        });
         return versions;
     }, files);
-
 
     return (
         <Layout
@@ -119,7 +128,7 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                 </label>
                                 <div className={"relative my-auto flex-grow ml-1"}>
                                     <Select
-                                        isSearchable={true}
+                                        isSearchable={false}
                                         inputId="sort"
                                         defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
                                         options={sorts.map((value) => {
@@ -154,7 +163,7 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                         isClearable={true}
                                         isSearchable={true}
                                         inputId="gameVersion"
-                                        options={gameVersions.map(value => {
+                                        options={gameVersions.map((value) => {
                                             return { value: value.version, label: value.version };
                                         })}
                                         styles={reactSelectStyle}
@@ -224,16 +233,18 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                         return (
                                             <Tr key={value.id} className={`table-body-row-diluv`}>
                                                 <Td className={`table-data-diluv`}>
-                                                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.id}`}>
+                                                    <Link
+                                                        href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.id}`}
+                                                    >
                                                         <a className={`cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-500`}>
                                                             <pre className={`whitespace-pre-line`}>{value.name}</pre>
                                                         </a>
                                                     </Link>
                                                 </Td>
                                                 <Td className={`table-data-diluv`}>
-                                                        <span className={`my-auto`}>
-                                                            {value.gameVersions.length ? value.gameVersions[0].version : "NA"}
-                                                        </span>
+                                                    <span className={`my-auto`}>
+                                                        {value.gameVersions.length ? value.gameVersions[0].version : "NA"}
+                                                    </span>
                                                     {value.gameVersions.length > 1 ? (
                                                         <Tippy
                                                             content={
@@ -252,9 +263,9 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                                             hideOnClick={false}
                                                         >
                                                             <div className={`inline-flex float-right`}>
-                                                                    <span
-                                                                        className={`px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-600 cursor-default`}
-                                                                    >{`+ ${value.gameVersions.length} more`}</span>
+                                                                <span
+                                                                    className={`px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-600 cursor-default`}
+                                                                >{`+ ${value.gameVersions.length} more`}</span>
                                                             </div>
                                                         </Tippy>
                                                     ) : (
@@ -268,14 +279,14 @@ export default function Files({ project, files, currentSort, sorts, page, fileCo
                                                 <Td className={`table-data-diluv`}>
                                                     <FormattedDistanceTime start={value.createdAt} />
                                                 </Td>
-                                                <Td className={`table-data-diluv`}>
-                                                    {value.downloads}
-                                                </Td>
+                                                <Td className={`table-data-diluv`}>{value.downloads}</Td>
                                                 <Td className={`table-data-diluv td-full`}>
-                                                    <DownloadLink url={value.downloadURL} className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}>
+                                                    <DownloadLink
+                                                        url={value.downloadURL}
+                                                        className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
+                                                    >
                                                         <Download className={`fill-current mx-auto hidden lg:block`} width={"1rem"} height={"1rem"} />
                                                         <p className={`fill-current mx-auto lg:hidden block btn btn-diluv text-center`}>Download</p>
-
                                                     </DownloadLink>
                                                 </Td>
                                             </Tr>
@@ -311,7 +322,10 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
     params.sort();
     const session = await getSession(context);
-    const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`, { session });
+    const data = await getAuthed(
+        `${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`,
+        { session }
+    );
     page = Math.min(Math.ceil(data.data.fileCount / 20), Math.max(1, page));
 
     return {
