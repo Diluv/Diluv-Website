@@ -26,7 +26,7 @@ export default function File({ project, file }: { project: Project; file: Projec
         >
             <>
                 <div className={`mx-auto w-5/6 lg:w-4/6`}>
-                    <ProjectInfo project={project} pageType={"file"} />
+                    <ProjectInfo project={project} pageType={"file"} fileId={file.id} />
                     <div id={"pageContent"}>
                         <div className={`pb-4`}>
                             <SimpleBar autoHide={false} className={`py-2`}>

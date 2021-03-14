@@ -2,13 +2,13 @@ import React from "react";
 import { Project } from "../../interfaces";
 import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
-import { canEditProject, canUploadFile, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
+import { canEditFile, canEditProject, canUploadFile, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
 import Alert from "../Alert";
 import GridArea from "../misc/GridArea";
 import { FormattedTime } from "../../utils/dynamic";
 import Image from "next/image";
 
-export default function ProjectInfo({ project, pageType }: { project: Project; pageType: string }): JSX.Element {
+export default function ProjectInfo({ project, pageType, fileId }: { project: Project; pageType: string; fileId?: number }): JSX.Element {
     function isDescription(): boolean {
         return pageType === "description";
     }
@@ -26,7 +26,15 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
     }
 
     function isUploadFile(): boolean {
-        return pageType === "uploadFile"
+        return pageType === "uploadFile";
+    }
+
+    function isFilePage(): boolean {
+        return pageType === "file";
+    }
+
+    function isEditFilePage(): boolean {
+        return pageType === "editFile";
     }
 
     return (
@@ -96,89 +104,113 @@ export default function ProjectInfo({ project, pageType }: { project: Project; p
                 </GridArea>
             </div>
             <div
-                className={`grid border-b-2 border-gray-300 dark:border-dark-700 sm:grid-cols-project-info text-center sm:text-left mt-4`}
+                className={`flex flex-col sm:flex-row justify-between border-b-2 border-gray-300 dark:border-dark-700 text-center sm:text-left mt-4`}
             >
-                {isDescription() ? (
-                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
-                        <span className={`cursor-default select-none text-diluv-600`}>Description</span>
-                    </div>
-                ) : (
-                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}>
-                        <a className={`block`}>
-                            <div
-                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}
-                            >
-                                Description
-                            </div>
-                        </a>
-                    </Link>
-                )}
+                <div className={`flex flex-col sm:flex-row`}>
+                    {isDescription() ? (
+                        <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
+                            <span className={`cursor-default select-none text-diluv-600`}>Description</span>
+                        </div>
+                    ) : (
+                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}>
+                            <a className={`block`}>
+                                <div
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}
+                                >
+                                    Description
+                                </div>
+                            </a>
+                        </Link>
+                    )}
 
-                {isFiles() ? (
-                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
-                        <span className={`cursor-default select-none text-diluv-600`}>Files</span>
-                    </div>
-                ) : (
-                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
-                        <a className={`block`}>
-                            <div
-                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700 `}
-                            >
-                                Files
-                            </div>
-                        </a>
-                    </Link>
-                )}
+                    {isFiles() ? (
+                        <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
+                            <span className={`cursor-default select-none text-diluv-600`}>Files</span>
+                        </div>
+                    ) : (
+                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
+                            <a className={`block`}>
+                                <div
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700 `}
+                                >
+                                    Files
+                                </div>
+                            </a>
+                        </Link>
+                    )}
 
-                {isMembers() ? (
-                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
-                        <span className={`cursor-default select-none text-diluv-600`}>Members</span>
-                    </div>
-                ) : (
-                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}>
-                        <a className={`block`}>
-                            <div
-                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}
-                            >
-                                Members
-                            </div>
-                        </a>
-                    </Link>
-                )}
+                    {isMembers() ? (
+                        <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-diluv-500 hover:border-diluv-500`}>
+                            <span className={`cursor-default select-none text-diluv-600`}>Members</span>
+                        </div>
+                    ) : (
+                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}>
+                            <a className={`block`}>
+                                <div
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}
+                                >
+                                    Members
+                                </div>
+                            </a>
+                        </Link>
+                    )}
+                </div>
 
-                {canUploadFile(project) &&
-                (isUploadFile() ? (
-                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-5`}>
-                        <span className={`cursor-default select-none text-amber-600`}>Upload File</span>
-                    </div>
-                ) : (
-                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/upload`}>
-                        <a className={`block sm:col-start-5`}>
+                <div className={`flex flex-col sm:flex-row`}>
+                    {canEditFile(project) &&
+                        fileId &&
+                        (isEditFilePage() ? (
                             <div
-                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
+                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-4 sm:col-end-5`}
                             >
-                                Upload File
+                                <span className={`cursor-default select-none text-amber-600`}>Edit File</span>
                             </div>
-                        </a>
-                    </Link>
-                ))}
+                        ) : (
+                            <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${fileId}/edit`}>
+                                <a className={`block sm:col-start-5`}>
+                                    <div
+                                        className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
+                                    >
+                                        Edit File
+                                    </div>
+                                </a>
+                            </Link>
+                        ))}
 
-                {canEditProject(project) &&
-                (isSettings() ? (
-                    <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-6`}>
-                        <span className={`cursor-default select-none text-amber-600`}>Settings</span>
-                    </div>
-                ) : (
-                    <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
-                        <a className={`block sm:col-start-6`}>
-                            <div
-                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
-                            >
-                                Settings
+                    {canUploadFile(project) &&
+                        (isUploadFile() ? (
+                            <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-6`}>
+                                <span className={`cursor-default select-none text-amber-600`}>Upload File</span>
                             </div>
-                        </a>
-                    </Link>
-                ))}
+                        ) : (
+                            <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/upload`}>
+                                <a className={`block sm:col-start-5`}>
+                                    <div
+                                        className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
+                                    >
+                                        Upload File
+                                    </div>
+                                </a>
+                            </Link>
+                        ))}
+
+                    {canEditProject(project) &&
+                        (isSettings() ? (
+                            <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-7`}>
+                                <span className={`cursor-default select-none text-amber-600`}>Settings</span>
+                            </div>
+                        ) : (
+                            <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
+                                <a className={`block sm:col-start-6`}>
+                                    <div
+                                        className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
+                                    >
+                                        Settings
+                                    </div>
+                                </a>
+                            </Link>
+                        ))}
+                </div>
             </div>
         </div>
     );

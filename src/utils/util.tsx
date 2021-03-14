@@ -49,6 +49,13 @@ export function canUploadFile(project: Project): boolean {
     return false;
 }
 
+export function canEditFile(project: Project): boolean {
+    if (project.permissions) {
+        return project.permissions.indexOf("file.edit") >= 0;
+    }
+    return false;
+}
+
 export function onLoadAsync(obj: HTMLImageElement): Promise<HTMLImageElement> {
     return new Promise((resolve, reject) => {
         obj.onload = () => resolve(obj);
