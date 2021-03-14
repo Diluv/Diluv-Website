@@ -103,10 +103,13 @@ export default function File({ project, file }: { project: Project; file: Projec
                                 </div>
                                 <div className={`my-2 mx-2`}>
                                     <h2 className={`font-semibold`}>Game Versions</h2>
-                                    <div className={`flex flex-wrap`}>
-                                        {file.gameVersions.map((gv) => {
+                                    <div className={`flex flex-wrap gap-x-1 gap-y-1`}>
+                                        {file.gameVersions.reverse().map((gv) => {
                                             return (
-                                                <p key={gv.version} className={`mr-1`}>
+                                                <p
+                                                    key={gv.version}
+                                                    className={`p-1 bg-dark-200 dark:bg-dark-800 border border-dark-400 dark:border-dark-600`}
+                                                >
                                                     {gv.version}
                                                 </p>
                                             );
