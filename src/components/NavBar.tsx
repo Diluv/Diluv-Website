@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
-import DropDown, { DropDownAction, DropDownLink, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
-import useDarkMode from "use-dark-mode";
+import DropDown, { DropDownLink, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
 import { useSession } from "../utils/api";
+import ThemeSwitcher from "./ui/ThemeSwitcher";
 
 function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
     const [session, loading] = useSession();
-
-    const darkMode = useDarkMode(false, { classNameDark: "mode-dark", classNameLight: "mode-light" });
 
     return (
         <>
@@ -45,16 +43,16 @@ function NavBar(): JSX.Element {
                     >
                         <nav className="md:mr-auto md:ml-4 md:py-auto md:pl-4 md:border-l md:border-gray-700 flex flex-col md:flex-row flex-wrap items-center text-base text-center justify-center">
                             <Link href={"/"}>
-                                <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Home</a>
+                                <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline p-2 md:p-0">Home</a>
                             </Link>
                             <Link href={"/games"}>
-                                <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Games</a>
+                                <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline p-2 md:p-0">Games</a>
                             </Link>
                             <Link href={"/docs/feedback"}>
-                                <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline">Feedback</a>
+                                <a className="md:mr-5 hover:text-white w-full md:w-auto block md:inline p-2 md:p-0">Feedback</a>
                             </Link>
                         </nav>
-                        <div className="hidden md:block">
+                        <div className="hidden md:flex gap-x-4">
                             <DropDown name={session ? session.user.preferred_username : "Account"} className={`hover:text-white`}>
                                 {!session ? (
                                     <DropDownLink href={"/api/login"}>Sign in</DropDownLink>
@@ -65,23 +63,17 @@ function NavBar(): JSX.Element {
                                     </>
                                 )}
                                 <DropDownSpacer />
-                                <DropDownAction
-                                    action={() => {
-                                        darkMode.toggle();
-                                    }}
-                                >
-                                    Toggle Theme
-                                </DropDownAction>
                             </DropDown>
+                            <ThemeSwitcher />
                         </div>
                         <div className={`block md:hidden text-center`}>
-                            <p className={`hover:text-white cursor-pointer`} onClick={() => setShowingUserMenu(!showUserMenu)}>
+                            <p className={`hover:text-white cursor-pointer p-2 md:p-0`} onClick={() => setShowingUserMenu(!showUserMenu)}>
                                 {session ? session.user.preferred_username : "Account"}
                             </p>
                             <div className={`${showUserMenu ? `block` : `hidden`}`}>
                                 <div className={`flex flex-col`}>
                                     {!session ? (
-                                        <a className={`hover:text-white`} href={"/api/login"}>
+                                        <a className={`hover:text-white p-2 md:p-0`} href={"/api/login"}>
                                             Sign in
                                         </a>
                                     ) : (
@@ -89,16 +81,15 @@ function NavBar(): JSX.Element {
                                             <Link href={`/author/${session.user.username}`}>
                                                 <a>Profile</a>
                                             </Link>
-                                            <a className={`hover:text-white`} href={"/api/logout"}>
+                                            <a className={`hover:text-white p-2 md:p-0`} href={"/api/logout"}>
                                                 Sign out
                                             </a>
                                         </>
                                     )}
-
-                                    <span className={`hover:text-white cursor-pointer select-none`} onClick={() => darkMode.toggle()}>
-                                        Change Theme
-                                    </span>
                                 </div>
+                            </div>
+                            <div className={`mx-auto p-2`}>
+                                <ThemeSwitcher />
                             </div>
                         </div>
                     </div>
