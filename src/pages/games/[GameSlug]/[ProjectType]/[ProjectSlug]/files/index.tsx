@@ -2,7 +2,7 @@ import React, { ChangeEvent, useMemo, useState } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../../../../../utils/request";
-import { API_URL, getSession } from "../../../../../../utils/api";
+import { API_URL } from "../../../../../../utils/api";
 import { Project, ProjectFile, SlugName, Version } from "../../../../../../interfaces";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import filesize from "filesize";
@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import Search from "../../../../../../components/icons/Search";
 import { DebounceInput } from "react-debounce-input";
 import { onBlur, onFocus } from "../../../../../../utils/util";
+import { getSession } from "next-auth/client";
 
 export default function Files({
     project,

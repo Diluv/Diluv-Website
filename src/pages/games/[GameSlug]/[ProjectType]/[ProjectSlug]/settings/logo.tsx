@@ -8,9 +8,11 @@ import { ensureAuthed } from "utils/auth";
 import Alert from "../../../../../../components/Alert";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import { Project, SlugName } from "../../../../../../interfaces";
-import { API_URL, getSession, Session } from "../../../../../../utils/api";
+import { API_URL } from "../../../../../../utils/api";
 import { getAuthed } from "../../../../../../utils/request";
 import { canEditProject } from "../../../../../../utils/util";
+import { Session } from "next-auth";
+import { getSession } from "next-auth/client";
 
 export default function Logo({ project, tags, session }: { project: Project; tags: SlugName[]; session: Session }): JSX.Element {
     const [canEdit, setCanEdit] = useState(false);
@@ -55,7 +57,7 @@ export default function Logo({ project, tags, session }: { project: Project; tag
             url={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
         >
             <div className={`w-5/6 lg:w-4/6 mx-auto mt-4 mb-8`}>
-                <ProjectInfo project={project} pageType={"settings"}/>
+                <ProjectInfo project={project} pageType={"settings"} />
                 {logoErrors.length > 0 ? (
                     <div className={`my-4`}>
                         {" "}
@@ -90,9 +92,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    if (!ensureAuthed(session, context.res, `/api/login`)) {
-        return { props: {} };
-    }
     const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}/settings`, { session });
     return {
         props: { project: data.data.project, tags: data.data.tags, session } // will be passed to the page component as props

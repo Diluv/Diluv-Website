@@ -4,7 +4,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { AuthorPage, SlugName } from "../../../interfaces";
 import { reactSelectStyle } from "../../../utils/theme";
 import { getAuthed } from "../../../utils/request";
-import { API_URL, getSession } from "../../../utils/api";
+import { API_URL } from "../../../utils/api";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 import AuthorProjectCard from "../../../components/project/AuthorProjectCard";
@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import GridArea from "../../../components/misc/GridArea";
 import { FormattedDistanceTime, FormattedTime } from "../../../utils/dynamic";
 import Image from "next/image";
+import { getSession } from "next-auth/client";
 
 export default function AuthorProjects({ data, currentSort, page }: { data: AuthorPage; currentSort: string; page: number }): JSX.Element {
     const maxPage = Math.ceil(data.projectCount / 20);

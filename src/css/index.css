@@ -1,7 +1,7 @@
 @font-face {
     font-family:"hero";
     src:local("sans-serif"), url("Hero.woff") format("woff2"), url("Hero.woff") format("woff");
-    font-display:swap;
+    font-display:block;
 }
 
 /* purgecss start ignore */

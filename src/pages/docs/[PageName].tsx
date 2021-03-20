@@ -4,17 +4,12 @@ import React from "react";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { HasMarkdown } from "../../interfaces";
 import { readAsString } from "../../utils/files";
-import { getSession, SITE_URL } from "../../utils/api";
+import { SITE_URL } from "../../utils/api";
+import { getSession } from "next-auth/client";
 
 export default function Feedback({ title, pageContents, PageName }: HasMarkdown & { PageName: string }): JSX.Element {
     return (
-        <Layout
-            title={title}
-            canonical={`/${PageName}`}
-            description={`${title} | Diluv`}
-            image={`${SITE_URL}/static/diluv.png`}
-            url={`/${PageName}`}
-        >
+        <Layout title={title} canonical={`/${PageName}`} description={`${title} | Diluv`} image={`${SITE_URL}/static/diluv.png`} url={`/${PageName}`}>
             <div className={`container mx-auto my-4`}>
                 <div className={`w-11/12 mx-auto`}>
                     <Markdown markdown={pageContents} />

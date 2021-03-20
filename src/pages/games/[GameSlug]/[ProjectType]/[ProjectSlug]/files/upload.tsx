@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { Field, Form, Formik, FormikErrors, FormikHelpers, FormikTouched, FormikValues, useField } from "formik";
 import SelectField from "../../../../../../components/ui/form/SelectField";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { API_URL, getSession, Session } from "../../../../../../utils/api";
+import { API_URL } from "../../../../../../utils/api";
 import { getAuthed, postUploadAuthed } from "../../../../../../utils/request";
 import { DropZoneFileField } from "../../../../../../components/ui/form/DropZoneField";
 import { useRouter } from "next/router";
@@ -20,6 +20,8 @@ import ProgressBar from "../../../../../../components/ui/ProgressBar";
 import TextEditorField from "../../../../../../components/ui/form/TextEditorField";
 import SimpleBar from "simplebar-react";
 import Markdown from "../../../../../../components/Markdown";
+import { getSession } from "next-auth/client";
+import { Session } from "next-auth";
 
 interface Filter extends SlugName {
     checked: boolean;

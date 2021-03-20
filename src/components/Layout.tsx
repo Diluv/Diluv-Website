@@ -5,8 +5,9 @@ import Head from "next/head";
 import SimpleBar from "simplebar-react";
 import Router from "next/router";
 import { NextSeo } from "next-seo";
-import { SITE_URL, useSession } from "../utils/api";
+import { SITE_URL } from "../utils/api";
 import { initGA, pageView } from "./analytics/Analytics";
+import { useSession } from "next-auth/client";
 
 type Props = {
     children: JSX.Element | JSX.Element[];
@@ -62,13 +63,13 @@ export default function Layout({ children, title = "Diluv", description, canonic
                     <div className={`min-h-screen flex flex-col bg-gray-100 dark:bg-dark-900 dark:text-dark-100`}>
                         <Head>
                             <title>{title}</title>
-                            <meta charSet="utf-8"/>
+                            <meta charSet="utf-8" />
                         </Head>
                         <header>
-                            <NavBar/>
+                            <NavBar />
                         </header>
                         <main className={`flex-grow`}>{children}</main>
-                        <Footer/>
+                        <Footer />
                     </div>
                 </SimpleBar>
             </div>

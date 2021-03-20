@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
-import DropDown, { DropDownLink, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
-import { useSession } from "../utils/api";
+import DropDown, { DropDownAction, DropDownLink, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
 import ThemeSwitcher from "./ui/ThemeSwitcher";
+import { signin, signout, signOut, useSession } from "next-auth/client";
+import { getNameOrDefault } from "../utils/auth";
 
 function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
     const [session, loading] = useSession();
-
+    console.log(session);
     return (
         <>
             <header className="text-gray-200 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
@@ -53,13 +54,25 @@ function NavBar(): JSX.Element {
                             </Link>
                         </nav>
                         <div className="hidden md:flex gap-x-4">
-                            <DropDown name={session ? session.user.preferred_username : "Account"} className={`hover:text-white`}>
+                            <DropDown name={getNameOrDefault(session, "Account")} className={`hover:text-white`}>
                                 {!session ? (
-                                    <DropDownLink href={"/api/login"}>Sign in</DropDownLink>
+                                    <DropDownAction
+                                        action={() => {
+                                            signin("DILUV");
+                                        }}
+                                    >
+                                        Sign in
+                                    </DropDownAction>
                                 ) : (
                                     <>
-                                        <DropDownLinkInternal href={`/author/${session.user.username}`}>Profile</DropDownLinkInternal>
-                                        <DropDownLink href={"/api/logout"}>Sign out</DropDownLink>
+                                        <DropDownLinkInternal href={`/author/${session.user.id}`}>Profile</DropDownLinkInternal>
+                                        <DropDownAction
+                                            action={() => {
+                                                signout();
+                                            }}
+                                        >
+                                            Sign out
+                                        </DropDownAction>
                                     </>
                                 )}
                                 <DropDownSpacer />
@@ -68,22 +81,32 @@ function NavBar(): JSX.Element {
                         </div>
                         <div className={`block md:hidden text-center`}>
                             <p className={`hover:text-white cursor-pointer p-2 md:p-0`} onClick={() => setShowingUserMenu(!showUserMenu)}>
-                                {session ? session.user.preferred_username : "Account"}
+                                {getNameOrDefault(session, "Account")}
                             </p>
                             <div className={`${showUserMenu ? `block` : `hidden`}`}>
                                 <div className={`flex flex-col`}>
                                     {!session ? (
-                                        <a className={`hover:text-white p-2 md:p-0`} href={"/api/login"}>
+                                        <span
+                                            className={`hover:text-white p-2 md:p-0`}
+                                            onClick={(event) => {
+                                                signin("DILUV");
+                                            }}
+                                        >
                                             Sign in
-                                        </a>
+                                        </span>
                                     ) : (
                                         <>
-                                            <Link href={`/author/${session.user.username}`}>
+                                            <Link href={`/author/${session.user.id}`}>
                                                 <a>Profile</a>
                                             </Link>
-                                            <a className={`hover:text-white p-2 md:p-0`} href={"/api/logout"}>
+                                            <span
+                                                className={`hover:text-white p-2 md:p-0`}
+                                                onClick={() => {
+                                                    signout();
+                                                }}
+                                            >
                                                 Sign out
-                                            </a>
+                                            </span>
                                         </>
                                     )}
                                 </div>

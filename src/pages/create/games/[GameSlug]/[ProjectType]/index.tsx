@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed, postAuthed } from "../../../../../utils/request";
-import { API_URL, getSession, Session, SITE_URL } from "../../../../../utils/api";
+import { API_URL, SITE_URL } from "../../../../../utils/api";
 import { SlugName } from "../../../../../interfaces";
 import Layout from "../../../../../components/Layout";
 import React, { useState } from "react";
@@ -15,6 +15,8 @@ import SelectField from "../../../../../components/ui/form/SelectField";
 import * as yup from "yup";
 import { DropZoneImageField } from "../../../../../components/ui/form/DropZoneField";
 import { AxiosError } from "axios";
+import { Session } from "next-auth";
+import { getSession } from "next-auth/client";
 
 const schema = yup.object({
     name: yup.string().min(5, "Must be 5 or more characters").max(70, "Must be 70 characters or less").required("Required"),
@@ -267,9 +269,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType } = context.query;
 
     const session = await getSession(context);
-    if (!ensureAuthed(session, context.res, `/api/login`)) {
-        return { props: {} };
-    }
     let tags = [];
     if (session) {
         const data = await getAuthed(`${API_URL}/v1/site/create/games/${GameSlug}/${ProjectType}`, { session });

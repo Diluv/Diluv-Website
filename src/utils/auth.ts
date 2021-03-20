@@ -1,5 +1,5 @@
 import { ServerResponse } from "http";
-import { Session } from "./api";
+import { Session } from "next-auth";
 
 export function ensureAuthed(session: Session | null | undefined, res: ServerResponse, url: string): boolean {
     if (!session) {
@@ -12,4 +12,8 @@ export function ensureAuthed(session: Session | null | undefined, res: ServerRes
     }
 
     return true;
+}
+
+export function getNameOrDefault(session: Session | null | undefined, defaultName: string): string {
+    return session ? (session.user.name as string) : defaultName;
 }

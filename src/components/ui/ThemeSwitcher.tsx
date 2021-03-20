@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useDarkMode from "use-dark-mode";
 
 export default function ThemeSwitcher() {
     const darkMode = useDarkMode(false, { classNameDark: "mode-dark", classNameLight: "mode-light" });
+    const [loaded, setLoaded] = useState(false);
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setLoaded(true);
+        }
+    }, []);
+
+    if (!loaded) {
+        return (
+            <div className={`p-1.5 md:p-0 cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-400`}>
+                <div className="w-full h-7 md:w-5 md:h-5 mx-auto my-auto" />
+            </div>
+        );
+    }
     return (
         <div
             className={`p-1.5 md:p-0 cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-400`}

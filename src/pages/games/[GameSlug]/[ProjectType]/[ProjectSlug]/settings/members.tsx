@@ -4,12 +4,14 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import { Project, SlugName } from "../../../../../../interfaces";
-import { API_URL, getSession, Session } from "../../../../../../utils/api";
+import { API_URL } from "../../../../../../utils/api";
 import { canEditProject } from "../../../../../../utils/util";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { ensureAuthed } from "../../../../../../utils/auth";
 import { getAuthed } from "../../../../../../utils/request";
 import Image from "next/image";
+import { getSession } from "next-auth/client";
+import { Session } from "next-auth";
 
 export default function Members({ project, tags, session }: { project: Project; tags: SlugName[]; session: Session }): JSX.Element {
     const [canEdit, setCanEdit] = useState(false);
@@ -73,9 +75,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    if (!ensureAuthed(session, context.res, `/api/login`)) {
-        return { props: {} };
-    }
     const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}/settings`, { session });
     return {
         props: { project: data.data.project, tags: data.data.tags, session } // will be passed to the page component as props

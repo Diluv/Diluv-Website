@@ -11,7 +11,6 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "^0.16.1",
     "@jaredlll08/react-paginate": "^7.0.1",
     "@popperjs/core": "2.9.1",
     "@tippyjs/react": "4.2.4",
@@ -23,6 +22,7 @@
     "formik": "^2.2.6",
     "jwt-decode": "^3.1.2",
     "next": "10.0.9",
+    "next-auth": "^3.13.1",
     "next-compose-plugins": "2.2.1",
     "next-images": "1.7.0",
     "next-seo": "4.22.0",
@@ -54,6 +54,7 @@
     "@babel/preset-env": "7.13.10",
     "@fullhuman/postcss-purgecss": "4.0.2",
     "@tailwindcss/jit": "^0.1.4",
+    "@types/next-auth": "^3.7.2",
     "@types/node": "14.14.35",
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.3",

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { Session } from "./api";
+import { Session } from "next-auth";
 
 export function post(
     url: string,
@@ -49,7 +49,6 @@ export function postUploadAuthed(
         headers: headers,
         onUploadProgress: function (progressEvent: ProgressEvent) {
             let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-            console.log(percentCompleted);
             onPercentageChanged(percentCompleted);
         }
     };

@@ -4,7 +4,7 @@ import React, { ChangeEvent, useState } from "react";
 import { Project, ProjectType, SelectData, SlugName } from "../../../../interfaces";
 import { getAuthed } from "../../../../utils/request";
 
-import { API_URL, getSession, Session, SITE_URL } from "../../../../utils/api";
+import { API_URL, SITE_URL } from "../../../../utils/api";
 import ProjectCard from "../../../../components/project/ProjectCard";
 import Search from "../../../../components/icons/Search";
 import { onBlur, onFocus } from "../../../../utils/util";
@@ -15,6 +15,8 @@ import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
 import Pagination, { buildURL } from "../../../../components/misc/Pagination";
 import AuthorizedLink from "../../../../components/auth/AuthorizedLink";
+import { getSession } from "next-auth/client";
+import { Session } from "next-auth";
 
 interface Props {
     search: string;

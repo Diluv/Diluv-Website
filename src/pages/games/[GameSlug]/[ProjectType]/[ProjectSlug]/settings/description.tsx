@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { ensureAuthed } from "utils/auth";
 import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import { Project, SlugName } from "../../../../../../interfaces";
-import { API_URL, getSession, Session } from "../../../../../../utils/api";
+import { API_URL } from "../../../../../../utils/api";
 import { getAuthed, patchAuthed } from "../../../../../../utils/request";
 import { canEditProject } from "../../../../../../utils/util";
 import SimpleBar from "simplebar-react";
@@ -16,6 +16,8 @@ import Alert from "../../../../../../components/Alert";
 import TextEditor from "../../../../../../components/ui/TextEditor";
 import Select from "react-select";
 import { reactSelectStyle } from "../../../../../../utils/theme";
+import { getSession } from "next-auth/client";
+import { Session } from "next-auth";
 
 export default function Description({ project, tags, session }: { project: Project; tags: SlugName[]; session: Session }): JSX.Element {
     const [canEdit, setCanEdit] = useState(false);
@@ -345,9 +347,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    if (!ensureAuthed(session, context.res, `/api/login`)) {
-        return { props: {} };
-    }
 
     const data = await getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}/settings`, { session });
     return {
