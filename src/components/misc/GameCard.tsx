@@ -18,7 +18,7 @@ export default function GameCard(props: { game: Game }) {
                             quality={100}
                             priority={true}
                         />
-                        <div className={`h-16 hover:h-32 hover:break-normal`}>
+                        <div className={`h-16 hover:break-normal`}>
                             <p className={`text-center bg-gray-300 dark:bg-dark-800 px-1 py-2 text-lg`}>{props.game.name}</p>
                         </div>
                     </div>
