@@ -6,7 +6,6 @@ import SimpleBar from "simplebar-react";
 import Router from "next/router";
 import { NextSeo } from "next-seo";
 import { SITE_URL } from "../utils/api";
-import { initGA, pageView } from "./analytics/Analytics";
 import { useSession } from "next-auth/client";
 
 type Props = {
@@ -23,12 +22,10 @@ export default function Layout({ children, title = "Diluv", description, canonic
     const [session, loading] = useSession();
 
     useEffect(() => {
-        initGA(url);
         // Handles resetting simple bar's position
         const handleRouteChange = (url: string) => {
             // @ts-ignore
             simpleBarRef.current?.getScrollElement().scrollTo(0, 0);
-            pageView(url);
         };
 
         Router.events.on("routeChangeComplete", handleRouteChange);

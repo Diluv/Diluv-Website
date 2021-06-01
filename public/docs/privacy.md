@@ -88,10 +88,6 @@ Diluv uses NodeCDN to serve static content such as images and project files to u
 
 Diluv is an official partner of Nodecraft. Some areas of our site will redirect users to the Nodecraft website. Our redirect links to Nodecraft contain referral information which allows Nodecraft to know how you were sent to their page. Data collection performed by Nodecraft is subject to [Nodecraft's Privacy Policy](https://nodecraft.com/legal/privacy-policy).
 
-#### Google Analytics
-
-Diluv uses Google Analytics to monitor and analyze web traffic across the entire site. Google collects cookies, usage data, and other Personal Data which they may use to improve or personalize their own products. Google's services are subject to their [Privacy Policy](https://policies.google.com/privacy?hl=en). Additionally, you can learn how to opt-out of these services [here](https://tools.google.com/dlpage/gaoptout?hl=en).
-
 #### Google Adsense
 
 Diluv uses Google Adsense to monetize hosted content. Revenue from Google Adsense is used to cover operation costs and pay royalties to content creators. Google Adsense and its partners use cookies and other Personal Data to improve their services. Google's services are subject to their [Privacy Policy](https://policies.google.com/privacy?hl=en). Additionally, you can learn how to opt-out of these services [here](https://tools.google.com/dlpage/gaoptout?hl=en).
