@@ -4,10 +4,9 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
     mode: 'jit',
-    purge: {
-        layers: ["utilities"],
-        content: ["./src/**/*.html", "./src/**/*.tsx", "./src/**/*.ts"]
-    },
+    purge: [
+        './src/**/*.{js,ts,jsx,tsx}',
+    ],
     theme: {
         colors: {
             transparent: "transparent",
