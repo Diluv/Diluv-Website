@@ -1,71 +1,70 @@
 /* purgecss start ignore */
-@layer base {
 
-  .markdown img {
-    @apply inline-block;
-  }
-  .markdown a {
-    @apply underline;
-  }
+.markdown img {
+  @apply inline-block;
+}
 
-  .markdown p {
-    @apply mb-4;
-  }
+.markdown a {
+  @apply underline;
+}
 
-  .markdown pre {
-    @apply mb-2 text-sm;
-  }
+.markdown p {
+  @apply mb-4;
+}
 
-  .markdown ul,
-  .markdown ol {
-    @apply mb-4 ml-8;
-  }
+.markdown pre {
+  @apply mb-2 text-sm;
+}
 
-  .markdown li > p,
-  .markdown li > ul,
-  .markdown li > ol {
-    @apply mb-0;
-  }
+.markdown ul,
+.markdown ol {
+  @apply mb-4 ml-8;
+}
 
-  .markdown ol {
-    @apply list-decimal;
-  }
+.markdown li > p,
+.markdown li > ul,
+.markdown li > ol {
+  @apply mb-0;
+}
 
-  .markdown ul {
-    @apply list-disc;
-  }
+.markdown ol {
+  @apply list-decimal;
+}
 
-  .mode-light .markdown blockquote {
-    @apply p-0 p-2 mx-6 bg-gray-200 mb-4 border-l-4 border-gray-400 italic;
-  }
+.markdown ul {
+  @apply list-disc;
+}
 
-  .mode-dark .markdown blockquote {
-    @apply p-0 p-2 mx-6 bg-dark-800 mb-4 border-l-4 border-dark-600 italic;
-  }
+.mode-light .markdown blockquote {
+  @apply p-0 p-2 mx-6 bg-gray-200 mb-4 border-l-4 border-gray-400 italic;
+}
 
-  .markdown table {
-    @apply table-auto w-full border dark:border-dark-700 cursor-default
-  }
+.mode-dark .markdown blockquote {
+  @apply p-0 p-2 mx-6 bg-dark-800 mb-4 border-l-4 border-dark-600 italic;
+}
 
-  .markdown thead > tr {
-    @apply border bg-gray-100 dark:bg-dark-700 dark:border-dark-600;
-  }
+.markdown table {
+  @apply table-auto w-full border dark:border-dark-700 cursor-default
+}
 
-  .markdown tbody tr {
-    @apply odd:bg-white even:bg-diluv-100 dark-odd:bg-dark-850 dark-even:bg-dark-800;
-  }
+.markdown thead > tr {
+  @apply border bg-gray-100 dark:bg-dark-700 dark:border-dark-600;
+}
 
-  .markdown th {
-    @apply border dark:border-dark-600 px-2 py-2;
-  }
+.markdown tbody tr {
+  @apply odd:bg-white even:bg-diluv-100 dark-odd:bg-dark-850 dark-even:bg-dark-800;
+}
 
-  .markdown td {
-    @apply border dark:border-dark-600 px-2 py-2;
-  }
+.markdown th {
+  @apply border dark:border-dark-600 px-2 py-2;
+}
 
-  .markdown blockquote > p {
-    @apply mb-0;
-  }
+.markdown td {
+  @apply border dark:border-dark-600 px-2 py-2;
+}
+
+.markdown blockquote > p {
+  @apply mb-0;
 }
 
 /* purgecss end ignore */

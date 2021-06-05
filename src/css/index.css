@@ -71,6 +71,10 @@
   max-height: 100vh;
 }
 
+.hover-link {
+  @apply hover:text-diluv-600 dark-hover:text-diluv-500;
+}
+
 @responsive {
   .projectCardLarge {
     grid-template-areas:
@@ -118,17 +122,6 @@
     grid-template-rows: 4.25rem 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem auto 0.5rem auto;
   }
 
-  .gameFilterSmall {
-    grid-template-areas: "search" "sort";
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-
-  .gameFilterMedium {
-    grid-template-areas: "search sort";
-    grid-template-columns: 1fr 0.5fr;
-    grid-template-rows: 1fr;
-  }
 
   .memberList {
     grid-template-areas: "avatar name" "avatar role";
@@ -152,7 +145,7 @@
 }
 
 .themeSwitcherContainer {
-  @apply p-1.5 md:p-0 cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-400 select-none;
+  @apply p-1.5 md:p-0 cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-500 select-none;
 }
 
 /* purgecss start ignore */

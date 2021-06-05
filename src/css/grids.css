@@ -15,6 +15,12 @@
   @apply grid mt-4 gap-x-2 gap-y-2 grid-cols-1;
 }
 
+.gameFilter {
+  grid-template-areas: "search" "sort";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
 @screen sm {
   .createForm {
     grid-template-areas: "image name" "image ." "image summary" "image ." "image tags" "image ." "description description" ". ." "create .";
@@ -29,12 +35,19 @@
   .promotedGamesCards {
     grid-template-columns: 1fr 1fr;
   }
+
+  .gameFilter {
+    grid-template-areas: "search sort";
+    grid-template-columns: 1fr 0.5fr;
+    grid-template-rows: 1fr;
+  }
 }
 
 @screen md {
   .createForm {
     grid-template-rows: 4rem 0.5rem 4rem 0.5rem 4rem 3rem minmax(28rem, auto) 0.5rem 2rem;
   }
+
 }
 
 @screen lg {
