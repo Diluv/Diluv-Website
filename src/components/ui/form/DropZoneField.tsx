@@ -4,7 +4,7 @@ import Dropzone, { FileError } from "react-dropzone";
 import fileSize from "filesize";
 import filesize from "filesize";
 import { onLoadAsync } from "../../../utils/util";
-import XCirlce from "../../icons/XCirlce";
+import { XCircleIcon } from "@heroicons/react/solid";
 
 // TODO pass these in as props
 const validTypes = ["image/gif", "image/jpeg", "image/png", "image/webp"];
@@ -172,7 +172,7 @@ export function DropZoneFileField(props: { name: string; setErrors: (errors: str
                                     setTouched(true);
                                 }}
                             >
-                                <XCirlce className={`hidden md:block`} />
+                                <XCircleIcon className={`hidden md:block`} />
                                 <div className={`btn btn-cancle text-center md:hidden`}> Clear file</div>
                             </span>
                         ) : (

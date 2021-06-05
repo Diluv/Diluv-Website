@@ -8,7 +8,6 @@ import ProjectInfo from "../../../../../../components/project/ProjectInfo";
 import filesize from "filesize";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
-import Download from "../../../../../../components/icons/Download";
 import Link from "next/link";
 import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
@@ -18,10 +17,10 @@ import Select from "react-select";
 import { reactSelectStyle } from "../../../../../../utils/theme";
 import Pagination, { buildURL } from "../../../../../../components/misc/Pagination";
 import { useRouter } from "next/router";
-import Search from "../../../../../../components/icons/Search";
 import { DebounceInput } from "react-debounce-input";
 import { onBlur, onFocus } from "../../../../../../utils/util";
 import { getSession } from "next-auth/client";
+import { DownloadIcon, SearchIcon } from "@heroicons/react/solid";
 
 export default function Files({
     project,
@@ -87,7 +86,7 @@ export default function Files({
                                     Search
                                 </label>
                                 <div className={"flex flex-grow my-auto ml-1"}>
-                                    <Search
+                                    <SearchIcon
                                         className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${
                                             search.trim().length ? `text-diluv-500` : ``
                                         } ${selectedField === "searchFiles" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}
@@ -225,7 +224,7 @@ export default function Files({
                                         <Th className={`table-head-diluv`}>Date</Th>
                                         <Th className={`table-head-diluv`}>Downloads</Th>
                                         <Th className={`table-head-diluv`}>
-                                            <Download className={`fill-current mx-auto hidden lg:block`} width={"1rem"} height={"1rem"} />
+                                            <DownloadIcon className={`fill-current mx-auto hidden lg:block`} width={"1rem"} height={"1rem"} />
                                         </Th>
                                     </Tr>
                                 </Thead>
@@ -286,7 +285,11 @@ export default function Files({
                                                         url={value.downloadURL}
                                                         className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
                                                     >
-                                                        <Download className={`fill-current mx-auto hidden lg:block`} width={"1rem"} height={"1rem"} />
+                                                        <DownloadIcon
+                                                            className={`fill-current mx-auto hidden lg:block`}
+                                                            width={"1rem"}
+                                                            height={"1rem"}
+                                                        />
                                                         <p className={`fill-current mx-auto lg:hidden block btn btn-diluv text-center`}>Download</p>
                                                     </DownloadLink>
                                                 </Td>

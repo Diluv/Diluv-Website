@@ -6,7 +6,6 @@ import { getAuthed } from "../../../../utils/request";
 
 import { API_URL, SITE_URL } from "../../../../utils/api";
 import ProjectCard from "../../../../components/project/ProjectCard";
-import Search from "../../../../components/icons/Search";
 import { onBlur, onFocus } from "../../../../utils/util";
 import Select, { ActionMeta } from "react-select";
 import { reactSelectStyle } from "../../../../utils/theme";
@@ -17,6 +16,7 @@ import Pagination, { buildURL } from "../../../../components/misc/Pagination";
 import AuthorizedLink from "../../../../components/auth/AuthorizedLink";
 import { getSession } from "next-auth/client";
 import { Session } from "next-auth";
+import { SearchIcon } from "@heroicons/react/solid";
 
 interface Props {
     search: string;
@@ -140,7 +140,7 @@ export default function Projects({
                                     Search
                                 </label>
                                 <div className={"flex flex-grow my-auto ml-1"}>
-                                    <Search
+                                    <SearchIcon
                                         className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${
                                             search.trim().length ? `text-diluv-500` : ``
                                         } ${selectedField === "searchProjects" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}

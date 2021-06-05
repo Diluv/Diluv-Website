@@ -1,10 +1,8 @@
-import CheveronLeft from "../icons/CheveronLeft";
-import CheveronRight from "../icons/CheveronRight";
-import NavigationMore from "../icons/NavigationMore";
 import React from "react";
 // @ts-ignore
 import ReactPaginate from "@jaredlll08/react-paginate";
 import { SlugName } from "../../interfaces";
+import { ArrowLeftIcon, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from "@heroicons/react/solid";
 
 export function buildURL({
     search,
@@ -61,9 +59,9 @@ export default function Pagination({
     return (
         <>
             <ReactPaginate
-                previousLabel={<CheveronLeft className={`mx-auto`} width={`1rem`} height={`1rem`} />}
-                nextLabel={<CheveronRight className={`mx-auto`} width={`1rem`} height={`1rem`} />}
-                breakLabel={<NavigationMore className={`mx-auto`} width={`1rem`} height={`1rem`} />}
+                previousLabel={<ChevronLeftIcon className={`mx-auto`} width={`1rem`} height={`1rem`} />}
+                nextLabel={<ChevronRightIcon className={`mx-auto`} width={`1rem`} height={`1rem`} />}
+                breakLabel={<DotsHorizontalIcon className={`mx-auto`} width={`1rem`} height={`1rem`} />}
                 pageCount={maxPage === 0 ? 1 : maxPage}
                 marginPagesDisplayed={1}
                 initialPage={page - 1}

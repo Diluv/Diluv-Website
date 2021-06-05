@@ -4,13 +4,11 @@ import Link from "next/link";
 import { DisplayTag } from "../misc/FilterTag";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
-import Time from "../icons/Time";
-import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
 import GridArea from "../misc/GridArea";
 import { FormattedDistanceTime, FormattedTime } from "../../utils/dynamic";
-import Calendar from "../icons/Calendar";
 import Image from "next/image";
+import { CalendarIcon, ChartBarIcon, ClockIcon } from "@heroicons/react/solid";
 
 interface Props {
     project: Project;
@@ -87,7 +85,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <ChartBarIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <span className={`mr-1`}>{project.downloads}</span>
                             </div>
                         </Tippy>
@@ -104,7 +102,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Calendar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <CalendarIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <FormattedDistanceTime start={project.createdAt} />
                             </div>
                         </Tippy>
@@ -120,7 +118,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <ClockIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <FormattedDistanceTime start={project.updatedAt} />
                             </div>
                         </Tippy>

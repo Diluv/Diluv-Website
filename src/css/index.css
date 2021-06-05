@@ -1,7 +1,7 @@
 @font-face {
-    font-family:"hero";
-    src:local("sans-serif"), url("Hero.woff") format("woff2"), url("Hero.woff") format("woff");
-    font-display:block;
+  font-family: "hero";
+  src: local("sans-serif"), url("Hero.woff") format("woff2"), url("Hero.woff") format("woff");
+  font-display: block;
 }
 
 /* purgecss start ignore */
@@ -10,91 +10,91 @@
 /* purgecss end ignore */
 
 .btn {
-    @apply block w-full p-2;
+  @apply block w-full p-2;
 }
 
 .btn-diluv {
-    @apply block w-full bg-diluv-500 text-white p-2;
+  @apply block w-full bg-diluv-500 text-white p-2;
 }
 
 .btn-diluv:hover {
-    @apply bg-diluv-600;
+  @apply bg-diluv-600;
 }
 
 .btn-diluv:disabled {
-    @apply bg-diluv-500 opacity-50 cursor-default;
+  @apply bg-diluv-500 opacity-50 cursor-default;
 }
 
 .btn-cancle {
-    @apply block w-full bg-red-500 text-white p-2 select-none;
+  @apply block w-full bg-red-500 text-white p-2 select-none;
 }
 
 .btn-cancle:hover {
-    @apply bg-red-600;
+  @apply bg-red-600;
 }
 
 .btn-cancle:disabled {
-    @apply bg-red-500 opacity-50 cursor-default;
+  @apply bg-red-500 opacity-50 cursor-default;
 }
 
 .theme-dark {
-    background-color:#2d3748;
-    color:#f7fafc;
+  background-color: #2d3748;
+  color: #f7fafc;
 }
 
 .theme-light {
-    background-color:#fff;
-    color:rgb(0, 0, 0);
+  background-color: #fff;
+  color: rgb(0, 0, 0);
 }
 
 .font-hero {
-    font-family:"hero", sans-serif;
+  font-family: "hero", sans-serif;
 }
 
 .fadeout {
-    visibility:hidden;
-    opacity:0;
-    transition:visibility 0s 0.15s, opacity 0.15s ease-out;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.15s, opacity 0.15s ease-out;
 }
 
 .expand-image {
-    transition:0.8s cubic-bezier(1, -1, 0, 1);
-    clip-path:circle(50% at 50% 50%);
+  transition: 0.8s cubic-bezier(1, -1, 0, 1);
+  clip-path: circle(50% at 50% 50%);
 }
 
 .expand-image:hover {
-    clip-path:circle(70.7% at 50% 50%);
+  clip-path: circle(70.7% at 50% 50%);
 }
 
 .minmax-height {
-    min-height:100vh;
-    max-height:100vh;
+  min-height: 100vh;
+  max-height: 100vh;
 }
 
 @responsive {
-    .projectCardLarge {
-        grid-template-areas:
+  .projectCardLarge {
+    grid-template-areas:
             "image header header header header header header header header"
             "image summary summary summary summary summary summary summary summary"
             "image downloads created updated tag1 tag2 tag3 tag4 spacing";
-        grid-template-columns: 8rem auto auto auto auto auto auto auto 1fr;
-        grid-template-rows: auto auto auto;
-    }
+    grid-template-columns: 8rem auto auto auto auto auto auto auto 1fr;
+    grid-template-rows: auto auto auto;
+  }
 
-    .projectCardMedium {
-        grid-template-areas:
+  .projectCardMedium {
+    grid-template-areas:
             "image header header header header header"
             "image summary summary summary summary summary"
             "image downloads downloads downloads downloads spacing"
             "image created created created created spacing"
             "image updated updated updated updated spacing"
             "image tag1 tag2 tag3 tag4 spacing";
-        grid-template-columns: 12rem auto auto auto auto 1fr;
-        grid-template-rows: 2.75rem 2.75rem 1.5rem 1.5rem 1.5rem 2rem;
-    }
+    grid-template-columns: 12rem auto auto auto auto 1fr;
+    grid-template-rows: 2.75rem 2.75rem 1.5rem 1.5rem 1.5rem 2rem;
+  }
 
-    .projectCardSmall {
-        grid-template-areas:
+  .projectCardSmall {
+    grid-template-areas:
             "image image image image image"
             "header header header header header"
             "summary summary summary summary summary"
@@ -102,54 +102,63 @@
             "created created created created spacing"
             "updated updated updated updated spacing"
             "tag1 tag2 tag3 tag4 spacing";
-        grid-template-columns: auto auto auto auto 1fr;
-        grid-template-rows: 8rem auto auto auto auto auto auto;
-    }
+    grid-template-columns: auto auto auto auto 1fr;
+    grid-template-rows: 8rem auto auto auto auto auto auto;
+  }
 
-    .projectInfoSmall {
-        grid-template-areas: "image" "projectInfo" "summary" "id" "created" "updated" "downloads" "tags";
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr auto auto auto auto auto auto 2rem;
-    }
+  .projectInfoSmall {
+    grid-template-areas: "image" "projectInfo" "summary" "id" "created" "updated" "downloads" "tags";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto auto auto auto auto auto 2rem;
+  }
 
-    .projectInfoMedium {
-        grid-template-areas: "image projectInfo" "image summary" "image id" "image created" "image updated" "image downloads" "image tags" "space space" "download download";
-        grid-template-columns: 14rem 1fr;
-        grid-template-rows: 4.25rem 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem auto 0.5rem auto;
-    }
+  .projectInfoMedium {
+    grid-template-areas: "image projectInfo" "image summary" "image id" "image created" "image updated" "image downloads" "image tags" "space space" "download download";
+    grid-template-columns: 14rem 1fr;
+    grid-template-rows: 4.25rem 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem auto 0.5rem auto;
+  }
 
-    .gameFilterSmall {
-        grid-template-areas: "search" "sort";
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-    }
+  .gameFilterSmall {
+    grid-template-areas: "search" "sort";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 
-    .gameFilterMedium {
-        grid-template-areas: "search sort";
-        grid-template-columns: 1fr 0.5fr;
-        grid-template-rows: 1fr;
-    }
+  .gameFilterMedium {
+    grid-template-areas: "search sort";
+    grid-template-columns: 1fr 0.5fr;
+    grid-template-rows: 1fr;
+  }
 
-    .memberList {
-        grid-template-areas: "avatar name" "avatar role";
-        grid-template-rows: 1.5rem 2.5rem;
-        grid-template-columns: 4rem auto;
-    }
+  .memberList {
+    grid-template-areas: "avatar name" "avatar role";
+    grid-template-rows: 1.5rem 2.5rem;
+    grid-template-columns: 4rem auto;
+  }
 
-    .profilePageLarge {
-        grid-template-areas: "image summary";
-        grid-template-columns: 16rem 1fr;
-    }
+  .profilePageLarge {
+    grid-template-areas: "image summary";
+    grid-template-columns: 16rem 1fr;
+  }
 
-    .profilePageSmall {
-        grid-template-areas: "image" "summary";
-    }
+  .profilePageSmall {
+    grid-template-areas: "image" "summary";
+  }
+}
+
+
+.themeSwitcher {
+  @apply w-full h-7 md:w-5 md:h-5 mx-auto my-auto fill-current;
+}
+
+.themeSwitcherContainer {
+  @apply p-1.5 md:p-0 cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-400 select-none;
 }
 
 /* purgecss start ignore */
 .simplebar-scrollbar::before {
-    background-color:#3da6e4 !important;
-    border:1px solid #256489 !important;
+  background-color: #3da6e4 !important;
+  border: 1px solid #256489 !important;
 }
 
 /* purgecss end ignore */

@@ -4,14 +4,12 @@ import Link from "next/link";
 import { FilterTag } from "../misc/FilterTag";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
-import Time from "../icons/Time";
-import ChartBar from "../icons/ChartBar";
 import { listContributors } from "../../utils/util";
 import GridArea from "../misc/GridArea";
 import { FormattedTime } from "../../utils/dynamic";
-import Calendar from "../icons/Calendar";
 import FormattedDistanceTime from "../misc/FormattedTimeDistance";
 import Image from "next/image";
+import { CalendarIcon, ChartBarIcon, ClockIcon } from "@heroicons/react/solid";
 
 interface Props {
     gameSlug: string;
@@ -93,7 +91,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <ChartBar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <ChartBarIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <span className={`mr-1`}>{project.downloads}</span>
                             </div>
                         </Tippy>
@@ -110,7 +108,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Calendar className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <CalendarIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <FormattedDistanceTime start={project.createdAt} />
                             </div>
                         </Tippy>
@@ -126,7 +124,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                             hideOnClick={false}
                         >
                             <div className={`inline-flex`}>
-                                <Time className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
+                                <ClockIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <FormattedDistanceTime start={project.updatedAt} />
                             </div>
                         </Tippy>

@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
 import Layout from "components/Layout";
-import Search from "components/icons/Search";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "../../utils/request";
 import { API_URL, SITE_URL } from "../../utils/api";
@@ -13,6 +12,7 @@ import { DebounceInput } from "react-debounce-input";
 import GridArea from "../../components/misc/GridArea";
 import GameCard from "../../components/misc/GameCard";
 import { getSession } from "next-auth/client";
+import { SearchIcon } from "@heroicons/react/solid";
 
 function buildURL(search: string, sort: string) {
     const params = new URLSearchParams();
@@ -69,7 +69,7 @@ export default function GameIndex({
                                 Search
                             </label>
                             <div className={"relative my-auto flex-grow ml-1"}>
-                                <Search
+                                <SearchIcon
                                     className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${
                                         search.trim().length ? `text-diluv-500` : ``
                                     } ${selectedField === "searchGames" ? "opacity-0 ease-out" : "opacity-100 ease-in"}`}

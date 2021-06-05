@@ -13,7 +13,6 @@ import { DropZoneFileField } from "../../../../../../components/ui/form/DropZone
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 import AsyncSelect from "react-select/async";
-import XCirlce from "../../../../../../components/icons/XCirlce";
 import { reactSelectStyle } from "../../../../../../utils/theme";
 import { OptionProps } from "react-select/src/components/Option";
 import ProgressBar from "../../../../../../components/ui/ProgressBar";
@@ -22,6 +21,7 @@ import SimpleBar from "simplebar-react";
 import Markdown from "../../../../../../components/Markdown";
 import { getSession } from "next-auth/client";
 import { Session } from "next-auth";
+import { XCircleIcon } from "@heroicons/react/solid";
 
 interface Filter extends SlugName {
     checked: boolean;
@@ -287,9 +287,9 @@ function DependencyGroup({
                                 setValue(newDependencies);
                             }}
                         >
-                            <XCirlce className={`w-6 h-6`} />
+                            <XCircleIcon className={`w-6 h-6`} />
                         </div>
-                        <img src={dep.projectLogo} className={"w-16 h-16"} />
+                        <img src={dep.projectLogo} className={"w-16 h-16"} alt={`Project Logo`} />
                         <div className={`flex flex-col gap-y-2`}>
                             <span>{dep.projectName}</span>
                             <span>{dep.type.name}</span>
@@ -300,7 +300,7 @@ function DependencyGroup({
             {addingDependency ? (
                 <div className={`p-4 w-96 h-64 bg-dark-800 relative border border-gray-300 dark:border-dark-700 flex flex-col`}>
                     <div className={`absolute top-4 right-4 cursor-pointer hover:text-red-500`} onClick={() => setAddingDependency(false)}>
-                        <XCirlce className={`w-6 h-6`} />
+                        <XCircleIcon className={`w-6 h-6`} />
                     </div>
                     <div className={`flex flex-col gap-y-2 flex-grow`}>
                         <div className={`flex flex-col gap-y-2`}>
