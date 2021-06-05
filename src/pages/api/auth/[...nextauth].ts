@@ -3,6 +3,7 @@ import { AUTH_URL, OPENID_CONNECT_URL } from "../../../utils/api";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import qs from "querystring";
 import jwt_decode from "jwt-decode";
+import { SessionWithExtra } from "../../../interfaces";
 
 const isTokenStale = (token: string): boolean => {
     const decodedToken: any = token && jwt_decode(token);
@@ -70,11 +71,12 @@ export default NextAuth({
     ],
     callbacks: {
         // @ts-ignore
-        session: async (session: Session, user: any) => {
+        session: async (session: SessionWithExtra, user: any) => {
             if (user) {
-                session["user"]["id"] = user.id;
-                session["user"]["role"] = user.role;
-                session["accessToken"] = user.accessToken;
+                session.user = session.user || {};
+                session.user.id = user.id;
+                session.user.role = user.role;
+                session.accessToken = user.accessToken;
             } else {
                 return Promise.resolve(null);
             }
@@ -103,8 +105,7 @@ export default NextAuth({
         }
     },
     session: {
-        jwt: true,
-        maxAge: 60 * 60 * 8
+        jwt: true
     },
     events: {
         signOut: async (message: any) => {

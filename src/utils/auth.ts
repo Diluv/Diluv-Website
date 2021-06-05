@@ -15,5 +15,5 @@ export function ensureAuthed(session: Session | null | undefined, res: ServerRes
 }
 
 export function getNameOrDefault(session: Session | null | undefined, defaultName: string): string {
-    return session ? (session.user.name as string) : defaultName;
+    return session ? (session.user?.name as string) : defaultName;
 }

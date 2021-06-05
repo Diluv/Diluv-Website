@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
-import DropDown, { DropDownAction, DropDownLink, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
+import DropDown, { DropDownAction, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
 import ThemeSwitcher from "./ui/ThemeSwitcher";
-import { signin, signout, signOut, useSession } from "next-auth/client";
+import { signin, signout, useSession } from "next-auth/client";
 import { getNameOrDefault } from "../utils/auth";
+import { SessionWithExtra } from "../interfaces";
 
 function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
-    const [session, loading] = useSession();
-    console.log(session);
+    const [session, loading] = useSession() as [SessionWithExtra | null, boolean];
+
     return (
         <>
             <header className="text-gray-200 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
@@ -65,7 +66,7 @@ function NavBar(): JSX.Element {
                                     </DropDownAction>
                                 ) : (
                                     <>
-                                        <DropDownLinkInternal href={`/author/${session.user.id}`}>Profile</DropDownLinkInternal>
+                                        <DropDownLinkInternal href={`/author/${session.user?.id}`}>Profile</DropDownLinkInternal>
                                         <DropDownAction
                                             action={() => {
                                                 signout();
@@ -96,7 +97,7 @@ function NavBar(): JSX.Element {
                                         </span>
                                     ) : (
                                         <>
-                                            <Link href={`/author/${session.user.id}`}>
+                                            <Link href={`/author/${session.user?.id}`}>
                                                 <a>Profile</a>
                                             </Link>
                                             <span

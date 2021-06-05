@@ -1,3 +1,5 @@
+import { Session } from "next-auth";
+
 export type Data<T> = {
     data: T;
 };
@@ -165,4 +167,15 @@ export interface GoogleAdProps {
     format?: string;
     responsive?: boolean;
     className?: string;
+}
+
+export interface SessionWithExtra extends Session {
+    user?: {
+        name?: string | null;
+        email?: string | null;
+        image?: string | null;
+        id?: string | null;
+        role?: string | null;
+    };
+    accessToken: string;
 }
