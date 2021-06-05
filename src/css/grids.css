@@ -6,19 +6,51 @@
   grid-template-rows: 16rem 1fr 1fr 1fr minmax(28rem, auto) 2rem;
 }
 
+.promotedGames {
+  @apply grid;
+  grid-template-areas: "title1" "cards1" "title2" "cards2";
+}
+
+.promotedGamesCards {
+  @apply grid mt-4 gap-x-2 gap-y-2 grid-cols-1;
+}
+
 @screen sm {
   .createForm {
     grid-template-areas: "image name" "image ." "image summary" "image ." "image tags" "image ." "description description" ". ." "create .";
     grid-template-columns: 16rem auto;
     grid-template-rows: 4rem 0.75rem 4rem 0.75rem 4rem 2rem minmax(20rem, auto) 0.5rem 2rem;
   }
+
+  .promotedGames {
+    grid-template-areas: "title1 title1" "cards1 cards1" "title2 title2" "cards2 cards2";
+  }
+
+  .promotedGamesCards {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @screen md {
   .createForm {
-    grid-template-areas: "image name" "image ." "image summary" "image ." "image tags" "image ." "description description" ". ." "create .";
-    grid-template-columns: 16rem auto;
     grid-template-rows: 4rem 0.5rem 4rem 0.5rem 4rem 3rem minmax(28rem, auto) 0.5rem 2rem;
+  }
+}
+
+@screen lg {
+  .promotedGames {
+    grid-template-areas: "title1 title1 title1" "cards1 cards1 cards1" "title2 title2 title2" "cards2 cards2 cards2";
+  }
+
+  .promotedGamesCards {
+    @apply grid-cols-3;
+  }
+}
+
+@screen xl {
+  .promotedGames {
+    grid-template-areas: "title1 title1 title1 . title2 title2 title2" "cards1 cards1 cards1 . cards2 cards2 cards2";
+    grid-template-columns: 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr;
   }
 }
 

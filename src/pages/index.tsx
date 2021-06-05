@@ -1,12 +1,14 @@
 import React from "react";
 import Layout from "../components/Layout";
-import { get, getAuthed } from "../utils/request";
+import { get } from "../utils/request";
 import { API_URL, SITE_URL } from "../utils/api";
 import { Featured } from "../interfaces";
-import { GetServerSideProps, GetServerSidePropsContext, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import Ads from "../components/ads/Ads";
 import GameCard from "../components/misc/GameCard";
-import { getSession, useSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
+import GridArea from "../components/misc/GridArea";
+import PromotedHeader from "../components/ui/promoted/PromotedHeader";
 
 export default function IndexPage({ featured }: { featured: Featured }): JSX.Element {
     const [session, loading] = useSession();
@@ -27,31 +29,25 @@ export default function IndexPage({ featured }: { featured: Featured }): JSX.Ele
                         authors!
                     </h2>
                 </section>
-                <section id={"promoGames"} className={`w-full lg:w-5/6 mx-auto`}>
-                    <div className={`xl:flex xl:flex-row justify-between`}>
-                        <div className={`w-5/6 xl:w-11/12 mx-auto text-center`}>
-                            <div className={`xl:w-11/12 mr-auto`}>
-                                <h3 className={`border-b-2 dark:border-dark-700 pb-1 font-medium text-xl`}>Popular Games</h3>
-                                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
-                                    {featured.featuredGames.map((game) => (
-                                        <GameCard game={game} key={game.slug} />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`w-5/6 xl:w-11/12 mt-4 xl:mt-0 mx-auto text-center`}>
-                            <div className={`xl:w-11/12 ml-auto`}>
-                                <h3 className={`border-b-2 dark:border-dark-700 pb-1 font-medium text-xl`}>New Games</h3>
-                                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4`}>
-                                    {featured.featuredGames.map((game) => (
-                                        <GameCard game={game} key={game.slug} />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <section id={"promoGames"} className={`w-5/6 lg:w-5/6 mx-auto promotedGames text-center`}>
+                    <GridArea name={"title1"}>
+                        <PromotedHeader>Popular Games</PromotedHeader>
+                    </GridArea>
+                    <GridArea name={"title2"}>
+                        <PromotedHeader className={` mt-4 xl:mt-0`}>New Games</PromotedHeader>
+                    </GridArea>
+                    <GridArea name={`cards1`} className={`promotedGamesCards`}>
+                        {featured.featuredGames.map((game) => (
+                            <GameCard game={game} key={game.slug} />
+                        ))}
+                    </GridArea>
+                    <GridArea name={`cards2`} className={`promotedGamesCards`}>
+                        {featured.featuredGames.map((game) => (
+                            <GameCard game={game} key={game.slug} />
+                        ))}
+                    </GridArea>
                 </section>
+
                 <section id={"about"} className={`w-5/6 mx-auto text-center mt-4 mb-10`}>
                     <h2 className={`border-b-2 dark:border-dark-700 pb-1 text-3xl`}>Join the community</h2>
                     <h3 className={`text-xl my-2`}>
