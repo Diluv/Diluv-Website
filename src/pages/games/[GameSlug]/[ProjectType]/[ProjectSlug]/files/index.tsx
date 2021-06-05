@@ -236,7 +236,7 @@ export default function Files({
                                                     <Link
                                                         href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${value.id}`}
                                                     >
-                                                        <a className={`cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-500`}>
+                                                        <a className={`cursor-pointer hover-link`}>
                                                             <pre className={`whitespace-pre-line`}>{value.name}</pre>
                                                         </a>
                                                     </Link>
@@ -281,10 +281,7 @@ export default function Files({
                                                 </Td>
                                                 <Td className={`table-data-diluv`}>{value.downloads}</Td>
                                                 <Td className={`table-data-diluv td-full`}>
-                                                    <DownloadLink
-                                                        url={value.downloadURL}
-                                                        className={`hover:text-diluv-600 dark-hover:text-diluv-500 cursor-pointer block px-2 py-3`}
-                                                    >
+                                                    <DownloadLink url={value.downloadURL} className={`hover-link cursor-pointer block px-2 py-3`}>
                                                         <DownloadIcon
                                                             className={`fill-current mx-auto hidden lg:block`}
                                                             width={"1rem"}

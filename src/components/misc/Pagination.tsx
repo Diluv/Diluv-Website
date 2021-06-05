@@ -2,7 +2,7 @@ import React from "react";
 // @ts-ignore
 import ReactPaginate from "@jaredlll08/react-paginate";
 import { SlugName } from "../../interfaces";
-import { ArrowLeftIcon, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from "@heroicons/react/solid";
+import { ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from "@heroicons/react/solid";
 
 export function buildURL({
     search,
@@ -69,8 +69,8 @@ export default function Pagination({
                 disableInitialCallback={true}
                 pageRangeDisplayed={3}
                 containerClassName={`grid grid-cols-pagination`}
-                activeClassName={`bg-gray-400 hover:bg-gray-400 dark:bg-dark-800 dark-hover:bg-dark-800`}
-                activeLinkClassName={`block`}
+                activeClassName={`!bg-gray-400 hover:!bg-gray-400 dark:!bg-dark-800 dark:!hover:bg-dark-400`}
+                activeLinkClassName={`!block`}
                 pageClassName={`block bg-gray-200 hover:bg-gray-300 dark-hover:bg-dark-600 dark:bg-dark-700 border dark:border-dark-600 text-center`}
                 pageLinkClassName={`block py-1`}
                 previousClassName={`border dark:border-dark-600 text-center px-auto ${

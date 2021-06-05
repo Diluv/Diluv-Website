@@ -66,9 +66,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                             >
                                                 <div>
                                                     <a href={file.downloadURL + ".asc"} download={true} target={"_blank"}>
-                                                        <p className={`truncate w-64 sm:w-32 hover:text-diluv-600 dark-hover:text-diluv-500`}>
-                                                            {file.sha512}
-                                                        </p>
+                                                        <p className={`truncate w-64 sm:w-32 hover-link`}>{file.sha512}</p>
                                                     </a>
                                                 </div>
                                             </Tippy>

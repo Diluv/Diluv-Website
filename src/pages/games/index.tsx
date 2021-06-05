@@ -63,12 +63,12 @@ export default function GameIndex({
                 </div>
 
                 <div className={`mx-auto w-5/6 md:w-4/6`}>
-                    <div className={`grid justify-between gameFilterSmall sm:gameFilterMedium gap-y-2 sm:gap-y-0`} id={`filter options`}>
-                        <GridArea name={`search`} className={`flex flex-grow`}>
-                            <label htmlFor={`searchGames`} className={`flex-none my-auto mr-2`}>
+                    <div className={`grid justify-between gameFilter gap-y-2 sm:gap-y-0`} id={`filter options`}>
+                        <GridArea name={`search`} className={`flex flex-grow flex-col sm:flex-row gap-y-2 sm:gap-y-0`}>
+                            <label htmlFor={`searchGames`} className={`flex-none my-auto sm:mr-2`}>
                                 Search
                             </label>
-                            <div className={"relative my-auto flex-grow ml-1"}>
+                            <div className={"relative my-auto flex-grow sm:ml-1"}>
                                 <SearchIcon
                                     className={`ml-2 my-2 fill-current absolute svg-icon pointer-events-none transition-opacity duration-300 ${
                                         search.trim().length ? `text-diluv-500` : ``
@@ -94,11 +94,11 @@ export default function GameIndex({
                                 />
                             </div>
                         </GridArea>
-                        <GridArea name={`sort`} className={`flex`}>
-                            <label htmlFor={`sortGames`} className={`flex-none ml-auto my-auto mr-2`}>
+                        <GridArea name={`sort`} className={`flex flex-col sm:flex-row gap-y-2 sm:gap-y-0`}>
+                            <label htmlFor={`sortGames`} className={`flex-none sm:ml-auto my-auto sm:mr-2`}>
                                 Sort
                             </label>
-                            <div className={"my-auto flex-grow ml-1"}>
+                            <div className={"my-auto flex-grow sm:ml-1"}>
                                 <Select
                                     isSearchable={false}
                                     inputId="sortGames"

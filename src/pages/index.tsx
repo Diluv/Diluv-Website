@@ -34,7 +34,7 @@ export default function IndexPage({ featured }: { featured: Featured }): JSX.Ele
                         <PromotedHeader>Popular Games</PromotedHeader>
                     </GridArea>
                     <GridArea name={"title2"}>
-                        <PromotedHeader className={` mt-4 xl:mt-0`}>New Games</PromotedHeader>
+                        <PromotedHeader className={`mt-4 xl:mt-0`}>New Games</PromotedHeader>
                     </GridArea>
                     <GridArea name={`cards1`} className={`promotedGamesCards`}>
                         {featured.featuredGames.map((game) => (

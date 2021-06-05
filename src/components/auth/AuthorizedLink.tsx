@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Link from "next/link";
 import { signin, useSession } from "next-auth/client";
 import { SITE_URL } from "../../utils/api";
 
-export default function AuthorizedLink({ href, children, className }: { href: string; children: ReactNode; className?: string }): JSX.Element {
+export default function AuthorizedLink({ href, children, className }: React.PropsWithChildren<{ href: string; className: string }>): JSX.Element {
     const [session, loading] = useSession();
     if (!loading && session) {
         return (

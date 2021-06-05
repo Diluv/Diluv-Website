@@ -39,7 +39,7 @@ export default function Members({ project }: { project: Project }): JSX.Element 
                                             </Link>
                                             <GridArea name={`name`}>
                                                 <Link href={`/author/${value.username}`}>
-                                                    <a className={`hover:text-diluv-600 dark-hover:text-diluv-500`}>{value.displayName}</a>
+                                                    <a className={`hover-link`}>{value.displayName}</a>
                                                 </Link>
                                             </GridArea>
                                             <GridArea name={`role`}>
