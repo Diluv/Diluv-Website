@@ -75,6 +75,10 @@
   @apply hover:text-diluv-600 dark-hover:text-diluv-500;
 }
 
+.nav-link {
+  @apply md:mr-5 hover:text-white w-full md:w-auto block md:inline p-2 md:p-0;
+}
+
 @responsive {
   .projectCardLarge {
     grid-template-areas:
