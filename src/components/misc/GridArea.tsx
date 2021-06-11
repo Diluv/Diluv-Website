@@ -1,4 +1,4 @@
-import React, { ReactChildren, ReactNode, ReactNodeArray } from "react";
+import React from "react";
 
 interface Props {
     name: string;

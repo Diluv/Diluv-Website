@@ -1,19 +1,18 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { Project, ProjectType, SelectData, SlugName } from "../../../../interfaces";
-import { getAuthed } from "../../../../utils/request";
-
-import { API_URL, SITE_URL } from "../../../../utils/api";
-import ProjectCard from "../../../../components/project/ProjectCard";
-import { onBlur, onFocus } from "../../../../utils/util";
+import { Project, ProjectType, SelectData, SlugName } from "interfaces";
+import { getAuthed } from "utils/request";
+import { API_URL, SITE_URL } from "utils/api";
+import ProjectCard from "components/project/ProjectCard";
+import { onBlur, onFocus } from "utils/util";
 import Select, { ActionMeta } from "react-select";
-import { reactSelectStyle } from "../../../../utils/theme";
+import { reactSelectStyle } from "utils/theme";
 import { useRouter } from "next/router";
 import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
-import Pagination, { buildURL } from "../../../../components/misc/Pagination";
-import AuthorizedLink from "../../../../components/auth/AuthorizedLink";
+import Pagination, { buildURL } from "components/misc/Pagination";
+import AuthorizedLink from "components/auth/AuthorizedLink";
 import { getSession } from "next-auth/client";
 import { Session } from "next-auth";
 import { SearchIcon } from "@heroicons/react/solid";

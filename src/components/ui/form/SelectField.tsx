@@ -1,8 +1,8 @@
 import { useField } from "formik";
 import Select, { ValueType } from "react-select";
-import { reactSelectStyle } from "../../../utils/theme";
+import { reactSelectStyle } from "utils/theme";
 import React from "react";
-import { SlugName } from "../../../interfaces";
+import { SlugName } from "interfaces";
 import { Option } from "react-select/src/filters";
 
 export default function SelectField(props: {

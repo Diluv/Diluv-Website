@@ -1,5 +1,5 @@
 import React, { Dispatch, FocusEvent, ReactNode } from "react";
-import { Project } from "../interfaces";
+import { Project } from "interfaces";
 import Link from "next/link";
 
 export function onFocus(setSelectedField: Dispatch<string>, event: FocusEvent<any>): void {

@@ -10,7 +10,7 @@ export default function GameSlug(): JSX.Element {
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
     const { GameSlug } = context.query;
     await get(`${API_URL}/v1/site/games/${GameSlug}`)
-        .then(value => {
+        .then((value) => {
             context.res?.writeHead(302, {
                 "Location": `/games/${GameSlug}/${value.data}`,
                 "Content-Type": "text/html; charset=utf-8"

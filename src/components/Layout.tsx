@@ -5,7 +5,7 @@ import Head from "next/head";
 import SimpleBar from "simplebar-react";
 import Router from "next/router";
 import { NextSeo } from "next-seo";
-import { SITE_URL } from "../utils/api";
+import { SITE_URL } from "utils/api";
 import { useSession } from "next-auth/client";
 
 type Props = {

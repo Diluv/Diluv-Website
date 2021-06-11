@@ -1,12 +1,12 @@
 import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuthed } from "../../../../../utils/request";
-import { API_URL } from "../../../../../utils/api";
-import { Project } from "../../../../../interfaces";
-import ProjectInfo from "../../../../../components/project/ProjectInfo";
-import Markdown from "../../../../../components/Markdown";
-import Ads from "../../../../../components/ads/Ads";
+import { getAuthed } from "utils/request";
+import { API_URL } from "utils/api";
+import { Project } from "interfaces";
+import ProjectInfo from "components/project/ProjectInfo";
+import Markdown from "components/Markdown";
+import Ads from "components/ads/Ads";
 import { getSession } from "next-auth/client";
 
 export default function ProjectIndex({ project }: { project: Project }): JSX.Element {

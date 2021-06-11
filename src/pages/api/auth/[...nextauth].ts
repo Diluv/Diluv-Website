@@ -1,9 +1,9 @@
-import NextAuth, { Session } from "next-auth";
-import { AUTH_URL, OPENID_CONNECT_URL } from "../../../utils/api";
+import NextAuth from "next-auth";
+import { AUTH_URL, OPENID_CONNECT_URL } from "utils/api";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import qs from "querystring";
 import jwt_decode from "jwt-decode";
-import { SessionWithExtra } from "../../../interfaces";
+import { SessionWithExtra } from "interfaces";
 
 const isTokenStale = (token: string): boolean => {
     const decodedToken: any = token && jwt_decode(token);

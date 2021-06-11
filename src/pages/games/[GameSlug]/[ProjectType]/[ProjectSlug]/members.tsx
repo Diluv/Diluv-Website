@@ -1,15 +1,14 @@
 import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuthed } from "../../../../../utils/request";
-import { API_URL } from "../../../../../utils/api";
-import { Project } from "../../../../../interfaces";
-import ProjectInfo from "../../../../../components/project/ProjectInfo";
+import { getAuthed } from "utils/request";
+import { API_URL } from "utils/api";
+import { Project } from "interfaces";
+import ProjectInfo from "components/project/ProjectInfo";
 import Link from "next/link";
 import Image from "next/image";
-
-import GridArea from "../../../../../components/misc/GridArea";
-import Ads from "../../../../../components/ads/Ads";
+import GridArea from "components/misc/GridArea";
+import Ads from "components/ads/Ads";
 import { getSession } from "next-auth/client";
 
 export default function Members({ project }: { project: Project }): JSX.Element {

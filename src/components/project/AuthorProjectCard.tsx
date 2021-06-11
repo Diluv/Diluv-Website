@@ -1,12 +1,12 @@
 import React from "react";
-import { Project } from "../../interfaces";
+import { Project } from "interfaces";
 import Link from "next/link";
-import { DisplayTag } from "../misc/FilterTag";
+import { DisplayTag } from "components/misc/FilterTag";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
-import { listContributors } from "../../utils/util";
-import GridArea from "../misc/GridArea";
-import { FormattedDistanceTime, FormattedTime } from "../../utils/dynamic";
+import { listContributors } from "utils/util";
+import GridArea from "components/misc/GridArea";
+import { FormattedDistanceTime, FormattedTime } from "utils/dynamic";
 import Image from "next/image";
 import { CalendarIcon, ChartBarIcon, ClockIcon } from "@heroicons/react/solid";
 

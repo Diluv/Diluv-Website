@@ -1,10 +1,10 @@
-import Layout from "../../components/Layout";
-import Markdown from "../../components/Markdown";
+import Layout from "components/Layout";
+import Markdown from "components/Markdown";
 import React from "react";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { HasMarkdown } from "../../interfaces";
-import { readAsString } from "../../utils/files";
-import { SITE_URL } from "../../utils/api";
+import { HasMarkdown } from "interfaces";
+import { readAsString } from "utils/files";
+import { SITE_URL } from "utils/api";
 import { getSession } from "next-auth/client";
 
 export default function Feedback({ title, pageContents, PageName }: HasMarkdown & { PageName: string }): JSX.Element {

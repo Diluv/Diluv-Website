@@ -1,5 +1,5 @@
 import React, { Dispatch } from "react";
-import { SelectData } from "../../interfaces";
+import { SelectData } from "interfaces";
 
 export function FilterTag({
     tagName,

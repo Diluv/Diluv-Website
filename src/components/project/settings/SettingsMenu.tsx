@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Projects from "pages/games/[GameSlug]/[ProjectType]";
 import { ReactNode } from "react";
 
 // These correspond to the page names as well!

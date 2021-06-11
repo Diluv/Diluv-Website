@@ -1,24 +1,23 @@
 import React, { ChangeEvent, useMemo, useState } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuthed } from "../../../../../../utils/request";
-import { API_URL } from "../../../../../../utils/api";
-import { Project, ProjectFile, SlugName, Version } from "../../../../../../interfaces";
-import ProjectInfo from "../../../../../../components/project/ProjectInfo";
+import { getAuthed } from "utils/request";
+import { API_URL } from "utils/api";
+import { Project, ProjectFile, SlugName, Version } from "interfaces";
+import ProjectInfo from "components/project/ProjectInfo";
 import filesize from "filesize";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 import Link from "next/link";
-import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
+import { FormattedDistanceTime } from "utils/dynamic";
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
-
-import DownloadLink from "../../../../../../components/ui/DownloadLink";
+import DownloadLink from "components/ui/DownloadLink";
 import Select from "react-select";
-import { reactSelectStyle } from "../../../../../../utils/theme";
-import Pagination, { buildURL } from "../../../../../../components/misc/Pagination";
+import { reactSelectStyle } from "utils/theme";
+import Pagination, { buildURL } from "components/misc/Pagination";
 import { useRouter } from "next/router";
 import { DebounceInput } from "react-debounce-input";
-import { onBlur, onFocus } from "../../../../../../utils/util";
+import { onBlur, onFocus } from "utils/util";
 import { getSession } from "next-auth/client";
 import { DownloadIcon, SearchIcon } from "@heroicons/react/solid";
 

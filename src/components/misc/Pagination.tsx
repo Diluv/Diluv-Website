@@ -1,7 +1,7 @@
 import React from "react";
 // @ts-ignore
 import ReactPaginate from "@jaredlll08/react-paginate";
-import { SlugName } from "../../interfaces";
+import { SlugName } from "interfaces";
 import { ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from "@heroicons/react/solid";
 
 export function buildURL({

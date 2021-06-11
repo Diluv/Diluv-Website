@@ -1,8 +1,8 @@
-import Layout from "../components/Layout";
+import Layout from "components/Layout";
 import React from "react";
-import { SITE_URL } from "../utils/api";
+import { SITE_URL } from "utils/api";
 
-import TeamMember from "../components/misc/TeamMember";
+import TeamMember from "components/misc/TeamMember";
 
 export default function Feedback(): JSX.Element {
     return (

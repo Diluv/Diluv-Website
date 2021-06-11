@@ -1,14 +1,14 @@
 import React from "react";
-import Layout from "../components/Layout";
-import { get } from "../utils/request";
-import { API_URL, SITE_URL } from "../utils/api";
-import { Featured } from "../interfaces";
+import Layout from "components/Layout";
+import { get } from "utils/request";
+import { API_URL, SITE_URL } from "utils/api";
+import { Featured } from "interfaces";
 import { GetStaticProps } from "next";
-import Ads from "../components/ads/Ads";
-import GameCard from "../components/misc/GameCard";
+import Ads from "components/ads/Ads";
+import GameCard from "components/misc/GameCard";
 import { useSession } from "next-auth/client";
-import GridArea from "../components/misc/GridArea";
-import PromotedHeader from "../components/ui/promoted/PromotedHeader";
+import GridArea from "components/misc/GridArea";
+import PromotedHeader from "components/ui/promoted/PromotedHeader";
 
 export default function IndexPage({ featured }: { featured: Featured }): JSX.Element {
     const [session, loading] = useSession();

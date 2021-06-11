@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { GoogleAdProps } from "../../interfaces";
+import { GoogleAdProps } from "interfaces";
 import { GOOGLE_ADSENSE_KEY } from "utils/api";
 
 function GoogleAds({ format = "auto", responsive = true, slot, className = "" }: GoogleAdProps): JSX.Element {

@@ -1,6 +1,6 @@
 import React, { Dispatch, MouseEventHandler, ReactNode, useRef } from "react";
 import Link from "next/link";
-import useComponentVisible from "../utils/hooks";
+import useComponentVisible from "utils/hooks";
 import { usePopper } from "react-popper";
 
 function DropDown(props: { name: string; children: ReactNode; className?: string }): JSX.Element {
@@ -30,8 +30,7 @@ function DropDown(props: { name: string; children: ReactNode; className?: string
                         setIsComponentVisible(!isComponentVisible);
                         // This is needed to make sure it stays in the right position...
                         if (update) {
-                            update().then(() => {
-                            });
+                            update().then(() => {});
                         }
                     }}
                 >
@@ -92,7 +91,7 @@ export function DropDownAction(props: { children: ReactNode; className?: string;
 }
 
 export function DropDownSpacer() {
-    return <div className="border-gray-400 border-b"/>;
+    return <div className="border-gray-400 border-b" />;
 }
 
 export default DropDown;

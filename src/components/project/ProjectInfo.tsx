@@ -1,11 +1,11 @@
 import React from "react";
-import { Project } from "../../interfaces";
+import { Project } from "interfaces";
 import Link from "next/link";
-import { DisplayTag } from "../misc/FilterTag";
-import { canEditFile, canEditProject, canUploadFile, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "../../utils/util";
-import Alert from "../Alert";
-import GridArea from "../misc/GridArea";
-import { FormattedTime } from "../../utils/dynamic";
+import { DisplayTag } from "components/misc/FilterTag";
+import { canEditFile, canEditProject, canUploadFile, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "utils/util";
+import Alert from "components/Alert";
+import GridArea from "components/misc/GridArea";
+import { FormattedTime } from "utils/dynamic";
 import Image from "next/image";
 
 export default function ProjectInfo({ project, pageType, fileId }: { project: Project; pageType: string; fileId?: number }): JSX.Element {

@@ -1,16 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuthed } from "../../utils/request";
-import { API_URL, SITE_URL } from "../../utils/api";
-import { Game, SlugName } from "../../interfaces";
+import { getAuthed } from "utils/request";
+import { API_URL, SITE_URL } from "utils/api";
+import { Game, SlugName } from "interfaces";
 import { useRouter } from "next/router";
-import { reactSelectStyle } from "../../utils/theme";
+import { reactSelectStyle } from "utils/theme";
 import Select from "react-select";
-import { onBlur, onFocus } from "../../utils/util";
+import { onBlur, onFocus } from "utils/util";
 import { DebounceInput } from "react-debounce-input";
-import GridArea from "../../components/misc/GridArea";
-import GameCard from "../../components/misc/GameCard";
+import GridArea from "components/misc/GridArea";
+import GameCard from "components/misc/GameCard";
 import { getSession } from "next-auth/client";
 import { SearchIcon } from "@heroicons/react/solid";
 

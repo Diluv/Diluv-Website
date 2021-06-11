@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Dropzone, { FileError } from "react-dropzone";
 import fileSize from "filesize";
 import filesize from "filesize";
-import { onLoadAsync } from "../../../utils/util";
+import { onLoadAsync } from "utils/util";
 import { XCircleIcon } from "@heroicons/react/solid";
 
 // TODO pass these in as props

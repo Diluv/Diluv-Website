@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, Ref, useRef, useState } from "react";
+import React, { ChangeEventHandler, useState } from "react";
 
 export default function TextEditor({
     className,

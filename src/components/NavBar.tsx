@@ -4,8 +4,8 @@ import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
 import ThemeSwitcher from "./ui/ThemeSwitcher";
 import { signin, signout, useSession } from "next-auth/client";
-import { getNameOrDefault } from "../utils/auth";
-import { SessionWithExtra } from "../interfaces";
+import { getNameOrDefault } from "utils/auth";
+import { SessionWithExtra } from "interfaces";
 import { MenuIcon, XIcon } from "@heroicons/react/solid";
 
 function NavBar(): JSX.Element {

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import formatDistance from "date-fns/formatDistance";
 
 export default function FormattedDistanceTime({ prefix, start, end = new Date() }: { prefix?: string; start: number; end?: Date }) {

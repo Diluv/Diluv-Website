@@ -1,18 +1,18 @@
 import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { AuthorPage, SlugName } from "../../../interfaces";
-import { reactSelectStyle } from "../../../utils/theme";
-import { getAuthed } from "../../../utils/request";
-import { API_URL } from "../../../utils/api";
+import { AuthorPage, SlugName } from "interfaces";
+import { reactSelectStyle } from "utils/theme";
+import { getAuthed } from "utils/request";
+import { API_URL } from "utils/api";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
-import AuthorProjectCard from "../../../components/project/AuthorProjectCard";
+import AuthorProjectCard from "components/project/AuthorProjectCard";
 import Select from "react-select";
-import Pagination, { buildURL } from "../../../components/misc/Pagination";
+import Pagination, { buildURL } from "components/misc/Pagination";
 import { useRouter } from "next/router";
-import GridArea from "../../../components/misc/GridArea";
-import { FormattedDistanceTime, FormattedTime } from "../../../utils/dynamic";
+import GridArea from "components/misc/GridArea";
+import { FormattedDistanceTime, FormattedTime } from "utils/dynamic";
 import Image from "next/image";
 import { getSession } from "next-auth/client";
 
@@ -30,8 +30,8 @@ export default function AuthorProjects({ data, currentSort, page }: { data: Auth
         >
             <div className={`container mx-auto mt-4`}>
                 <div className={`w-11/12 mx-auto`}>
-                    <div className={`grid gap-x-2 gap-y-2 sm:gap-y-0 profilePageSmall sm:profilePageLarge`}>
-                        <GridArea name={`image`}>
+                    <div className={`grid gap-x-2 gap-y-2 sm:gap-y-0 profilePage`}>
+                        <GridArea name={`image`} className={`mx-auto sm:mx-0`}>
                             <Image src={data.user.avatarURL} alt={data.user.displayName} width={256} height={256} />
                         </GridArea>
                         <GridArea name={`summary`}>

@@ -15,6 +15,10 @@
   @apply grid mt-4 gap-x-2 gap-y-2 grid-cols-1;
 }
 
+.profilePage {
+  grid-template-areas: "image" "summary";
+}
+
 .gameFilter {
   grid-template-areas: "search" "sort";
   grid-template-columns: 1fr;
@@ -40,6 +44,11 @@
     grid-template-areas: "search sort";
     grid-template-columns: 1fr 0.5fr;
     grid-template-rows: 1fr;
+  }
+
+  .profilePage {
+    grid-template-areas: "image summary";
+    grid-template-columns: 16rem 1fr;
   }
 }
 
