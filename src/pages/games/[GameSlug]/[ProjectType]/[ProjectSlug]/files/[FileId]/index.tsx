@@ -1,19 +1,19 @@
 import React from "react";
 import Layout from "components/Layout";
-import { Project, ProjectFile } from "../../../../../../interfaces";
-import ProjectInfo from "../../../../../../components/project/ProjectInfo";
+import { Project, ProjectFile } from "interfaces";
+import ProjectInfo from "components/project/ProjectInfo";
 import filesize from "filesize";
 import SimpleBar from "simplebar-react";
-import { FormattedDistanceTime } from "../../../../../../utils/dynamic";
+import { FormattedDistanceTime } from "utils/dynamic";
 import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { API_URL } from "../../../../../../utils/api";
-import { getAuthed } from "../../../../../../utils/request";
-import Markdown from "../../../../../../components/Markdown";
+import { API_URL } from "utils/api";
+import { getAuthed } from "utils/request";
+import Markdown from "components/Markdown";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
 import Image from "next/image";
-import DownloadLink from "../../../../../../components/ui/DownloadLink";
+import DownloadLink from "components/ui/DownloadLink";
 import { getSession } from "next-auth/client";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
