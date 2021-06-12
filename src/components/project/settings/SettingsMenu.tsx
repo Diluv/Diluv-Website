@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 // These correspond to the page names as well!
 export const OPTIONS = {
     DESCRIPTION: "description",
-    LOGO: "logo",
     TEAM_MEMBERS: "members",
     NYI: "nyi"
 };
@@ -41,7 +40,7 @@ export function SettingsSideBar({
 }): JSX.Element {
     return (
         <div className={`hidden lg:block lg:w-1/3 xl:w-56 flex-none`}>
-            <div className={` border border-gray-400 dark:border-dark-600 `}>
+            <div className={`border border-gray-400 dark:border-dark-600 `}>
                 <SettingsGroup headerName="Display">
                     <SettingsSideBarOption
                         optionValue={OPTIONS.DESCRIPTION}
@@ -51,15 +50,6 @@ export function SettingsSideBar({
                         projectSlug={projectSlug}
                     >
                         Description
-                    </SettingsSideBarOption>
-                    <SettingsSideBarOption
-                        optionValue={OPTIONS.LOGO}
-                        currentValue={currentOption}
-                        gameSlug={gameSlug}
-                        projectType={projectType}
-                        projectSlug={projectSlug}
-                    >
-                        Logo
                     </SettingsSideBarOption>
                 </SettingsGroup>
                 <SettingsGroup headerName="Team">
@@ -165,7 +155,6 @@ export function SettingsBar(): JSX.Element {
                 <div className={`bg-diluv-700 p-2 border border-dark-700`}>Display</div>
 
                 <div className={`bg-dark-800 hover:bg-diluv-900 select-none cursor-pointer p-2 border border-dark-700`}>Description</div>
-                <div className={`bg-dark-800 hover:bg-diluv-900 select-none cursor-pointer p-2 border border-dark-700`}>Logo</div>
             </div>
         </div>
     );

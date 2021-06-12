@@ -11,7 +11,7 @@ const validTypes = ["image/gif", "image/jpeg", "image/png", "image/webp"];
 const fileSizeLimit = 1000000;
 const imageSizeRestriction = 1024 * 8;
 
-function Preview(props: { file: Blob }) {
+function Preview(props: { file: Blob | string }) {
     const { file } = props;
     const [loading, setLoading] = useState(false);
     const [thumb, setThumb] = useState("");
@@ -20,17 +20,22 @@ function Preview(props: { file: Blob }) {
         if (!file) {
             return;
         }
-        setLoading(true);
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setThumb(reader.result as string);
-            setLoading(false);
-        };
-        reader.readAsDataURL(file);
+        if (typeof file === "object") {
+            setLoading(true);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setThumb(reader.result as string);
+                setLoading(false);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setThumb(file);
+        }
     }, [file]);
+    console.log(loading);
 
     if (!file || loading) {
-        return <p className={`text-center select-none my-auto font-semibold text-xl`}>Upload logo</p>;
+        return <p className={`text-center select-none my-auto font-semibold text-xl`}>Upload logo {thumb}</p>;
     }
 
     return <img src={thumb} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"} />;

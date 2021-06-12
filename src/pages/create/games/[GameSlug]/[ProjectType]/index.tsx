@@ -16,6 +16,7 @@ import { DropZoneImageField } from "components/ui/form/DropZoneField";
 import { AxiosError } from "axios";
 import { Session } from "next-auth";
 import { getSession } from "next-auth/client";
+import GridArea from "../../../../../components/misc/GridArea";
 
 const schema = yup.object({
     name: yup.string().min(5, "Must be 5 or more characters").max(70, "Must be 70 characters or less").required("Required"),
@@ -116,15 +117,15 @@ export default function Index({
                 >
                     {({ touched, errors, isSubmitting, values }) => (
                         <Form className={`grid gap-y-2 sm:gap-y-0 createForm`}>
-                            <div className={`w-64 h-64 mx-auto sm:mx-0`} style={{ gridArea: "image" }}>
+                            <GridArea name={"image"} className={`w-64 h-64 mx-auto sm:mx-0`}>
                                 <DropZoneImageField
                                     name={"logo"}
                                     setErrors={(errors1) => {
                                         setLogoErrors(errors1);
                                     }}
                                 />
-                            </div>
-                            <div className={`flex flex-col sm:ml-4 gap-y-2`} style={{ gridArea: "name" }}>
+                            </GridArea>
+                            <GridArea name={"name"} className={`flex flex-col sm:ml-4 gap-y-2`}>
                                 <div className={`flex gap-x-2 justify-between`}>
                                     <label htmlFor={`name`} className={`mb-1 md:my-auto`}>
                                         Project Name:
@@ -138,8 +139,8 @@ export default function Index({
                                     className={`p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 dark:bg-dark-800 flex-grow outline-none`}
                                     maxLength={50}
                                 />
-                            </div>
-                            <div className={`flex flex-col sm:ml-4 gap-y-2`} style={{ gridArea: "summary" }}>
+                            </GridArea>
+                            <GridArea name={"summary"} className={`flex flex-col sm:ml-4 gap-y-2`}>
                                 <div className={`flex gap-x-2 justify-between`}>
                                     <label htmlFor={`summary`} className={`mb-1 md:my-auto`}>
                                         Project summary:
@@ -155,8 +156,8 @@ export default function Index({
                                     className={`p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 dark:border-dark-700 flex-grow dark:bg-dark-800 outline-none`}
                                     maxLength={250}
                                 />
-                            </div>
-                            <div className={`flex flex-col sm:ml-4 gap-y-2`} style={{ gridArea: "tags" }}>
+                            </GridArea>
+                            <GridArea name={"tags"} className={`flex flex-col sm:ml-4 gap-y-2`}>
                                 <div className={`flex gap-x-2 justify-between`}>
                                     <label htmlFor={`summary`} className={`mb-1 md:my-auto`}>
                                         Tags:
@@ -164,9 +165,9 @@ export default function Index({
                                     {touched.tags && errors.tags ? <span className={`text-red-600 dark:text-red-500`}>{errors.tags}</span> : null}
                                 </div>
                                 <SelectField name={`tags`} iid={`tags`} options={tags} isMulti={true} closeOnSelect={false} filterOption={null} />
-                            </div>
+                            </GridArea>
 
-                            <div className={`mt-4`} style={{ gridArea: "description" }}>
+                            <GridArea name={"description"} className={`mt-4`}>
                                 <div className={`grid border-b-2 border-gray-300 dark:border-dark-700 grid-cols-project-info`}>
                                     <div
                                         onClick={() =>
@@ -250,12 +251,12 @@ export default function Index({
                                         </div>
                                     )}
                                 </div>
-                            </div>
-                            <div className={``} style={{ gridArea: "create" }}>
+                            </GridArea>
+                            <GridArea name={"create"}>
                                 <button type={"submit"} className={`btn-diluv sm:w-auto`} disabled={isSubmitting}>
                                     Create project
                                 </button>
-                            </div>
+                            </GridArea>
                         </Form>
                     )}
                 </Formik>
