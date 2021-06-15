@@ -156,7 +156,6 @@ export interface UploadData {
 
 declare global {
     interface Window {
-        ga: {};
         adsbygoogle: {}[];
     }
 }

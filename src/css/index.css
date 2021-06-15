@@ -25,15 +25,15 @@
   @apply bg-diluv-500 opacity-50 cursor-default;
 }
 
-.btn-cancle {
+.btn-cancel {
   @apply block w-full bg-red-500 text-white p-2 select-none;
 }
 
-.btn-cancle:hover {
+.btn-cancel:hover {
   @apply bg-red-600;
 }
 
-.btn-cancle:disabled {
+.btn-cancel:disabled {
   @apply bg-red-500 opacity-50 cursor-default;
 }
 

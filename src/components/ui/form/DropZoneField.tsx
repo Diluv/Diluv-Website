@@ -178,7 +178,7 @@ export function DropZoneFileField(props: { name: string; setErrors: (errors: str
                                 }}
                             >
                                 <XCircleIcon className={`hidden md:block`} />
-                                <div className={`btn btn-cancle text-center md:hidden`}> Clear file</div>
+                                <div className={`btn btn-cancel text-center md:hidden`}> Clear file</div>
                             </span>
                         ) : (
                             <></>
