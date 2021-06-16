@@ -8,7 +8,7 @@ export default function FormattedTime({ prefix, time }: { prefix?: string; time:
         if (typeof window !== "undefined") {
             setBrowser(true);
         }
-    });
+    }, []);
 
     if (!browser) {
         return (

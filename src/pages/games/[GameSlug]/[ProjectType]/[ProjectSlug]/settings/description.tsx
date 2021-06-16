@@ -56,7 +56,7 @@ export default function Description({ project, tags, session }: { project: Proje
         } else {
             router.push("/");
         }
-    }, [project]);
+    }, [project, router]);
 
     const [displayState, setDisplayState] = useState(project);
 

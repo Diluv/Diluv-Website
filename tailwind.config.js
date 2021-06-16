@@ -3,19 +3,17 @@ const colors = require("tailwindcss/colors");
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-    mode: 'jit',
-    purge: [
-        './src/**/*.{js,ts,jsx,tsx}',
-    ],
+    mode: "jit",
+    purge: ["./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         colors: {
-            transparent: "transparent",
-            current: "currentColor",
-            black: "#000000",
-            white: "#FFFFFF",
-            gray: colors.trueGray,
-            blueGray: colors.blueGray,
-            red: {
+            "transparent": "transparent",
+            "current": "currentColor",
+            "black": "#000000",
+            "white": "#FFFFFF",
+            "gray": colors.trueGray,
+            "blue-gray": colors.blueGray,
+            "red": {
                 100: "#FFF5F5",
                 200: "#FED7D7",
                 300: "#FEB2B2",
@@ -26,7 +24,7 @@ module.exports = {
                 800: "#9B2C2C",
                 900: "#742A2A"
             },
-            orange: {
+            "orange": {
                 100: "#FFFAF0",
                 200: "#FEEBC8",
                 300: "#FBD38D",
@@ -37,7 +35,7 @@ module.exports = {
                 800: "#9C4221",
                 900: "#7B341E"
             },
-            yellow: {
+            "yellow": {
                 100: "#FFFFF0",
                 200: "#FEFCBF",
                 300: "#FAF089",
@@ -48,7 +46,7 @@ module.exports = {
                 800: "#975A16",
                 900: "#744210"
             },
-            green: {
+            "green": {
                 100: "#F0FFF4",
                 200: "#C6F6D5",
                 300: "#9AE6B4",
@@ -59,7 +57,7 @@ module.exports = {
                 800: "#276749",
                 900: "#22543D"
             },
-            teal: {
+            "teal": {
                 100: "#E6FFFA",
                 200: "#B2F5EA",
                 300: "#81E6D9",
@@ -70,18 +68,7 @@ module.exports = {
                 800: "#285E61",
                 900: "#234E52"
             },
-            blue: {
-                100: "#EBF8FF",
-                200: "#BEE3F8",
-                300: "#90CDF4",
-                400: "#63B3ED",
-                500: "#4299E1",
-                600: "#3182CE",
-                700: "#2B6CB0",
-                800: "#2C5282",
-                900: "#2A4365"
-            },
-            indigo: {
+            "indigo": {
                 100: "#EBF4FF",
                 200: "#C3DAFE",
                 300: "#A3BFFA",
@@ -92,7 +79,7 @@ module.exports = {
                 800: "#434190",
                 900: "#3C366B"
             },
-            purple: {
+            "purple": {
                 100: "#FAF5FF",
                 200: "#E9D8FD",
                 300: "#D6BCFA",
@@ -103,7 +90,7 @@ module.exports = {
                 800: "#553C9A",
                 900: "#44337A"
             },
-            pink: {
+            "pink": {
                 100: "#FFF5F7",
                 200: "#FED7E2",
                 300: "#FBB6CE",
@@ -114,7 +101,7 @@ module.exports = {
                 800: "#97266D",
                 900: "#702459"
             },
-            hsl: {
+            "hsl": {
                 100: "hsl(0,0%,90%)",
                 200: "hsl(0,0%,80%)",
                 300: "hsl(0,0%,70%)",
@@ -125,11 +112,11 @@ module.exports = {
                 800: "hsl(0,0%,20%)",
                 900: "hsl(0,0%,10%)"
             },
-            tag: {
+            "tag": {
                 DEFAULT: "#DEEBFF",
                 dark: "#414a5a"
             },
-            diluv: {
+            "diluv": {
                 100: "#ECF6FC",
                 200: "#CFE9F8",
                 300: "#B1DBF4",
@@ -141,11 +128,11 @@ module.exports = {
                 800: "#1B4B67",
                 900: "#123244"
             },
-            dark: {
+            "dark": {
                 ...colors.trueGray,
                 850: "#1F1F1F"
             },
-            amber: colors.amber
+            "amber": colors.amber
         },
         extend: {
             textIndent: (theme, { negative }) => ({
@@ -227,6 +214,12 @@ module.exports = {
                 "invalid-light": "0 0 0 3px rgba(245,101,101,0.5)",
                 "valid-dark": "0 0 0 3px rgba(72,187,120,0.8)",
                 "invalid-dark": "0 0 0 3px rgba(245,101,101,0.8)"
+            },
+            colors: {
+                blue: {
+                    ...colors.lightBlue,
+                    650: "#0377B4"
+                }
             }
         }
     },

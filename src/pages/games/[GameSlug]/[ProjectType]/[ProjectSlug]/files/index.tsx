@@ -65,7 +65,7 @@ export default function Files({
                 });
             });
         return versions;
-    }, files);
+    }, [files]);
 
     return (
         <Layout

@@ -259,6 +259,7 @@ function DependencyGroup({
             <div className={`flex`}>
                 <components.Option {...props}>
                     <div className={`flex gap-x-1`}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img className={`h-8 w-8`} src={props.data.logo} alt={`${props.label} logo`} />
                         <span className={`my-auto`}>{props.label}</span>
                     </div>
@@ -289,6 +290,8 @@ function DependencyGroup({
                         >
                             <XCircleIcon className={`w-6 h-6`} />
                         </div>
+                        {/*TODO This one could probably use next/image since we serve the logo */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={dep.projectLogo} className={"w-16 h-16"} alt={`Project Logo`} />
                         <div className={`flex flex-col gap-y-2`}>
                             <span>{dep.projectName}</span>

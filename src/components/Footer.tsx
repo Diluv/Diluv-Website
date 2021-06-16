@@ -5,7 +5,7 @@ import Link from "next/link";
 function Footer(): JSX.Element {
     return (
         <>
-            <footer className="font-hero bg-gradient-to-b from-blueGray-800 to-blueGray-900">
+            <footer className="font-hero bg-gradient-to-b from-blue-gray-800 to-blue-gray-900">
                 <div className="container px-5 py-8 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-no-wrap flex-wrap flex-col">
                     <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
                         <Link href={`/`}>

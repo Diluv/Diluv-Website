@@ -2,9 +2,10 @@ const withPlugins = require("next-compose-plugins");
 const withImages = require("next-images");
 
 const nextConfig = {
-    future: {
-        webpack5: true,
+    eslint: {
+        dirs: ["src"]
     },
+    webpack5: true,
     webpack(config) {
         return config;
     },

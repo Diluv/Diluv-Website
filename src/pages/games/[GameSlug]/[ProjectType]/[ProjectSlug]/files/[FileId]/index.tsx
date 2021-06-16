@@ -65,7 +65,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                                 hideOnClick={false}
                                             >
                                                 <div>
-                                                    <a href={file.downloadURL + ".asc"} download={true} target={"_blank"}>
+                                                    <a href={file.downloadURL + ".asc"} download={true} target={"_blank"} rel="noreferrer">
                                                         <p className={`truncate w-64 sm:w-32 hover-link`}>{file.sha512}</p>
                                                     </a>
                                                 </div>
@@ -85,6 +85,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                                         }
                                                         width={24}
                                                         height={24}
+                                                        alt={`uploader logo`}
                                                     />
                                                     <p className={`ml-1`}>{file.user.displayName}</p>
                                                 </div>
@@ -123,8 +124,10 @@ export default function File({ project, file }: { project: Project; file: Projec
                                             return (
                                                 <div
                                                     className={`p-2 border border-dark-400 dark:border-dark-600 flex gap-x-2 bg-dark-200 dark:bg-dark-800`}
+                                                    key={fileDep.project.id}
                                                 >
-                                                    <img src={fileDep.project.logo} className={`w-12 h-12`} />
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img src={fileDep.project.logo} className={`w-12 h-12`}  alt={fileDep.project.name + " logo"}/>
                                                     <div className={`flex flex-col`}>
                                                         <span className={`font-semibold break-all`}>{fileDep.project.name}</span>
                                                         <span>{fileDep.type}</span>

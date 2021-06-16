@@ -5,21 +5,21 @@ import React from "react";
 
 export default function GameCard(props: { game: Game }) {
     return (
-        <div className={``}>
+        <div>
             <Link href={`/games/${props.game.slug}/${props.game.defaultProjectType}`}>
-                <a>
-                    <div className={`flex flex-col`}>
-                        <Image
-                            src={props.game.logoURL.sources[0].src}
-                            className={`w-full`}
-                            alt={props.game.name}
-                            width={360}
-                            height={180}
-                            quality={100}
-                            priority={true}
-                        />
-                        <div className={`h-16 hover:break-normal`}>
-                            <p className={`text-center bg-gray-300 dark:bg-dark-800 px-1 py-2 text-lg`}>{props.game.name}</p>
+                <a className={`relative flex flex-col group`}>
+                    <Image
+                        src={props.game.logoURL.sources[0].src}
+                        className={`w-full group-hover:filter group-hover:blur`}
+                        alt={props.game.name}
+                        width={250}
+                        height={130}
+                        quality={100}
+                        priority={true}
+                    />
+                    <div className={`hidden group-hover:block bg-hsl-100 bg-opacity-40 absolute top-0 left-0 w-full h-full text-black`}>
+                        <div className={`grid w-full h-full`}>
+                            <p className={`text-center text-xl m-auto font-bold`}>{props.game.name}</p>
                         </div>
                     </div>
                 </a>

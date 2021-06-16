@@ -32,12 +32,12 @@ function Preview(props: { file: Blob | string }) {
             setThumb(file);
         }
     }, [file]);
-    console.log(loading);
 
     if (!file || loading) {
         return <p className={`text-center select-none my-auto font-semibold text-xl`}>Upload logo {thumb}</p>;
     }
 
+    // eslint-disable-next-line @next/next/no-img-element
     return <img src={thumb} className={`w-64 h-64 mx-auto sm:mx-0`} alt={"project logo"} />;
 }
 

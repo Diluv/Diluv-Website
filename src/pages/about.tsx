@@ -14,8 +14,8 @@ export default function Feedback(): JSX.Element {
                 <p>Our mission is to empower content creators and their communities with powerful tools and open access to data.</p>
 
                 <h1 className={`mt-8`}>The team</h1>
-                <div className="px-4 container w-11/12 mx-auto my-4 md:px-24 lg:px-8 mb-16">
-                    <div className="grid gap-10 mx-auto sm:grid-cols-2 lg:grid-cols-3 lg:max-w-screen-lg">
+                <div className="px-4 mx-auto w-5/6 mt-4 mb-16">
+                    <div className="flex gap-5 flex-wrap justify-between">
                         <TeamMember
                             name="Darkhax"
                             username={"darkhax"}

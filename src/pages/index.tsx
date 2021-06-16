@@ -21,7 +21,7 @@ export default function IndexPage({ featured }: { featured: Featured }): JSX.Ele
             url={"/"}
         >
             <>
-                <section id={"intro"} className={`w-5/6 mx-auto text-center my-4`}>
+                <section id={"intro"} className={`w-5/6 mx-auto text-center my-4 flex flex-col gap-y-2`}>
                     <h1 className={`text-3xl`}>Welcome to Diluv</h1>
                     <h2 className={`text-xl`}>
                         Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content
@@ -29,7 +29,7 @@ export default function IndexPage({ featured }: { featured: Featured }): JSX.Ele
                         authors!
                     </h2>
                 </section>
-                <section id={"promoGames"} className={`w-5/6 lg:w-5/6 mx-auto promotedGames text-center`}>
+                <section id={"promoGames"} className={`w-5/6 mx-auto promotedGames text-center`}>
                     <GridArea name={"title1"}>
                         <PromotedHeader>Popular Games</PromotedHeader>
                     </GridArea>

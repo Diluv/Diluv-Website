@@ -22,7 +22,7 @@ export default function Members({ project, tags, session }: { project: Project; 
         } else {
             router.push("/");
         }
-    }, [project]);
+    }, [project, router]);
 
     if (!session || !canEdit) {
         return <> </>;
@@ -48,7 +48,7 @@ export default function Members({ project, tags, session }: { project: Project; 
                         <div className={`flex flex-col gap-y-2`}>
                             {project.contributors.map((user) => {
                                 return (
-                                    <div className={`flex gap-x-2`}>
+                                    <div className={`flex gap-x-2`} key={user.userId}>
                                         <Image src={user.avatarURL} alt={user.username} width={48} height={48} quality={100} />
                                         <div className={`flex flex-grow gap-y-2`}>
                                             <div className={`flex flex-col justify-between flex-grow`}>
