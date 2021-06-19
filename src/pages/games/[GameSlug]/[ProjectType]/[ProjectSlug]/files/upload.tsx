@@ -95,7 +95,7 @@ function VersionGroup({ touched, errors }: { touched: FormikTouched<Values>; err
                 placeholder={`Enter version`}
                 id={`version`}
                 name={"version"}
-                className={`p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow dark:border-dark-700 dark-hover:border-dark-600 dark-focus:border-dark-600 dark:bg-dark-800`}
+                className={`p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 outline-none flex-grow dark:border-dark-700 dark:hover:border-dark-600 dark:focus:border-dark-600 dark:bg-dark-800`}
             />
         </div>
     );
@@ -530,7 +530,7 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                                                 className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
                                                                     viewMode.showEdit && !viewMode.showPreview
                                                                         ? `border-diluv-500 hover:border-diluv-500`
-                                                                        : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                                                        : `dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700`
                                                                 }`}
                                                             >
                                                                 <span
@@ -551,7 +551,7 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                                                 className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
                                                                     !viewMode.showEdit && viewMode.showPreview
                                                                         ? `border-diluv-500 hover:border-diluv-500`
-                                                                        : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                                                        : `dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700`
                                                                 }`}
                                                             >
                                                                 <span
@@ -572,7 +572,7 @@ export default function Upload({ project, uploadData, session }: { project: Proj
                                                                 className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
                                                                     viewMode.showEdit && viewMode.showPreview
                                                                         ? `border-diluv-500 hover:border-diluv-500`
-                                                                        : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                                                        : `dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700`
                                                                 }`}
                                                             >
                                                                 <span

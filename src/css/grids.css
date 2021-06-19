@@ -1,5 +1,4 @@
 /* purgecss start ignore */
-
 .createForm {
   grid-template-areas: "image" "name" "summary" "tags" "description" "create";
   grid-template-columns: 1fr;
@@ -23,6 +22,31 @@
   grid-template-areas: "search" "sort";
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
+}
+
+.projectCard {
+  grid-template-areas:
+            "image image image image image"
+            "header header header header header"
+            "summary summary summary summary summary"
+            "downloads downloads downloads downloads downloads"
+            "created created created created spacing"
+            "updated updated updated updated spacing"
+            "tag1 tag2 tag3 tag4 spacing";
+  grid-template-columns: auto auto auto auto 1fr;
+  grid-template-rows: 8rem auto auto auto auto auto auto;
+}
+
+.projectInfo {
+  grid-template-areas: "image" "projectInfo" "summary" "id" "created" "updated" "downloads" "tags";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto auto auto auto auto auto 2rem;
+}
+
+.memberList {
+  grid-template-areas: "avatar name" "avatar role";
+  grid-template-rows: 1.5rem 2.5rem;
+  grid-template-columns: 4rem auto;
 }
 
 @screen sm {
@@ -50,6 +74,24 @@
     grid-template-areas: "image summary";
     grid-template-columns: 16rem 1fr;
   }
+
+  .projectCard {
+    grid-template-areas:
+            "image header header header header header"
+            "image summary summary summary summary summary"
+            "image downloads downloads downloads downloads spacing"
+            "image created created created created spacing"
+            "image updated updated updated updated spacing"
+            "image tag1 tag2 tag3 tag4 spacing";
+    grid-template-columns: 12rem auto auto auto auto 1fr;
+    grid-template-rows: 2.75rem 2.75rem 1.5rem 1.5rem 1.5rem 2rem;
+  }
+
+  .projectInfo {
+    grid-template-areas: "image projectInfo" "image summary" "image id" "image created" "image updated" "image downloads" "image tags" "space space" "download download";
+    grid-template-columns: 14rem 1fr;
+    grid-template-rows: 4.25rem 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem auto 0.5rem auto;
+  }
 }
 
 @screen md {
@@ -67,6 +109,15 @@
   .promotedGamesCards {
     @apply grid-cols-3;
   }
+
+  .projectCard {
+    grid-template-areas:
+            "image header header header header header header header header"
+            "image summary summary summary summary summary summary summary summary"
+            "image downloads created updated tag1 tag2 tag3 tag4 spacing";
+    grid-template-columns: 8rem auto auto auto auto auto auto auto 1fr;
+    grid-template-rows: auto auto auto;
+  }
 }
 
 @screen xl {
@@ -75,5 +126,4 @@
     grid-template-columns: 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr;
   }
 }
-
 /* purgecss end ignore */

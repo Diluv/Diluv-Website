@@ -3,7 +3,7 @@ import useDarkMode from "use-dark-mode";
 import { MoonIcon, SunIcon } from "@heroicons/react/solid";
 
 export default function InternalThemeSwitcher() {
-    const darkMode = useDarkMode(false, { classNameDark: "mode-dark", classNameLight: "mode-light" });
+    const darkMode = useDarkMode(false, { classNameDark: "dark", classNameLight: "light" });
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {

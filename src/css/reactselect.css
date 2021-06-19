@@ -1,58 +1,58 @@
 /* purgecss start ignore */
 
-.mode-dark .select__input {
+.dark .select__input {
   @apply text-dark-100;
 }
 
-.mode-dark .select__control {
+.dark .select__control {
   @apply bg-dark-800 text-dark-100 border-dark-700;
 }
 
-.mode-dark .select__control:hover {
+.dark .select__control:hover {
   @apply border-dark-600;
 }
 
-.mode-dark .select__control:focus {
+.dark .select__control:focus {
   @apply border-dark-600;
 }
 
-.mode-dark .select__single-value {
+.dark .select__single-value {
   @apply text-dark-100;
 }
 
-.mode-dark .select__multi-value {
+.dark .select__multi-value {
   @apply bg-blue-900 text-dark-100 rounded-none;
 }
 
-.mode-dark .select__multi-value__label {
+.dark .select__multi-value__label {
   @apply text-dark-100;
 }
 
-.mode-dark .select__multi-value__remove:hover {
+.dark .select__multi-value__remove:hover {
   @apply bg-red-900 text-red-700 rounded-none;
 }
 
-.mode-dark .select__indicator {
+.dark .select__indicator {
   @apply text-dark-100;
 }
 
-.mode-dark .select__indicator:hover {
+.dark .select__indicator:hover {
   @apply text-dark-50;
 }
 
-.mode-dark .select__option {
+.dark .select__option {
   @apply bg-dark-800 text-dark-100 active:bg-blue-600;
 }
 
-.mode-dark .select__menu {
+.dark .select__menu {
   @apply bg-dark-800 rounded-none;
 }
 
-.mode-dark .select__option--is-selected {
+.dark .select__option--is-selected {
   @apply bg-blue-900;
 }
 
-.mode-dark .select__option--is-focused {
+.dark .select__option--is-focused {
   @apply bg-blue-800;
 }
 

@@ -227,7 +227,7 @@ export default function Description({ project, tags, session }: { project: Proje
                                                 className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
                                                     viewMode.showEdit && !viewMode.showPreview
                                                         ? `border-diluv-500 hover:border-diluv-500`
-                                                        : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                                        : `dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700`
                                                 }`}
                                             >
                                                 <span className={`select-none ${viewMode.showEdit && !viewMode.showPreview ? `text-diluv-600` : ``}`}>
@@ -244,7 +244,7 @@ export default function Description({ project, tags, session }: { project: Proje
                                                 className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
                                                     !viewMode.showEdit && viewMode.showPreview
                                                         ? `border-diluv-500 hover:border-diluv-500`
-                                                        : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                                        : `dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700`
                                                 }`}
                                             >
                                                 <span className={`select-none ${!viewMode.showEdit && viewMode.showPreview ? `text-diluv-600` : ``}`}>
@@ -261,7 +261,7 @@ export default function Description({ project, tags, session }: { project: Proje
                                                 className={`cursor-pointer px-2 pb-1 -mb-0.125 border-b-2 ${
                                                     viewMode.showEdit && viewMode.showPreview
                                                         ? `border-diluv-500 hover:border-diluv-500`
-                                                        : `dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`
+                                                        : `dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700`
                                                 }`}
                                             >
                                                 <span className={`select-none ${viewMode.showEdit && viewMode.showPreview ? `text-diluv-600` : ``}`}>

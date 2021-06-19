@@ -44,7 +44,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
     const projectUrl = `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`;
     return (
         <>
-            <div className={`grid my-3 w-full mx-auto gap-x-2 gap-y-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
+            <div className={`grid my-3 w-full mx-auto gap-x-2 gap-y-1 projectCard`}>
                 <GridArea name={`image`}>
                     <Link href={projectUrl}>
                         <a>

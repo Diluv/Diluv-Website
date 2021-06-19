@@ -71,7 +71,7 @@ export default function Pagination({
                 containerClassName={`grid grid-cols-pagination`}
                 activeClassName={`!bg-gray-400 hover:!bg-gray-400 dark:!bg-dark-800 dark:!hover:bg-dark-400`}
                 activeLinkClassName={`!block`}
-                pageClassName={`block bg-gray-200 hover:bg-gray-300 dark-hover:bg-dark-600 dark:bg-dark-700 border dark:border-dark-600 text-center`}
+                pageClassName={`block bg-gray-200 hover:bg-gray-300 dark:hover:bg-dark-600 dark:bg-dark-700 border dark:border-dark-600 text-center`}
                 pageLinkClassName={`block py-1`}
                 previousClassName={`border dark:border-dark-600 text-center px-auto ${
                     page === 1 || maxPage === 0 ? `bg-white dark:bg-dark-900` : `bg-gray-200 hover:bg-gray-300 dark:bg-dark-700`

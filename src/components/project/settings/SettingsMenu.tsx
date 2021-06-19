@@ -125,7 +125,7 @@ function SettingsSideBarOption({
                     <a>
                         <div
                             className={`p-1 text-center  cursor-pointer select-none ${
-                                isCurrent() ? `bg-diluv-300 dark:bg-diluv-800` : `hover:bg-gray-200 dark-hover:bg-dark-800`
+                                isCurrent() ? `bg-diluv-300 dark:bg-diluv-800` : `hover:bg-gray-200 dark:hover:bg-dark-800`
                             }`}
                         >
                             {children}
@@ -136,7 +136,7 @@ function SettingsSideBarOption({
                 <>
                     <div
                         className={`p-1 text-center  cursor-pointer select-none ${
-                            isCurrent() ? `bg-diluv-300 dark:bg-diluv-800` : `hover:bg-gray-200 dark-hover:bg-dark-800`
+                            isCurrent() ? `bg-diluv-300 dark:bg-diluv-800` : `hover:bg-gray-200 dark:hover:bg-dark-800`
                         }`}
                     >
                         {children}

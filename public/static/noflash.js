@@ -1,7 +1,7 @@
 (function() {
     let storageKey = "darkMode";
-    let classNameDark = "mode-dark";
-    let classNameLight = "mode-light";
+    let classNameDark = "dark";
+    let classNameLight = "light";
     function setClassOnDocumentBody(darkMode) {
         document.body.classList.add(darkMode ? classNameDark : classNameLight);
         document.body.classList.remove(darkMode ? classNameLight : classNameDark);

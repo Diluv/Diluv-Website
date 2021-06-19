@@ -4,143 +4,75 @@
   font-display: block;
 }
 
-/* purgecss start ignore */
 @tailwind base;
 @tailwind components;
-/* purgecss end ignore */
+@tailwind utilities;
 
-.btn {
-  @apply block w-full p-2;
-}
 
-.btn-diluv {
-  @apply block w-full bg-diluv-500 text-white p-2;
-}
+@layer components {
 
-.btn-diluv:hover {
-  @apply bg-diluv-600;
-}
-
-.btn-diluv:disabled {
-  @apply bg-diluv-500 opacity-50 cursor-default;
-}
-
-.btn-cancel {
-  @apply block w-full bg-red-500 text-white p-2 select-none;
-}
-
-.btn-cancel:hover {
-  @apply bg-red-600;
-}
-
-.btn-cancel:disabled {
-  @apply bg-red-500 opacity-50 cursor-default;
-}
-
-.theme-dark {
-  background-color: #2d3748;
-  color: #f7fafc;
-}
-
-.theme-light {
-  background-color: #fff;
-  color: rgb(0, 0, 0);
-}
-
-.font-hero {
-  font-family: "hero", sans-serif;
-}
-
-.fadeout {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 0.15s, opacity 0.15s ease-out;
-}
-
-.expand-image {
-  transition: 0.8s cubic-bezier(1, -1, 0, 1);
-  clip-path: circle(50% at 50% 50%);
-}
-
-.expand-image:hover {
-  clip-path: circle(70.7% at 50% 50%);
-}
-
-.minmax-height {
-  min-height: 100vh;
-  max-height: 100vh;
-}
-
-.hover-link {
-  @apply hover:text-diluv-600 dark-hover:text-diluv-500;
-}
-
-.nav-link {
-  @apply md:mr-5 hover:text-white w-full md:w-auto block md:inline p-2 md:p-0;
-}
-
-@responsive {
-  .projectCardLarge {
-    grid-template-areas:
-            "image header header header header header header header header"
-            "image summary summary summary summary summary summary summary summary"
-            "image downloads created updated tag1 tag2 tag3 tag4 spacing";
-    grid-template-columns: 8rem auto auto auto auto auto auto auto 1fr;
-    grid-template-rows: auto auto auto;
+  .btn {
+    @apply block w-full p-2;
   }
 
-  .projectCardMedium {
-    grid-template-areas:
-            "image header header header header header"
-            "image summary summary summary summary summary"
-            "image downloads downloads downloads downloads spacing"
-            "image created created created created spacing"
-            "image updated updated updated updated spacing"
-            "image tag1 tag2 tag3 tag4 spacing";
-    grid-template-columns: 12rem auto auto auto auto 1fr;
-    grid-template-rows: 2.75rem 2.75rem 1.5rem 1.5rem 1.5rem 2rem;
+  .btn-diluv {
+    @apply block w-full bg-diluv-500 text-white p-2;
   }
 
-  .projectCardSmall {
-    grid-template-areas:
-            "image image image image image"
-            "header header header header header"
-            "summary summary summary summary summary"
-            "downloads downloads downloads downloads downloads"
-            "created created created created spacing"
-            "updated updated updated updated spacing"
-            "tag1 tag2 tag3 tag4 spacing";
-    grid-template-columns: auto auto auto auto 1fr;
-    grid-template-rows: 8rem auto auto auto auto auto auto;
+  .btn-diluv:hover {
+    @apply bg-diluv-600;
   }
 
-  .projectInfoSmall {
-    grid-template-areas: "image" "projectInfo" "summary" "id" "created" "updated" "downloads" "tags";
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto auto auto auto auto auto 2rem;
+  .btn-diluv:disabled {
+    @apply bg-diluv-500 opacity-50 cursor-default;
   }
 
-  .projectInfoMedium {
-    grid-template-areas: "image projectInfo" "image summary" "image id" "image created" "image updated" "image downloads" "image tags" "space space" "download download";
-    grid-template-columns: 14rem 1fr;
-    grid-template-rows: 4.25rem 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem auto 0.5rem auto;
+  .btn-cancel {
+    @apply block w-full bg-red-500 text-white p-2 select-none;
   }
 
-  .memberList {
-    grid-template-areas: "avatar name" "avatar role";
-    grid-template-rows: 1.5rem 2.5rem;
-    grid-template-columns: 4rem auto;
+  .btn-cancel:hover {
+    @apply bg-red-600;
+  }
+
+  .btn-cancel:disabled {
+    @apply bg-red-500 opacity-50 cursor-default;
+  }
+
+  .themeSwitcher {
+    @apply w-full h-7 md:w-5 md:h-5 mx-auto my-auto fill-current;
+  }
+
+  .themeSwitcherContainer {
+    @apply p-1.5 md:p-0 cursor-pointer hover:text-diluv-600 dark:hover:text-diluv-500 select-none;
   }
 
 }
 
+@layer utilities {
+  .font-hero {
+    font-family: "hero", sans-serif;
+  }
 
-.themeSwitcher {
-  @apply w-full h-7 md:w-5 md:h-5 mx-auto my-auto fill-current;
-}
+  .hover-link {
+    @apply hover:text-diluv-600 dark:hover:text-diluv-500;
+  }
 
-.themeSwitcherContainer {
-  @apply p-1.5 md:p-0 cursor-pointer hover:text-diluv-600 dark-hover:text-diluv-500 select-none;
+  .nav-link {
+    @apply md:mr-5 hover:text-white w-full md:w-auto block md:inline p-2 md:p-0;
+  }
+
+  .fadeout {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.15s, opacity 0.15s ease-out;
+  }
+
+  .minmax-height {
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+
 }
 
 /* purgecss start ignore */
@@ -151,4 +83,4 @@
 
 /* purgecss end ignore */
 
-@tailwind utilities;
+

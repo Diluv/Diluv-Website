@@ -50,7 +50,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
     const projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
     return (
         <>
-            <div className={`grid my-4 w-full mx-auto gap-x-2 gap-y-1 projectCardSmall sm:projectCardMedium lg:projectCardLarge`}>
+            <div className={`grid my-4 w-full mx-auto gap-x-2 gap-y-1 projectCard`}>
                 <GridArea name={`image`}>
                     <Link href={projectUrl}>
                         <a>

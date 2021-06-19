@@ -54,7 +54,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                 <></>
             )}
 
-            <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfoSmall sm:projectInfoMedium`}>
+            <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfo`}>
                 <GridArea name={`image`}>
                     <Image
                         src={project.logo}
@@ -115,7 +115,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                         <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}>
                             <a className={`block`}>
                                 <div
-                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700`}
                                 >
                                     Description
                                 </div>
@@ -131,7 +131,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                         <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}>
                             <a className={`block`}>
                                 <div
-                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700 `}
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700 `}
                                 >
                                     Files
                                 </div>
@@ -147,7 +147,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                         <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}>
                             <a className={`block`}>
                                 <div
-                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark-hover:border-diluv-700`}
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-diluv-300 dark:hover:border-diluv-700`}
                                 >
                                     Members
                                 </div>
@@ -158,58 +158,58 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
 
                 <div className={`flex flex-col sm:flex-row`}>
                     {canEditFile(project) &&
-                        fileId &&
-                        (isEditFilePage() ? (
-                            <div
-                                className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-4 sm:col-end-5`}
-                            >
-                                <span className={`cursor-default select-none text-amber-600`}>Edit File</span>
-                            </div>
-                        ) : (
-                            <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${fileId}/edit`}>
-                                <a className={`block sm:col-start-5`}>
-                                    <div
-                                        className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
-                                    >
-                                        Edit File
-                                    </div>
-                                </a>
-                            </Link>
-                        ))}
+                    fileId &&
+                    (isEditFilePage() ? (
+                        <div
+                            className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-4 sm:col-end-5`}
+                        >
+                            <span className={`cursor-default select-none text-amber-600`}>Edit File</span>
+                        </div>
+                    ) : (
+                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${fileId}/edit`}>
+                            <a className={`block sm:col-start-5`}>
+                                <div
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark:hover:border-amber-700`}
+                                >
+                                    Edit File
+                                </div>
+                            </a>
+                        </Link>
+                    ))}
 
                     {canUploadFile(project) &&
-                        (isUploadFile() ? (
-                            <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-6`}>
-                                <span className={`cursor-default select-none text-amber-600`}>Upload File</span>
-                            </div>
-                        ) : (
-                            <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/upload`}>
-                                <a className={`block sm:col-start-5`}>
-                                    <div
-                                        className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
-                                    >
-                                        Upload File
-                                    </div>
-                                </a>
-                            </Link>
-                        ))}
+                    (isUploadFile() ? (
+                        <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-6`}>
+                            <span className={`cursor-default select-none text-amber-600`}>Upload File</span>
+                        </div>
+                    ) : (
+                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/upload`}>
+                            <a className={`block sm:col-start-5`}>
+                                <div
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark:hover:border-amber-700`}
+                                >
+                                    Upload File
+                                </div>
+                            </a>
+                        </Link>
+                    ))}
 
                     {canEditProject(project) &&
-                        (isSettings() ? (
-                            <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-7`}>
-                                <span className={`cursor-default select-none text-amber-600`}>Settings</span>
-                            </div>
-                        ) : (
-                            <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
-                                <a className={`block sm:col-start-6`}>
-                                    <div
-                                        className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark-hover:border-amber-700`}
-                                    >
-                                        Settings
-                                    </div>
-                                </a>
-                            </Link>
-                        ))}
+                    (isSettings() ? (
+                        <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 border-amber-500 hover:border-amber-500 sm:col-start-7`}>
+                            <span className={`cursor-default select-none text-amber-600`}>Settings</span>
+                        </div>
+                    ) : (
+                        <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}>
+                            <a className={`block sm:col-start-6`}>
+                                <div
+                                    className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 border-b-2 dark:border-dark-700 hover:border-amber-300 dark:hover:border-amber-700`}
+                                >
+                                    Settings
+                                </div>
+                            </a>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </div>

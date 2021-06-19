@@ -5,6 +5,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
     mode: "jit",
     purge: ["./src/**/*.{js,ts,jsx,tsx}"],
+    darkMode: "class",
     theme: {
         colors: {
             "transparent": "transparent",
@@ -217,7 +218,7 @@ module.exports = {
             },
             colors: {
                 blue: {
-                    ...colors.lightBlue,
+                    ...colors.sky,
                     650: "#0377B4"
                 }
             }
@@ -234,21 +235,15 @@ module.exports = {
             "disabled",
             "odd",
             "even",
-            "dark",
-            "dark-focus",
-            "dark-hover",
-            "dark-group-hover",
-            "dark-even",
-            "dark-odd"
+            "dark"
         ],
-        textColor: ["responsive", "hover", "focus", "disabled", "dark", "dark-hover", "dark-active", "dark-focus", "dark-placeholder"],
+        textColor: ["responsive", "hover", "focus", "disabled", "dark"],
         transitionProperty: ["responsive", "hover", "focus"],
         borderWidth: ["responsive", "hover", "focus"],
-        borderColor: ["responsive", "hover", "focus", "active", "group-hover", "dark", "dark-hover", "dark-active", "dark-focus"],
+        borderColor: ["responsive", "hover", "focus", "active", "group-hover"],
         textIndent: ["responsive"]
     },
     plugins: [
-        require("tailwindcss-dark-mode")(),
         require("tailwindcss-text-indent")(),
         plugin(function ({ addBase, config }) {
             addBase({

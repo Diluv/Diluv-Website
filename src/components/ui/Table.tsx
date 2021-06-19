@@ -21,7 +21,7 @@ export function TableBody({ children }: { children: ReactNode }) {
 }
 
 export function TableRow({ children }: { children: ReactNode }) {
-    return <tr className={`odd:bg-white even:bg-diluv-100 dark-odd:bg-dark-850 dark-even:bg-dark-800`}>{children}</tr>;
+    return <tr className={`odd:bg-white even:bg-diluv-100 dark:odd:bg-dark-850 dark:even:bg-dark-800`}>{children}</tr>;
 }
 
 export function TableData({ children }: { children: ReactNode }) {

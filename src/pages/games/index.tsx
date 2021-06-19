@@ -78,7 +78,7 @@ export default function GameIndex({
                                 />
                                 <DebounceInput
                                     className={
-                                        "p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 flex-grow indent-sm dark:border-dark-700 dark-hover:border-dark-600 dark-focus:border-dark-600 dark:bg-dark-800 outline-none w-full sm:w-auto"
+                                        "p-1 border border-gray-400 hover:border-gray-500 focus:border-gray-500 flex-grow indent-sm dark:border-dark-700 dark:hover:border-dark-600 dark:focus:border-dark-600 dark:bg-dark-800 outline-none w-full sm:w-auto"
                                     }
                                     minLength={3}
                                     debounceTimeout={500}

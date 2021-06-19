@@ -32,7 +32,7 @@ export function FilterTag({
         <div
             className={`inline flex cursor-pointer px-2 align-middle text-hsl-800 dark:text-dark-100 ${
                 !hasTag() ? `bg-hsl-100 dark:bg-hsl-800` : `bg-tag dark:bg-tag-dark`
-            } hover:bg-tag dark-hover:bg-tag-dark`}
+            } hover:bg-tag dark:hover:bg-tag-dark`}
             onClick={onClick}
         >
             <span>{tagName}</span>
@@ -43,7 +43,7 @@ export function FilterTag({
 export function DisplayTag({ tagName, tagSlug }: { tagName: string; tagSlug: string }): JSX.Element {
     return (
         <div
-            className={`inline flex cursor-default px-2 align-middle bg-hsl-100 dark:bg-hsl-800 hover:bg-tag dark-hover:bg-tag-dark text-hsl-800 dark:text-dark-100 `}
+            className={`inline flex cursor-default px-2 align-middle bg-hsl-100 dark:bg-hsl-800 hover:bg-tag dark:hover:bg-tag-dark text-hsl-800 dark:text-dark-100 `}
         >
             <span>{tagName}</span>
         </div>

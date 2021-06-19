@@ -36,7 +36,7 @@ function Markdown({ markdown }: Props): JSX.Element {
                         .use(admonitions) // Adds support for notices/admonitions
                         .use(underline) // Adds underlined text support
                         .use(spoiler, {
-                            classNames: `bg-black text-black hover:bg-transparent dark:text-white dark:bg-white dark-hover:bg-transparent`
+                            classNames: `bg-black text-black hover:bg-transparent dark:text-white dark:bg-white dark:hover:bg-transparent`
                         }) // Adds spoiler text support
                         .use(html) // Renders previous stuff into HTML where appropriate
                         .use(reactRenderer, {
