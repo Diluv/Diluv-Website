@@ -8,7 +8,6 @@ import directive from "remark-directive";
 import gfm from "remark-gfm";
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import visit from "unist-util-visit";
 import h from "hastscript";
 import { Node } from "unist";
@@ -17,7 +16,7 @@ const admonition = (className: string, type: string) => {
     // eslint-disable-next-line react/display-name
     return (elem: any) => {
         return (
-            <div className={className}>
+            <div className={"admonition alert " + className}>
                 <div className="admonition-heading"><h5><span className="admonition-icon"></span>{elem.title || type}</h5></div>
                 <div className="admonition-content">{elem.children}</div>
             </div>
@@ -25,11 +24,11 @@ const admonition = (className: string, type: string) => {
     };
 };
 const components = {
-    important: admonition("admonition admonition-important alert alert--info", "important"),
-    tip: admonition("admonition admonition-tip alert alert--success", "tip"),
-    note: admonition("admonition admonition-note alert alert--secondary", "note"),
-    warning: admonition("admonition admonition-warning alert alert--danger", "warning"),
-    caution: admonition("admonition admonition-caution alert alert--warning", "caution")
+    important: admonition("admonition-important alert--info", "important"),
+    tip: admonition("admonition-tip alert--success", "tip"),
+    note: admonition("admonition-note alert--secondary", "note"),
+    warning: admonition("admonition-warning alert--danger", "warning"),
+    caution: admonition("admonition-caution alert--warning", "caution")
 };
 
 function htmlDirectives() {
@@ -54,7 +53,7 @@ function Markdown({ markdown }: { markdown: string; }): JSX.Element {
     return (
         <div className={`markdown break-words`}>
             {/*@ts-ignore*/}
-            <ReactMarkdown components={components} rehypePlugins={[rehypeRaw]}
+            <ReactMarkdown components={components}
                            remarkPlugins={[gfm, slug, headings, directive, htmlDirectives]}>
                 {markdown}
             </ReactMarkdown>
