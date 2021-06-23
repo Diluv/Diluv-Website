@@ -135,6 +135,6 @@ This is a body which can include **markdown** formatting.
 :::
 ```
 
-:::tip Your Title Here
+:::tip{title="Your Title Here"}
 This is a body which can include **markdown** formatting.
 :::

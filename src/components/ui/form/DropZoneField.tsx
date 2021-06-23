@@ -2,7 +2,6 @@ import { useField } from "formik";
 import React, { useEffect, useState } from "react";
 import Dropzone, { FileError } from "react-dropzone";
 import fileSize from "filesize";
-import filesize from "filesize";
 import { onLoadAsync } from "utils/util";
 import { XCircleIcon } from "@heroicons/react/solid";
 
@@ -190,7 +189,7 @@ export function DropZoneFileField(props: { name: string; setErrors: (errors: str
                                 File Name: <pre className={`break-all whitespace-pre-wrap`}>{value.name}</pre>
                             </span>
                             <span className={`font-medium`}>
-                                File Size: <pre>{filesize(value.size)}</pre>
+                                File Size: <pre>{fileSize(value.size)}</pre>
                             </span>
                         </div>
                     ) : (

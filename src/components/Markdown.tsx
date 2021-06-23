@@ -1,51 +1,63 @@
-import remark from "remark";
 // @ts-ignore
 import reactRenderer from "remark-react";
-import merge from "deepmerge";
-import github from "hast-util-sanitize/lib/github.json";
-import html from "remark-html";
 // @ts-ignore
 import slug from "remark-slug";
 // @ts-ignore
 import headings from "remark-autolink-headings";
-// @ts-ignore
-import underline from "remark-underline";
-// @ts-ignore
-import spoiler from "remark-spoiler";
-// @ts-ignore
-import admonitions from "remark-admonitions";
+import directive from "remark-directive";
+import gfm from "remark-gfm";
 import React from "react";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import visit from "unist-util-visit";
+import h from "hastscript";
+import { Node } from "unist";
 
-type Props = {
-    markdown: string;
+const admonition = (className: string, type: string) => {
+    // eslint-disable-next-line react/display-name
+    return (elem: any) => {
+        return (
+            <div className={className}>
+                <div className="admonition-heading"><h5><span className="admonition-icon"></span>{elem.title || type}</h5></div>
+                <div className="admonition-content">{elem.children}</div>
+            </div>
+        );
+    };
+};
+const components = {
+    important: admonition("admonition admonition-important alert alert--info", "important"),
+    tip: admonition("admonition admonition-tip alert alert--success", "tip"),
+    note: admonition("admonition admonition-note alert alert--secondary", "note"),
+    warning: admonition("admonition admonition-warning alert alert--danger", "warning"),
+    caution: admonition("admonition admonition-caution alert alert--warning", "caution")
 };
 
-const schema = merge(github, {
-    clobberPrefix: "",
-    attributes: { "*": ["className"] } // Allows className through the filter
-});
+function htmlDirectives() {
+    return transform;
 
-function Markdown({ markdown }: Props): JSX.Element {
+    function transform(tree: Node) {
+        visit(tree, ["textDirective", "leafDirective", "containerDirective"], ondirective);
+    }
+
+    function ondirective(node: Node) {
+        var data = node.data || (node.data = {});
+        // @ts-ignore
+        var hast = h(node.name, node.attributes);
+
+        data.hName = hast.tagName;
+        data.hProperties = hast.properties;
+    }
+}
+
+
+function Markdown({ markdown }: { markdown: string; }): JSX.Element {
     return (
         <div className={`markdown break-words`}>
-            <>
-                {
-                    remark()
-                        .use(slug) // GitHub like anchor slugs for headings.
-                        .use(headings) // Applies references for slug anchors. May be an issue here with how it's being applied as it throws a console error.
-                        .use(admonitions) // Adds support for notices/admonitions
-                        .use(underline) // Adds underlined text support
-                        .use(spoiler, {
-                            classNames: `bg-black text-black hover:bg-transparent dark:text-white dark:bg-white dark:hover:bg-transparent`
-                        }) // Adds spoiler text support
-                        .use(html) // Renders previous stuff into HTML where appropriate
-                        .use(reactRenderer, {
-                            // Renders to react fragments.
-                            sanitize: schema
-                        })
-                        .processSync(markdown).result
-                }
-            </>
+            {/*@ts-ignore*/}
+            <ReactMarkdown components={components} rehypePlugins={[rehypeRaw]}
+                           remarkPlugins={[gfm, slug, headings, directive, htmlDirectives]}>
+                {markdown}
+            </ReactMarkdown>
         </div>
     );
 }

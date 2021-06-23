@@ -5,7 +5,6 @@ const nextConfig = {
     eslint: {
         dirs: ["src"]
     },
-    webpack5: true,
     webpack(config) {
         return config;
     },
