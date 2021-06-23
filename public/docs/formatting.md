@@ -130,7 +130,7 @@ Tables allow you to organize your data into rows and columns.
 You can create a notice by using the following syntax. We currently support `tip`, `warning`, `important`, `note`.
 
 ```
-:::tip Your Title Here
+:::tip{title="Your Title Here"}
 This is a body which can include **markdown** formatting.
 :::
 ```
