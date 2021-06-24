@@ -35,10 +35,10 @@ function htmlDirectives() {
     return transform;
 
     function transform(tree: Node) {
-        visit(tree, ["textDirective", "leafDirective", "containerDirective"], ondirective);
+        visit(tree, ["textDirective", "leafDirective", "containerDirective"], onDirective);
     }
 
-    function ondirective(node: Node) {
+    function onDirective(node: Node) {
         var data = node.data || (node.data = {});
         // @ts-ignore
         var hast = h(node.name, node.attributes);
@@ -54,7 +54,7 @@ function Markdown({ markdown }: { markdown: string; }): JSX.Element {
         <div className={`markdown break-words`}>
             {/*@ts-ignore*/}
             <ReactMarkdown components={components}
-                           remarkPlugins={[gfm, slug, headings, directive, htmlDirectives]}>
+                           remarkPlugins={[[gfm, { singleTilde: false }], slug, headings, directive, htmlDirectives]}>
                 {markdown}
             </ReactMarkdown>
         </div>
