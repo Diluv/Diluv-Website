@@ -12,8 +12,8 @@ export default function GameCard(props: { game: Game }) {
                         src={props.game.logoURL.sources[0].src}
                         className={`w-full group-hover:filter group-hover:blur`}
                         alt={props.game.name}
-                        width={250}
-                        height={130}
+                        width={360}
+                        height={180}
                         quality={100}
                         priority={true}
                     />

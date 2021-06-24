@@ -24,6 +24,8 @@ function NavBar(): JSX.Element {
                         </a>
                     </Link>
                     <button
+                        type={"button"}
+                        aria-label={"Open NavBar Dropdown"}
                         className={`border border-gray-500 hover:text-white hover:border-white p-1 block md:hidden`}
                         onClick={() => setShowingMenu(!showingMenu)}
                     >
