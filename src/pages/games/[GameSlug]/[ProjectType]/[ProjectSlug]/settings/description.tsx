@@ -4,7 +4,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ProjectInfo from "components/project/ProjectInfo";
-import { Project, SlugName } from "interfaces";
+import { Project, SessionWithExtra, SlugName } from "interfaces";
 import { API_URL } from "utils/api";
 import { getAuthed, patchAuthed } from "utils/request";
 import { canEditProject } from "utils/util";
@@ -46,7 +46,7 @@ interface Values extends FormikValues {
     logo: Blob | string;
 }
 
-export default function Description({ project, tags, session }: { project: Project; tags: SlugName[]; session: Session }): JSX.Element {
+export default function Description({ project, tags, session }: { project: Project; tags: SlugName[]; session: SessionWithExtra }): JSX.Element {
     const [canEdit, setCanEdit] = useState(false);
     const router = useRouter();
 
@@ -79,9 +79,8 @@ export default function Description({ project, tags, session }: { project: Proje
                 <div className={`flex lg:flex-row flex-col gap-x-4 lg:mt-4`}>
                     <SettingsMenu
                         currentOption={OPTIONS.DESCRIPTION}
-                        gameSlug={project.game.slug}
-                        projectType={project.projectType.slug}
-                        projectSlug={project.slug}
+                        project={project}
+                        session={session}
                     />
                     <div className={`flex-grow`}>
                         {logoErrors.length > 0 ? (

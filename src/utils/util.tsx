@@ -1,6 +1,7 @@
 import React, { Dispatch, FocusEvent, ReactNode } from "react";
 import { Project } from "interfaces";
 import Link from "next/link";
+import { GetServerSidePropsResult } from "next";
 
 export function onFocus(setSelectedField: Dispatch<string>, event: FocusEvent<any>): void {
     setSelectedField(event.target.id);
@@ -77,4 +78,16 @@ export function readUploadedFileAsText(inputFile: File): Promise<string | ArrayB
         };
         temporaryFileReader.readAsText(inputFile);
     });
+}
+
+export function conditionalRedirect(condition: boolean, to: string, permanent: boolean): { shouldRedirect: boolean, redirect: GetServerSidePropsResult<never> } {
+
+    return {
+        shouldRedirect: condition, redirect: {
+            redirect: {
+                destination: to,
+                permanent: permanent
+            }
+        }
+    };
 }

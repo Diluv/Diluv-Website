@@ -1,27 +1,28 @@
 import Link from "next/link";
 import { ReactNode } from "react";
+import { Project, SessionWithExtra } from "../../../interfaces";
 
 // These correspond to the page names as well!
 export const OPTIONS = {
     DESCRIPTION: "description",
     TEAM_MEMBERS: "members",
-    NYI: "nyi"
+    NYI: "nyi",
+    DELETE: "delete",
+    TRANSFER: "transfer"
 };
 
 export default function SettingsMenu({
     currentOption,
-    gameSlug,
-    projectType,
-    projectSlug
+    project,
+    session
 }: {
     currentOption: string;
-    gameSlug: string;
-    projectType: string;
-    projectSlug: string;
+    project: Project;
+    session: SessionWithExtra
 }): JSX.Element {
     return (
         <>
-            <SettingsSideBar currentOption={currentOption} gameSlug={gameSlug} projectType={projectType} projectSlug={projectSlug} />
+            <SettingsSideBar currentOption={currentOption} project={project} session={session} />
             <SettingsBar />
         </>
     );
@@ -29,15 +30,14 @@ export default function SettingsMenu({
 
 export function SettingsSideBar({
     currentOption,
-    gameSlug,
-    projectType,
-    projectSlug
+    project,
+    session
 }: {
     currentOption: string;
-    gameSlug: string;
-    projectType: string;
-    projectSlug: string;
+    project: Project;
+    session: SessionWithExtra
 }): JSX.Element {
+
     return (
         <div className={`hidden lg:block lg:w-1/3 xl:w-56 flex-none`}>
             <div className={`border border-gray-400 dark:border-dark-600 `}>
@@ -45,9 +45,7 @@ export function SettingsSideBar({
                     <SettingsSideBarOption
                         optionValue={OPTIONS.DESCRIPTION}
                         currentValue={currentOption}
-                        gameSlug={gameSlug}
-                        projectType={projectType}
-                        projectSlug={projectSlug}
+                        project={project}
                     >
                         Description
                     </SettingsSideBarOption>
@@ -56,9 +54,7 @@ export function SettingsSideBar({
                     <SettingsSideBarOption
                         optionValue={OPTIONS.TEAM_MEMBERS}
                         currentValue={currentOption}
-                        gameSlug={gameSlug}
-                        projectType={projectType}
-                        projectSlug={projectSlug}
+                        project={project}
                     >
                         Team Members
                     </SettingsSideBarOption>
@@ -67,9 +63,7 @@ export function SettingsSideBar({
                     <SettingsSideBarOption
                         optionValue={OPTIONS.NYI}
                         currentValue={currentOption}
-                        gameSlug={gameSlug}
-                        projectType={projectType}
-                        projectSlug={projectSlug}
+                        project={project}
                     >
                         NYI
                     </SettingsSideBarOption>
@@ -78,11 +72,27 @@ export function SettingsSideBar({
                     <SettingsSideBarOption
                         optionValue={OPTIONS.NYI}
                         currentValue={currentOption}
-                        gameSlug={gameSlug}
-                        projectType={projectType}
-                        projectSlug={projectSlug}
+                        project={project}
                     >
                         NYI
+                    </SettingsSideBarOption>
+                </SettingsGroup>
+                <SettingsGroup headerName="Admin">
+                    <SettingsSideBarOption
+                        optionValue={OPTIONS.TRANSFER}
+                        currentValue={currentOption}
+                        project={project}
+                        disabled={project.contributors.filter(value => value.role === "owner")[0].username !== session.user?.id}
+                    >
+                        Transfer Project
+                    </SettingsSideBarOption>
+                    <SettingsSideBarOption
+                        optionValue={OPTIONS.DELETE}
+                        currentValue={currentOption}
+                        project={project}
+                        disabled={project.contributors.filter(value => value.role === "owner")[0].username !== session.user?.id}
+                    >
+                        Delete Project
                     </SettingsSideBarOption>
                 </SettingsGroup>
             </div>
@@ -103,16 +113,14 @@ function SettingsSideBarOption({
     children,
     optionValue,
     currentValue,
-    gameSlug,
-    projectType,
-    projectSlug
+    project,
+    disabled = false
 }: {
     children: ReactNode;
     optionValue: string;
     currentValue: string;
-    gameSlug: string;
-    projectType: string;
-    projectSlug: string;
+    project: Project;
+    disabled?: boolean;
 }): JSX.Element {
     function isCurrent() {
         return optionValue === currentValue;
@@ -120,14 +128,10 @@ function SettingsSideBarOption({
 
     return (
         <>
-            {!isCurrent() && optionValue !== OPTIONS.NYI ? (
-                <Link href={`/games/${gameSlug}/${projectType}/${projectSlug}/settings/${optionValue}`}>
+            {!disabled && !isCurrent() && optionValue !== OPTIONS.NYI ? (
+                <Link href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings/${optionValue}`}>
                     <a>
-                        <div
-                            className={`p-1 text-center  cursor-pointer select-none ${
-                                isCurrent() ? `bg-diluv-300 dark:bg-diluv-800` : `hover:bg-gray-200 dark:hover:bg-dark-800`
-                            }`}
-                        >
+                        <div className={`p-1 text-center cursor-pointer select-none hover:bg-gray-200 dark:hover:bg-dark-800`}>
                             {children}
                         </div>
                     </a>
@@ -135,9 +139,7 @@ function SettingsSideBarOption({
             ) : (
                 <>
                     <div
-                        className={`p-1 text-center  cursor-pointer select-none ${
-                            isCurrent() ? `bg-diluv-300 dark:bg-diluv-800` : `hover:bg-gray-200 dark:hover:bg-dark-800`
-                        }`}
+                        className={`p-1 text-center select-none ${disabled ? `bg-red-300 bg-opacity-50 cursor-not-allowed` : `cursor-pointer ${isCurrent() ? `bg-diluv-300 dark:bg-diluv-800` : `hover:bg-gray-200 dark:hover:bg-dark-800`}`}`}
                     >
                         {children}
                     </div>

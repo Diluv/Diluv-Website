@@ -3,16 +3,15 @@ import SettingsMenu, { OPTIONS } from "components/project/settings/SettingsMenu"
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ProjectInfo from "components/project/ProjectInfo";
-import { Project, SlugName } from "interfaces";
+import { Project, SessionWithExtra, SlugName } from "interfaces";
 import { API_URL } from "utils/api";
 import { canEditProject } from "utils/util";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { getAuthed } from "utils/request";
 import Image from "next/image";
 import { getSession } from "next-auth/client";
-import { Session } from "next-auth";
 
-export default function Members({ project, tags, session }: { project: Project; tags: SlugName[]; session: Session }): JSX.Element {
+export default function Members({ project, tags, session }: { project: Project; tags: SlugName[]; session: SessionWithExtra }): JSX.Element {
     const [canEdit, setCanEdit] = useState(false);
     const router = useRouter();
 
@@ -27,6 +26,7 @@ export default function Members({ project, tags, session }: { project: Project; 
     if (!session || !canEdit) {
         return <> </>;
     }
+    console.log(project);
     return (
         <Layout
             title={`${project.name} Settings`}
@@ -40,9 +40,8 @@ export default function Members({ project, tags, session }: { project: Project; 
                 <div className={`flex lg:flex-row flex-col gap-x-4 lg:mt-4`}>
                     <SettingsMenu
                         currentOption={OPTIONS.TEAM_MEMBERS}
-                        gameSlug={project.game.slug}
-                        projectType={project.projectType.slug}
-                        projectSlug={project.slug}
+                        project={project}
+                        session={session}
                     />
                     <div className={`flex-grow grid gap-y-2 sm:gap-y-0`}>
                         <div className={`flex flex-col gap-y-2`}>

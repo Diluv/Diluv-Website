@@ -55,6 +55,23 @@ export function postUploadAuthed(
     return axios.post(url, data, config);
 }
 
+export function deleteAuthed(
+    url: string,
+    {
+        headers = {
+            Accept: "application/json"
+        },
+        session
+    }: { headers?: any; session?: Session }
+): Promise<AxiosResponse> {
+    if (session) {
+        headers.Authorization = `Bearer ${session.accessToken}`;
+    }
+    return axios.delete(url, {
+        headers
+    });
+}
+
 export function get(
     url: string,
     headers: any = {
