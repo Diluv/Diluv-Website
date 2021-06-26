@@ -26,7 +26,6 @@ export default function Members({ project, tags, session }: { project: Project; 
     if (!session || !canEdit) {
         return <> </>;
     }
-    console.log(project);
     return (
         <Layout
             title={`${project.name} Settings`}
