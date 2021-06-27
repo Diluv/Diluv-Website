@@ -38,6 +38,8 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                         height={300}
                         layout={`responsive`}
                         className={`sm:h-56 w-full sm:w-56`}
+                        priority={true}
+                        loading={"eager"}
                     />
                 </GridArea>
                 <GridArea name={`projectInfo`}>
