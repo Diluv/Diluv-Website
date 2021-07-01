@@ -1,4 +1,5 @@
 import { Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
 export type Data<T> = {
     data: T;
@@ -177,4 +178,14 @@ export interface SessionWithExtra extends Session {
         role?: string | null;
     };
     accessToken: string;
+}
+
+export interface DefinedJWT extends JWT {
+    accessToken: string;
+    refreshToken: string;
+    id: string;
+    iat: number;
+    exp: number;
+
+    accessTokenExpires: number;
 }
