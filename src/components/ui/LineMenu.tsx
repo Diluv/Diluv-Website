@@ -18,9 +18,8 @@ export function LineMenu({
     current
 }: { current: string, children: PropsWithChildren<React.ReactElement<LineMenuItemProps, any>[]> }): JSX.Element {
 
-    children = children.map(value => {
-        return <LineMenuItem {...value.props} current={value.props.itemKey === current} children={value.props.children} key={value.props.itemKey} />;
-    });
+    children = children.map(value =>
+        <LineMenuItem {...value.props} current={value.props.itemKey === current} key={value.props.itemKey}>{value.props.children}</LineMenuItem>);
     return <div className={`flex flex-col sm:flex-row justify-between border-b-2 border-gray-300 dark:border-dark-700 text-center sm:text-left mt-4 mb-4`}>
         <div className={`flex flex-col sm:flex-row`}>
             {children.filter(value => value.props.side === "left")}
