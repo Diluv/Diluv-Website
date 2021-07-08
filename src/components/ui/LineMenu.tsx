@@ -1,31 +1,38 @@
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, { PropsWithChildren } from "react";
 import Link from "next/link";
 import { UrlObject } from "url";
 
-interface LineMenuItemProps {
+type LineMenuItemProps = PropsWithChildren<{
     itemKey: string,
-    children: ReactNode;
     hidden?: boolean;
     side: "left" | "right";
     current?: boolean;
     href: string | UrlObject
     accentClass?: string;
     currentClass?: string;
-}
+    preset?: `normal` | `authed`;
+}>
 
 export function LineMenu({
-    children,
-    current
-}: { current: string, children: PropsWithChildren<React.ReactElement<LineMenuItemProps, any>[]> }): JSX.Element {
-
-    children = children.map(value =>
-        <LineMenuItem {...value.props} current={value.props.itemKey === current} key={value.props.itemKey}>{value.props.children}</LineMenuItem>);
-    return <div className={`flex flex-col sm:flex-row justify-between border-b-2 border-gray-300 dark:border-dark-700 text-center sm:text-left mt-4 mb-4`}>
+        children,
+        current
+    }: PropsWithChildren<{ current: string }>
+): JSX.Element {
+    children = React.Children.map(children, child => {
+        if (!React.isValidElement<LineMenuItemProps>(child)) {
+            return child;
+        }
+        return <LineMenuItem {...child.props} current={child.props.itemKey === current} key={child.props.itemKey}>
+            {child.props.children}
+        </LineMenuItem>;
+    });
+    return <div
+        className={`flex flex-col sm:flex-row justify-between border-b-2 border-gray-300 dark:border-dark-700 text-center sm:text-left mt-4 mb-4`}>
         <div className={`flex flex-col sm:flex-row`}>
-            {children.filter(value => value.props.side === "left")}
+            {React.Children.toArray(children).filter(value => React.isValidElement<LineMenuItemProps>(value) && value.props.side === "left")}
         </div>
         <div className={`flex flex-col sm:flex-row`}>
-            {children.filter(value => value.props.side === "right")}
+            {React.Children.toArray(children).filter(value => React.isValidElement<LineMenuItemProps>(value) && value.props.side === "right")}
         </div>
     </div>;
 }
@@ -38,13 +45,28 @@ export function LineMenuItem({
     accentClass = "border-diluv-500 hover:border-diluv-500",
     currentClass = "",
     current,
-    href
+    href,
+    preset
 }: LineMenuItemProps): React.ReactElement<LineMenuItemProps, any> {
     if (hidden) {
         return <></>;
     }
+    if (preset) {
+        switch (preset) {
+            case "normal":
+                currentClass = `${currentClass} text-diluv-600 border-diluv-500`;
+                accentClass = `${accentClass} hover:border-diluv-300 dark:hover:border-diluv-700`;
+                break;
+            case "authed":
+                currentClass = `${currentClass} text-amber-600 border-amber-500`;
+                accentClass = `${accentClass} hover:border-amber-300 dark:hover:border-amber-700`;
+                break;
+        }
+    }
     let child =
-        <div className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 select-none border-b-2  ${current ? `cursor-default ${currentClass}` : `${accentClass} cursor-pointer border-transparent dark:border-dark-700`}`} key={itemKey}>
+        <div
+            className={`py-2 sm:py-0 px-2 pb-1 -mb-0.125 select-none border-b-2  ${current ? `cursor-default ${currentClass}` : `${accentClass} cursor-pointer border-transparent dark:border-dark-700`}`}
+            key={itemKey}>
             {children}
         </div>;
 

@@ -83,8 +83,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
             <LineMenu current={pageType}>
                 <LineMenuItem
                     side={"left"}
-                    currentClass={`text-diluv-600 border-diluv-500`}
-                    accentClass={`hover:border-diluv-300 dark:hover:border-diluv-700`}
+                    preset={`normal`}
                     itemKey={"description"}
                     href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/`}
                 >
@@ -92,8 +91,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                 </LineMenuItem>
                 <LineMenuItem
                     side={"left"}
-                    currentClass={`text-diluv-600 border-diluv-500`}
-                    accentClass={`hover:border-diluv-300 dark:hover:border-diluv-700`}
+                    preset={`normal`}
                     itemKey={"files"}
                     href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files`}
                 >
@@ -101,8 +99,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                 </LineMenuItem>
                 <LineMenuItem
                     side={"left"}
-                    currentClass={`text-diluv-600 border-diluv-500`}
-                    accentClass={`hover:border-diluv-300 dark:hover:border-diluv-700`}
+                    preset={`normal`}
                     itemKey={"members"}
                     href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/members`}
                 >
@@ -111,8 +108,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
 
                 <LineMenuItem
                     side={"right"}
-                    currentClass={`text-amber-600 border-amber-500`}
-                    accentClass={`hover:border-amber-300 dark:hover:border-amber-700`}
+                    preset={`authed`}
                     itemKey={"editFile"}
                     href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/${fileId}/edit`}
                     hidden={!(canEditFile(project) && (typeof fileId === "undefined" && pageType === "file"))}
@@ -121,8 +117,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                 </LineMenuItem>
                 <LineMenuItem
                     side={"right"}
-                    currentClass={`text-amber-600 border-amber-500`}
-                    accentClass={`hover:border-amber-300 dark:hover:border-amber-700`}
+                    preset={`authed`}
                     itemKey={"uploadFile"}
                     href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/files/upload`}
                     hidden={!canUploadFile(project)}
@@ -131,8 +126,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
                 </LineMenuItem>
                 <LineMenuItem
                     side={"right"}
-                    currentClass={`text-amber-600 border-amber-500`}
-                    accentClass={`hover:border-amber-300 dark:hover:border-amber-700`}
+                    preset={`authed`}
                     itemKey={"settings"}
                     href={`/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`}
                     hidden={!canEditProject(project)}
