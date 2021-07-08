@@ -1,6 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
-import { darkmodejs } from "utils/darkmode";
 
 class MyDocument extends Document {
     render(): JSX.Element {
@@ -26,12 +25,6 @@ class MyDocument extends Document {
                     />
                 </Head>
                 <body className={`min-h-100vh`}>
-                    <script
-                        defer
-                        src="https://static.cloudflareinsights.com/beacon.min.js"
-                        data-cf-beacon='{"token": "64a45ed5ff4042c2ac41f77363936c76", "spa": true}'
-                    />
-                    <script dangerouslySetInnerHTML={{ __html: darkmodejs }} />
                     <Main />
                     <NextScript />
                 </body>

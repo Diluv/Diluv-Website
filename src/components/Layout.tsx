@@ -8,6 +8,10 @@ import { NextSeo } from "next-seo";
 import { SITE_URL } from "utils/api";
 import { useSession } from "next-auth/client";
 
+import Script from "next/script";
+import { darkmodejs } from "../utils/darkmode";
+
+
 type Props = {
     children: JSX.Element | JSX.Element[];
     title: string;
@@ -54,6 +58,12 @@ export default function Layout({ children, title = "Diluv", description, canonic
                     handle: "@DiluvMods"
                 }}
             />
+            <Script
+                src="https://static.cloudflareinsights.com/beacon.min.js"
+                data-cf-beacon='{"token": "64a45ed5ff4042c2ac41f77363936c76", "spa": true}'
+                defer={true}
+            />
+            <Script dangerouslySetInnerHTML={{ __html: darkmodejs }} strategy={"beforeInteractive"} />
 
             <div id={"theme_definer"}>
                 <SimpleBar className={`minmax-height`} ref={simpleBarRef}>
