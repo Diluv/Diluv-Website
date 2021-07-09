@@ -4,7 +4,7 @@ import { Project, ProjectFile } from "interfaces";
 import ProjectInfo from "components/project/ProjectInfo";
 import filesize from "filesize";
 import SimpleBar from "simplebar-react";
-import { FormattedDistanceTime } from "utils/dynamic";
+import { FormattedTimeDistance } from "utils/dynamic";
 import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { API_URL } from "utils/api";
@@ -46,7 +46,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h3 className={`font-semibold`}>Uploaded</h3>
-                                        <FormattedDistanceTime start={file.createdAt} />
+                                        <FormattedTimeDistance start={file.createdAt} />
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h2 className={`font-semibold`}>SHA512</h2>

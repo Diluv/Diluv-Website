@@ -10,6 +10,7 @@ import { useSession } from "next-auth/client";
 
 import Script from "next/script";
 import { darkmodejs } from "../utils/darkmode";
+import ReactTooltip from "react-tooltip";
 
 
 type Props = {

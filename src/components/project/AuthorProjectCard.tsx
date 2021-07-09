@@ -2,43 +2,17 @@ import React from "react";
 import { Project } from "interfaces";
 import Link from "next/link";
 import { DisplayTag } from "components/misc/FilterTag";
-import Tippy from "@tippyjs/react";
-import { followCursor } from "tippy.js";
 import { listContributors } from "utils/util";
 import GridArea from "components/misc/GridArea";
-import { FormattedDistanceTime, FormattedTime } from "utils/dynamic";
+import { FormattedTime, FormattedTimeDistance } from "utils/dynamic";
 import Image from "next/image";
 import { CalendarIcon, ChartBarIcon, ClockIcon } from "@heroicons/react/solid";
+import { Tooltip } from "../misc/TimeTooltip";
 
 interface Props {
     project: Project;
 }
 
-function getDownloadsTip(downloads: number) {
-    return (
-        <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-            <p>{downloads} Downloads</p>
-        </div>
-    );
-}
-
-function getCreatedTip(createdAt: number) {
-    return (
-        <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-            <p>Created On</p>
-            <FormattedTime time={createdAt} />
-        </div>
-    );
-}
-
-function getUpdatedTip(updatedAt: number) {
-    return (
-        <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-            <p>Updated On</p>
-            <FormattedTime time={updatedAt} />
-        </div>
-    );
-}
 
 function AuthorProjectCard({ project }: Props): JSX.Element {
     const projectUrl = `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`;
@@ -77,51 +51,39 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
 
                 <GridArea name={`downloads`} className={`sm:ml-2 my-auto text-center mr-2`}>
                     <div className={`flex cursor-default`}>
-                        <Tippy
-                            content={getDownloadsTip(project.downloads)}
-                            followCursor={true}
-                            plugins={[followCursor]}
-                            duration={0}
-                            hideOnClick={false}
-                        >
+                        <Tooltip id={`${project.id}DownloadsTip`} tooltipContent={`${project.downloads} Downloads`}>
                             <div className={`inline-flex`}>
                                 <ChartBarIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <span className={`mr-1`}>{project.downloads}</span>
                             </div>
-                        </Tippy>
+                        </Tooltip>
                     </div>
                 </GridArea>
 
                 <GridArea name={`created`} className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2`}>
                     <div className={`flex cursor-default`}>
-                        <Tippy
-                            content={getCreatedTip(project.createdAt)}
-                            followCursor={true}
-                            plugins={[followCursor]}
-                            duration={0}
-                            hideOnClick={false}
-                        >
+                        <Tooltip id={`${project.id}CreatedTip`} tooltipContent={<>
+                            <p>Created On</p>
+                            <FormattedTime time={project.createdAt} />
+                        </>}>
                             <div className={`inline-flex`}>
                                 <CalendarIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
-                                <FormattedDistanceTime start={project.createdAt} />
+                                <FormattedTimeDistance start={project.createdAt} />
                             </div>
-                        </Tippy>
+                        </Tooltip>
                     </div>
                 </GridArea>
                 <GridArea name={`updated`} className={`sm:ml-2 my-auto text-center mr-2`}>
                     <div className={`flex cursor-default`}>
-                        <Tippy
-                            content={getUpdatedTip(project.updatedAt)}
-                            followCursor={true}
-                            plugins={[followCursor]}
-                            duration={0}
-                            hideOnClick={false}
-                        >
+                        <Tooltip id={`${project.id}UpdatedTip`} tooltipContent={<>
+                            <p>Updated On</p>
+                            <FormattedTime time={project.updatedAt} />
+                        </>}>
                             <div className={`inline-flex`}>
                                 <ClockIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
-                                <FormattedDistanceTime start={project.updatedAt} />
+                                <FormattedTimeDistance start={project.updatedAt} />
                             </div>
-                        </Tippy>
+                        </Tooltip>
                     </div>
                 </GridArea>
 

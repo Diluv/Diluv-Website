@@ -9,7 +9,7 @@ import filesize from "filesize";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 import Link from "next/link";
-import { FormattedDistanceTime } from "utils/dynamic";
+import { FormattedTimeDistance } from "utils/dynamic";
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import DownloadLink from "components/ui/DownloadLink";
 import Select from "react-select";
@@ -276,7 +276,7 @@ export default function Files({
                                                 </Td>
                                                 <Td className={`table-data-diluv text-center`}>{value.releaseType}</Td>
                                                 <Td className={`table-data-diluv`}>
-                                                    <FormattedDistanceTime start={value.createdAt} />
+                                                    <FormattedTimeDistance start={value.createdAt} />
                                                 </Td>
                                                 <Td className={`table-data-diluv`}>{value.downloads}</Td>
                                                 <Td className={`table-data-diluv td-full`}>

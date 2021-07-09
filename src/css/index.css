@@ -28,7 +28,7 @@
   }
 
   .btn-cancel {
-    @apply block w-full bg-red-500 text-white p-2 select-none;
+    @apply block w-full bg-red-700 text-white p-2 select-none;
   }
 
   .btn-cancel:hover {

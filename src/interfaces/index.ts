@@ -133,6 +133,13 @@ export interface AuthorPage {
     projectCount: number;
 }
 
+export interface Token {
+    id: number;
+    name: string;
+    createdAt: number;
+    lastUsed: number;
+}
+
 export interface UploadData {
     filters: SlugName[];
     gameVersions: Version[];

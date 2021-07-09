@@ -12,7 +12,7 @@ import Select from "react-select";
 import Pagination, { buildURL } from "components/misc/Pagination";
 import { useRouter } from "next/router";
 import GridArea from "components/misc/GridArea";
-import { FormattedDistanceTime, FormattedTime } from "utils/dynamic";
+import { FormattedTimeDistance, FormattedTime } from "utils/dynamic";
 import Image from "next/image";
 import { getSession } from "next-auth/client";
 import { LineMenu, LineMenuItem } from "../../../components/ui/LineMenu";
@@ -54,7 +54,7 @@ export default function AuthorProjects({ data, currentSort, page }: { data: Auth
                                 hideOnClick={false}
                             >
                                 <div className={`w-auto inline-block`}>
-                                    <FormattedDistanceTime start={data.user.createdAt} prefix={`Joined `} />
+                                    <FormattedTimeDistance start={data.user.createdAt} prefix={`Joined `} />
                                 </div>
                             </Tippy>
                         </GridArea>

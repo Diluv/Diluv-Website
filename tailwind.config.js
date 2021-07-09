@@ -203,6 +203,9 @@ module.exports = {
             width: {
                 28: "7rem"
             },
+            maxWidth: {
+                "2prose": "130ch"
+            },
             boxShadow: {
                 "light": "0 1px 3px 0 rgba(255, 255, 255, .1), 0 1px 2px 0 rgba(255, 255, 255, .06)",
                 "light-md": " 0 4px 6px -1px rgba(255, 255, 255, .1), 0 2px 4px -1px rgba(255, 255, 255, .06)",
