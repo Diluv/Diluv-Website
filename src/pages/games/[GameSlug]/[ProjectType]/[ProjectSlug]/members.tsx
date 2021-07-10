@@ -26,7 +26,7 @@ export default function Members({ project }: { project: Project }): JSX.Element 
                     <div id={"pageContent"}>
                         <div className={`py-4`}>
                             <div className={`w-1/2`}>
-                                {project.contributors.map((value) => {
+                                {project.authors.map((value) => {
                                     return (
                                         <div key={value.userId} className={`grid gap-x-2 my-1 memberList`}>
                                             <Link href={`/author/${value.username}`}>

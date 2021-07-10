@@ -9,7 +9,6 @@ import filesize from "filesize";
 import { followCursor } from "tippy.js";
 import Tippy from "@tippyjs/react";
 import Link from "next/link";
-import { FormattedTimeDistance } from "utils/dynamic";
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import DownloadLink from "components/ui/DownloadLink";
 import Select from "react-select";
@@ -20,6 +19,7 @@ import { DebounceInput } from "react-debounce-input";
 import { onBlur, onFocus } from "utils/util";
 import { getSession } from "next-auth/client";
 import { DownloadIcon, SearchIcon } from "@heroicons/react/solid";
+import FormattedTimeDistance from "../../../../../../components/misc/FormattedTimeDistance";
 
 export default function Files({
     project,

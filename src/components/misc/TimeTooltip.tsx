@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, ReactNode } from "react";
-import { FormattedTime, FormattedTimeDistance } from "../../utils/dynamic";
+import { FormattedTime } from "../../utils/dynamic";
 import ReactTooltip from "react-tooltip";
-
+import FormattedTimeDistance from "./FormattedTimeDistance";
 
 export function Tooltip({ id, children, tooltipContent }: PropsWithChildren<{ id: string; tooltipContent: ReactNode }>) {
 
@@ -27,7 +27,7 @@ export function Tooltip({ id, children, tooltipContent }: PropsWithChildren<{ id
     );
 }
 
-export function TimeTooltip({ id, prefix, time }: { id: string; prefix?: string; time: number }) {
+export function TimeTooltip({ id, prefix, time }: { id: string; prefix?: string; time: string }) {
 
     return <Tooltip id={id} tooltipContent={<FormattedTime time={time} />}>
         <FormattedTimeDistance start={time} prefix={prefix} />

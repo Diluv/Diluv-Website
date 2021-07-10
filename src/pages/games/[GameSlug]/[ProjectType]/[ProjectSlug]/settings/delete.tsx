@@ -94,7 +94,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
     const project: Project = data.data.project;
     // TODO ideally an easier way to get the project owner
-    let conRed = conditionalRedirect(project.contributors.filter(value => value.role === "owner")[0].username !== session.user?.id, `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`, false);
+    let conRed = conditionalRedirect(project.authors.filter(value => value.role === "owner")[0].username !== session.user?.id, `/games/${project.game.slug}/${project.projectType.slug}/${project.slug}/settings`, false);
     if (conRed.shouldRedirect) {
         return conRed.redirect;
     }

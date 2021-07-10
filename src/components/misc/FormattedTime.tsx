@@ -1,7 +1,7 @@
-import format from "date-fns/format";
 import React, { useLayoutEffect, useState } from "react";
+import { parseISO, format } from "date-fns";
 
-export default function FormattedTime({ prefix, time }: { prefix?: string; time: number }) {
+export default function FormattedTime({ prefix, time }: { prefix?: string; time: string }) {
     let [browser, setBrowser] = useState(false);
 
     useLayoutEffect(() => {
@@ -27,7 +27,7 @@ export default function FormattedTime({ prefix, time }: { prefix?: string; time:
         <>
             <span>
                 {prefix ? prefix + ` ` : ``}
-                {format(time, "yyyy-MM-dd HH:mm:ss")}
+                {format(parseISO(time), "yyyy-MM-dd HH:mm:ss")}
             </span>
         </>
     );

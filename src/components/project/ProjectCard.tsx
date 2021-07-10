@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FilterTag } from "components/misc/FilterTag";
 import Tippy from "@tippyjs/react";
 import { followCursor } from "tippy.js";
-import { listContributors } from "utils/util";
+import { listAuthors } from "utils/util";
 import GridArea from "components/misc/GridArea";
 import { FormattedTime } from "utils/dynamic";
 import FormattedDistanceTime from "components/misc/FormattedTimeDistance";
@@ -27,7 +27,7 @@ function getDownloadsTip(downloads: number): JSX.Element {
     );
 }
 
-function getCreatedTip(createdAt: number): JSX.Element {
+function getCreatedTip(createdAt: string): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Created On</p>
@@ -36,7 +36,7 @@ function getCreatedTip(createdAt: number): JSX.Element {
     );
 }
 
-function getUpdatedTip(updatedAt: number): JSX.Element {
+function getUpdatedTip(updatedAt: string): JSX.Element {
     return (
         <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
             <p>Updated On</p>
@@ -71,7 +71,7 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
                     </Link>
                     <div className={`text-gray-600 dark:text-dark-400`}>
                         <span>{`by `}</span>
-                        {listContributors(project)}
+                        {listAuthors(project)}
                     </div>
                 </GridArea>
 

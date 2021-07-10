@@ -2,12 +2,13 @@ import React from "react";
 import { Project } from "interfaces";
 import Link from "next/link";
 import { DisplayTag } from "components/misc/FilterTag";
-import { listContributors } from "utils/util";
+import { listAuthors } from "utils/util";
 import GridArea from "components/misc/GridArea";
-import { FormattedTime, FormattedTimeDistance } from "utils/dynamic";
+import { FormattedTime } from "utils/dynamic";
 import Image from "next/image";
 import { CalendarIcon, ChartBarIcon, ClockIcon } from "@heroicons/react/solid";
 import { Tooltip } from "../misc/TimeTooltip";
+import FormattedTimeDistance from "components/misc/FormattedTimeDistance";
 
 interface Props {
     project: Project;
@@ -39,7 +40,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                     </Link>
                     <div className={`text-gray-600 dark:text-dark-400`}>
                         <span>{`by `}</span>
-                        {listContributors(project)}
+                        {listAuthors(project)}
                     </div>
                 </GridArea>
 

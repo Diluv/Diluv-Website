@@ -25,7 +25,7 @@ export default function IndexPage({ featured }: { featured: Featured }): JSX.Ele
                     <h1 className={`text-3xl`}>Welcome to Diluv</h1>
                     <h2 className={`text-xl`}>
                         Diluv is a platform for fan made gaming content such as mods and texture packs. We aim to support the players and content
-                        creators of all gaming communities. We are currently home to {featured.projectCount} projects and {featured.contributorCount}{" "}
+                        creators of all gaming communities. We are currently home to {featured.projectCount} projects and {featured.authorCount}{" "}
                         authors!
                     </h2>
                 </section>

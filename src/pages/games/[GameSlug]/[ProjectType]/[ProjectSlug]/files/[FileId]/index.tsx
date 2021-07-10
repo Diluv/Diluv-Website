@@ -4,7 +4,6 @@ import { Project, ProjectFile } from "interfaces";
 import ProjectInfo from "components/project/ProjectInfo";
 import filesize from "filesize";
 import SimpleBar from "simplebar-react";
-import { FormattedTimeDistance } from "utils/dynamic";
 import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { API_URL } from "utils/api";
@@ -15,6 +14,7 @@ import { followCursor } from "tippy.js";
 import Image from "next/image";
 import DownloadLink from "components/ui/DownloadLink";
 import { getSession } from "next-auth/client";
+import FormattedTimeDistance from "components/misc/FormattedTimeDistance";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
     return (
@@ -79,7 +79,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                                 <div className={`inline-flex`}>
                                                     <Image
                                                         src={
-                                                            project.contributors
+                                                            project.authors
                                                                 .filter((value) => (value.userId = file.user.userId))
                                                                 .map((value) => value.avatarURL)[0]
                                                         }

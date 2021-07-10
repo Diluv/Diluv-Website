@@ -30,7 +30,7 @@ export interface ProjectFile {
     sha512: string;
     releaseType: string;
     classifier: string;
-    createdAt: number;
+    createdAt: string;
     changelog: string;
     gameVersions: Version[];
     gameSlug: string;
@@ -53,12 +53,13 @@ export interface Project extends SlugName {
     description: string;
     logo: string;
     downloads: number;
-    createdAt: number;
-    updatedAt: number;
+    createdAt: string;
+    updatedAt: string;
     tags: SlugName[];
     game: SlugName;
     projectType: ProjectType;
-    contributors: Contributors[];
+    authors: Authors[];
+    owner: User;
     links: Link[];
     permissions?: string[];
     released?: boolean;
@@ -96,10 +97,10 @@ export interface User {
     username: string;
     displayName: string;
     avatarURL: string;
-    createdAt: number;
+    createdAt: string;
 }
 
-export interface Contributors extends User {
+export interface Authors extends User {
     role: string;
 }
 
@@ -109,14 +110,14 @@ export type ProjectFiles = {
     crc32: string;
     size: number;
     changelog: string;
-    createdAt: number;
-    updatedAt: number;
+    createdAt: string;
+    updatedAt: string;
 };
 
 export interface Featured {
     featuredGames: Game[];
     projectCount: number;
-    contributorCount: number;
+    authorCount: number;
     projectTypeCount: number;
     gameCount: number;
 }
@@ -136,8 +137,8 @@ export interface AuthorPage {
 export interface Token {
     id: number;
     name: string;
-    createdAt: number;
-    lastUsed: number;
+    createdAt: string;
+    lastUsed: string;
 }
 
 export interface UploadData {

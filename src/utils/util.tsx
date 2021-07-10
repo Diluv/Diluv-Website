@@ -11,19 +11,31 @@ export function onBlur(setSelectedField: Dispatch<string>): void {
     setSelectedField("");
 }
 
-export function listContributors(project: Project): ReactNode[] {
+export function listAuthors(project: Project, includeAuthors: boolean = false): ReactNode[] {
     const arr: ReactNode[] = [];
     let count = 0;
-    for (const contributor of project.contributors) {
-        count++;
-        arr.push(
-            <span key={contributor.username}>
-                <Link href={`/author/${contributor.username}/`}>
-                    <a className={"hover:text-diluv-500"}>{contributor.displayName}</a>
-                </Link>
-                {count !== project.contributors.length && <span className={"mr-1"}>,</span>}
-            </span>
-        );
+
+    arr.push(
+        <span key={project.owner.username}>
+            <Link href={`/author/${project.owner.username}/`}>
+                <a className={"hover:text-diluv-500"}>{project.owner.displayName}</a>
+            </Link>
+            {project.authors.length > 0 && <span className={"mr-1"}>,</span>}
+        </span>
+    );
+
+    if (includeAuthors) {
+        for (const author of project.authors) {
+            count++;
+            arr.push(
+                <span key={author.username}>
+                    <Link href={`/author/${author.username}/`}>
+                        <a className={"hover:text-diluv-500"}>{author.displayName}</a>
+                    </Link>
+                    {count !== project.authors.length && <span className={"mr-1"}>,</span>}
+                </span>
+            );
+        }
     }
     return arr;
 }

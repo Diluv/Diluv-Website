@@ -2,7 +2,7 @@ import React from "react";
 import { Project } from "interfaces";
 import Link from "next/link";
 import { DisplayTag } from "components/misc/FilterTag";
-import { canEditFile, canEditProject, canUploadFile, listContributors, projectHasReleaseStatus, projectHasReviewStatus } from "utils/util";
+import { canEditFile, canEditProject, canUploadFile, listAuthors, projectHasReleaseStatus, projectHasReviewStatus } from "utils/util";
 import Alert from "components/Alert";
 import GridArea from "components/misc/GridArea";
 import { FormattedTime } from "utils/dynamic";
@@ -48,7 +48,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
 
                         <div className={`text-gray-600 dark:text-dark-400`}>
                             <span>{`by `}</span>
-                            {listContributors(project)}
+                            {listAuthors(project)}
                         </div>
                     </div>
 

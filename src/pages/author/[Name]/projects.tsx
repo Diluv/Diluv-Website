@@ -12,10 +12,11 @@ import Select from "react-select";
 import Pagination, { buildURL } from "components/misc/Pagination";
 import { useRouter } from "next/router";
 import GridArea from "components/misc/GridArea";
-import { FormattedTimeDistance, FormattedTime } from "utils/dynamic";
+import { FormattedTime } from "utils/dynamic";
 import Image from "next/image";
 import { getSession } from "next-auth/client";
 import { LineMenu, LineMenuItem } from "../../../components/ui/LineMenu";
+import FormattedTimeDistance from "components/misc/FormattedTimeDistance";
 
 export default function AuthorProjects({ data, currentSort, page }: { data: AuthorPage; currentSort: string; page: number }): JSX.Element {
     const maxPage = Math.ceil(data.projectCount / 20);

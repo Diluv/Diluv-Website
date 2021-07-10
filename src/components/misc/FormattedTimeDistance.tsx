@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import formatDistance from "date-fns/formatDistance";
+import { parseISO, formatDistance } from "date-fns";
 
-export default function FormattedDistanceTime({ prefix, start, end = new Date() }: { prefix?: string; start: number; end?: Date }) {
+export default function FormattedDistanceTime({ prefix, start, end = new Date() }: { prefix?: string; start: string; end?: Date }) {
     const [browser, setBrowser] = useState(false);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function FormattedDistanceTime({ prefix, start, end = new Date() 
         <>
             <span className={`transition-opacity duration-100 ease-out ${browser ? `opacity-100` : `opacity-0`}`}>
                 {prefix ? prefix + ` ` : ``}
-                {formatDistance(start, end, { addSuffix: true })}
+                {formatDistance(parseISO(start), end, { addSuffix: true })}
             </span>
         </>
     );
