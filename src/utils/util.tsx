@@ -20,7 +20,7 @@ export function listAuthors(project: Project, includeAuthors: boolean = false): 
             <Link href={`/author/${project.owner.username}/`}>
                 <a className={"hover:text-diluv-500"}>{project.owner.displayName}</a>
             </Link>
-            {project.authors.length > 0 && <span className={"mr-1"}>,</span>}
+            {includeAuthors && project.authors.length > 0 && <span className={"mr-1"}>,</span>}
         </span>
     );
 

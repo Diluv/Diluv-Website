@@ -40,7 +40,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                     </Link>
                     <div className={`text-gray-600 dark:text-dark-400`}>
                         <span>{`by `}</span>
-                        {listAuthors(project)}
+                        {listAuthors(project, true)}
                     </div>
                 </GridArea>
 
