@@ -188,7 +188,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
     const session = await getSession(context);
     const data = await getAuthed(`${API_URL}/v1/site/author/${Name}`, { session });
-    const tokens = await getAuthed(`${API_URL}/v1/users/self/token`, { session });
+    const tokens = await getAuthed(`${API_URL}/v1/users/self/tokens`, { session });
     console.log(tokens.data);
 
     return {
