@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { AuthorPage, SlugName } from "interfaces";
+import { AuthorPage, SessionWithExtra, SlugName } from "interfaces";
 import { reactSelectStyle } from "utils/theme";
 import { getAuthed } from "utils/request";
 import { API_URL } from "utils/api";
@@ -14,14 +14,14 @@ import { useRouter } from "next/router";
 import GridArea from "components/misc/GridArea";
 import { FormattedTime } from "utils/dynamic";
 import Image from "next/image";
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { LineMenu, LineMenuItem } from "../../../components/ui/LineMenu";
 import FormattedTimeDistance from "components/misc/FormattedTimeDistance";
 
 export default function AuthorProjects({ data, currentSort, page }: { data: AuthorPage; currentSort: string; page: number }): JSX.Element {
     const maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
-
+    const [session, loading] = useSession() as [SessionWithExtra, boolean];
     return (
         <Layout
             title={data.user.displayName}
@@ -65,7 +65,7 @@ export default function AuthorProjects({ data, currentSort, page }: { data: Auth
                         <LineMenuItem itemKey={`projects`} side={`left`} href={`/author/${data.user.username}/projects`}
                                       preset={`normal`}> Projects</LineMenuItem>
                         <LineMenuItem itemKey={`tokens`} side={`right`} href={`/author/${data.user.username}/tokens`}
-                                      preset={`authed`}> Tokens</LineMenuItem>
+                                      preset={`authed`} hidden={!(session && data.user.username === session.user?.id)}> Tokens</LineMenuItem>
                     </LineMenu>
                     <section className={`my-4`}>
                         <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} />
