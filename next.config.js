@@ -1,5 +1,4 @@
 const withPlugins = require("next-compose-plugins");
-const withImages = require("next-images");
 
 const nextConfig = {
     eslint: {
@@ -16,4 +15,4 @@ const nextConfig = {
     }
 };
 
-module.exports = withPlugins([withImages], nextConfig);
+module.exports = withPlugins([], nextConfig);

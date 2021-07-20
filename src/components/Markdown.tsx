@@ -1,9 +1,6 @@
 import remark from "remark";
 // @ts-ignore
 import reactRenderer from "remark-react";
-import merge from "deepmerge";
-import github from "hast-util-sanitize/lib/github.json";
-import html from "remark-html";
 // @ts-ignore
 import slug from "remark-slug";
 // @ts-ignore
@@ -15,15 +12,13 @@ import spoiler from "remark-spoiler";
 // @ts-ignore
 import admonitions from "remark-admonitions";
 import React from "react";
+import github from "hast-util-sanitize/lib/github.json";
+
+const schema = { ...github, clobberPrefix: "", attributes: { "*": ["className"] } };
 
 type Props = {
     markdown: string;
 };
-
-const schema = merge(github, {
-    clobberPrefix: "",
-    attributes: { "*": ["className"] } // Allows className through the filter
-});
 
 function Markdown({ markdown }: Props): JSX.Element {
     return (
@@ -38,11 +33,7 @@ function Markdown({ markdown }: Props): JSX.Element {
                         .use(spoiler, {
                             classNames: `bg-black text-black hover:bg-transparent dark:text-white dark:bg-white dark:hover:bg-transparent`
                         }) // Adds spoiler text support
-                        .use(html) // Renders previous stuff into HTML where appropriate
-                        .use(reactRenderer, {
-                            // Renders to react fragments.
-                            sanitize: schema
-                        })
+                        .use(reactRenderer, { sanitize: schema })
                         .processSync(markdown).result
                 }
             </>
