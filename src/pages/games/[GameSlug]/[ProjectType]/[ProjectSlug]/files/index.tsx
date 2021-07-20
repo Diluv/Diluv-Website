@@ -1,13 +1,11 @@
 import React, { ChangeEvent, useMemo, useState } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuthed } from "utils/request";
+import { get, getAuthed } from "utils/request";
 import { API_URL } from "utils/api";
-import { Project, ProjectFile, SlugName, Version } from "interfaces";
+import { Project, ProjectFile, SlugName, Sort, Version } from "interfaces";
 import ProjectInfo from "components/project/ProjectInfo";
 import filesize from "filesize";
-import { followCursor } from "tippy.js";
-import Tippy from "@tippyjs/react";
 import Link from "next/link";
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import DownloadLink from "components/ui/DownloadLink";
@@ -20,6 +18,7 @@ import { onBlur, onFocus } from "utils/util";
 import { getSession } from "next-auth/client";
 import { DownloadIcon, SearchIcon } from "@heroicons/react/solid";
 import FormattedTimeDistance from "../../../../../../components/misc/FormattedTimeDistance";
+import { Tooltip } from "../../../../../../components/misc/TimeTooltip";
 
 export default function Files({
     project,
@@ -33,7 +32,7 @@ export default function Files({
 }: {
     project: Project;
     files: ProjectFile[];
-    sorts: SlugName[];
+    sorts: Sort;
     currentSort: string;
     page: number;
     fileCount: number;
@@ -47,12 +46,12 @@ export default function Files({
     const [selectedField, setSelectedField] = useState("");
 
     function getSortFromCurrent(): SlugName {
-        for (const sort of sorts) {
+        for (const sort of sorts.projectFile) {
             if (sort.slug === currentSort) {
                 return sort;
             }
         }
-        return sorts[0];
+        return sorts.projectFile[0];
     }
 
     const gameVersions = useMemo(() => {
@@ -130,7 +129,7 @@ export default function Files({
                                         isSearchable={false}
                                         inputId="sort"
                                         defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
-                                        options={sorts.map((value) => {
+                                        options={sorts.projectFile.map((value) => {
                                             return { value: value.slug, label: value.name };
                                         })}
                                         styles={reactSelectStyle}
@@ -245,28 +244,16 @@ export default function Files({
                                                         {value.gameVersions.length ? value.gameVersions[0].version : "NA"}
                                                     </span>
                                                     {value.gameVersions.length > 1 ? (
-                                                        <Tippy
-                                                            content={
-                                                                <div
-                                                                    className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}
-                                                                >
-                                                                    <span>Supported versions:</span>
-                                                                    {value.gameVersions.map((value1) => (
-                                                                        <p key={value1.version}>{value1.version}</p>
-                                                                    ))}
-                                                                </div>
-                                                            }
-                                                            followCursor={true}
-                                                            plugins={[followCursor]}
-                                                            duration={0}
-                                                            hideOnClick={false}
-                                                        >
-                                                            <div className={`inline-flex float-right`}>
+                                                        <Tooltip id={`${value.id}-versions`} className={`inline-block float-right`} tooltipContent={<>
+                                                            <span>Supported versions:</span>
+                                                            {value.gameVersions.map((value1) => (
+                                                                <p key={value1.version}>{value1.version}</p>
+                                                            ))}
+                                                        </>}>
                                                                 <span
                                                                     className={`px-2 border bg-gray-100 dark:bg-dark-800 dark:border-dark-600 cursor-default`}
                                                                 >{`+ ${value.gameVersions.length} more`}</span>
-                                                            </div>
-                                                        </Tippy>
+                                                        </Tooltip>
                                                     ) : (
                                                         <></>
                                                     )}
@@ -326,18 +313,20 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
         `${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}/files${params.toString() ? `?${params.toString()}` : ``}`,
         { session }
     );
+    const sorts = (await get(`${API_URL}/v1/site/sort`)).data;
+
     page = Math.min(Math.ceil(data.data.fileCount / 20), Math.max(1, page));
 
     return {
         props: {
-            search: search ?? ``,
+            search: search,
             project: data.data.project,
             files: data.data.files,
             session,
-            currentSort: sort.length ? sort : "new",
-            sorts: data.data.sorts,
+            currentSort: sort || "new",
+            sorts,
             page,
-            version: version ?? ``,
+            version: version,
             fileCount: data.data.fileCount
         } // will be passed to the page component as props
     };

@@ -17,10 +17,19 @@ export interface Version {
 }
 
 export interface ProjectType extends SlugName {
-    gameSlug: string;
+    game: SlugName;
     maxFileSize: number;
     tags: SlugName[];
     projectCount: number;
+}
+
+export interface GameData extends SlugName{
+    url: string;
+    logoUrl: Picture;
+    projectTypes: ProjectType[];
+    versions: Version[];
+    projectCount: number;
+    defaultProjectType: string;
 }
 
 export interface ProjectFile {
@@ -130,7 +139,6 @@ export interface SelectData {
 export interface AuthorPage {
     projects: Project[];
     user: User;
-    sort: SlugName[];
     projectCount: number;
 }
 
@@ -196,4 +204,10 @@ export interface DefinedJWT extends JWT {
     exp: number;
 
     accessTokenExpires: number;
+}
+
+export interface Sort {
+    game: SlugName[],
+    project: SlugName[],
+    projectFile: SlugName[]
 }

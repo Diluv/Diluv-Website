@@ -9,12 +9,11 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { API_URL } from "utils/api";
 import { getAuthed } from "utils/request";
 import Markdown from "components/Markdown";
-import Tippy from "@tippyjs/react";
-import { followCursor } from "tippy.js";
 import Image from "next/image";
 import DownloadLink from "components/ui/DownloadLink";
 import { getSession } from "next-auth/client";
 import FormattedTimeDistance from "components/misc/FormattedTimeDistance";
+import { Tooltip } from "../../../../../../../components/misc/TimeTooltip";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
     return (
@@ -50,26 +49,14 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     </div>
                                     <div className={`my-2 sm:my-0`}>
                                         <h2 className={`font-semibold`}>SHA512</h2>
-                                        <div className={`flex flex-wrap`}>
-                                            <Tippy
-                                                content={
-                                                    <div
-                                                        className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center flex flex-wrap break-all`}
-                                                    >
-                                                        <p className={``}>{file.sha512}</p>
-                                                    </div>
-                                                }
-                                                followCursor={true}
-                                                plugins={[followCursor]}
-                                                duration={0}
-                                                hideOnClick={false}
-                                            >
-                                                <div>
-                                                    <a href={file.downloadURL + ".asc"} download={true} target={"_blank"} rel="noreferrer">
-                                                        <p className={`truncate w-64 sm:w-32 hover-link`}>{file.sha512}</p>
-                                                    </a>
-                                                </div>
-                                            </Tippy>
+                                        <div>
+                                            <Tooltip id={`${file.id}-sha512`} tooltipContent={<div className={`w-32 break-all`}>
+                                                <p>{file.sha512}</p>
+                                            </div>}>
+                                                <a href={file.downloadURL + ".asc"} download={true} target={"_blank"} rel="noreferrer">
+                                                    <p className={`truncate w-64 sm:w-32 hover-link`}>{file.sha512}</p>
+                                                </a>
+                                            </Tooltip>
                                         </div>
                                     </div>
                                     <div className={`my-2 sm:my-0`}>

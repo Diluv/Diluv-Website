@@ -39,20 +39,9 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const { GameSlug, ProjectType, ProjectSlug } = context.query;
 
     const session = await getSession(context);
-    return getAuthed(`${API_URL}/v1/site/projects/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session })
-        .then((value) => {
-            return {
-                props: { project: value.data, session } // will be passed to the page component as props
-            };
-        })
-        .catch(() => {
-            context.res?.writeHead(302, {
-                "Location": `/games/${GameSlug}/${ProjectType}`,
-                "Content-Type": "text/html; charset=utf-8"
-            });
-            context.res?.end();
-            return {
-                props: { project: null }
-            };
-        });
+
+    const data = await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/${ProjectSlug}`, { session });
+    return {
+        props: { project: data.data, session }
+    };
 };

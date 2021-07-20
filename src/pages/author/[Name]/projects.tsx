@@ -1,24 +1,26 @@
 import React from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { AuthorPage, SessionWithExtra, SlugName } from "interfaces";
+import { AuthorPage, SessionWithExtra, SlugName, Sort } from "interfaces";
 import { reactSelectStyle } from "utils/theme";
-import { getAuthed } from "utils/request";
+import { get, getAuthed } from "utils/request";
 import { API_URL } from "utils/api";
-import { followCursor } from "tippy.js";
-import Tippy from "@tippyjs/react";
 import AuthorProjectCard from "components/project/AuthorProjectCard";
 import Select from "react-select";
 import Pagination, { buildURL } from "components/misc/Pagination";
 import { useRouter } from "next/router";
 import GridArea from "components/misc/GridArea";
-import { FormattedTime } from "utils/dynamic";
 import Image from "next/image";
 import { getSession, useSession } from "next-auth/client";
 import { LineMenu, LineMenuItem } from "../../../components/ui/LineMenu";
-import FormattedTimeDistance from "components/misc/FormattedTimeDistance";
+import { TimeTooltip } from "../../../components/misc/TimeTooltip";
 
-export default function AuthorProjects({ data, currentSort, page }: { data: AuthorPage; currentSort: string; page: number }): JSX.Element {
+export default function AuthorProjects({
+    data,
+    sorts,
+    currentSort,
+    page
+}: { data: AuthorPage; sorts: Sort, currentSort: string; page: number }): JSX.Element {
     const maxPage = Math.ceil(data.projectCount / 20);
     page = Number(page);
     const [session, loading] = useSession() as [SessionWithExtra, boolean];
@@ -43,21 +45,7 @@ export default function AuthorProjects({ data, currentSort, page }: { data: Auth
                         </GridArea>
                         <GridArea name={`summary`}>
                             <h3>{data.user.displayName}</h3>
-                            <Tippy
-                                content={
-                                    <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-                                        <FormattedTime time={data.user.createdAt} />
-                                    </div>
-                                }
-                                followCursor={true}
-                                plugins={[followCursor]}
-                                duration={0}
-                                hideOnClick={false}
-                            >
-                                <div className={`w-auto inline-block`}>
-                                    <FormattedTimeDistance start={data.user.createdAt} prefix={`Joined `} />
-                                </div>
-                            </Tippy>
+                            <TimeTooltip id={`joined-tooltip`} prefix={`Joined `} time={data.user.createdAt} />
                         </GridArea>
                     </div>
 
@@ -68,13 +56,13 @@ export default function AuthorProjects({ data, currentSort, page }: { data: Auth
                                       preset={`authed`} hidden={!(session && data.user.username === session.user?.id)}> Tokens</LineMenuItem>
                     </LineMenu>
                     <section className={`my-4`}>
-                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} />
+                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} sorts={sorts} />
                         <div className={`my-4`}>
                             {data.projects.map((value) => (
                                 <AuthorProjectCard project={value} key={value.slug} />
                             ))}
                         </div>
-                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} showSorts={false} />
+                        <ProjectOptions data={data} page={page} maxPage={maxPage} currentSort={currentSort} showSorts={false} sorts={sorts} />
                     </section>
                 </div>
             </div>
@@ -87,21 +75,23 @@ function ProjectOptions({
     page,
     maxPage,
     currentSort,
-    showSorts = true
+    showSorts = true,
+    sorts
 }: {
     data: AuthorPage;
     page: number;
     maxPage: number;
     currentSort: string;
     showSorts?: boolean;
+    sorts: Sort;
 }) {
     function getSortFromCurrent(): SlugName {
-        for (const sort of data.sort) {
+        for (const sort of sorts.project) {
             if (sort.slug === currentSort) {
                 return sort;
             }
         }
-        return data.sort[0];
+        return sorts.project[0];
     }
 
     const router = useRouter();
@@ -113,7 +103,7 @@ function ProjectOptions({
                         isSearchable={false}
                         inputId="sortProjects"
                         defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
-                        options={data.sort.map((value) => {
+                        options={sorts.project.map((value) => {
                             return { value: value.slug, label: value.name };
                         })}
                         styles={reactSelectStyle}
@@ -169,8 +159,9 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const session = await getSession(context);
     params.sort();
     const data = await getAuthed(`${API_URL}/v1/site/author/${Name}${params.toString() ? `?${params.toString()}` : ``}`, { session });
+    const sorts = await get(`${API_URL}/v1/site/sort`);
 
     return {
-        props: { data: data.data, currentSort: sort.length ? sort : `new`, page: page, session } // will be passed to the page component as props
+        props: { data: data.data, sorts: sorts.data, currentSort: sort.length ? sort : `new`, page: page, session } // will be passed to the page component as props
     };
 };

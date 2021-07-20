@@ -3,11 +3,11 @@ import { FormattedTime } from "../../utils/dynamic";
 import ReactTooltip from "react-tooltip";
 import FormattedTimeDistance from "./FormattedTimeDistance";
 
-export function Tooltip({ id, children, tooltipContent }: PropsWithChildren<{ id: string; tooltipContent: ReactNode }>) {
+export function Tooltip({ id, children, tooltipContent, className="" }: PropsWithChildren<{ id: string; tooltipContent: ReactNode, className?: string }>) {
 
     return (
-        <div>
-            <span data-tip={true} data-for={id}>
+        <div className={className}>
+            <span className={`inline-flex`} data-tip={true} data-for={id}>
                 {children}
             </span>
             <ReactTooltip
@@ -19,7 +19,7 @@ export function Tooltip({ id, children, tooltipContent }: PropsWithChildren<{ id
                 delayUpdate={1}
                 aria-haspopup="true"
             >
-                <div className={`p-1`}>
+                <div className={`p-1 cursor-auto`}>
                     {tooltipContent}
                 </div>
             </ReactTooltip>

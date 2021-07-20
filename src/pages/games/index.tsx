@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
 import Layout from "components/Layout";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuthed } from "utils/request";
+import { get, getAuthed } from "utils/request";
 import { API_URL, SITE_URL } from "utils/api";
-import { Game, SlugName } from "interfaces";
+import { Game, SlugName, Sort } from "interfaces";
 import { useRouter } from "next/router";
 import { reactSelectStyle } from "utils/theme";
 import Select from "react-select";
@@ -37,7 +37,7 @@ export default function GameIndex({
     search
 }: {
     games: Game[];
-    sorts: SlugName[];
+    sorts: Sort;
     currentSort: string;
     search: string;
 }): JSX.Element {
@@ -47,12 +47,12 @@ export default function GameIndex({
     const router = useRouter();
 
     function getSortFromCurrent(): SlugName {
-        for (const sort of sorts) {
+        for (const sort of sorts.game) {
             if (sort.slug === currentSort) {
                 return sort;
             }
         }
-        return sorts[0];
+        return sorts.game[0];
     }
 
     return (
@@ -103,7 +103,7 @@ export default function GameIndex({
                                     isSearchable={false}
                                     inputId="sortGames"
                                     defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
-                                    options={sorts.map((value) => {
+                                    options={sorts.game.map((value) => {
                                         return { value: value.slug, label: value.name };
                                     })}
                                     styles={reactSelectStyle}
@@ -140,15 +140,16 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
     const session = await getSession(context);
 
-    const games = await getAuthed(`${API_URL}/v1/site/games${params.toString() ? `?${params.toString()}` : ``}`, { session });
+    const games = await getAuthed(`${API_URL}/v1/games${params.toString() ? `?${params.toString()}` : ``}`, { session });
+    const sorts = await get(`${API_URL}/v1/site/sort`);
 
     return {
         props: {
             games: games.data.games,
-            sorts: games.data.sort,
+            sorts: sorts.data,
             currentSort: sort.length ? sort : `name`,
             search: search ?? ``,
-            session: session
+            session: session,
         } // will be passed to the page component as props
     };
 };

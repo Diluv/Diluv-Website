@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Layout from "components/Layout";
 import React, { ChangeEvent, useState } from "react";
-import { Project, ProjectType, SelectData, SlugName } from "interfaces";
+import { GameData, Project, ProjectType, SelectData, SlugName, Sort } from "interfaces";
 import { getAuthed } from "utils/request";
 import { API_URL, SITE_URL } from "utils/api";
 import ProjectCard from "components/project/ProjectCard";
@@ -19,11 +19,10 @@ import { SearchIcon } from "@heroicons/react/solid";
 
 interface Props {
     search: string;
-    gameSlug: string;
     projectData: ProjectType;
-    types: ProjectType[];
+    gameData: GameData;
     projects: Project[];
-    sorts: SlugName[];
+    sorts: Sort;
     currentSort: string;
     page: number;
     version: string;
@@ -33,9 +32,8 @@ interface Props {
 
 export default function Projects({
     search,
-    gameSlug,
     projectData,
-    types,
+    gameData,
     projects,
     sorts,
     currentSort,
@@ -79,32 +77,32 @@ export default function Projects({
                 return { slug: value.value, name: value.label };
             })
         });
-        router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameSlug}/${projectData.slug}${newUrl}`, { shallow: false });
+        router.push(`/games/[GameSlug]/[ProjectType]${newUrl}`, `/games/${gameData.slug}/${projectData.slug}${newUrl}`, { shallow: false });
     }
 
     function getSortFromCurrent(): SlugName {
-        for (const sort of sorts) {
+        for (const sort of sorts.project) {
             if (sort.slug === currentSort) {
                 return sort;
             }
         }
-        return sorts[0];
+        return sorts.project[0];
     }
 
     return (
         <Layout
             title={projectData.name}
-            canonical={`/games/${gameSlug}/${projectData.slug}`}
-            description={`${gameSlug} ${projectData.name} | Diluv`}
+            canonical={`/games/${gameData.slug}/${projectData.slug}`}
+            description={`${gameData.slug} ${projectData.name} | Diluv`}
             image={`${SITE_URL}/static/diluv.png`}
-            url={`/games/${gameSlug}/${projectData.slug}${page > 1 ? `?page=${page}` : ``}`}
+            url={`/games/${gameData.slug}/${projectData.slug}${page > 1 ? `?page=${page}` : ``}`}
         >
             <div className={`container mx-auto`}>
                 <div className={`w-11/12 mx-auto`}>
                     <div id={"header"} className={`mb-4 mt-2`}>
                         <div className={`grid my-auto justify-between grid-cols-1 sm:grid-cols-project-type-nav`}>
                             <div className={`flex flex-wrap`}>
-                                {types.map((value) => {
+                                {gameData.projectTypes.map((value) => {
                                     if (value.slug === projectData.slug) {
                                         return (
                                             <h1 key={value.slug} className={`text-2xl mr-3`}>
@@ -113,7 +111,7 @@ export default function Projects({
                                         );
                                     } else {
                                         return (
-                                            <Link key={value.slug} href={`/games/${gameSlug}/${value.slug}`}>
+                                            <Link key={value.slug} href={`/games/${gameData.slug}/${value.slug}`}>
                                                 <a className={`text-2xl text-hsl-500 mr-3`}>{value.name}</a>
                                             </Link>
                                         );
@@ -124,7 +122,8 @@ export default function Projects({
                                 <div
                                     className={`w-full sm:w-auto p-2 cursor-pointer inline-flex font-medium bg-blue-650 hover:bg-blue-700 active:bg-blue-600 text-gray-50 focus:outline-none focus:shadow-outline`}
                                 >
-                                    <AuthorizedLink href={`/create/games/${gameSlug}/${projectData.slug}/`} className={`mx-auto text-center`}>
+                                    <AuthorizedLink href={`/create/games/${gameData.slug}/${projectData.slug}/`}
+                                                    className={`mx-auto text-center`}>
                                         Create Project
                                     </AuthorizedLink>
                                 </div>
@@ -168,7 +167,7 @@ export default function Projects({
 
                                             router.push(
                                                 `/games/[GameSlug]/[ProjectType]${newUrl}`,
-                                                `/games/${gameSlug}/${projectData.slug}${newUrl}`,
+                                                `/games/${gameData.slug}/${projectData.slug}${newUrl}`,
                                                 { shallow: false }
                                             );
                                         }}
@@ -241,7 +240,7 @@ export default function Projects({
                                         isSearchable={false}
                                         inputId="sort"
                                         defaultValue={{ value: getSortFromCurrent().slug, label: getSortFromCurrent().name }}
-                                        options={sorts.map((value) => {
+                                        options={sorts.project.map((value) => {
                                             return { value: value.slug, label: value.name };
                                         })}
                                         styles={reactSelectStyle}
@@ -255,7 +254,7 @@ export default function Projects({
                                             });
                                             router.push(
                                                 `/games/[GameSlug]/[ProjectType]${newUrl}`,
-                                                `/games/${gameSlug}/${projectData.slug}${newUrl}`,
+                                                `/games/${gameData.slug}/${projectData.slug}${newUrl}`,
                                                 { shallow: false }
                                             );
                                         }}
@@ -275,7 +274,7 @@ export default function Projects({
                                             version: version,
                                             tags: []
                                         });
-                                        return `/games/${gameSlug}/${projectData.slug}${newUrl}`;
+                                        return `/games/${gameData.slug}/${projectData.slug}${newUrl}`;
                                     }}
                                     hrefBuilder={(pageIndex: number) => {
                                         const newUrl = buildURL({
@@ -296,7 +295,7 @@ export default function Projects({
                         {projects.map((value) => {
                             return (
                                 <ProjectCard
-                                    gameSlug={gameSlug}
+                                    gameSlug={gameData.slug}
                                     projectTypeSlug={projectData.slug}
                                     project={value}
                                     key={value.slug}
@@ -316,64 +315,53 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     let { GameSlug, ProjectType, page = 1, sort = "", version = "", search = "", tags } = context.query;
     page = Number(page);
 
-    const params = new URLSearchParams();
+    const url = new URL(`${API_URL}/v1/games/${GameSlug}/${ProjectType}/projects`);
     if (page) {
-        params.append("page", `${page}`);
+        url.searchParams.append("page", `${page}`);
     }
     if (sort) {
-        params.append("sort", `${sort}`);
+        url.searchParams.append("sort", `${sort}`);
     }
     if (version && version.length) {
-        params.append("version", `${version}`);
+        url.searchParams.append("version", `${version}`);
     }
     if (search && search.length) {
-        params.append("search", `${search}`);
+        url.searchParams.append("search", `${search}`);
     }
     const tagArr: string[] = [];
     if (tags && tags.length) {
         if (typeof tags === "string") {
-            params.append("tags", tags);
+            url.searchParams.append("tags", tags);
             tagArr.push(tags);
         } else {
             for (const tag of tags) {
                 tagArr.push(tag);
-                params.append("tags", tag);
+                url.searchParams.append("tags", tag);
             }
         }
     }
-    params.sort();
+    url.searchParams.sort();
     const session = await getSession(context);
-    return await getAuthed(`${API_URL}/v1/site/games/${GameSlug}/${ProjectType}/projects${params.toString() ? `?${params.toString()}` : ``}`, {
-        session
-    })
-        .then((data) => {
-            // @ts-ignore
-            page = Math.min(Math.ceil(data.data.currentType.projectCount / 20), Math.max(1, page));
+    const gameData = (await getAuthed(`${API_URL}/v1/games/${GameSlug}`, { session })).data;
+    const projectData = (await getAuthed(`${API_URL}/v1/games/${GameSlug}/${ProjectType}`, { session })).data;
+    const projects = (await getAuthed(url.href, { session })).data.projects;
+    const sorts = (await getAuthed(`${API_URL}/v1/site/sort`, { session })).data;
 
-            return {
-                props: {
-                    search: search ?? ``,
-                    gameSlug: GameSlug,
-                    projectData: data.data.currentType,
-                    types: data.data.types,
-                    projects: data.data.projects,
-                    sorts: data.data.sorts,
-                    currentSort: sort.length ? sort : "popular",
-                    page,
-                    version: version ?? ``,
-                    currentTags: tagArr.length ? tagArr : [],
-                    session
-                }
-            };
-        })
-        .catch(() => {
-            context.res?.writeHead(302, {
-                "Location": `/games/${GameSlug}/`,
-                "Content-Type": "text/html; charset=utf-8"
-            });
-            context.res?.end();
-            return {
-                props: {}
-            };
-        });
+    page = Math.min(Math.ceil(projectData.projectCount / 20), Math.max(1, page));
+
+    return {
+        props: {
+            search: search,
+            projectData,
+            gameData,
+            projects,
+            sorts,
+            currentSort: sort || "popular",
+            page,
+            version: version,
+            currentTags: tagArr,
+            session
+        }
+    };
+
 };

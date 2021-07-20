@@ -2,14 +2,13 @@ import React, { Dispatch } from "react";
 import { Project, SelectData } from "interfaces";
 import Link from "next/link";
 import { FilterTag } from "components/misc/FilterTag";
-import Tippy from "@tippyjs/react";
-import { followCursor } from "tippy.js";
 import { listAuthors } from "utils/util";
 import GridArea from "components/misc/GridArea";
 import { FormattedTime } from "utils/dynamic";
-import FormattedDistanceTime from "components/misc/FormattedTimeDistance";
 import Image from "next/image";
 import { CalendarIcon, ChartBarIcon, ClockIcon } from "@heroicons/react/solid";
+import { Tooltip } from "../misc/TimeTooltip";
+import FormattedTimeDistance from "../misc/FormattedTimeDistance";
 
 interface Props {
     gameSlug: string;
@@ -19,34 +18,7 @@ interface Props {
     tagFilter: SelectData[];
 }
 
-function getDownloadsTip(downloads: number): JSX.Element {
-    return (
-        <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-            <p>{downloads} Downloads</p>
-        </div>
-    );
-}
-
-function getCreatedTip(createdAt: string): JSX.Element {
-    return (
-        <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-            <p>Created On</p>
-            <FormattedTime time={createdAt} />
-        </div>
-    );
-}
-
-function getUpdatedTip(updatedAt: string): JSX.Element {
-    return (
-        <div className={`bg-gray-800 border border-gray-900 dark:border-dark-100 text-white opacity-90 p-1 text-center`}>
-            <p>Updated On</p>
-            <FormattedTime time={updatedAt} />
-        </div>
-    );
-}
-
 function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilter }: Props): JSX.Element {
-    const projectUrlRef = `/games/[GameSlug]/[ProjectType]/[ProjectSlug]`;
     const projectUrl = `/games/${gameSlug}/${projectTypeSlug}/${project.slug}`;
     return (
         <>
@@ -83,51 +55,39 @@ function ProjectCard({ gameSlug, projectTypeSlug, project, tagFilter, setTagFilt
 
                 <GridArea name={`downloads`} className={`sm:ml-2 my-auto text-center mr-2`}>
                     <div className={`flex cursor-default`}>
-                        <Tippy
-                            content={getDownloadsTip(project.downloads)}
-                            followCursor={true}
-                            plugins={[followCursor]}
-                            duration={0}
-                            hideOnClick={false}
-                        >
+                        <Tooltip id={`${project.id}DownloadsTip`} tooltipContent={`${project.downloads} Downloads`}>
                             <div className={`inline-flex`}>
                                 <ChartBarIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
                                 <span className={`mr-1`}>{project.downloads}</span>
                             </div>
-                        </Tippy>
+                        </Tooltip>
                     </div>
                 </GridArea>
 
                 <GridArea name={`created`} className={`sm:ml-2 lg:ml-0 my-auto text-center mr-2`}>
                     <div className={`flex cursor-default`}>
-                        <Tippy
-                            content={getCreatedTip(project.createdAt)}
-                            followCursor={true}
-                            plugins={[followCursor]}
-                            duration={0}
-                            hideOnClick={false}
-                        >
+                        <Tooltip id={`${project.id}CreatedTip`} tooltipContent={<>
+                            <p>Created On</p>
+                            <FormattedTime time={project.createdAt} />
+                        </>}>
                             <div className={`inline-flex`}>
                                 <CalendarIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
-                                <FormattedDistanceTime start={project.createdAt} />
+                                <FormattedTimeDistance start={project.createdAt} />
                             </div>
-                        </Tippy>
+                        </Tooltip>
                     </div>
                 </GridArea>
                 <GridArea name={`updated`} className={`sm:ml-2 my-auto text-center mr-2`}>
                     <div className={`flex cursor-default`}>
-                        <Tippy
-                            content={getUpdatedTip(project.updatedAt)}
-                            followCursor={true}
-                            plugins={[followCursor]}
-                            duration={0}
-                            hideOnClick={false}
-                        >
+                        <Tooltip id={`${project.id}UpdatedTip`} tooltipContent={<>
+                            <p>Updated On</p>
+                            <FormattedTime time={project.updatedAt} />
+                        </>}>
                             <div className={`inline-flex`}>
                                 <ClockIcon className={`fill-current mr-1 my-auto`} width={`1rem`} height={`1rem`} />
-                                <FormattedDistanceTime start={project.updatedAt} />
+                                <FormattedTimeDistance start={project.updatedAt} />
                             </div>
-                        </Tippy>
+                        </Tooltip>
                     </div>
                 </GridArea>
 
