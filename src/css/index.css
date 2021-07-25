@@ -11,27 +11,19 @@
 @layer components {
 
   .btn {
-    @apply block w-full p-2;
+    @apply block w-full py-2 px-4 focus:outline-none select-none;
   }
 
   .btn-diluv {
-    @apply block w-full bg-diluv-500 text-white p-2;
-  }
-
-  .btn-diluv:hover {
-    @apply bg-diluv-600;
+    @apply bg-blue-650 hover:bg-blue-700 active:bg-blue-800 text-gray-50;
   }
 
   .btn-diluv:disabled {
-    @apply bg-diluv-500 opacity-50 cursor-default;
+    @apply bg-blue-500 opacity-50 cursor-default;
   }
 
   .btn-cancel {
-    @apply block w-full bg-red-700 text-white p-2 select-none;
-  }
-
-  .btn-cancel:hover {
-    @apply bg-red-600;
+    @apply bg-red-650 hover:bg-red-700 active:bg-red-800 text-gray-50;
   }
 
   .btn-cancel:disabled {

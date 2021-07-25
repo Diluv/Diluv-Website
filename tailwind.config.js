@@ -21,6 +21,7 @@ module.exports = {
                 400: "#FC8181",
                 500: "#F56565",
                 600: "#E53E3E",
+                650: "#D53737",
                 700: "#C53030",
                 800: "#9B2C2C",
                 900: "#742A2A"
@@ -248,6 +249,7 @@ module.exports = {
     },
     plugins: [
         require("tailwindcss-text-indent")(),
+        require('@tailwindcss/forms'),
         plugin(function ({ addBase, config }) {
             addBase({
                 h1: { fontSize: config("theme.fontSize.4xl") },
