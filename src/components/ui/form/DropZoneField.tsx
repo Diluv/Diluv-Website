@@ -161,13 +161,13 @@ export function DropZoneFileField(props: { name: string; setErrors: (errors: str
         >
             {({ getRootProps, getInputProps }) => (
                 <div>
-                    <div className={`md:flex mb-2 md:mb-0`}>
+                    <div className={`md:flex mb-2 md:mb-0 `}>
                         <div
                             {...getRootProps()}
-                            className={`btn border w-auto bg-gray-200 dark:bg-dark-800 border-gray-300 dark:border-dark-700 my-2 break-all`}
+                            className={`select-none cursor-pointer btn border w-auto bg-gray-200 dark:bg-dark-800 border-gray-300 dark:border-dark-700 my-2 break-all`}
                         >
                             <input {...getInputProps()} name={props.name} id={props.name} />
-                            {value ? value.name : `No File Selected`}
+                            {value ? value.name : `Select file`}
                         </div>
                         {value ? (
                             <span
