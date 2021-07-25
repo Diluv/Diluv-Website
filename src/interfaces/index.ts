@@ -13,7 +13,7 @@ export interface HasMarkdown {
 export interface Version {
     version: string;
     type: string;
-    releasedAt: number;
+    releasedAt: string;
 }
 
 export interface ProjectType extends SlugName {
