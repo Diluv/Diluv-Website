@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
@@ -11,7 +11,14 @@ import { MenuIcon, XIcon } from "@heroicons/react/solid";
 function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
-    const [session] = useSession() as [SessionWithExtra | null, boolean];
+    const [session, loading] = useSession() as [SessionWithExtra | null, boolean];
+
+    // If there is an invalid session, just kill it
+    useEffect(() => {
+        if(session && session.error){
+            signout();
+        }
+    }, [session])
 
     return (
         <header className="text-gray-200 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
