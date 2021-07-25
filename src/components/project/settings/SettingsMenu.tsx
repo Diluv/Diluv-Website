@@ -82,7 +82,7 @@ export function SettingsSideBar({
                         optionValue={OPTIONS.TRANSFER}
                         currentValue={currentOption}
                         project={project}
-                        disabled={project.authors.filter(value => value.role === "owner")[0].username !== session.user?.id}
+                        disabled={project.owner.username !== session.user?.id}
                     >
                         Transfer Project
                     </SettingsSideBarOption>
@@ -90,7 +90,7 @@ export function SettingsSideBar({
                         optionValue={OPTIONS.DELETE}
                         currentValue={currentOption}
                         project={project}
-                        disabled={project.authors.filter(value => value.role === "owner")[0].username !== session.user?.id}
+                        disabled={project.owner.username !== session.user?.id}
                     >
                         Delete Project
                     </SettingsSideBarOption>
