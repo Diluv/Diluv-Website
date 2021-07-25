@@ -119,10 +119,10 @@ export default function Projects({
                                 })}
                             </div>
                             {session && (
-                                    <AuthorizedLink href={`/create/games/${gameData.slug}/${projectData.slug}/`}
-                                                    className={`mx-auto text-center w-full sm:w-auto p-2 cursor-pointer inline-flex font-medium bg-blue-650 hover:bg-blue-700 active:bg-blue-600 text-gray-50 focus:outline-none focus:shadow-outline`}>
-                                        Create Project
-                                    </AuthorizedLink>
+                                <AuthorizedLink href={`/create/games/${gameData.slug}/${projectData.slug}/`}
+                                                className={`block mx-auto text-center w-full p-2 cursor-pointer font-medium bg-blue-650 hover:bg-blue-700 active:bg-blue-600 text-gray-50 focus:outline-none focus:shadow-outline`}>
+                                    Create Project
+                                </AuthorizedLink>
                             )}
                         </div>
                     </div>
