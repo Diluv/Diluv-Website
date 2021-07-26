@@ -13,7 +13,7 @@ import Image from "next/image";
 import DownloadLink from "components/ui/DownloadLink";
 import { getSession } from "next-auth/client";
 import FormattedTimeDistance from "components/misc/FormattedTimeDistance";
-import { Tooltip } from "../../../../../../../components/misc/TimeTooltip";
+import Tooltip from "../../../../../../../components/misc/Tooltip";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
     return (

@@ -9,7 +9,7 @@ import Image from "next/image";
 import { getSession } from "next-auth/client";
 import { LineMenu, LineMenuItem } from "../../../components/ui/LineMenu";
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
-import { TimeTooltip } from "../../../components/misc/TimeTooltip";
+import TimeTooltip from "../../../components/misc/TimeTooltip";
 
 export default function AuthorProjects({ data, tokens }: { data: AuthorPage; tokens: Token[]; }): JSX.Element {
 
