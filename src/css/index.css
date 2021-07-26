@@ -67,9 +67,12 @@
 }
 
 /* purgecss start ignore */
-.simplebar-scrollbar::before {
-  background-color: #3da6e4 !important;
-  border: 1px solid #256489 !important;
+[data-color-scheme="dark"] {
+  color-scheme: dark;
+}
+
+[data-color-scheme="light"] {
+  color-scheme: light;
 }
 
 /* purgecss end ignore */

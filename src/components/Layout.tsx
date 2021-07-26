@@ -64,7 +64,7 @@ export default function Layout({ children, title = "Diluv", description, canonic
                 data-cf-beacon='{"token": "64a45ed5ff4042c2ac41f77363936c76", "spa": true}'
                 defer={true}
             />
-            <Script dangerouslySetInnerHTML={{ __html: darkmodejs }} strategy={"beforeInteractive"} />
+            <Script dangerouslySetInnerHTML={{ __html: darkmodejs }} strategy={"afterInteractive"} />
 
             <div id={"theme_definer"}>
                 <SimpleBar className={`minmax-height`} ref={simpleBarRef}>
