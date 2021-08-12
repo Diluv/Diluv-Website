@@ -24,7 +24,7 @@ function AuthorProjectCard({ project }: Props): JSX.Element {
                     <Link href={projectUrl}>
                         <a>
                             <div className={`w-32 h-32 sm:h-48 sm:w-48 lg:h-32 lg:w-32`}>
-                                <Image src={project.logo} alt={project.name} width={128} height={128} layout={`responsive`} />
+                                <Image src={project.logo.sources[0].src} alt={project.name} width={128} height={128} layout={`responsive`} />
                             </div>
                         </a>
                     </Link>

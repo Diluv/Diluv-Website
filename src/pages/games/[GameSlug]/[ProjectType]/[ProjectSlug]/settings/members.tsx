@@ -47,7 +47,7 @@ export default function Members({ project, tags, session }: { project: Project; 
                             {project.authors.map((user) => {
                                 return (
                                     <div className={`flex gap-x-2`} key={user.userId}>
-                                        <Image src={user.avatarURL} alt={user.username} width={48} height={48} quality={100} />
+                                        <Image src={user.avatar.sources[0].src} alt={user.username} width={48} height={48} quality={100} />
                                         <div className={`flex flex-grow gap-y-2`}>
                                             <div className={`flex flex-col justify-between flex-grow`}>
                                                 <div className={`font-semibold`}>{user.role}</div>

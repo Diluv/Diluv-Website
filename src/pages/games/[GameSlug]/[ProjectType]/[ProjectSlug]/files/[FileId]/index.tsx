@@ -68,7 +68,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                                         src={
                                                             project.authors
                                                                 .filter((value) => (value.userId = file.user.userId))
-                                                                .map((value) => value.avatarURL)[0]
+                                                                .map((value) => value.avatar.sources[0].src)[0]
                                                         }
                                                         width={24}
                                                         height={24}
@@ -114,7 +114,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                                     key={fileDep.project.id}
                                                 >
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src={fileDep.project.logo} className={`w-12 h-12`} alt={fileDep.project.name + " logo"} />
+                                                    <img src={fileDep.project.logo.sources[0].src} className={`w-12 h-12`} alt={fileDep.project.name + " logo"} />
                                                     <div className={`flex flex-col`}>
                                                         <span className={`font-semibold break-all`}>{fileDep.project.name}</span>
                                                         <span>{fileDep.type}</span>

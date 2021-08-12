@@ -25,7 +25,7 @@ export interface ProjectType extends SlugName {
 
 export interface GameData extends SlugName{
     url: string;
-    logoUrl: Picture;
+    logo: GamePicture;
     projectTypes: ProjectType[];
     versions: Version[];
     projectCount: number;
@@ -60,7 +60,7 @@ export interface Project extends SlugName {
     id: number;
     summary: string;
     description: string;
-    logo: string;
+    logo: Picture;
     downloads: number;
     createdAt: string;
     updatedAt: string;
@@ -86,9 +86,15 @@ export interface SlugName {
 }
 
 export interface Game extends SlugName {
-    logoURL: Picture;
+    logo: GamePicture;
     url: string;
     defaultProjectType: string;
+}
+
+export interface GamePicture {
+    logoURL: Picture;
+    backgroundURL: Picture;
+    foregroundURL: Picture;
 }
 
 export interface Picture {
@@ -105,7 +111,7 @@ export interface User {
     userId: number;
     username: string;
     displayName: string;
-    avatarURL: string;
+    avatar: Picture;
     createdAt: string;
 }
 

@@ -9,7 +9,7 @@ export default function GameCard(props: { game: Game }) {
             <Link href={`/games/${props.game.slug}/${props.game.defaultProjectType}`}>
                 <a className={`relative flex flex-col group`}>
                     <Image
-                        src={props.game.logoURL.sources[0].src}
+                        src={props.game.logo.logoURL.sources[0].src}
                         className={`w-full group-hover:filter group-hover:blur`}
                         alt={props.game.name}
                         width={360}

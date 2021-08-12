@@ -32,7 +32,7 @@ export default function ProjectInfo({ project, pageType, fileId }: { project: Pr
             <div className={`grid mt-4 mb-4 sm:gap-x-4 justify-center sm:justify-start projectInfo`}>
                 <GridArea name={`image`}>
                     <Image
-                        src={project.logo}
+                        src={project.logo.sources[0].src}
                         alt={project.name}
                         width={300}
                         height={300}

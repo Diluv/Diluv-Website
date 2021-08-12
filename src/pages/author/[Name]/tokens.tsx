@@ -18,14 +18,14 @@ export default function AuthorProjects({ data, tokens }: { data: AuthorPage; tok
             title={data.user.displayName}
             canonical={`/author/${data.user.username}`}
             description={`${data.user.displayName} | Diluv`}
-            image={`${data.user.avatarURL}`}
+            image={`${data.user.avatar.sources[0].src}`}
             url={`/author/${data.user.username}`}
         >
             <div className={`container mx-auto mt-4`}>
                 <div className={`w-11/12 mx-auto`}>
                     <div className={`grid gap-x-2 gap-y-2 sm:gap-y-0 profilePage`}>
                         <GridArea name={`image`} className={`mx-auto sm:mx-0`}>
-                            <Image src={data.user.avatarURL}
+                            <Image src={data.user.avatar.sources[0].src}
                                    alt={data.user.displayName}
                                    width={256}
                                    height={256}

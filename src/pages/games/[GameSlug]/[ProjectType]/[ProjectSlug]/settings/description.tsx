@@ -106,7 +106,7 @@ export default function Description({ project, tags, session }: { project: Proje
                                 summary: project.summary,
                                 tags: project.tags,
                                 description: project.description,
-                                logo: project.logo
+                                logo: project.logo.sources[0].src
                             }}
                             onSubmit={async (values, { setSubmitting }: FormikHelpers<Values>) => {
                                 const headers: { "Accept": string; "Authorization"?: string | undefined; "content-type": string } = {
@@ -135,9 +135,10 @@ export default function Description({ project, tags, session }: { project: Proje
                                 }
 
                                 formData.set("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
-                                if (project.logo !== values.logo) {
+                                if (project.logo.sources[0].src !== values.logo) {
                                     formData.set("logo", values.logo);
                                 }
+                                //TODO
                                 patchAuthed(`${API_URL}/v1/games/${project.game.slug}/${project.projectType.slug}/${project.slug}`, formData, {
                                     headers: headers,
                                     session
