@@ -134,13 +134,14 @@ function GameVersionGroup({ touched, errors, uploadData }: { touched: FormikTouc
             .filter((value) => {
                 for (const filter of filters) {
                     if (value.type === filter.slug) {
+
                         return filter.checked;
                     }
                 }
                 return true;
             })
             .sort((a, b) => {
-                return b.releasedAt - a.releasedAt;
+                return new Date(b.releasedAt).getTime() - new Date(a.releasedAt).getTime();
             })
             .map((value) => {
                 return { slug: value.version, name: value.version };

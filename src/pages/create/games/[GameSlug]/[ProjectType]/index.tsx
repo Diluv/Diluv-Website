@@ -253,7 +253,7 @@ export default function Index({
                                 </div>
                             </GridArea>
                             <GridArea name={"create"}>
-                                <button type={"submit"} className={`btn-diluv sm:w-auto`} disabled={isSubmitting}>
+                                <button type={"submit"} className={`btn btn-diluv sm:w-auto`} disabled={isSubmitting}>
                                     Create project
                                 </button>
                             </GridArea>

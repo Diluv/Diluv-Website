@@ -18,7 +18,7 @@ import { onBlur, onFocus } from "utils/util";
 import { getSession } from "next-auth/client";
 import { DownloadIcon, SearchIcon } from "@heroicons/react/solid";
 import FormattedTimeDistance from "../../../../../../components/misc/FormattedTimeDistance";
-import { Tooltip } from "../../../../../../components/misc/TimeTooltip";
+import Tooltip from "../../../../../../components/misc/Tooltip";
 
 export default function Files({
     project,

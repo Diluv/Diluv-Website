@@ -305,8 +305,8 @@ export default function Description({ project, tags, session }: { project: Proje
                                         </div>
                                     </GridArea>
                                     <GridArea name={"create"}>
-                                        <button type={"submit"} className={`btn-diluv sm:w-auto`} disabled={isSubmitting}>
-                                            Create project
+                                        <button type={"submit"} className={`btn btn-diluv sm:w-auto`} disabled={isSubmitting}>
+                                            Save
                                         </button>
                                     </GridArea>
                                 </Form>

@@ -7,8 +7,8 @@ import GridArea from "components/misc/GridArea";
 import { FormattedTime } from "utils/dynamic";
 import Image from "next/image";
 import { CalendarIcon, ChartBarIcon, ClockIcon } from "@heroicons/react/solid";
-import { Tooltip } from "../misc/TimeTooltip";
 import FormattedTimeDistance from "../misc/FormattedTimeDistance";
+import Tooltip from "../misc/Tooltip";
 
 interface Props {
     gameSlug: string;

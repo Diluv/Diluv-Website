@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Drop from "./icons/Drop";
 import Link from "next/link";
 import DropDown, { DropDownAction, DropDownLinkInternal, DropDownSpacer } from "./Dropdown";
@@ -11,7 +11,14 @@ import { MenuIcon, XIcon } from "@heroicons/react/solid";
 function NavBar(): JSX.Element {
     const [showingMenu, setShowingMenu] = useState(false);
     const [showUserMenu, setShowingUserMenu] = useState(false);
-    const [session] = useSession() as [SessionWithExtra | null, boolean];
+    const [session, loading] = useSession() as [SessionWithExtra | null, boolean];
+
+    // If there is an invalid session, just kill it
+    useEffect(() => {
+        if(session && session.error){
+            signout();
+        }
+    }, [session])
 
     return (
         <header className="text-gray-200 font-hero bg-gradient-to-br from-diluv-800 to-diluv-900">
@@ -41,7 +48,8 @@ function NavBar(): JSX.Element {
                         showingMenu ? `block` : `hidden`
                     }`}
                 >
-                    <nav className="md:mr-auto md:ml-4 md:py-auto md:pl-4 md:border-l md:border-gray-700 flex flex-col md:flex-row flex-wrap items-center text-base text-center justify-center">
+                    <nav
+                        className="md:mr-auto md:ml-4 md:py-auto md:pl-4 md:border-l md:border-gray-700 flex flex-col md:flex-row flex-wrap items-center text-base text-center justify-center">
                         <Link href={"/"}>
                             <a className="nav-link">Home</a>
                         </Link>
@@ -53,63 +61,49 @@ function NavBar(): JSX.Element {
                         </Link>
                     </nav>
                     <div className="hidden md:flex gap-x-4">
-                        <DropDown name={getNameOrDefault(session, "Account")} className={`hover:text-white`}>
-                            {!session ? (
-                                <DropDownAction
-                                    action={async () => {
-                                        await signin("DILUV");
-                                    }}
-                                >
-                                    Sign in
-                                </DropDownAction>
-                            ) : (
-                                <>
-                                    <DropDownLinkInternal href={`/author/${session.user?.id}`}>Profile</DropDownLinkInternal>
-                                    <DropDownAction
-                                        action={async () => {
-                                            await signout();
-                                        }}
-                                    >
-                                        Sign out
-                                    </DropDownAction>
-                                </>
-                            )}
+                        {session ? <DropDown name={getNameOrDefault(session, "Account")} className={`hover:text-white`}>
+                            <DropDownLinkInternal href={`/author/${session.user?.id}`}>Profile</DropDownLinkInternal>
+                            <DropDownAction action={async () => {
+                                await signout();
+                            }}>
+                                Sign out
+                            </DropDownAction>
                             <DropDownSpacer />
-                        </DropDown>
+                        </DropDown> : <span className={`nav-link cursor-pointer`} tabIndex={0} onClick={async () => {
+                            await signin("DILUV");
+                        }}>
+                            Sign in
+                        </span>}
                         <ThemeSwitcher />
                     </div>
                     <div className={`block md:hidden text-center`}>
-                        <p className={`hover:text-white cursor-pointer p-2 md:p-0`} onClick={() => setShowingUserMenu(!showUserMenu)}>
-                            {getNameOrDefault(session, "Account")}
-                        </p>
-                        <div className={`${showUserMenu ? `block` : `hidden`}`}>
-                            <div className={`flex flex-col`}>
-                                {!session ? (
+                        {session ? <>
+                            <p className={`hover:text-white cursor-pointer p-2 md:p-0`} onClick={() => setShowingUserMenu(!showUserMenu)}>
+                                {getNameOrDefault(session, "Account")}
+                            </p>
+                            <div className={`${showUserMenu ? `block` : `hidden`}`}>
+                                <div className={`flex flex-col`}>
+                                    <Link href={`/author/${session.user?.id}`}>
+                                        <a className={`p-2`}>Profile</a>
+                                    </Link>
                                     <span
-                                        className={`hover:text-white p-2 md:p-0`}
+                                        className={`nav-link p-2 md:p-0 cursor-pointer`}
+                                        tabIndex={0}
                                         onClick={async () => {
-                                            await signin("DILUV");
+                                            await signout();
                                         }}
-                                    >
-                                        Sign in
-                                    </span>
-                                ) : (
-                                    <>
-                                        <Link href={`/author/${session.user?.id}`}>
-                                            <a>Profile</a>
-                                        </Link>
-                                        <span
-                                            className={`hover:text-white p-2 md:p-0`}
-                                            onClick={async () => {
-                                                await signout();
-                                            }}
-                                        >
-                                            Sign out
-                                        </span>
-                                    </>
-                                )}
+                                    >Sign out</span>
+                                </div>
                             </div>
-                        </div>
+                        </> : <>
+                            <span
+                                className={`nav-link cursor-pointer p-2 md:p-0`}
+                                tabIndex={0}
+                                onClick={async () => {
+                                    await signin("DILUV");
+                                }}>Sign in
+                            </span>
+                        </>}
                         <div className={`mx-auto p-2`}>
                             <ThemeSwitcher />
                         </div>

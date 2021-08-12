@@ -13,7 +13,7 @@ import GridArea from "components/misc/GridArea";
 import Image from "next/image";
 import { getSession, useSession } from "next-auth/client";
 import { LineMenu, LineMenuItem } from "../../../components/ui/LineMenu";
-import { TimeTooltip } from "../../../components/misc/TimeTooltip";
+import TimeTooltip from "../../../components/misc/TimeTooltip";
 
 export default function AuthorProjects({
     data,

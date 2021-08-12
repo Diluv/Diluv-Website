@@ -10,7 +10,6 @@ import { useSession } from "next-auth/client";
 
 import Script from "next/script";
 import { darkmodejs } from "../utils/darkmode";
-import ReactTooltip from "react-tooltip";
 
 
 type Props = {
@@ -23,21 +22,7 @@ type Props = {
 };
 
 export default function Layout({ children, title = "Diluv", description, canonical, url, image }: Props): JSX.Element {
-    const simpleBarRef = useRef(null);
     const [session, loading] = useSession();
-
-    useEffect(() => {
-        // Handles resetting simple bar's position
-        const handleRouteChange = (url: string) => {
-            // @ts-ignore
-            simpleBarRef.current?.getScrollElement().scrollTo(0, 0);
-        };
-
-        Router.events.on("routeChangeComplete", handleRouteChange);
-        return () => {
-            Router.events.off("routeChangeComplete", handleRouteChange);
-        };
-    }, []);
 
     return (
         <>
@@ -64,10 +49,10 @@ export default function Layout({ children, title = "Diluv", description, canonic
                 data-cf-beacon='{"token": "64a45ed5ff4042c2ac41f77363936c76", "spa": true}'
                 defer={true}
             />
-            <Script dangerouslySetInnerHTML={{ __html: darkmodejs }} strategy={"beforeInteractive"} />
+            <Script dangerouslySetInnerHTML={{ __html: darkmodejs }} strategy={"afterInteractive"} />
 
-            <div id={"theme_definer"}>
-                <SimpleBar className={`minmax-height`} ref={simpleBarRef}>
+            <div>
+                <div className={`minmax-height`}>
                     <div className={`min-h-screen flex flex-col bg-gray-100 dark:bg-dark-900 dark:text-dark-100`}>
                         <Head>
                             <title>{title}</title>
@@ -79,7 +64,7 @@ export default function Layout({ children, title = "Diluv", description, canonic
                         <main className={`flex-grow`}>{children}</main>
                         <Footer />
                     </div>
-                </SimpleBar>
+                </div>
             </div>
         </>
     );

@@ -54,7 +54,7 @@ export default function Members({ project, tags, session }: { project: Project; 
                                                 <div>{user.displayName}</div>
                                             </div>
                                             {user.role !== "owner" && (
-                                                <div className={`bg-diluv-600 btn w-auto px-4 my-auto cursor-pointer`}>Edit</div>
+                                                <div className={`btn btn-diluv w-auto inline-block my-auto cursor-pointer`}>Edit</div>
                                             )}
                                         </div>
                                     </div>

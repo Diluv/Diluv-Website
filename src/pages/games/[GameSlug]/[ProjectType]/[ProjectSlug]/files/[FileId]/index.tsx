@@ -13,7 +13,7 @@ import Image from "next/image";
 import DownloadLink from "components/ui/DownloadLink";
 import { getSession } from "next-auth/client";
 import FormattedTimeDistance from "components/misc/FormattedTimeDistance";
-import { Tooltip } from "../../../../../../../components/misc/TimeTooltip";
+import Tooltip from "../../../../../../../components/misc/Tooltip";
 
 export default function File({ project, file }: { project: Project; file: ProjectFile }): JSX.Element {
     return (
@@ -82,7 +82,7 @@ export default function File({ project, file }: { project: Project; file: Projec
                                     <div className={`mt-4 sm:my-auto lg:row-start-1 lg:col-start-5`}>
                                         <DownloadLink
                                             url={file.downloadURL}
-                                            className={`w-full text-center sm:text-left sm:w-auto btn btn-diluv inline-block`}
+                                            className={`text-center sm:text-left sm:w-auto btn btn-diluv inline-block`}
                                         >
                                             Download
                                         </DownloadLink>

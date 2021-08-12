@@ -16,9 +16,9 @@ export default function TeamMember({ name, username, twitter, github, descriptio
             <div className={`group relative sm:h-80`}>
                 <Image className={`group-hover:filter group-hover:blur`} src={`${CDN_URL}/users/${username}/avatar.png`} width={320} height={320}
                        alt={`${name}'s avatar`} />
-                <div className={`hidden group-hover:block bg-white bg-opacity-60 absolute left-0 top-0 w-full h-full text-black`}>
+                <div className={`hidden group-hover:block bg-white bg-opacity-60 absolute left-0 top-0 w-full h-full text-black pointer-events-none`}>
                     <div className={`grid w-full h-full grid-cols-2`}>
-                        <a className={`m-auto flex flex-col p-4 text-black hover:text-blue-700 active:text-blue-600`}
+                        <a className={`m-auto flex flex-col p-4 text-black hover:text-blue-700 active:text-blue-600 pointer-events-auto`}
                            href={`https://github.com/${github}`} target={`_blank`}>
                             <svg fill="currentColor" className="flex-none w-12 h-12 mx-auto">
                                 <path
@@ -30,7 +30,7 @@ export default function TeamMember({ name, username, twitter, github, descriptio
                                 {github}
                             </span>
                         </a>
-                        <a className={`m-auto flex flex-col p-4 text-black hover:text-blue-700 active:text-blue-600`}
+                        <a className={`m-auto flex flex-col p-4 text-black hover:text-blue-700 active:text-blue-600 pointer-events-auto`}
                            href={`https://twitter.com/${twitter}`} target={`_blank`}>
                             <svg fill="currentColor" className="flex-none w-12 h-12 mx-auto">
                                 <path
