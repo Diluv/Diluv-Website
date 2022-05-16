@@ -14,7 +14,7 @@
     "@heroicons/react": "1.0.2",
     "@jaredlll08/react-paginate": "7.0.1",
     "@popperjs/core": "2.9.2",
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "date-fns": "2.22.1",
     "filesize": "7.0.0",
     "formik": "2.2.9",
